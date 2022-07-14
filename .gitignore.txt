@@ -1,5 +1,7 @@
-cocos2dx/ // Cac file thu vien cocos
+# Cac file thu vien cocos
+cocos2dx/
 
-proj.*/ // Cac file project
-!./proj.win32
+# Cac file platform project
+proj.*/
+!proj.win32/
 
