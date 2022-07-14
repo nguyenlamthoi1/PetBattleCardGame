@@ -1,0 +1,130 @@
+<Solution>
+  <PropertyGroup Name="PokemonTCG" Version="3.10.0.0" Type="CocosStudio" />
+  <SolutionFolder>
+    <Group ctype="ResourceGroup">
+      <RootFolder Name=".">
+        <Folder Name="assets">
+          <PlistImageFolder Image="battle_scene.png" PListFile="battle_scene.plist" Name=".battle_scene_PList.Dir">
+            <PlistImageFile Name="battle_scene_active_slot_light_0.png" Key="battle_scene/active_slot_light_0.png" />
+            <PlistImageFile Name="battle_scene_active_slot_light_1.png" Key="battle_scene/active_slot_light_1.png" />
+            <PlistImageFile Name="battle_scene_bench_board.png" Key="battle_scene/bench_board.png" />
+            <PlistImageFile Name="battle_scene_black_card_container.png" Key="battle_scene/black_card_container.png" />
+            <PlistImageFile Name="battle_scene_deck_count_icon.png" Key="battle_scene/deck_count_icon.png" />
+            <PlistImageFile Name="battle_scene_end_turn_btn_0.png" Key="battle_scene/end_turn_btn_0.png" />
+            <PlistImageFile Name="battle_scene_end_turn_btn_1.png" Key="battle_scene/end_turn_btn_1.png" />
+            <PlistImageFile Name="battle_scene_light_turn_board_0.png" Key="battle_scene/light_turn_board_0.png" />
+            <PlistImageFile Name="battle_scene_light_turn_board_1.png" Key="battle_scene/light_turn_board_1.png" />
+            <PlistImageFile Name="battle_scene_p1_active_slot.png" Key="battle_scene/p1_active_slot.png" />
+            <PlistImageFile Name="battle_scene_p1_board.png" Key="battle_scene/p1_board.png" />
+            <PlistImageFile Name="battle_scene_p2_active_slot.png" Key="battle_scene/p2_active_slot.png" />
+            <PlistImageFile Name="battle_scene_p2_board.png" Key="battle_scene/p2_board.png" />
+            <PlistImageFile Name="battle_scene_score_p1_board.png" Key="battle_scene/score_p1_board.png" />
+            <PlistImageFile Name="battle_scene_score_p2_board.png" Key="battle_scene/score_p2_board.png" />
+            <PlistImageFile Name="battle_scene_show_num_board.png" Key="battle_scene/show_num_board.png" />
+          </PlistImageFolder>
+          <PlistImageFolder Image="mini_pokemon_list.png" PListFile="mini_pokemon_list.plist" Name=".mini_pokemon_list_PList.Dir">
+            <PlistImageFile Name="mini_pokemon_004.png" Key="mini_pokemon/004.png" />
+            <PlistImageFile Name="mini_pokemon_005.png" Key="mini_pokemon/005.png" />
+            <PlistImageFile Name="mini_pokemon_006.png" Key="mini_pokemon/006.png" />
+            <PlistImageFile Name="mini_pokemon_029.png" Key="mini_pokemon/029.png" />
+            <PlistImageFile Name="mini_pokemon_030.png" Key="mini_pokemon/030.png" />
+            <PlistImageFile Name="mini_pokemon_031.png" Key="mini_pokemon/031.png" />
+            <PlistImageFile Name="mini_pokemon_077.png" Key="mini_pokemon/077.png" />
+            <PlistImageFile Name="mini_pokemon_078.png" Key="mini_pokemon/078.png" />
+            <PlistImageFile Name="mini_pokemon_083.png" Key="mini_pokemon/083.png" />
+          </PlistImageFolder>
+          <PlistImageFolder Image="pokemon_card_template.png" PListFile="pokemon_card_template.plist" Name=".pokemon_card_template_PList.Dir">
+            <PlistImageFile Name="pokemon_card_template_bottome_card_panel.png" Key="pokemon_card_template/bottome_card_panel.png" />
+            <PlistImageFile Name="pokemon_card_template_card_back_card_back.png" Key="pokemon_card_template/card_back/card_back.png" />
+            <PlistImageFile Name="pokemon_card_template_card_back_card_back_0.png" Key="pokemon_card_template/card_back/card_back_0.png" />
+            <PlistImageFile Name="pokemon_card_template_card_back_card_back_1.png" Key="pokemon_card_template/card_back/card_back_1.png" />
+            <PlistImageFile Name="pokemon_card_template_card_back_card_back_raw.png" Key="pokemon_card_template/card_back/card_back_raw.png" />
+            <PlistImageFile Name="pokemon_card_template_card_border_border_0.png" Key="pokemon_card_template/card_border/border_0.png" />
+            <PlistImageFile Name="pokemon_card_template_card_border_border_default.png" Key="pokemon_card_template/card_border/border_default.png" />
+            <PlistImageFile Name="pokemon_card_template_energy_energy_dark.png" Key="pokemon_card_template/energy/energy_dark.png" />
+            <PlistImageFile Name="pokemon_card_template_energy_energy_dragon.png" Key="pokemon_card_template/energy/energy_dragon.png" />
+            <PlistImageFile Name="pokemon_card_template_energy_energy_electric.png" Key="pokemon_card_template/energy/energy_electric.png" />
+            <PlistImageFile Name="pokemon_card_template_energy_energy_fighting.png" Key="pokemon_card_template/energy/energy_fighting.png" />
+            <PlistImageFile Name="pokemon_card_template_energy_energy_fire.png" Key="pokemon_card_template/energy/energy_fire.png" />
+            <PlistImageFile Name="pokemon_card_template_energy_energy_grass.png" Key="pokemon_card_template/energy/energy_grass.png" />
+            <PlistImageFile Name="pokemon_card_template_energy_energy_normal.png" Key="pokemon_card_template/energy/energy_normal.png" />
+            <PlistImageFile Name="pokemon_card_template_energy_energy_psychic.png" Key="pokemon_card_template/energy/energy_psychic.png" />
+            <PlistImageFile Name="pokemon_card_template_energy_energy_steel.png" Key="pokemon_card_template/energy/energy_steel.png" />
+            <PlistImageFile Name="pokemon_card_template_energy_energy_water.png" Key="pokemon_card_template/energy/energy_water.png" />
+            <PlistImageFile Name="pokemon_card_template_evolution_arrow.png" Key="pokemon_card_template/evolution_arrow.png" />
+            <PlistImageFile Name="pokemon_card_template_evolution_square_panel.png" Key="pokemon_card_template/evolution_square_panel.png" />
+            <PlistImageFile Name="pokemon_card_template_evolution_text_panel.png" Key="pokemon_card_template/evolution_text_panel.png" />
+            <PlistImageFile Name="pokemon_card_template_image_border_default.png" Key="pokemon_card_template/image_border_default.png" />
+            <PlistImageFile Name="pokemon_card_template_inner_background_card_default.png" Key="pokemon_card_template/inner_background_card_default.png" />
+            <PlistImageFile Name="pokemon_card_template_outer_background_default.png" Key="pokemon_card_template/outer_background_default.png" />
+          </PlistImageFolder>
+          <PlistImageFolder Image="pokemon_card_template_x3.png" PListFile="pokemon_card_template_x3.plist" Name=".pokemon_card_template_x3_PList.Dir">
+            <PlistImageFile Name="pokemon_card_template_x3_ability_panel.png" Key="pokemon_card_template_x3/ability_panel.png" />
+            <PlistImageFile Name="pokemon_card_template_x3_bottome_card_panel.png" Key="pokemon_card_template_x3/bottome_card_panel.png" />
+            <PlistImageFile Name="pokemon_card_template_x3_card_back_card_back.png" Key="pokemon_card_template_x3/card_back/card_back.png" />
+            <PlistImageFile Name="pokemon_card_template_x3_card_back_card_back_0.png" Key="pokemon_card_template_x3/card_back/card_back_0.png" />
+            <PlistImageFile Name="pokemon_card_template_x3_card_back_card_back_1.png" Key="pokemon_card_template_x3/card_back/card_back_1.png" />
+            <PlistImageFile Name="pokemon_card_template_x3_card_back_card_back_raw.png" Key="pokemon_card_template_x3/card_back/card_back_raw.png" />
+            <PlistImageFile Name="pokemon_card_template_x3_card_border_border_0.png" Key="pokemon_card_template_x3/card_border/border_0.png" />
+            <PlistImageFile Name="pokemon_card_template_x3_card_border_border_default.png" Key="pokemon_card_template_x3/card_border/border_default.png" />
+            <PlistImageFile Name="pokemon_card_template_x3_energy_energy_dark.png" Key="pokemon_card_template_x3/energy/energy_dark.png" />
+            <PlistImageFile Name="pokemon_card_template_x3_energy_energy_dragon.png" Key="pokemon_card_template_x3/energy/energy_dragon.png" />
+            <PlistImageFile Name="pokemon_card_template_x3_energy_energy_electric.png" Key="pokemon_card_template_x3/energy/energy_electric.png" />
+            <PlistImageFile Name="pokemon_card_template_x3_energy_energy_fighting.png" Key="pokemon_card_template_x3/energy/energy_fighting.png" />
+            <PlistImageFile Name="pokemon_card_template_x3_energy_energy_fire.png" Key="pokemon_card_template_x3/energy/energy_fire.png" />
+            <PlistImageFile Name="pokemon_card_template_x3_energy_energy_grass.png" Key="pokemon_card_template_x3/energy/energy_grass.png" />
+            <PlistImageFile Name="pokemon_card_template_x3_energy_energy_normal.png" Key="pokemon_card_template_x3/energy/energy_normal.png" />
+            <PlistImageFile Name="pokemon_card_template_x3_energy_energy_psychic.png" Key="pokemon_card_template_x3/energy/energy_psychic.png" />
+            <PlistImageFile Name="pokemon_card_template_x3_energy_energy_steel.png" Key="pokemon_card_template_x3/energy/energy_steel.png" />
+            <PlistImageFile Name="pokemon_card_template_x3_energy_energy_water.png" Key="pokemon_card_template_x3/energy/energy_water.png" />
+            <PlistImageFile Name="pokemon_card_template_x3_evolution_arrow.png" Key="pokemon_card_template_x3/evolution_arrow.png" />
+            <PlistImageFile Name="pokemon_card_template_x3_evolution_square_panel.png" Key="pokemon_card_template_x3/evolution_square_panel.png" />
+            <PlistImageFile Name="pokemon_card_template_x3_evolution_text_panel.png" Key="pokemon_card_template_x3/evolution_text_panel.png" />
+            <PlistImageFile Name="pokemon_card_template_x3_image_border_default.png" Key="pokemon_card_template_x3/image_border_default.png" />
+            <PlistImageFile Name="pokemon_card_template_x3_inner_background_card_default.png" Key="pokemon_card_template_x3/inner_background_card_default.png" />
+            <PlistImageFile Name="pokemon_card_template_x3_move_btn_clicked.png" Key="pokemon_card_template_x3/move_btn_clicked.png" />
+            <PlistImageFile Name="pokemon_card_template_x3_move_btn_disabled.png" Key="pokemon_card_template_x3/move_btn_disabled.png" />
+            <PlistImageFile Name="pokemon_card_template_x3_move_btn_normal.png" Key="pokemon_card_template_x3/move_btn_normal.png" />
+            <PlistImageFile Name="pokemon_card_template_x3_outer_background_default.png" Key="pokemon_card_template_x3/outer_background_default.png" />
+            <PlistImageFile Name="pokemon_card_template_x3_white_square.png" Key="pokemon_card_template_x3/white_square.png" />
+          </PlistImageFolder>
+          <PlistImageFolder Image="title_scene.png" PListFile="title_scene.plist" Name=".title_scene_PList.Dir">
+            <PlistImageFile Name="title_scene_pkm_for_title_scn_0.png" Key="title_scene/pkm_for_title_scn_0.png" />
+            <PlistImageFile Name="title_scene_pkm_for_title_scn_1.png" Key="title_scene/pkm_for_title_scn_1.png" />
+            <PlistImageFile Name="title_scene_pkm_for_title_scn_2.png" Key="title_scene/pkm_for_title_scn_2.png" />
+            <PlistImageFile Name="title_scene_title_ball_no_light.png" Key="title_scene/title_ball_no_light.png" />
+            <PlistImageFile Name="title_scene_title_ball_with_light.png" Key="title_scene/title_ball_with_light.png" />
+            <PlistImageFile Name="title_scene_title_pokemon.png" Key="title_scene/title_pokemon.png" />
+            <PlistImageFile Name="title_scene_title_tcg.png" Key="title_scene/title_tcg.png" />
+          </PlistImageFolder>
+        </Folder>
+        <Folder Name="battle_scene">
+          <Project Name="battle_scene.csd" Type="Scene" />
+        </Folder>
+        <Folder Name="cards">
+          <Project Name="pokemon_card.csd" Type="Node" />
+          <Project Name="pokemon_card_2.csd" Type="Node" />
+        </Folder>
+        <Folder Name="fonts">
+          <Folder Name="GillSans_ttf">
+            <TTF Name="Gill Sans.ttf" />
+            <TTF Name="GillSans Condensed Bold.ttf" />
+            <TTF Name="GillSans Condensed.ttf" />
+            <TTF Name="Gill-Sans-Bold.ttf" />
+            <TTF Name="Gill-Sans-Bold-Italic.ttf" />
+            <TTF Name="Gill-Sans-Heavy.ttf" />
+            <TTF Name="Gill-Sans-Heavy-Italic.ttf" />
+            <TTF Name="Gill-Sans-Italic.ttf" />
+            <TTF Name="Gill-Sans-Light-Italic.ttf" />
+            <TTF Name="Gill-Sans-Medium.ttf" />
+            <TTF Name="Gill-Sans-Medium-Italic.ttf" />
+          </Folder>
+          <TTF Name="pokemon_pixel_font.ttf" />
+        </Folder>
+        <Folder Name="title_scene">
+          <Project Name="title_scene.csd" Type="Scene" />
+        </Folder>
+      </RootFolder>
+    </Group>
+  </SolutionFolder>
+</Solution>
