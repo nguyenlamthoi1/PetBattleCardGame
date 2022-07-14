@@ -11,3 +11,8 @@ proj.android/
 proj.linux/
 proj.win8.1-universal/
 
+proj.win32/.vs/
+proj.win32/Debug.win32/
+proj.win32/res/
+
+
