@@ -1,0 +1,5 @@
+./cocos2dx // Cac file thu vien cocos
+
+./proj // Cac file project
+!./proj.win32
+
