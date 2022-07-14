@@ -1,0 +1,5 @@
+# file build cua visual studio
+vs/
+Debug.win32/
+res/
+
