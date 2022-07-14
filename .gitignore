@@ -1,14 +1,13 @@
 # Cac file thu vien cocos
 cocos2d/
 
-
-
 # Cac file platform project
 # ./proj.*/
 # !./proj.win32/
-proj.win32/
 proj.win10/
 proj.ios_mac/
 proj.android-studio/
 proj.android/
+proj.linux/
+proj.win8.1-universal/
 
