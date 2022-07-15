@@ -1,6 +1,8 @@
 #include "AppDelegate.h"
 #include "GameManager.h"
+
 #include "HelloWorldScene.h"
+#include "scenes/loading_scene/LoadingScene.h"
 
 USING_NS_CC;
 
@@ -15,7 +17,7 @@ AppDelegate::AppDelegate() {
 
 AppDelegate::~AppDelegate() 
 {
-	GameManager::destroyInstance();
+	//GameManager::destroyInstance();
 }
 
 //if you want a different context,just modify the value of glContextAttrs
@@ -43,7 +45,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     if(!glview) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) || (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
         //glview = GLViewImpl::createWithRect("Pokemon TCG - made by CatCoder", Rect(0, 0, designResolutionSize.width, designResolutionSize.height));
-		glview = GLViewImpl::createWithRect("Pokemon TCG - made by CatCoder", Rect(0, 0, designResolutionSize.width, designResolutionSize.height));
+		glview = GLViewImpl::createWithRect("Pokemon TCG - made by CatCoder", Rect(0, 0, 1500, 960));
 #else
         glview = GLViewImpl::create("PetBattleCardGame");
 #endif
@@ -57,7 +59,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     director->setAnimationInterval(1.0 / 60);
 
     // Set the design resolution
-    glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::NO_BORDER);
+    glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::FIXED_HEIGHT);
     Size frameSize = glview->getFrameSize();
     // if the frame's height is larger than the height of medium size.
     if (frameSize.height > mediumResolutionSize.height)
@@ -78,12 +80,17 @@ bool AppDelegate::applicationDidFinishLaunching() {
     register_all_packages();
 
 	// Start the game
-	GameManager *gm = GameManager::getInstance();
-	if (!gm) // == nullptr
+	auto gm = GameManager::getInstance();
+	if (!gm)
 		return false; // can't start the game
-    // create a scene. it's an autorelease object
-    auto scene = HelloWorld::createScene();
-    director->runWithScene(scene);
+
+    // *HelloWorld Scene dung de test
+    //auto scene = HelloWorld::createScene();
+    //director->runWithScene(scene);
+
+	// Chay Loading Scene
+	auto scene = LoadingScene::create();
+	gm->changeScene(scene);
 
     return true;
 }

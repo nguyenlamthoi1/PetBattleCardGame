@@ -148,6 +148,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
+    <ClCompile Include="..\Classes\common\ResourceLoader.cpp" />
     <ClCompile Include="..\Classes\GameManager.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
     <ClCompile Include="..\Classes\scenes\loading_scene\LoadingScene.cpp" />
@@ -155,8 +156,48 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
+    <ClInclude Include="..\Classes\common\ResourceLoader.h" />
+    <ClInclude Include="..\Classes\define\CommonDefine.h" />
     <ClInclude Include="..\Classes\GameManager.h" />
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
+    <ClInclude Include="..\Classes\include\rapidjson\allocators.h" />
+    <ClInclude Include="..\Classes\include\rapidjson\cursorstreamwrapper.h" />
+    <ClInclude Include="..\Classes\include\rapidjson\document.h" />
+    <ClInclude Include="..\Classes\include\rapidjson\encodedstream.h" />
+    <ClInclude Include="..\Classes\include\rapidjson\encodings.h" />
+    <ClInclude Include="..\Classes\include\rapidjson\error\en.h" />
+    <ClInclude Include="..\Classes\include\rapidjson\error\error.h" />
+    <ClInclude Include="..\Classes\include\rapidjson\filereadstream.h" />
+    <ClInclude Include="..\Classes\include\rapidjson\filewritestream.h" />
+    <ClInclude Include="..\Classes\include\rapidjson\fwd.h" />
+    <ClInclude Include="..\Classes\include\rapidjson\internal\biginteger.h" />
+    <ClInclude Include="..\Classes\include\rapidjson\internal\clzll.h" />
+    <ClInclude Include="..\Classes\include\rapidjson\internal\diyfp.h" />
+    <ClInclude Include="..\Classes\include\rapidjson\internal\dtoa.h" />
+    <ClInclude Include="..\Classes\include\rapidjson\internal\ieee754.h" />
+    <ClInclude Include="..\Classes\include\rapidjson\internal\itoa.h" />
+    <ClInclude Include="..\Classes\include\rapidjson\internal\meta.h" />
+    <ClInclude Include="..\Classes\include\rapidjson\internal\pow10.h" />
+    <ClInclude Include="..\Classes\include\rapidjson\internal\regex.h" />
+    <ClInclude Include="..\Classes\include\rapidjson\internal\stack.h" />
+    <ClInclude Include="..\Classes\include\rapidjson\internal\strfunc.h" />
+    <ClInclude Include="..\Classes\include\rapidjson\internal\strtod.h" />
+    <ClInclude Include="..\Classes\include\rapidjson\internal\swap.h" />
+    <ClInclude Include="..\Classes\include\rapidjson\istreamwrapper.h" />
+    <ClInclude Include="..\Classes\include\rapidjson\memorybuffer.h" />
+    <ClInclude Include="..\Classes\include\rapidjson\memorystream.h" />
+    <ClInclude Include="..\Classes\include\rapidjson\msinttypes\inttypes.h" />
+    <ClInclude Include="..\Classes\include\rapidjson\msinttypes\stdint.h" />
+    <ClInclude Include="..\Classes\include\rapidjson\ostreamwrapper.h" />
+    <ClInclude Include="..\Classes\include\rapidjson\pointer.h" />
+    <ClInclude Include="..\Classes\include\rapidjson\prettywriter.h" />
+    <ClInclude Include="..\Classes\include\rapidjson\rapidjson.h" />
+    <ClInclude Include="..\Classes\include\rapidjson\reader.h" />
+    <ClInclude Include="..\Classes\include\rapidjson\schema.h" />
+    <ClInclude Include="..\Classes\include\rapidjson\stream.h" />
+    <ClInclude Include="..\Classes\include\rapidjson\stringbuffer.h" />
+    <ClInclude Include="..\Classes\include\rapidjson\uri.h" />
+    <ClInclude Include="..\Classes\include\rapidjson\writer.h" />
     <ClInclude Include="..\Classes\scenes\loading_scene\LoadingScene.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
@@ -174,6 +215,9 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

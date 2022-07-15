@@ -2,28 +2,44 @@
 #define __GAME_MANAGER_H__
 
 #include "cocos2d.h"
+#include <memory>
+
+namespace ResourceLoaderNS {
+	class ResourceLoader;
+}
 
 class GameManager // Singleton
 {
 public:
-	static GameManager* getInstance();
+	using ResLoader = ResourceLoaderNS::ResourceLoader;
+
+	static std::shared_ptr<GameManager> getInstance();
 	static void destroyInstance();
 
 	GameManager(GameManager &other) = delete; // shouldn't be cloneable
 	void operator=(const GameManager &other) = delete; // shouldn't be assignable
 
+	// Getters
+	std::shared_ptr<ResLoader> getLoader() { return loader; }
+
 	bool startGame() const; // start the scene
 	void exitGame() const;
 	void changeScene(cocos2d::Scene *scn) const;
-	
-protected:
-	// Static members
-	static GameManager *instance; // = nullptr
-	
+	void changeSceneFade(cocos2d::Scene *scn) const;
+	void playTitleScene() const;
+	void playTitleSceneFade() const;
 
+	
+	~GameManager();
+	GameManager();
+
+private:
+	// Static members
+	static std::shared_ptr<GameManager> instance; // = nullptr
+	std::shared_ptr<ResLoader> loader; // = nullptr
+	
 	// Non-static members
 	// Ctors
-	GameManager(){}
 
 	// Data Members
 

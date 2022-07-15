@@ -16,6 +16,24 @@
     <Filter Include="src\scenes\loading_scene">
       <UniqueIdentifier>{437c64f8-c209-4de9-8433-bf8e06c755dd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\include">
+      <UniqueIdentifier>{f613aa32-2fa5-4a51-bf20-288f67d84678}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\include\error">
+      <UniqueIdentifier>{b63519b3-e151-4c99-adde-5849d9b823c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\include\internal">
+      <UniqueIdentifier>{5bf66510-7f2a-44cd-8877-58eb2010d1d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\include\msinttypes">
+      <UniqueIdentifier>{36a66609-59ce-4d70-b789-4b14262614f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\common">
+      <UniqueIdentifier>{c9e5c9ec-124f-4d96-87d0-1ac2328f52b4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\define">
+      <UniqueIdentifier>{b9737b0b-2764-48fc-981a-90d49a17cb1b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -32,6 +50,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\scenes\loading_scene\LoadingScene.cpp">
       <Filter>src\scenes\loading_scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\common\ResourceLoader.cpp">
+      <Filter>src\common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -50,10 +71,133 @@
     <ClInclude Include="..\Classes\scenes\loading_scene\LoadingScene.h">
       <Filter>src\scenes\loading_scene</Filter>
     </ClInclude>
+    <ClInclude Include="..\Classes\include\rapidjson\allocators.h">
+      <Filter>src\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\rapidjson\cursorstreamwrapper.h">
+      <Filter>src\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\rapidjson\document.h">
+      <Filter>src\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\rapidjson\encodedstream.h">
+      <Filter>src\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\rapidjson\encodings.h">
+      <Filter>src\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\rapidjson\filereadstream.h">
+      <Filter>src\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\rapidjson\filewritestream.h">
+      <Filter>src\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\rapidjson\fwd.h">
+      <Filter>src\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\rapidjson\istreamwrapper.h">
+      <Filter>src\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\rapidjson\memorybuffer.h">
+      <Filter>src\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\rapidjson\memorystream.h">
+      <Filter>src\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\rapidjson\ostreamwrapper.h">
+      <Filter>src\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\rapidjson\pointer.h">
+      <Filter>src\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\rapidjson\prettywriter.h">
+      <Filter>src\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\rapidjson\rapidjson.h">
+      <Filter>src\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\rapidjson\reader.h">
+      <Filter>src\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\rapidjson\schema.h">
+      <Filter>src\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\rapidjson\stream.h">
+      <Filter>src\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\rapidjson\stringbuffer.h">
+      <Filter>src\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\rapidjson\uri.h">
+      <Filter>src\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\rapidjson\writer.h">
+      <Filter>src\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\rapidjson\error\en.h">
+      <Filter>src\include\error</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\rapidjson\error\error.h">
+      <Filter>src\include\error</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\rapidjson\internal\biginteger.h">
+      <Filter>src\include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\rapidjson\internal\clzll.h">
+      <Filter>src\include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\rapidjson\internal\diyfp.h">
+      <Filter>src\include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\rapidjson\internal\dtoa.h">
+      <Filter>src\include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\rapidjson\internal\ieee754.h">
+      <Filter>src\include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\rapidjson\internal\itoa.h">
+      <Filter>src\include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\rapidjson\internal\meta.h">
+      <Filter>src\include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\rapidjson\internal\pow10.h">
+      <Filter>src\include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\rapidjson\internal\regex.h">
+      <Filter>src\include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\rapidjson\internal\stack.h">
+      <Filter>src\include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\rapidjson\internal\strfunc.h">
+      <Filter>src\include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\rapidjson\internal\strtod.h">
+      <Filter>src\include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\rapidjson\internal\swap.h">
+      <Filter>src\include\internal</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\rapidjson\msinttypes\inttypes.h">
+      <Filter>src\include\msinttypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\include\rapidjson\msinttypes\stdint.h">
+      <Filter>src\include\msinttypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\ResourceLoader.h">
+      <Filter>src\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\define\CommonDefine.h">
+      <Filter>src\define</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">
       <Filter>resource</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="cpp.hint" />
   </ItemGroup>
 </Project>
