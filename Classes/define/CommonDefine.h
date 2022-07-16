@@ -10,12 +10,16 @@ namespace EVENT_CUSTOM{
 	};
 	const std::string RES_LOADING_FINISHED = "RES_LOADING_FINISHED";
 	struct EC_LoadingFinishedData {
-
+		unsigned int loaded;
+		unsigned int total;
+		
 	};
 	const std::string RES_LOADING_STEP_FINISHED = "RES_LOADING_STEP_FINISHED";
 	struct EC_LoadStepFinishedData {
 		std::string fName;
 		bool suc;
+		unsigned int cur;
+		unsigned int total;
 	};
 
 

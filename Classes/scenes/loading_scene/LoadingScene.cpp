@@ -9,6 +9,7 @@ using namespace std;
 
 const string LoadingScene::LOGO_NAME = "LogoSprite";
 const string LoadingScene::CIRCLE_NAME = "CircleSprite";
+const string LoadingScene::SCENE_SCHEDULER = "LoadingScene::onLoadingFinished";
 
 
 LoadingScene* LoadingScene::create()
@@ -69,14 +70,13 @@ LoadingScene::LoadingScene() {
 }
 
 LoadingScene::~LoadingScene() {
-
+	auto scheduler = Director::getInstance()->getScheduler();
+	scheduler->unschedule(SCENE_SCHEDULER, this);
 }
 
 void LoadingScene::onEnter() {
 	Scene::onEnter();
 	playScene();
-
-	auto scheduler = Director::getInstance()->getScheduler();
 	startLoading();
 }
 
@@ -104,13 +104,14 @@ void LoadingScene::startLoading() {
 	auto loader = GameManager::getInstance()->getLoader();
 
 	// Them file can load
-
+	//loader->addPlistFile("");
 	//--
+
 	auto fileCount = loader->stepCount();
 	if (fileCount > 0) {
 		auto evListener = EventListenerCustom::create(EVENT_CUSTOM::RES_LOADING_STEP_FINISHED,
-			[this](EventCustom* eventData) {
-				auto data = dynamic_cast<EVENT_CUSTOM::EC_LoadStepFinishedData*>(eventData);
+			[this](EventCustom* event) {
+				auto data = static_cast<EVENT_CUSTOM::EC_LoadStepFinishedData*>(event->getUserData());
 				onFileLoaded(data);
 			});
 		auto dispatcher = Director::getInstance()->getEventDispatcher();
@@ -118,8 +119,8 @@ void LoadingScene::startLoading() {
 	}
 
 	auto evListener = EventListenerCustom::create(EVENT_CUSTOM::RES_LOADING_FINISHED,
-		[this](EventCustom* eventData) {
-			auto data = dynamic_cast<EVENT_CUSTOM::EC_LoadingFinishedData*>(eventData);
+		[this](EventCustom* event) {
+			auto data = static_cast<EVENT_CUSTOM::EC_LoadingFinishedData*>(event->getUserData());
 			onLoadingFinished(data);
 		});
 	auto dispatcher = Director::getInstance()->getEventDispatcher();
@@ -129,13 +130,16 @@ void LoadingScene::startLoading() {
 }
 
 void LoadingScene::onFileLoaded(EVENT_CUSTOM::EC_LoadStepFinishedData *data) {
-
+	CCLOG("LoadingScene::onFileLoaded: %s: %s at %d / %d", data->fName.c_str(), data->suc ? "succeeded" : "failed", data->cur, data->total);
 }
 
 void LoadingScene::onLoadingFinished(EVENT_CUSTOM::EC_LoadingFinishedData *data) {
-	CCLOG("LoadingScene::onLoadingFinished");
-	auto gm = GameManager::getInstance();
-	gm->playTitleSceneFade();
+	CCLOG("LoadingScene::onLoadingFinished: %d / %d", data->loaded, data->total);
+	auto scheduler = Director::getInstance()->getScheduler();
+	scheduler->schedule([this](float) {	
+		auto gm = GameManager::getInstance();
+		gm->playTitleSceneFade(); 
+		}, this, 0, 0, 1.5, false, SCENE_SCHEDULER);
 }
 
 

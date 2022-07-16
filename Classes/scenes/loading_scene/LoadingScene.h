@@ -13,6 +13,8 @@ namespace EVENT_CUSTOM {
 class LoadingScene : public cocos2d::Scene
 {
 public:
+	static const std::string SCENE_SCHEDULER;
+
     static LoadingScene* create();
 	
 protected:
@@ -30,7 +32,6 @@ protected:
 	// Callbacks
 	void onFileLoaded(EVENT_CUSTOM::EC_LoadStepFinishedData*);
 	void onLoadingFinished(EVENT_CUSTOM::EC_LoadingFinishedData*);
-	void onLoadingFinished();
 
 	static const std::string LOGO_NAME;
 	static const std::string CIRCLE_NAME;

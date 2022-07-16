@@ -65,7 +65,7 @@ void GameManager::changeScene(Scene *scene) const {
 void GameManager::changeSceneFade(Scene *scene) const {
 	Director* director = Director::getInstance();
 	if (director->getRunningScene()) // != nullptr
-		director->replaceScene(TransitionFade::create(0.5, scene, Color3B(0, 255, 255)));
+		director->replaceScene(TransitionFade::create(0.5, scene, Color3B(220, 110, 85)));
 	else
 		director->runWithScene(scene);
 }

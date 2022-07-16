@@ -1,5 +1,6 @@
 #include "ResourceLoader.h"
 #include "define/CommonDefine.h"
+#include "common/Utilize.hpp"
 
 #include "cocostudio/ActionTimeline/CSLoader.h"
 #include "ui/UIHelper.h"
@@ -9,6 +10,7 @@
 
 
 USING_NS_CC;
+UTILIZE_USE_NS;
 using namespace std;
 
 //namespace ResourceLoaderNS {
@@ -41,17 +43,12 @@ void ResourceLoader::startLoading() {
 	if (isLoading)
 		throw("start loading on a running ResourceLoader!");
 
-	if (!loadedObjVec.empty()) {
-		isLoading = true;
-		curStep = 0;
-	}
-	else {
-		isLoading = false;
-		curStep = 0;
-	}
+	isLoading = true;
+	curStep = 0;
+	loaded = 0;
+
 	auto scheduler = Director::getInstance()->getScheduler();
 	scheduler->schedule(std::bind(&ResourceLoader::updateLoading, this, placeholders::_1), this, 0, CC_REPEAT_FOREVER, 0, false, LOADER_SCHEDULER);
-
 }
 
 void ResourceLoader::updateLoading(float dt) {
@@ -63,11 +60,13 @@ void ResourceLoader::updateLoading(float dt) {
 
 		if (!suc) 
 			loadedObjVec.erase(loadedObjVec.begin() + curStep); // Xoa khoi vector
-		else 
+		else {
+			++loaded;
 			++curStep;
+		}
 		
 		// Trigger Event khi load xong 1 file
-		EVENT_CUSTOM::EC_LoadStepFinishedData ret = { loadedObj.fname, loadedObj.succeed };
+		EVENT_CUSTOM::EC_LoadStepFinishedData ret = { loadedObj.fname, loadedObj.succeed, curStep - 1, totalSteps};
 		auto eventDispatcher = Director::getInstance()->getEventDispatcher();
 		eventDispatcher->dispatchCustomEvent(EVENT_CUSTOM::RES_LOADING_STEP_FINISHED, &ret);
 		return;
@@ -82,12 +81,31 @@ void ResourceLoader::updateLoading(float dt) {
 		scheduler->unschedule(LOADER_SCHEDULER, this); // Dung cap nhat loading
 
 		// Trigger Event(hoan tat loading)
-		EVENT_CUSTOM::EC_LoadingFinishedData ret;
+		EVENT_CUSTOM::EC_LoadingFinishedData ret = {loaded, totalSteps};
 		auto eventDispatcher = Director::getInstance()->getEventDispatcher();
 		eventDispatcher->dispatchCustomEvent(EVENT_CUSTOM::RES_LOADING_FINISHED, &ret);
 	}
 	return;
 }
+
+void ResourceLoader::addPlistFile(const std::string &file) {
+	LoadedObject obj(file, [file]() -> bool {
+		if (!mstr::has_suffix(file, ".plist")) {
+			CCLOG("ResourceLoader::addPlistFile: use wrong file format");
+			return false;
+		}
+		SpriteFrameCache::getInstance()->addSpriteFramesWithFile(file);
+		return true;
+		});
+
+	loadedObjVec.push_back(obj);
+}
+
+void ResourceLoader::addLoadedObj(const LoadedObject &obj) {
+	loadedObjVec.push_back(obj);
+}
+
+
 //}
 RESOURCE_LOADER_NS_END
 

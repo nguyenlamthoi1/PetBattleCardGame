@@ -12,6 +12,13 @@
 #define RESOURCE_LOADER_NS_END }
 #define RESOURCE_LOADER_USE_NS using namespace ResourceLoaderNS
 
+/*
+	- RESOURCE_LOADER_DEBUG = 0 -> khong log khi run code
+	- RESOURCE_LOADER_DEBUG > 0 -> log khi run code
+*/
+#define RESOURCE_LOADER_DEBUG 1 
+
+
 class GameManager;
 
 //namespace ResourceLoaderNS {
@@ -37,6 +44,10 @@ public:
 
 	friend class GameManager; // Class GameManager quan ly ResourceLoader object
 	void startLoading();
+
+	/* Hint: Ham dung de load cac sprite frame tu file plist*/
+	void addPlistFile(const std::string &file);
+	void addLoadedObj(const LoadedObject &obj);
 	
 	size_t stepCount() const { return loadedObjVec.size(); }
 
@@ -48,6 +59,7 @@ private:
 	std::vector<LoadedObject> loadedObjVec;
 	bool isLoading = false;
 	size_t curStep = -1;
+	unsigned int loaded = 0;
 	//bool isPaused; // * Chi co y nghia khi isLoading == true
 };
 //}
