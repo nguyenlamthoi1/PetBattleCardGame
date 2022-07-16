@@ -1,6 +1,7 @@
 #include "GameManager.h"
 #include "common/ResourceLoader.h"
 #include "HelloWorldScene.h"
+#include "scenes/title_scene/TitleScene.h"
 
 USING_NS_CC;
 RESOURCE_LOADER_USE_NS;
@@ -76,5 +77,6 @@ void GameManager::playTitleScene() const {
 }
 
 void GameManager::playTitleSceneFade() const {
-	changeSceneFade(HelloWorld::createScene());
+	//changeSceneFade(HelloWorld::createScene());
+	changeSceneFade(TitleScene::create());
 }

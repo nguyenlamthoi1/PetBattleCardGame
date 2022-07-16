@@ -34,6 +34,12 @@
     <Filter Include="src\define">
       <UniqueIdentifier>{b9737b0b-2764-48fc-981a-90d49a17cb1b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\scenes\title_scene">
+      <UniqueIdentifier>{1d60db59-22b6-4798-8ad6-6fee082159e6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\components">
+      <UniqueIdentifier>{6e7c3a45-a6f6-4b1d-a506-3c3f27791012}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -52,6 +58,15 @@
       <Filter>src\scenes\loading_scene</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\common\ResourceLoader.cpp">
+      <Filter>src\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\common\Utilize.cpp">
+      <Filter>src\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\title_scene\TitleScene.cpp">
+      <Filter>src\scenes\title_scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\common\ResourcePool.cpp">
       <Filter>src\common</Filter>
     </ClCompile>
   </ItemGroup>
@@ -190,6 +205,21 @@
     </ClInclude>
     <ClInclude Include="..\Classes\define\CommonDefine.h">
       <Filter>src\define</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\Utilize.h">
+      <Filter>src\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\Utilize.hpp">
+      <Filter>src\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\title_scene\TitleScene.h">
+      <Filter>src\scenes\title_scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\ResourcePool.h">
+      <Filter>src\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\components\MyComponent.hpp">
+      <Filter>src\components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
