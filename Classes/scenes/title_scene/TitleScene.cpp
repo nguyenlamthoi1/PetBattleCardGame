@@ -1,8 +1,9 @@
 #include "TitleScene.h"
-
 #include "GameManager.h"
 #include "common/ResourceLoader.h"
+#include "common/ResourcePool.h"
 #include "define/CommonDefine.h"
+#include "ui/UIHelper.h"
 
 #include <new>
 
@@ -32,8 +33,15 @@ bool TitleScene::init() {
 	if (!Scene::init())
 		return false;
 
-
-
+	auto director = Director::getInstance();
+	auto winSize = director->getWinSize();
+	auto gm = GameManager::getInstance();
+	auto resPool = gm->getPool();
+	
+	auto ui = static_cast<ui::Layout*>(resPool->tryGetNodeCsb("ccstd_csb/title_scene/title_scene.csb"));
+	ui->setContentSize(winSize);
+	ui::Helper::doLayout(ui);
+	this->addChild(ui);
 	return true;
 }
 

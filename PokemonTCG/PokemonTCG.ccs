@@ -3,7 +3,7 @@
   <SolutionFolder>
     <Group ctype="ResourceGroup">
       <RootFolder Name=".">
-        <Folder Name="assets">
+        <Folder Name="ccstd_assets">
           <PlistImageFolder Image="battle_scene.png" PListFile="battle_scene.plist" Name=".battle_scene_PList.Dir">
             <PlistImageFile Name="battle_scene_active_slot_light_0.png" Key="battle_scene/active_slot_light_0.png" />
             <PlistImageFile Name="battle_scene_active_slot_light_1.png" Key="battle_scene/active_slot_light_1.png" />
@@ -98,14 +98,7 @@
             <PlistImageFile Name="title_scene_title_tcg.png" Key="title_scene/title_tcg.png" />
           </PlistImageFolder>
         </Folder>
-        <Folder Name="battle_scene">
-          <Project Name="battle_scene.csd" Type="Scene" />
-        </Folder>
-        <Folder Name="cards">
-          <Project Name="pokemon_card.csd" Type="Node" />
-          <Project Name="pokemon_card_2.csd" Type="Node" />
-        </Folder>
-        <Folder Name="fonts">
+        <Folder Name="ccstd_fonts">
           <Folder Name="GillSans_ttf">
             <TTF Name="Gill Sans.ttf" />
             <TTF Name="GillSans Condensed Bold.ttf" />
@@ -121,8 +114,17 @@
           </Folder>
           <TTF Name="pokemon_pixel_font.ttf" />
         </Folder>
-        <Folder Name="title_scene">
-          <Project Name="title_scene.csd" Type="Scene" />
+        <Folder Name="ccstd_csb">
+          <Folder Name="title_scene">
+            <Project Name="title_scene.csd" Type="Scene" />
+          </Folder>
+          <Folder Name="battle_scene">
+            <Project Name="battle_scene.csd" Type="Scene" />
+          </Folder>
+          <Folder Name="cards">
+            <Project Name="pokemon_card.csd" Type="Node" />
+            <Project Name="pokemon_card_2.csd" Type="Node" />
+          </Folder>
         </Folder>
       </RootFolder>
     </Group>

@@ -82,6 +82,7 @@ bool PoolVector::returnNode(Node *node) {
 	return true;
 }
 
+ResourcePool::ResourcePool(){}
 
 ResourcePool::~ResourcePool() {
 	CCLOG("ResourcePool:dtor called");

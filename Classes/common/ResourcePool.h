@@ -73,9 +73,8 @@ public:
 	cocos2d::Node* loadNodeFromCsb(const std::string &fileKey);
 
 	~ResourcePool();
-private:
 	ResourcePool();
-
+private:
 	std::unordered_map<std::string, PoolVector> pool;
 };
 

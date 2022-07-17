@@ -56,23 +56,23 @@
         <key>sourceSize</key>
         <string>{130,189}</string>
       </dict>
-      <key>pokemon_card_template/energy/energy_dark.png</key>
+      <key>pokemon_card_template/evolution_arrow.png</key>
       <dict>
         <key>frame</key>
-        <string>{{133,133},{21,21}}</string>
+        <string>{{133,133},{22,24}}</string>
         <key>offset</key>
-        <string>{0.5,0.5}</string>
+        <string>{0,0}</string>
         <key>rotated</key>
         <false/>
         <key>sourceColorRect</key>
-        <string>{{6,5},{21,21}}</string>
+        <string>{{0,0},{22,24}}</string>
         <key>sourceSize</key>
-        <string>{32,32}</string>
+        <string>{22,24}</string>
       </dict>
       <key>pokemon_card_template/bottome_card_panel.png</key>
       <dict>
         <key>frame</key>
-        <string>{{133,156},{48,8}}</string>
+        <string>{{133,159},{48,8}}</string>
         <key>offset</key>
         <string>{0,0}</string>
         <key>rotated</key>
@@ -82,14 +82,27 @@
         <key>sourceSize</key>
         <string>{48,8}</string>
       </dict>
+      <key>pokemon_card_template/energy/energy_dark.png</key>
+      <dict>
+        <key>frame</key>
+        <string>{{157,133},{21,21}}</string>
+        <key>offset</key>
+        <string>{0.5,0.5}</string>
+        <key>rotated</key>
+        <false/>
+        <key>sourceColorRect</key>
+        <string>{{6,5},{21,21}}</string>
+        <key>sourceSize</key>
+        <string>{32,32}</string>
+      </dict>
       <key>pokemon_card_template/evolution_text_panel.png</key>
       <dict>
         <key>frame</key>
-        <string>{{156,133},{23,9}}</string>
+        <string>{{180,133},{23,9}}</string>
         <key>offset</key>
         <string>{0,0}</string>
         <key>rotated</key>
-        <false/>
+        <true/>
         <key>sourceColorRect</key>
         <string>{{0,0},{23,9}}</string>
         <key>sourceSize</key>
@@ -98,7 +111,7 @@
       <key>pokemon_card_template/energy/energy_dragon.png</key>
       <dict>
         <key>frame</key>
-        <string>{{133,166},{21,21}}</string>
+        <string>{{133,169},{21,21}}</string>
         <key>offset</key>
         <string>{0.5,0.5}</string>
         <key>rotated</key>
@@ -111,7 +124,7 @@
       <key>pokemon_card_template/energy/energy_electric.png</key>
       <dict>
         <key>frame</key>
-        <string>{{156,166},{21,21}}</string>
+        <string>{{156,169},{21,21}}</string>
         <key>offset</key>
         <string>{0.5,0.5}</string>
         <key>rotated</key>

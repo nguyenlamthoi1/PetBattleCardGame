@@ -8,6 +8,8 @@ namespace ResourceLoaderNS {
 	class ResourceLoader;
 }
 
+class ResourcePool;
+
 class GameManager // Singleton
 {
 public:
@@ -21,6 +23,8 @@ public:
 
 	// Getters
 	std::shared_ptr<ResLoader> getLoader() { return loader; }
+	std::shared_ptr<ResourcePool> getPool() { return pool; }
+
 
 	bool startGame() const; // start the scene
 	void exitGame() const;
@@ -37,7 +41,7 @@ private:
 	// Static members
 	static std::shared_ptr<GameManager> instance; // = nullptr
 	std::shared_ptr<ResLoader> loader; // = nullptr
-	
+	std::shared_ptr<ResourcePool> pool;
 	// Non-static members
 	// Ctors
 

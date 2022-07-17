@@ -1,5 +1,6 @@
 #include "GameManager.h"
 #include "common/ResourceLoader.h"
+#include "common/ResourcePool.h"
 #include "HelloWorldScene.h"
 #include "scenes/title_scene/TitleScene.h"
 
@@ -19,7 +20,7 @@ std::shared_ptr<GameManager> GameManager::getInstance() {
 	return instance;
 }
 
-GameManager::GameManager() : loader(new ResourceLoader())
+GameManager::GameManager() : loader(new ResourceLoader()), pool(new ResourcePool())
 {
 }
 
