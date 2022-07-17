@@ -65,13 +65,15 @@ bool HelloWorld::init()
 
     // add "HelloWorld" splash screen"
     auto sprite = Sprite::create("HelloWorld.png");
-
+	//sprite->autorelease();
     // position the sprite on the center of the screen
     sprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
 
     // add the sprite as a child to this layer
     this->addChild(sprite, 0);
     
+	test();
+
     return true;
 }
 
@@ -83,4 +85,14 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
     exit(0);
 #endif
+}
+
+class A : public Ref {
+public:
+	virtual ~A() {
+		CCLOG("A: dtor called");
+	}
+};
+void HelloWorld::test() {
+	//A *a = new A();
 }

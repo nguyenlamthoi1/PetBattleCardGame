@@ -28,14 +28,5 @@
         <LastRunType Value="Windows" />
       </Value>
     </Item>
-    <Item Key="TabsParamsKey">
-      <Value ctype="TabsInfo">
-        <OpenedDocuments>
-          <FilePathData Path="title_scene/title_scene.csd" />
-          <FilePathData Path="cards/pokemon_card.csd" />
-        </OpenedDocuments>
-        <ActiveDocument Path="title_scene/title_scene.csd" />
-      </Value>
-    </Item>
   </Properties>
 </UserData>

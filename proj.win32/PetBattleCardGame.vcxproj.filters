@@ -69,6 +69,15 @@
     <ClCompile Include="..\Classes\common\ResourcePool.cpp">
       <Filter>src\common</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\components\ComponentDictionary.cpp">
+      <Filter>src\components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\components\GamePoolComponent.cpp">
+      <Filter>src\components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\components\MyComponent.cpp">
+      <Filter>src\components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -218,7 +227,13 @@
     <ClInclude Include="..\Classes\common\ResourcePool.h">
       <Filter>src\common</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\components\MyComponent.hpp">
+    <ClInclude Include="..\Classes\components\ComponentDictionary.h">
+      <Filter>src\components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\components\GamePoolComponent.h">
+      <Filter>src\components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\components\MyComponent.h">
       <Filter>src\components</Filter>
     </ClInclude>
   </ItemGroup>

@@ -151,6 +151,9 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\common\ResourceLoader.cpp" />
     <ClCompile Include="..\Classes\common\ResourcePool.cpp" />
     <ClCompile Include="..\Classes\common\Utilize.cpp" />
+    <ClCompile Include="..\Classes\components\ComponentDictionary.cpp" />
+    <ClCompile Include="..\Classes\components\GamePoolComponent.cpp" />
+    <ClCompile Include="..\Classes\components\MyComponent.cpp" />
     <ClCompile Include="..\Classes\GameManager.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
     <ClCompile Include="..\Classes\scenes\loading_scene\LoadingScene.cpp" />
@@ -163,7 +166,9 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\common\ResourcePool.h" />
     <ClInclude Include="..\Classes\common\Utilize.h" />
     <ClInclude Include="..\Classes\common\Utilize.hpp" />
-    <ClInclude Include="..\Classes\components\MyComponent.hpp" />
+    <ClInclude Include="..\Classes\components\ComponentDictionary.h" />
+    <ClInclude Include="..\Classes\components\GamePoolComponent.h" />
+    <ClInclude Include="..\Classes\components\MyComponent.h" />
     <ClInclude Include="..\Classes\define\CommonDefine.h" />
     <ClInclude Include="..\Classes\GameManager.h" />
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
