@@ -8,21 +8,29 @@
 #include <string>
 #include <functional>
 
-#define RESOURCE_LOADER_NS_BEG namespace ResourceLoaderNS {
-#define RESOURCE_LOADER_NS_END }
-#define RESOURCE_LOADER_USE_NS using namespace ResourceLoaderNS
+#define RESOURCE_LOADER_USE_MACRO_NS 1
 
+#if defined(RESOURCE_LOADER_USE_MACRO_NS) && RESOURCE_LOADER_USE_MACRO_NS > 0
+	#define RESOURCE_LOADER_NS_BEG namespace ResourceLoaderNS {
+	#define RESOURCE_LOADER_NS_END }
+	#define RESOURCE_LOADER_USE_NS using namespace ResourceLoaderNS
 /*
 	- RESOURCE_LOADER_DEBUG = 0 -> khong log khi run code
 	- RESOURCE_LOADER_DEBUG > 0 -> log khi run code
 */
-#define RESOURCE_LOADER_DEBUG 1 
+	#define RESOURCE_LOADER_DEBUG 1 
 
+#else
+	#define RESOURCE_LOADER_NS_BEG 
+	#define RESOURCE_LOADER_NS_END 
+	#define RESOURCE_LOADER_USE_NS
+	#define RESOURCE_LOADER_DEBUG 1 
+#endif
 
 class GameManager;
 
-//namespace ResourceLoaderNS {
 RESOURCE_LOADER_NS_BEG
+
 using LoadingFunc = std::function<bool()>;
 
 class LoadedObject {
@@ -60,8 +68,9 @@ private:
 	bool isLoading = false;
 	size_t curStep = -1;
 	unsigned int loaded = 0;
+	unsigned int total = 0;
 	//bool isPaused; // * Chi co y nghia khi isLoading == true
 };
-//}
+
 RESOURCE_LOADER_NS_END
 #endif __RESOURCE_LOADER_H_

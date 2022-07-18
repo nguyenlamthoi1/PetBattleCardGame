@@ -69,19 +69,19 @@
                 <PreSize X="0.3445" Y="0.1056" />
                 <FileData Type="PlistSubImage" Path="title_scene/title_tcg.png" Plist="ccstd_assets/title_scene.plist" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Label_0" ActionTag="-23928266" Tag="9" IconVisible="False" PositionPercentXEnabled="True" LeftMargin="559.0000" RightMargin="559.0000" TopMargin="365.5022" BottomMargin="312.4978" FontSize="48" LabelText="Start Game" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+              <AbstractNodeData Name="Label_0" ActionTag="-23928266" VisibleForFrame="False" Tag="9" IconVisible="False" PositionPercentXEnabled="True" LeftMargin="559.0000" RightMargin="559.0000" TopMargin="369.0000" BottomMargin="309.0000" FontSize="48" LabelText="Start Game" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
                 <Size X="162.0000" Y="42.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                <Position X="640.0000" Y="333.4978" />
+                <Position X="640.0000" Y="330.0000" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="0" G="0" B="0" />
-                <PrePosition X="0.5000" Y="0.4632" />
+                <PrePosition X="0.5000" Y="0.4583" />
                 <PreSize X="0.1266" Y="0.0583" />
                 <FontResource Type="Normal" Path="ccstd_fonts/pokemon_pixel_font.ttf" Plist="" />
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Label_1" ActionTag="582426486" Tag="40" IconVisible="False" PositionPercentXEnabled="True" LeftMargin="574.0000" RightMargin="574.0000" TopMargin="425.2496" BottomMargin="252.7504" FontSize="48" LabelText="New game" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+              <AbstractNodeData Name="Label_1" ActionTag="582426486" VisibleForFrame="False" Tag="40" IconVisible="False" PositionPercentXEnabled="True" LeftMargin="574.0000" RightMargin="574.0000" TopMargin="425.2496" BottomMargin="252.7504" FontSize="48" LabelText="New game" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
                 <Size X="132.0000" Y="42.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="640.0000" Y="273.7504" />
@@ -93,7 +93,7 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Label_2" ActionTag="1274923375" Tag="41" IconVisible="False" PositionPercentXEnabled="True" LeftMargin="610.0000" RightMargin="610.0000" TopMargin="488.2505" BottomMargin="189.7495" FontSize="48" LabelText="Quit" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+              <AbstractNodeData Name="Label_2" ActionTag="1274923375" VisibleForFrame="False" Tag="41" IconVisible="False" PositionPercentXEnabled="True" LeftMargin="610.0000" RightMargin="610.0000" TopMargin="488.2505" BottomMargin="189.7495" FontSize="48" LabelText="Quit" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
                 <Size X="60.0000" Y="42.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="640.0000" Y="210.7495" />

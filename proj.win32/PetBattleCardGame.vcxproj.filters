@@ -60,9 +60,6 @@
     <ClCompile Include="..\Classes\common\ResourceLoader.cpp">
       <Filter>src\common</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\common\Utilize.cpp">
-      <Filter>src\common</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\scenes\title_scene\TitleScene.cpp">
       <Filter>src\scenes\title_scene</Filter>
     </ClCompile>
@@ -77,6 +74,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\components\MyComponent.cpp">
       <Filter>src\components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\common\LangSys.cpp">
+      <Filter>src\common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -215,9 +215,6 @@
     <ClInclude Include="..\Classes\define\CommonDefine.h">
       <Filter>src\define</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\common\Utilize.h">
-      <Filter>src\common</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\common\Utilize.hpp">
       <Filter>src\common</Filter>
     </ClInclude>
@@ -235,6 +232,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\components\MyComponent.h">
       <Filter>src\components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\LangSys.h">
+      <Filter>src\common</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

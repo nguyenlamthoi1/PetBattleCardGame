@@ -1,10 +1,11 @@
 #include "LoadingScene.h"
 #include "GameManager.h"
 #include "common/ResourceLoader.h"
+#include "common/LangSys.h"
 #include "define/CommonDefine.h"
 
 USING_NS_CC;
-
+RESOURCE_LOADER_USE_NS;
 using namespace std;
 
 const string LoadingScene::LOGO_NAME = "LogoSprite";
@@ -105,6 +106,10 @@ void LoadingScene::startLoading() {
 
 	// Them file can load
 	//loader->addPlistFile("");
+	loader->addLoadedObj(LoadedObject("data\\localization\\en.txt", []()->bool {
+		auto lang = GameManager::getInstance()->getLang();
+		return lang->load("data\\localization\\en.txt");
+		}));
 	//--
 
 	auto fileCount = loader->stepCount();
@@ -125,12 +130,11 @@ void LoadingScene::startLoading() {
 		});
 	auto dispatcher = Director::getInstance()->getEventDispatcher();
 	dispatcher->addEventListenerWithSceneGraphPriority(evListener, this);
-	
 	loader->startLoading();
 }
 
 void LoadingScene::onFileLoaded(EVENT_CUSTOM::EC_LoadStepFinishedData *data) {
-	CCLOG("LoadingScene::onFileLoaded: %s: %s at %d / %d", data->fName.c_str(), data->suc ? "succeeded" : "failed", data->cur, data->total);
+	CCLOG("LoadingScene::onFileLoaded: %s: %s at %d / %d", data->fName.c_str(), data->suc ? "succeeded" : "failed", data->cur + 1, data->total);
 }
 
 void LoadingScene::onLoadingFinished(EVENT_CUSTOM::EC_LoadingFinishedData *data) {

@@ -46,6 +46,7 @@ void ResourceLoader::startLoading() {
 	isLoading = true;
 	curStep = 0;
 	loaded = 0;
+	total = loadedObjVec.size();
 
 	auto scheduler = Director::getInstance()->getScheduler();
 	scheduler->schedule(std::bind(&ResourceLoader::updateLoading, this, placeholders::_1), this, 0, CC_REPEAT_FOREVER, 0, false, LOADER_SCHEDULER);
@@ -66,7 +67,7 @@ void ResourceLoader::updateLoading(float dt) {
 		}
 		
 		// Trigger Event khi load xong 1 file
-		EVENT_CUSTOM::EC_LoadStepFinishedData ret = { loadedObj.fname, loadedObj.succeed, curStep - 1, totalSteps};
+		EVENT_CUSTOM::EC_LoadStepFinishedData ret = { loadedObj.fname, loadedObj.succeed, loadedObj.succeed ? curStep - 1 : curStep, totalSteps};
 		auto eventDispatcher = Director::getInstance()->getEventDispatcher();
 		eventDispatcher->dispatchCustomEvent(EVENT_CUSTOM::RES_LOADING_STEP_FINISHED, &ret);
 		return;
@@ -81,7 +82,7 @@ void ResourceLoader::updateLoading(float dt) {
 		scheduler->unschedule(LOADER_SCHEDULER, this); // Dung cap nhat loading
 
 		// Trigger Event(hoan tat loading)
-		EVENT_CUSTOM::EC_LoadingFinishedData ret = {loaded, totalSteps};
+		EVENT_CUSTOM::EC_LoadingFinishedData ret = {loaded, total};
 		auto eventDispatcher = Director::getInstance()->getEventDispatcher();
 		eventDispatcher->dispatchCustomEvent(EVENT_CUSTOM::RES_LOADING_FINISHED, &ret);
 	}

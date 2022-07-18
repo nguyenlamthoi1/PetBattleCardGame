@@ -1,1 +1,6 @@
 #define _RESOURCE_LOADER_NS_BEG namespace ResourceLoaderNS {
+// Hint files help the Visual Studio IDE interpret Visual C++ identifiers
+// such as names of functions and macros.
+// For more information see https://go.microsoft.com/fwlink/?linkid=865984
+#define CCLOG(__VA_ARGS__) do {} while (0)
+#define CCLOG(format, __VA_ARGS__) cocos2d::log(format,##__VA_ARGS__)
