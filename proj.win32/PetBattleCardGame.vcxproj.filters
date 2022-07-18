@@ -78,6 +78,9 @@
     <ClCompile Include="..\Classes\common\LangSys.cpp">
       <Filter>src\common</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\components\WidgetTouchComponent.cpp">
+      <Filter>src\components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -235,6 +238,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\common\LangSys.h">
       <Filter>src\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\components\WidgetTouchComponent.h">
+      <Filter>src\components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

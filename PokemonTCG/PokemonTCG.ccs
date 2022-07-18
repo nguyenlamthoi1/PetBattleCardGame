@@ -98,6 +98,18 @@
             <PlistImageFile Name="title_scene_title_tcg.png" Key="title_scene/title_tcg.png" />
           </PlistImageFolder>
         </Folder>
+        <Folder Name="ccstd_csb">
+          <Folder Name="battle_scene">
+            <Project Name="battle_scene.csd" Type="Scene" />
+          </Folder>
+          <Folder Name="cards">
+            <Project Name="pokemon_card.csd" Type="Node" />
+            <Project Name="pokemon_card_2.csd" Type="Node" />
+          </Folder>
+          <Folder Name="title_scene">
+            <Project Name="title_scene.csd" Type="Scene" />
+          </Folder>
+        </Folder>
         <Folder Name="ccstd_fonts">
           <Folder Name="GillSans_ttf">
             <TTF Name="Gill Sans.ttf" />
@@ -113,18 +125,6 @@
             <TTF Name="Gill-Sans-Medium-Italic.ttf" />
           </Folder>
           <TTF Name="pokemon_pixel_font.ttf" />
-        </Folder>
-        <Folder Name="ccstd_csb">
-          <Folder Name="title_scene">
-            <Project Name="title_scene.csd" Type="Scene" />
-          </Folder>
-          <Folder Name="battle_scene">
-            <Project Name="battle_scene.csd" Type="Scene" />
-          </Folder>
-          <Folder Name="cards">
-            <Project Name="pokemon_card.csd" Type="Node" />
-            <Project Name="pokemon_card_2.csd" Type="Node" />
-          </Folder>
         </Folder>
       </RootFolder>
     </Group>

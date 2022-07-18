@@ -13,11 +13,12 @@
 #define MY_COMPONENT_USE_NS using namespace MyComponentNS
 
 namespace COMPONENT_KEY {
-	const std::string CONTENT = "CONTENT";
-	const std::string ONE_TOUCH_HANDLER = "ONE_TOUCH_HANDLER";
-	const std::string CHILD_MAP = "CHILD_MAP";
+	//const std::string CONTENT = "CONTENT";
+	//const std::string ONE_TOUCH_HANDLER = "ONE_TOUCH_HANDLER";
+	//const std::string CHILD_MAP = "CHILD_MAP";
+	//const std::string SPRITE_ANIMATOR = "SPRITE_ANIMATOR";
 	const std::string GAME_POOL = "GAME_POOL";
-	const std::string SPRITE_ANIMATOR = "SPRITE_ANIMATOR";
+	const std::string WIDGET_TOUCH = "WIDGET_TOUCH";
 }
 
 class MComponent {

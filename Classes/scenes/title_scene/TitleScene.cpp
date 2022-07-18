@@ -3,6 +3,7 @@
 #include "common/ResourceLoader.h"
 #include "common/ResourcePool.h"
 #include "common/LangSys.h"
+#include "components/WidgetTouchComponent.h"
 #include "define/CommonDefine.h"
 
 #include "ui/UIHelper.h"
@@ -10,6 +11,7 @@
 #include <new>
 
 USING_NS_CC;
+WIDGET_TOUCH_USE_NS;
 using namespace std;
 
 TitleScene* TitleScene::create() {
@@ -72,9 +74,9 @@ void TitleScene::onExit() {
 }
 
 void TitleScene::showFirstOptions() {
-	showOptions(
+	/*showOptions(
 		{
-			make_pair("Opt 1", [this](){
+			make_pair(GM_LANG->getString("TXT_TITLE_SCENE_START_GAME"), [this](){
 					showOptions(
 						{
 							make_pair("Opt 1", [this]() { doPlayGame(); }),
@@ -84,6 +86,19 @@ void TitleScene::showFirstOptions() {
 						});
 			}),
 			make_pair("Quit game", [this]() { doQuitGame(); })
+		});*/
+	showOptions(
+		{
+			make_pair(GM_LANG->getString("TXT_TITLE_SCENE_START_GAME"), [this]() {doPlayGame(); }),
+			make_pair(GM_LANG->getString("TXT_TITLE_SCENE_LANGUAGE"), [this]() {
+				showOptions(
+						{
+							make_pair("English", [this]() { doLangSet(); }),
+							make_pair("Viet Nam", [this]() { doLangSet(); }),
+							make_pair(GM_LANG->getString("TXT_TITLE_SCENE_BACK"), [this]() {showPrevOptions(); })
+						});
+				}),
+			make_pair(GM_LANG->getString("TXT_TITLE_SCENE_QUIT_GAME"), [this]() { doQuitGame(); })
 		});
 }
 
@@ -96,7 +111,10 @@ void TitleScene::showOptions(vector<Option> opVect) {
 	if(opVect.size() > MAX_OP_NUM) // Xoa option bi du
 		opVect.erase(opVect.begin() + MAX_OP_NUM, opVect.end());
 	
-	preOpVec = curOpVec; // Luu lai opVec hien tai
+	if (curOpVec.empty())
+		preOpVec = opVect;
+	else
+		preOpVec = curOpVec; // Luu lai opVec hien tai
 
 	if (opVect.size() > texts.size()) // Them vao nhung Text object con thieu
 	{
@@ -109,7 +127,7 @@ void TitleScene::showOptions(vector<Option> opVect) {
 		}
 	}
 
-	CCASSERT(texts.size() == opVect.size(), "TitleScene::showOptions: texts and options don't have same size");
+	CCASSERT(texts.size() >= opVect.size(), "TitleScene::showOptions: texts.size() must equal or greater than opVect.size()");
 
 	auto dir = Director::getInstance();
 	auto visibleSize = dir->getVisibleSize();
@@ -128,14 +146,21 @@ void TitleScene::showOptions(vector<Option> opVect) {
 			textNode->setVisible(true);
 			textNode->setColor(Color3B::BLACK);
 
-			// TODO: Attach clicked callback
+			textNode->setSwallowTouches(true);
+			textNode->setTouchEnabled(true);
+			setWidgetTouchEnded(textNode, 
+				[clickedFunc](WIDGET_TOUCH_HANDLER_PARAMS) { 
+				if(clickedFunc) 
+					clickedFunc(); 
+				});
 		}
 	}
 
 	size_type i = opVect.size();
 	while (i < texts.size())  // Tat visible nhung text node con lai
-		texts[i]->setVisible(false);
-	
+		texts[i++]->setVisible(false);
+
+	swap(opVect, curOpVec);
 }
 
 void TitleScene::showPrevOptions() {

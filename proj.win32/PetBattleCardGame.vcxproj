@@ -154,6 +154,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\components\ComponentDictionary.cpp" />
     <ClCompile Include="..\Classes\components\GamePoolComponent.cpp" />
     <ClCompile Include="..\Classes\components\MyComponent.cpp" />
+    <ClCompile Include="..\Classes\components\WidgetTouchComponent.cpp" />
     <ClCompile Include="..\Classes\GameManager.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
     <ClCompile Include="..\Classes\scenes\loading_scene\LoadingScene.cpp" />
@@ -169,6 +170,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\components\ComponentDictionary.h" />
     <ClInclude Include="..\Classes\components\GamePoolComponent.h" />
     <ClInclude Include="..\Classes\components\MyComponent.h" />
+    <ClInclude Include="..\Classes\components\WidgetTouchComponent.h" />
     <ClInclude Include="..\Classes\define\CommonDefine.h" />
     <ClInclude Include="..\Classes\GameManager.h" />
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
