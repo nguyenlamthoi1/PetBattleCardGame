@@ -40,6 +40,9 @@
     <Filter Include="src\components">
       <UniqueIdentifier>{6e7c3a45-a6f6-4b1d-a506-3c3f27791012}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\scenes\battle_scene">
+      <UniqueIdentifier>{1c91784e-4124-4737-aa0a-6b38bac34ed4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -80,6 +83,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\components\WidgetTouchComponent.cpp">
       <Filter>src\components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene\BattleScene.cpp">
+      <Filter>src\scenes\battle_scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -241,6 +247,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\components\WidgetTouchComponent.h">
       <Filter>src\components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\battle_scene\BattleScene.h">
+      <Filter>src\scenes\battle_scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

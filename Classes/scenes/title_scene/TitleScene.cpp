@@ -5,6 +5,7 @@
 #include "common/LangSys.h"
 #include "components/WidgetTouchComponent.h"
 #include "define/CommonDefine.h"
+#include "scenes/battle_scene/BattleScene.h"
 
 #include "ui/UIHelper.h"
 
@@ -165,6 +166,8 @@ void TitleScene::showOptions(const vector<Option> &opVec) {
 
 void TitleScene::doPlayGame() {
 	CCLOG("TitleScene: start game");
+	auto gm = GameManager::getInstance();
+	gm->changeSceneFade(BattleScene::create());
 }
 void TitleScene::doContinue() {
 	CCLOG("TitleScene: continue game");
