@@ -14,6 +14,7 @@
 
 USING_NS_CC;
 WIDGET_TOUCH_USE_NS;
+BATTLE_SCENE_USE_NS;
 using namespace std;
 
 TitleScene* TitleScene::create() {

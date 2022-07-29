@@ -10,6 +10,7 @@ namespace ResourceLoaderNS {
 
 class ResourcePool;
 class LangSys;
+class DataManager;
 
 class GameManager // Singleton
 {
@@ -26,6 +27,8 @@ public:
 	std::shared_ptr<ResLoader> getLoader() { return loader; }
 	std::shared_ptr<ResourcePool> getPool() { return pool; }
 	std::shared_ptr<LangSys> getLang() { return lang; }
+	std::shared_ptr<DataManager> getDataManager() { return dataMgr; }
+
 
 	bool startGame() const; // start the scene
 	void exitGame() const;
@@ -39,11 +42,16 @@ public:
 
 private:
 	// Static members
+
 	static std::shared_ptr<GameManager> instance; // = nullptr
-	std::shared_ptr<ResLoader> loader; // = nullptr
+
+	// Non-static members
+
+	std::shared_ptr<ResLoader> loader;
 	std::shared_ptr<ResourcePool> pool;
 	std::shared_ptr<LangSys> lang;
-	// Non-static members
+	std::shared_ptr<DataManager> dataMgr;
+
 	// Ctors
 
 	// Data Members
@@ -55,5 +63,7 @@ private:
 #define GM_LANG GameManager::getInstance()->getLang()
 #define GM_POOL GameManager::getInstance()->getPool()
 #define GM_LOADER GameManager::getInstance()->getLoader()
+#define GM_DATA_MGR GameManager::getInstance()->getDataManager()
+
 
 #endif // __GAME_MANAGER_H__

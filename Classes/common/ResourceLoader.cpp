@@ -1,6 +1,6 @@
 #include "ResourceLoader.h"
 #include "define/CommonDefine.h"
-#include "common/Utilize.hpp"
+#include "common/Utilize.h"
 
 #include "cocostudio/ActionTimeline/CSLoader.h"
 #include "ui/UIHelper.h"

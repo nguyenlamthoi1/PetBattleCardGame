@@ -43,6 +43,15 @@
     <Filter Include="src\scenes\battle_scene">
       <UniqueIdentifier>{1c91784e-4124-4737-aa0a-6b38bac34ed4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\scenes\battle_scene\battle_manager">
+      <UniqueIdentifier>{9b7a02d1-bd68-47b7-818f-26d903ebf831}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\scenes\battle_scene\actions">
+      <UniqueIdentifier>{38d1e25c-74ec-4809-b7b1-105b07a20481}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\data">
+      <UniqueIdentifier>{5ede0427-11ef-4341-9627-7b19210799de}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -86,6 +95,36 @@
     </ClCompile>
     <ClCompile Include="..\Classes\scenes\battle_scene\BattleScene.cpp">
       <Filter>src\scenes\battle_scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene\BMPlayer.cpp">
+      <Filter>src\scenes\battle_scene\battle_manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene\BSHand.cpp">
+      <Filter>src\scenes\battle_scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene\BSCard.cpp">
+      <Filter>src\scenes\battle_scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\components\ChildMapComponent.cpp">
+      <Filter>src\components</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\common\Utilize.cpp">
+      <Filter>src\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene\actions\BSAction.cpp">
+      <Filter>src\scenes\battle_scene\actions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene\BSDeck.cpp">
+      <Filter>src\scenes\battle_scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\data\PlayerData.cpp">
+      <Filter>src\data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\common\DataManager.cpp">
+      <Filter>src\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\data\CardData.cpp">
+      <Filter>src\data</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -224,9 +263,6 @@
     <ClInclude Include="..\Classes\define\CommonDefine.h">
       <Filter>src\define</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\common\Utilize.hpp">
-      <Filter>src\common</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\scenes\title_scene\TitleScene.h">
       <Filter>src\scenes\title_scene</Filter>
     </ClInclude>
@@ -250,6 +286,42 @@
     </ClInclude>
     <ClInclude Include="..\Classes\scenes\battle_scene\BattleScene.h">
       <Filter>src\scenes\battle_scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\MyMacros.h">
+      <Filter>src\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\battle_scene\BSDefine.h">
+      <Filter>src\scenes\battle_scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\battle_scene\BMPlayer.h">
+      <Filter>src\scenes\battle_scene\battle_manager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\battle_scene\BSHand.h">
+      <Filter>src\scenes\battle_scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\battle_scene\BSCard.h">
+      <Filter>src\scenes\battle_scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\components\ChildMapComponent.h">
+      <Filter>src\components</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\Utilize.h">
+      <Filter>src\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\battle_scene\actions\BSAction.h">
+      <Filter>src\scenes\battle_scene\actions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\battle_scene\BSDeck.h">
+      <Filter>src\scenes\battle_scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\data\PlayerData.h">
+      <Filter>src\data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\DataManager.h">
+      <Filter>src\common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\data\CardData.h">
+      <Filter>src\data</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

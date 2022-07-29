@@ -6,7 +6,7 @@
       <ObjectData Name="Scene" Tag="3" ctype="GameNodeObjectData">
         <Size X="1280.0000" Y="720.0000" />
         <Children>
-          <AbstractNodeData Name="Under_Panel" ActionTag="-1398019257" Tag="393" IconVisible="False" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" TouchEnable="True" ClipAble="False" ComboBoxIndex="1" ColorAngle="90.0000" ctype="PanelObjectData">
+          <AbstractNodeData Name="Under_Panel" ActionTag="-1398019257" Tag="393" IconVisible="False" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" TouchEnable="True" ClipAble="False" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
             <Size X="1280.0000" Y="720.0000" />
             <AnchorPoint />
             <Position />
@@ -220,6 +220,49 @@
                 <PrePosition X="0.3333" Y="0.8537" />
                 <PreSize X="0.2344" Y="0.2000" />
                 <FileData Type="PlistSubImage" Path="battle_scene/p1_active_slot.png" Plist="ccstd_assets/battle_scene.plist" />
+              </AbstractNodeData>
+              <AbstractNodeData Name="P1_Hand_Marker" ActionTag="2021093162" Tag="1326" IconVisible="True" RightMargin="1280.0000" TopMargin="360.0000" ctype="SingleNodeObjectData">
+                <Size X="0.0000" Y="0.0000" />
+                <AnchorPoint />
+                <Position />
+                <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                <CColor A="255" R="255" G="255" B="255" />
+                <PrePosition />
+                <PreSize X="0.0000" Y="0.0000" />
+              </AbstractNodeData>
+              <AbstractNodeData Name="P1_Deck" ActionTag="-718942563" Tag="398" IconVisible="True" LeftMargin="1148.6104" RightMargin="131.3896" TopMargin="91.6730" BottomMargin="268.3270" ctype="SingleNodeObjectData">
+                <Size X="0.0000" Y="0.0000" />
+                <Children>
+                  <AbstractNodeData Name="P1_Deck_Icon" ActionTag="1101092828" Tag="395" IconVisible="False" LeftMargin="-17.0000" RightMargin="-17.0000" TopMargin="-17.0000" BottomMargin="-17.0000" ctype="SpriteObjectData">
+                    <Size X="34.0000" Y="34.0000" />
+                    <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                    <Position />
+                    <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                    <CColor A="255" R="255" G="255" B="255" />
+                    <PrePosition />
+                    <PreSize X="0.0000" Y="0.0000" />
+                    <FileData Type="PlistSubImage" Path="battle_scene/deck_count_icon.png" Plist="ccstd_assets/battle_scene.plist" />
+                    <BlendFunc Src="1" Dst="771" />
+                  </AbstractNodeData>
+                  <AbstractNodeData Name="P1_Deck_Text" ActionTag="1925996096" Tag="397" IconVisible="False" LeftMargin="-67.0000" RightMargin="-67.0000" TopMargin="-10.5000" BottomMargin="-52.5000" FontSize="72" LabelText="60/60" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                    <Size X="134.0000" Y="63.0000" />
+                    <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                    <Position Y="-21.0000" />
+                    <Scale ScaleX="0.5000" ScaleY="0.5000" />
+                    <CColor A="255" R="255" G="255" B="255" />
+                    <PrePosition />
+                    <PreSize X="0.0000" Y="0.0000" />
+                    <FontResource Type="Normal" Path="ccstd_fonts/pokemon_pixel_font.ttf" Plist="" />
+                    <OutlineColor A="255" R="255" G="0" B="0" />
+                    <ShadowColor A="255" R="110" G="110" B="110" />
+                  </AbstractNodeData>
+                </Children>
+                <AnchorPoint />
+                <Position X="1148.6104" Y="268.3270" />
+                <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                <CColor A="255" R="255" G="255" B="255" />
+                <PrePosition X="0.8974" Y="0.7454" />
+                <PreSize X="0.0000" Y="0.0000" />
               </AbstractNodeData>
             </Children>
             <AnchorPoint />

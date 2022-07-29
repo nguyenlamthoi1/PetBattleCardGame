@@ -2,6 +2,7 @@
 #include "common/ResourceLoader.h"
 #include "common/ResourcePool.h"
 #include "common/LangSys.h"
+#include "common/DataManager.h"
 #include "HelloWorldScene.h"
 #include "scenes/title_scene/TitleScene.h"
 
@@ -24,7 +25,8 @@ std::shared_ptr<GameManager> GameManager::getInstance() {
 GameManager::GameManager() : 
 	loader(new ResourceLoader()), 
 	pool(new ResourcePool()),
-	lang(new LangSys())
+	lang(new LangSys()),
+	dataMgr(new DataManager())
 {
 }
 
