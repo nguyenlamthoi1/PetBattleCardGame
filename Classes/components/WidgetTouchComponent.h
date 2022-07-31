@@ -33,12 +33,20 @@ public:
 		movedCb = movedFunc;
 		holdCb = holdFunc;
 	}
+	float longTouchDelayCheckTime = 0.0f;
+
 protected:
 	cocos2d::ui::Widget *widget = nullptr;
 	TouchHandlerFunc beganCb;
 	TouchHandlerFunc endedCb;
 	TouchHandlerFunc movedCb;
+	
 	TouchHandlerFunc holdCb;
+	bool checkingLongTouch = false;
+	static const float TOUCH_MOVE_DELTA;
+	static const std::string HOLD_TOUCH_SCHEDULE_KEY;
+
+	cocos2d::Vec2 beganTouchPos = cocos2d::Vec2::ZERO;
 
 	virtual void applyHandler();
 //	//Special touch callbacks
@@ -83,7 +91,7 @@ define_TouchHandlerFunc_Type;
 void setWidgetTouchBegan(cocos2d::ui::Widget *w, const TouchHandlerFunc &f);
 void setWidgetTouchEnded(cocos2d::ui::Widget *w, const TouchHandlerFunc &f);
 void setWidgetTouchMoved(cocos2d::ui::Widget *w, const TouchHandlerFunc &f);
-void setWidgetTouchHold(cocos2d::ui::Widget *w, const TouchHandlerFunc &f);
+void setWidgetTouchHold(cocos2d::ui::Widget *w, const TouchHandlerFunc &f, float delayCheckTime = 0.0f);
 
 void setWidgetTouchCb(cocos2d::ui::Widget *w, 
 	const TouchHandlerFunc &beganCb = nullptr,

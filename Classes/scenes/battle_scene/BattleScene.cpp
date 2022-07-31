@@ -12,8 +12,6 @@
 #include "BSHand.h"
 #include "BSDeck.h"
 
-#include "data/PlayerData.h"
-
 #include "BattleManager.h"
 
 #include "ui/UIHelper.h"
@@ -83,6 +81,8 @@ bool BattleScene::init() {
 
 	// Khoi tao deck
 	decks[PLAYER] = BSDeck::create(this, PLAYER);
+	decks[OPPONENT] = BSDeck::create(this, OPPONENT);
+
 
 	ui->setContentSize(winSize);
 	ui::Helper::doLayout(ui);
@@ -92,6 +92,7 @@ bool BattleScene::init() {
 
 void BattleScene::onEnter() {
 	Scene::onEnter();
+	start();
 }
 
 void BattleScene::onExit() {
@@ -100,6 +101,12 @@ void BattleScene::onExit() {
 
 void BattleScene::start() {
 	// Thiet lap cac first action
+	auto firstPlayerId = PLAYER;
+	auto secondPlayerId = OPPONENT;
+	pushActions({
+		new DrawCardAction(firstPlayerId, 10),
+		new DrawCardAction(firstPlayerId, 10),
+		});
 
 	// Bat dau action pipeline
 	startPipeline();
@@ -111,13 +118,22 @@ void BattleScene::start() {
 */
 
 void BattleScene::startPipeline() {
+
 	schedule(CC_SCHEDULE_SELECTOR(BattleScene::updatePipeline));
 }
 
+void BattleScene::pushActions(std::initializer_list<BSAction*> list) {
+	for (auto &action : list) {
+		action->pushedTo(this);
+	}
+}
+
+
 void BattleScene::updatePipeline(float dt) {
-	while (!pipeline.empty()) {
+	if(!pipeline.empty()) {
 		auto first = pipeline.front();
-		first->start();
+		if(first->state == BSAction::State::Wait)
+			first->start();
 	}
 }
 

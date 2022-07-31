@@ -1,5 +1,5 @@
 #ifndef __CARD_DATA_H__
-#define __PLAYER_DATA_H__
+#define __CARD_DATA_H__
 
 #include <string>
 #include <unordered_map>
@@ -8,7 +8,6 @@
 class CardData{
 public:
 	using CardId = std::string;
-
 	enum class Type {
 		None,
 		Pet,
@@ -16,17 +15,18 @@ public:
 		Supporter,
 		Item
 	};
-	CardData(CardId id, Type t);
 	virtual ~CardData();
-	bool isValid() { return !id.empty(); }
+	bool isValid() const { return !id.empty(); }
 
 	CardId id;
 	Type type = Type::None;
+protected:
+	CardData(CardId id, Type t);
 };
 
 class PetCardData final : public CardData{
 public:
-	PetCardData(CardId id);
+	PetCardData(CardId id = "");
 	~PetCardData();
 
 	std::string name;
@@ -34,4 +34,4 @@ public:
 	std::string petImg;
 };
 
-#endif // __PLAYER_DATA_H__
+#endif // __CARD_DATA_H__

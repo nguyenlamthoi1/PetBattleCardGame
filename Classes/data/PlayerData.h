@@ -27,7 +27,7 @@ public:
 	DeckList getCurDeck() const;
 private:
 	std::vector<DeckList> decks;
-	size_t curDeck;
+	size_t curDeck = 0;
 	std::unordered_map<CardType, CardList> cards;
 };
 

@@ -3,6 +3,7 @@
 #include "GameManager.h"
 #include "common/ResourcePool.h"
 #include "common/Utilize.h"
+#include "components/WidgetTouchComponent.h"
 #include "ui/UIHelper.h"
 
 using namespace std;
@@ -20,9 +21,12 @@ BATTLE_SCENE_NS_BEG
 //	return card;
 //}
 
-const cocos2d::Size BSCard::CARD_SIZE(390, 567);
+const cocos2d::Size BSCard::CARD_SIZE(130, 189);
 
-BSCard* BSCard::createWithData(const CardData *data) {
+BSCard* BSCard::createWithData(const std::shared_ptr<const CardData> &data) {
+	if (!data)
+		return nullptr;
+
 	BSCard *ret = nullptr;
 	switch (data->type) {
 	case CardData::Type::Pet:
@@ -31,6 +35,7 @@ BSCard* BSCard::createWithData(const CardData *data) {
 	}
 	return ret;
 }
+
 
 BSCard::BSCard() {
 
@@ -46,17 +51,25 @@ bool BSCard::init() {
 
 	setAnchorPoint(Vec2(0.5, 0.5));
 	setContentSize(CARD_SIZE);
+	setBackGroundColorType(ui::Layout::BackGroundColorType::SOLID);
+	setBackGroundColorOpacity(50);
+	setBackGroundColor(Color3B::RED);
 
+	
 	return true;
 }
+
+bool BSCard::onTouchHold() {
+	CCLOG("Hold");
+	return true;
+}
+
 
 /*
 	PetCard Class
 */
 
-
-
-PetCard* PetCard::create(const PetCardData* data) {
+PetCard* PetCard::createWithData(const std::shared_ptr<const CardData> &data) {
 	auto card = new (nothrow) PetCard();
 	if (card && card->initWithData(data)) {
 		card->autorelease();
@@ -88,21 +101,27 @@ bool PetCard::init() {
 	if (!cardNode)
 		return false;
 	this->addChild(cardNode);
-
+	auto layoutSize = this->getContentSize();
+	cardNode->setScale(1.0 / 3); // *TODO: Nen tinh toan ra gia tri scale, sao cho kich thuong card bang dung voi CARD_SIZE
+	cardNode->setPosition(layoutSize.width / 2, layoutSize.height / 2);
 	nameText = static_cast<ui::Text*>(Utilize::getChildByName(cardNode, "Pokemon_Name"));
 	nameText->setString("");
 	hpText = static_cast<ui::Text*>(Utilize::getChildByName(cardNode, "Hp_Value_Text"));
 	hpText->setString("0");
 
+	auto td = static_cast<ui::Layout*>(Utilize::getChildByName(cardNode, "Touch_Detector"));
+	WidgetTouchNS::setWidgetTouchHold(td, bind(&PetCard::onTouchHold, this));
+	td->setTouchEnabled(true);
+
 	return true;
 }
 
-bool PetCard::initWithData(const CardData * dta) {
+bool PetCard::initWithData(const std::shared_ptr<const CardData> &dta) {
 	if (!init())
 		return false;
 
-	data = dynamic_cast<const PetCardData*>(dta);
-	if (!data) // Khoi tao thanh cong 1 empty card
+	data = dynamic_pointer_cast<const PetCardData>(data);
+	if (!data || !data->isValid()) // Khoi tao thanh cong 1 empty card
 		return true;
 }
 

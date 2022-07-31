@@ -1,5 +1,6 @@
 #include "BSDeck.h"
 #include "BSCard.h"
+#include "data/CardData.h"
 #include "BattleScene.h"
 #include "common/Utilize.h"
 #include <new>
@@ -30,25 +31,26 @@ bool BSDeck::init() {
 	if (!btlScn || ownerId == PlayerIdInvalid)
 		return false;
 
-	deckIcon = dynamic_cast<Sprite*>(Utilize::getChildByName(btlScn->ui, ""));
+	bool isPlayer = ownerId == PLAYER;
+	deckIcon = dynamic_cast<Sprite*>(Utilize::getChildByName(btlScn->ui, isPlayer ? "P1_Deck_Icon" : "P2_Deck_Icon"));
 	if (!deckIcon)
 		return false;
 
-	deckText = dynamic_cast<ui::Text*>(Utilize::getChildByName(btlScn->ui, ""));
+	deckText = dynamic_cast<ui::Text*>(Utilize::getChildByName(btlScn->ui, isPlayer ? "P1_Deck_Text" : "P2_Deck_Text"));
 	if (!deckText)
 		return false;
 
-	auto deck = btlScn->playerData[ownerId]->getCurDeck();
+	/*auto deck = btlScn->playerData[ownerId]->getCurDeck();
 	for (auto &cardData : deck) {
 		auto card = BSCard::createWithData(cardData);
 		card->retain();
 		cards.push_back(nullptr);
-	}
+	}*/
 
 	for (size_t i = 0; i < 60; i++) {
-		auto card = BSCard::createWithData(nullptr);
+		auto card = BSCard::createWithData(make_shared<PetCardData>());
 		card->retain();
-		cards.push_back(nullptr);
+		cards.push_back(card);
 	}
 }
 
@@ -60,7 +62,7 @@ vector<BSCard*> BSDeck::drawTop(size_t n) {
 
 	for (auto it = cards.cbegin(); it != cards.cbegin() + n; ++it) {
 		auto &card = (*it);
-		card->release();
+		//card->release();
 		ret.push_back(card);
 	}
 	cards.erase(cards.cbegin(), cards.cbegin() + n);

@@ -9,7 +9,7 @@ PlayerData* PlayerData::createPseudo(bool isPlayer) {
 }
 
 
-PlayerData::PlayerData() {
+PlayerData::PlayerData() : curDeck(0) {
 
 }
 

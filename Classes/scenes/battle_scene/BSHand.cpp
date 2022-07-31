@@ -35,18 +35,18 @@ bool BSHand::init() {
 	auto dir = Director::getInstance();
 	auto visibleSize = dir->getVisibleSize();
 
-	setContentSize(Size(visibleSize.width, 300));
+	setContentSize(Size(visibleSize.width, BSCard::CARD_SIZE.height));
 	setBackGroundColorType(ui::Layout::BackGroundColorType::SOLID);
 	setBackGroundColor(Color3B(150, 200, 255));
 	setBackGroundColorOpacity(100);
 	setAnchorPoint(Vec2(0, 0));
-	//setPosition(Vec2(0, 0));
+	setPosition(Vec2(0, -90));
 	//btlScn->addChild(this);
 
 	return true;
 }
 
-void BSHand::drawCards(size_t n) {
+void BSHand::drawCards(size_t n, std::function<void()> onDrawDone) {
 	auto &deck = btlScn->decks[ownerId];
 	auto drawnVec = deck->drawTop(n);
 	
@@ -57,7 +57,7 @@ void BSHand::drawCards(size_t n) {
 	// *Anchor Point cua card: (0.5, 0.5)
 
 	auto cardW = BSCard::CARD_SIZE.width;
-	float cardSpace = 30.0f; // Khoang cach giua nhung la bai
+	float cardSpace = 5.0f; // Khoang cach giua nhung la bai
 	const float minCardSpace = -cardW / 2; // cardSpace >= -cardW / 2 (Neu cardSpace < 0 thi 2 card se dinh vao nhau)
 	auto totalW = total * cardW + (total - 1) * cardSpace; // Tong width cua tat ca card tren hand
 	
@@ -72,20 +72,30 @@ void BSHand::drawCards(size_t n) {
 
 	size_t i = 0;
 	double d = cardW + cardSpace;
-	for (auto &card : cards) {
-		auto action = MoveTo::create(0.3f, Vec2(x + d * i, y));
+	for (auto &card : cards) { // * Nhung card nay da duoc addChild
+		auto action = MoveTo::create(0.5f, Vec2(x + d * i, y));
 		card->runAction(action);
 		++i;
 	}
 
 	auto startPos = Vec2(handWidth + cardW + 30, handHeight);
-	for (auto &card : drawnVec) {
-		card->setPosition(Vec2());
-		auto action = MoveTo::create(0.3f, Vec2(x + d * i, y));
-		card->runAction(action);
+	for (size_t index = 0; index < drawnVec.size(); ++index) { // * Nhung card nay chua duoc addChild
+		auto card = drawnVec[index];
+		this->addChild(card);
+		card->setPosition(startPos);
+
+		if (index == drawnVec.size() - 1) {
+			auto action = Sequence::create(MoveTo::create(0.8f + index * 0.2f, Vec2(x + d * i, y)), CallFunc::create(onDrawDone), nullptr);
+			card->runAction(action);
+		}
+		else {
+			auto action = MoveTo::create(0.8f + index * 0.2f, Vec2(x + d * i, y));
+			card->runAction(action);
+		}
+	
 		++i;
 	}
-
+	cards.insert(cards.cend(), drawnVec.cbegin(), drawnVec.cend());
 }
 
 BATTLE_SCENE_NS_END

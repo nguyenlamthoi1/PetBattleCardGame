@@ -165,9 +165,11 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\scenes\battle_scene\actions\BSAction.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene\BattleScene.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene\BMPlayer.cpp" />
+    <ClCompile Include="..\Classes\scenes\battle_scene\BSBoard.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene\BSCard.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene\BSDeck.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene\BSHand.cpp" />
+    <ClCompile Include="..\Classes\scenes\battle_scene\CardHolder.cpp" />
     <ClCompile Include="..\Classes\scenes\loading_scene\LoadingScene.cpp" />
     <ClCompile Include="..\Classes\scenes\title_scene\TitleScene.cpp" />
     <ClCompile Include="main.cpp" />
@@ -230,11 +232,13 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\include\rapidjson\writer.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene\actions\BSAction.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene\BattleScene.h" />
+    <ClInclude Include="..\Classes\scenes\battle_scene\BSBoard.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene\BSCard.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene\BSDeck.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene\BSDefine.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene\BMPlayer.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene\BSHand.h" />
+    <ClInclude Include="..\Classes\scenes\battle_scene\CardHolder.h" />
     <ClInclude Include="..\Classes\scenes\loading_scene\LoadingScene.h" />
     <ClInclude Include="..\Classes\scenes\title_scene\TitleScene.h" />
     <ClInclude Include="main.h" />

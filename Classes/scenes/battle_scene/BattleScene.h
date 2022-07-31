@@ -61,6 +61,7 @@ public:
 	void startPipeline();
 	void clearPipeline();
 	void updatePipeline(float dt);
+	void pushActions(std::initializer_list<BSAction*> list);
 
 	//--Action pipeline-end--
 

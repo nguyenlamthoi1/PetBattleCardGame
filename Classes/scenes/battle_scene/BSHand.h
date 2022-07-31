@@ -20,7 +20,7 @@ class DrawCardAction;
 class BSHand final : public cocos2d::ui::Layout {
 public:
 	friend class BattleScene;
-	void drawCards(size_t n);
+	void drawCards(size_t n, std::function<void()> f = nullptr);
 private:
 	static BSHand* create(BattleScene *scn, PlayerIdType id);
 

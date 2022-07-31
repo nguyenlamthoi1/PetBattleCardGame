@@ -47,7 +47,10 @@ void DrawCardAction::start() {
 	BSAction::start();
 	
 	auto &hand = bs->hands[playerId];
-	hand->drawCards(drawnNum);
+	hand->drawCards(drawnNum, [this]() {
+		state = State::Done; 
+		pop();
+		});
 }
 
 void DrawCardAction::end() {

@@ -1,5 +1,5 @@
-#ifndef __CARD_HOLDER_H__
-#define __CARD_HOLDER_H__
+#ifndef __BS_BOARD_H__
+#define __BS_BOARD_H__
 
 #include "BSDefine.h"
 #include "cocos2d.h"
@@ -14,15 +14,14 @@
 
 BATTLE_SCENE_NS_BEG
 
-class CardHolder : public cocos2d::ui::Layout {
+class CardHolder;
+
+class BSBoard final {
 public:
-	static CardHolder* create();
-	CardHolder();
-	virtual ~CardHolder();
-	virtual bool init() override;
+private:
+
 };
 
 BATTLE_SCENE_NS_END
 
-
-#endif // __CARD_HOLDER_H__
+#endif // __BS_BOARD_H__

@@ -19,6 +19,8 @@ WidgetTouchComponent::~WidgetTouchComponent() {
 	CCLOG("WidgetTouchComponent::dtor called");
 }
 
+const float WidgetTouchComponent::TOUCH_MOVE_DELTA = 24.0f;
+const string WidgetTouchComponent::HOLD_TOUCH_SCHEDULE_KEY = "HOLD_TOUCH_SCHEDULE_KEY";
 
 void WidgetTouchComponent::applyHandler() {
 	CCASSERT(widget != nullptr, "WidgetTouchComponent::applyHandler: widget is NULL");
@@ -31,29 +33,27 @@ void WidgetTouchComponent::applyHandler() {
 				beganCb(widget, nullptr, nullptr);
 
 			if (holdCb) {
-				//_isCheckingLongTouch = false;
-				//beganTouchPos.x = widget->getTouchBeganPosition().x;
-				//beganTouchPos.y = widget->getTouchBeganPosition().y;
-				//cocos2d::Director::getInstance()->getScheduler()->schedule([this, widget](float dt)
-				//	{
-				//		_isCheckingLongTouch = true;
-
-				//		Vec2 touchStartLoc = beganTouchPos;
-				//		Vec2 touchCurLoc = widget->getTouchBeganPosition();
-				//		float distance = touchStartLoc.distance(touchCurLoc);
-				//		if (distance < COMPONENT_CONST::TOUCH_MOVE_DELTA) { // Touch is not determined being moved 
-				//			if (_touchHoldCallback)
-				//				_touchHoldCallback(widget, nullptr, nullptr);
-				//		}
-				//	}, this, 0, 0, _longTouchDelayCheck, false, COMPONENT_CONST::HOLD_TOUCH_SCHEDULE_KEY);
+				checkingLongTouch = false;
+				beganTouchPos = widget->getTouchBeganPosition();
+				Director::getInstance()->getScheduler()->schedule([this](float dt)
+					{
+						checkingLongTouch = true;
+						Vec2 touchStartLoc = beganTouchPos;
+						Vec2 touchCurLoc = widget->getTouchBeganPosition();
+						float distance = touchStartLoc.distance(touchCurLoc);
+						if (distance < TOUCH_MOVE_DELTA) { // Touch duoc xem la khong bi di chuyen
+							if (holdCb)
+								holdCb(widget, nullptr, nullptr);
+						}
+					}, this, 0, 0, longTouchDelayCheckTime, false, HOLD_TOUCH_SCHEDULE_KEY);
 			}
 			break;
 		}
 		case ui::Widget::TouchEventType::ENDED:
 		case ui::Widget::TouchEventType::CANCELED:
 		{
-			/*if (_touchHoldCallback && !_isCheckingLongTouch)
-				cocos2d::Director::getInstance()->getScheduler()->unschedule(COMPONENT_CONST::HOLD_TOUCH_SCHEDULE_KEY, this);*/
+			if (holdCb && !checkingLongTouch)
+				cocos2d::Director::getInstance()->getScheduler()->unschedule(HOLD_TOUCH_SCHEDULE_KEY, this);
 
 			if (endedCb) 
 				endedCb(widget, nullptr, nullptr);
@@ -99,12 +99,13 @@ void setWidgetTouchMoved(cocos2d::ui::Widget *w, const TouchHandlerFunc &cb) {
 	comp->setTouchMovedCb(cb);
 }
 
-void setWidgetTouchHold(cocos2d::ui::Widget *w, const TouchHandlerFunc &cb) {
+void setWidgetTouchHold(cocos2d::ui::Widget *w, const TouchHandlerFunc &cb, float delayCheckTime) {
 	auto comp = getComponent<WidgetTouchComponent>(w, COMPONENT_KEY::WIDGET_TOUCH);
 	if (!comp) {
 		comp = new WidgetTouchComponent(w);
 		setComponent(w, COMPONENT_KEY::WIDGET_TOUCH, comp);
 	}
+	comp->longTouchDelayCheckTime = delayCheckTime;
 	comp->setTouchHoldCb(cb);
 }
 
