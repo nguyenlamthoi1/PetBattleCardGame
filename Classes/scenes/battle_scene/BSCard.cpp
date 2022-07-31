@@ -21,7 +21,10 @@ BATTLE_SCENE_NS_BEG
 //	return card;
 //}
 
-const cocos2d::Size BSCard::CARD_SIZE(130, 189);
+const Size BSCard::ORIGIN_CARD_SIZE(390, 567);
+const float BSCard::CARD_SCALE_DOWN = 1.0f / 4;
+Size BSCard::CARD_SIZE = Size(ORIGIN_CARD_SIZE.width * CARD_SCALE_DOWN, ORIGIN_CARD_SIZE.height * CARD_SCALE_DOWN);
+
 
 BSCard* BSCard::createWithData(const std::shared_ptr<const CardData> &data) {
 	if (!data)
@@ -98,11 +101,13 @@ bool PetCard::init() {
 	auto pool = GM_POOL;
 	
 	cardNode = static_cast<ui::Layout*>(pool->tryGetNodeCsb("ccstd_csb/cards/pokemon_card.csb"));
+	ui::Helper::doLayout(cardNode);
+	
 	if (!cardNode)
 		return false;
 	this->addChild(cardNode);
 	auto layoutSize = this->getContentSize();
-	cardNode->setScale(1.0 / 3); // *TODO: Nen tinh toan ra gia tri scale, sao cho kich thuong card bang dung voi CARD_SIZE
+	cardNode->setScale(CARD_SCALE_DOWN); // *TODO: Nen tinh toan ra gia tri scale, sao cho kich thuong card bang dung voi CARD_SIZE
 	cardNode->setPosition(layoutSize.width / 2, layoutSize.height / 2);
 	nameText = static_cast<ui::Text*>(Utilize::getChildByName(cardNode, "Pokemon_Name"));
 	nameText->setString("");

@@ -8,8 +8,13 @@
 #define WIDGET_TOUCH_NS_BEGIN namespace WidgetTouchNS {
 #define WIDGET_TOUCH_NS_END }
 #define WIDGET_TOUCH_USE_NS using namespace WidgetTouchNS
-#define define_TouchHandlerFunc_Type using TouchHandlerFunc = std::function<void(cocos2d::ui::Widget*, cocos2d::Touch*, cocos2d::Event*)>
+
 #define WIDGET_TOUCH_HANDLER_PARAMS cocos2d::ui::Widget*, cocos2d::Touch*, cocos2d::Event*
+#define define_TouchHandlerFunc_Type using TouchHandlerFunc = std::function<void(WIDGET_TOUCH_HANDLER_PARAMS)>
+
+#define WIDGET_DRAG_HANDLER_PARAMS cocos2d::Node*, cocos2d::Node*
+#define define_DragHandlerFunc_Type using DragHandlerFunc = std::function<void(WIDGET_DRAG_HANDLER_PARAMS)>
+
 class WidgetTouchComponent : public MComponent {
 public:
 	define_TouchHandlerFunc_Type;
@@ -86,8 +91,47 @@ protected:
 
 };
 
+
+class DragComponent : public MComponent {
+public:
+	define_DragHandlerFunc_Type;
+
+	bool isDragging;
+	float orgX, orgY, orgZ;
+	float orgWorldX, orgWorldY;
+	float offX, offY;
+	cocos2d::Node* orgParent;
+	std::string tag;
+	bool snap;
+	std::vector 
+	/*
+		true: Co the drop khi dang drag, false: Chi co the drop khi release touch
+	*/
+	//bool dropOnMove;
+
+	DragHandlerFunc dropCallback;
+	DragHandlerFunc dragBeginCallback;
+	DragHandlerFunc dragEndCallback;
+
+	DragComponent(const std::string& _tag, 
+		const DragHandlerFunc& _dropCallback, 
+		const DragHandlerFunc& _dragBeginCallback, 
+		const DragHandlerFunc& _dragEndCallback, 
+		bool _dropOnMove, bool _snap) : 
+		tag(_tag), dragBeginCallback(_dragBeginCallback), 
+		dragEndCallback(_dragEndCallback), 
+		dropCallback(_dropCallback), 
+		//dropOnMove(_dropOnMove), 
+		snap(_snap) {}
+};
+
+
+
+
 WIDGET_TOUCH_NS_BEGIN
+
 define_TouchHandlerFunc_Type;
+
 void setWidgetTouchBegan(cocos2d::ui::Widget *w, const TouchHandlerFunc &f);
 void setWidgetTouchEnded(cocos2d::ui::Widget *w, const TouchHandlerFunc &f);
 void setWidgetTouchMoved(cocos2d::ui::Widget *w, const TouchHandlerFunc &f);
@@ -98,6 +142,16 @@ void setWidgetTouchCb(cocos2d::ui::Widget *w,
 	const TouchHandlerFunc &endedCb = nullptr,
 	const TouchHandlerFunc &movedCb = nullptr,
 	const TouchHandlerFunc &holdCb = nullptr);
+
+define_DragHandlerFunc_Type;
+
+void enableDrag(cocos2d::ui::Widget* widget,
+	const std::string& tag,
+	const DragHandlerFunc &dropCallback = nullptr,
+	const DragHandlerFunc& dragBeginCallback = nullptr,
+	const DragHandlerFunc& dragEndCallback = nullptr,
+	bool dropOnMove = false,
+	bool snap = true);
 
 WIDGET_TOUCH_NS_END
 

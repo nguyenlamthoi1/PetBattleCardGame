@@ -1,8 +1,10 @@
 #include "WidgetTouchComponent.h"
 #include "ui/UIWidget.h"
+#include "common/Utilize.h"
 
 USING_NS_CC;
 MY_COMPONENT_USE_NS;
+UTILIZE_USE_NS;
 using namespace std;
 
 WidgetTouchComponent::WidgetTouchComponent(ui::Widget *w,
@@ -122,6 +124,40 @@ void setWidgetTouchCb(cocos2d::ui::Widget *w,
 		return;
 	}
 	comp->setTouchCb(beganCb, endedCb, movedCb, holdCb);
+}
+
+void enableDrag(ui::Widget* widget,
+	const string& tag,
+	const DragHandlerFunc &dropCallback,
+	const DragHandlerFunc& dragBeginCallback,
+	const DragHandlerFunc& dragEndCallback,
+	bool dropOnMove,
+	bool snap) {
+
+	auto dragComp = getComponent<DragComponent>(widget, COMPONENT_KEY::DRAG);
+	if (dragComp) {
+		mvector::removeVectorElement<Node*>(dragComp.);
+	}
+	//if (dragComp)
+	//	FWUTILS->removeVectorElement<cocos2d::Node*>(draggablesByTag[dragComp->tag], node);
+
+	//Component::set(node, COMPONENT_KEY::DRAG, new DragComponent(tag, dropCallback, dragBeginCallback, dragEndCallback, dropOnMove, snap));
+	//draggablesByTag[tag].push_back(node);
+
+	//// add touch handler if not exist
+	//CallbacksComponent* comp = Component::get<CallbacksComponent*>(node, COMPONENT_KEY::CALLBACKS);
+	//if (!comp)
+	//{
+	//	cocos2d::ui::Widget* widget = dynamic_cast<cocos2d::ui::Widget*>(node);
+	//	if (widget)
+	//	{
+	//		setTouchCallbacks(widget, nullptr, nullptr, nullptr);
+	//	}
+	//	else
+	//	{
+	//		//  TODO: support FWObject
+	//	}
+	//}
 }
 
 WIDGET_TOUCH_NS_END

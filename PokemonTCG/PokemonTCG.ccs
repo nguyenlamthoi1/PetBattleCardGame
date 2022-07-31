@@ -21,6 +21,32 @@
             <PlistImageFile Name="battle_scene_score_p1_board.png" Key="battle_scene/score_p1_board.png" />
             <PlistImageFile Name="battle_scene_score_p2_board.png" Key="battle_scene/score_p2_board.png" />
             <PlistImageFile Name="battle_scene_show_num_board.png" Key="battle_scene/show_num_board.png" />
+            <PlistImageFile Name="battle_scene_holder_evolution_arrow.png" Key="battle_scene/holder/evolution_arrow.png" />
+            <PlistImageFile Name="battle_scene_holder_pkm_info_holder.png" Key="battle_scene/holder/pkm_info_holder.png" />
+            <PlistImageFile Name="battle_scene_trainer_frame.png" Key="battle_scene/trainer_frame.png" />
+            <PlistImageFile Name="battle_scene_white_square.png" Key="battle_scene/white_square.png" />
+          </PlistImageFolder>
+          <PlistImageFolder Image="energies.png" PListFile="energies.plist" Name=".energies_PList.Dir">
+            <PlistImageFile Name="energies_x3_energy_dark.png" Key="energies/x3/energy_dark.png" />
+            <PlistImageFile Name="energies_x3_energy_dragon.png" Key="energies/x3/energy_dragon.png" />
+            <PlistImageFile Name="energies_x3_energy_electric.png" Key="energies/x3/energy_electric.png" />
+            <PlistImageFile Name="energies_x3_energy_fighting.png" Key="energies/x3/energy_fighting.png" />
+            <PlistImageFile Name="energies_x3_energy_fire.png" Key="energies/x3/energy_fire.png" />
+            <PlistImageFile Name="energies_x3_energy_grass.png" Key="energies/x3/energy_grass.png" />
+            <PlistImageFile Name="energies_x3_energy_normal.png" Key="energies/x3/energy_normal.png" />
+            <PlistImageFile Name="energies_x3_energy_psychic.png" Key="energies/x3/energy_psychic.png" />
+            <PlistImageFile Name="energies_x3_energy_steel.png" Key="energies/x3/energy_steel.png" />
+            <PlistImageFile Name="energies_x3_energy_water.png" Key="energies/x3/energy_water.png" />
+            <PlistImageFile Name="energies_x1_energy_dark.png" Key="energies/x1/energy_dark.png" />
+            <PlistImageFile Name="energies_x1_energy_dragon.png" Key="energies/x1/energy_dragon.png" />
+            <PlistImageFile Name="energies_x1_energy_electric.png" Key="energies/x1/energy_electric.png" />
+            <PlistImageFile Name="energies_x1_energy_fighting.png" Key="energies/x1/energy_fighting.png" />
+            <PlistImageFile Name="energies_x1_energy_fire.png" Key="energies/x1/energy_fire.png" />
+            <PlistImageFile Name="energies_x1_energy_grass.png" Key="energies/x1/energy_grass.png" />
+            <PlistImageFile Name="energies_x1_energy_normal.png" Key="energies/x1/energy_normal.png" />
+            <PlistImageFile Name="energies_x1_energy_psychic.png" Key="energies/x1/energy_psychic.png" />
+            <PlistImageFile Name="energies_x1_energy_steel.png" Key="energies/x1/energy_steel.png" />
+            <PlistImageFile Name="energies_x1_energy_water.png" Key="energies/x1/energy_water.png" />
           </PlistImageFolder>
           <PlistImageFolder Image="mini_pokemon_list.png" PListFile="mini_pokemon_list.plist" Name=".mini_pokemon_list_PList.Dir">
             <PlistImageFile Name="mini_pokemon_004.png" Key="mini_pokemon/004.png" />
@@ -101,6 +127,7 @@
         <Folder Name="ccstd_csb">
           <Folder Name="battle_scene">
             <Project Name="battle_scene.csd" Type="Scene" />
+            <Project Name="card_holder.csd" Type="Node" />
           </Folder>
           <Folder Name="cards">
             <Project Name="pokemon_card.csd" Type="Node" />

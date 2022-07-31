@@ -6,55 +6,65 @@
       <ObjectData Name="Node" Tag="12" ctype="GameNodeObjectData">
         <Size X="0.0000" Y="0.0000" />
         <Children>
-          <AbstractNodeData Name="Card_Layout" ActionTag="-1647474267" Tag="14" IconVisible="False" LeftMargin="-194.1952" RightMargin="-195.8048" TopMargin="-123.9208" BottomMargin="-126.0792" TouchEnable="True" ClipAble="True" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
-            <Size X="390.0000" Y="250.0000" />
+          <AbstractNodeData Name="Image_85" ActionTag="1389089321" VisibleForFrame="False" Tag="606" IconVisible="False" LeftMargin="-101.4207" RightMargin="-33.5793" TopMargin="-1.8027" BottomMargin="-18.1973" Scale9Enable="True" LeftEage="102" RightEage="102" TopEage="47" BottomEage="47" Scale9OriginX="102" Scale9OriginY="47" Scale9Width="106" Scale9Height="50" ctype="ImageViewObjectData">
+            <Size X="135.0000" Y="20.0000" />
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position X="-33.9207" Y="-8.1973" />
+            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition />
+            <PreSize X="0.0000" Y="0.0000" />
+            <FileData Type="PlistSubImage" Path="battle_scene/p1_active_slot.png" Plist="ccstd_assets/battle_scene.plist" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="Card_Layout" ActionTag="-1647474267" Tag="14" IconVisible="False" LeftMargin="-75.7263" RightMargin="-314.2737" TopMargin="-456.2192" BottomMargin="-110.7808" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
+            <Size X="390.0000" Y="567.0000" />
             <Children>
-              <AbstractNodeData Name="Outer_Background" ActionTag="1949882539" VisibleForFrame="False" Tag="15" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="6.0000" RightMargin="6.0000" TopMargin="-145.0000" BottomMargin="-145.0000" Scale9Enable="True" LeftEage="5" RightEage="5" TopEage="5" BottomEage="5" Scale9OriginX="5" Scale9OriginY="5" Scale9Width="368" Scale9Height="530" ctype="ImageViewObjectData">
-                <Size X="378.0000" Y="540.0000" />
-                <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                <Position X="195.0000" Y="125.0000" />
-                <Scale ScaleX="1.0000" ScaleY="1.0000" />
-                <CColor A="255" R="255" G="255" B="255" />
-                <PrePosition X="0.5000" Y="0.5000" />
-                <PreSize X="0.9692" Y="2.1600" />
-                <FileData Type="PlistSubImage" Path="pokemon_card_template_x3/outer_background_default.png" Plist="ccstd_assets/pokemon_card_template_x3.plist" />
-              </AbstractNodeData>
-              <AbstractNodeData Name="Outer_Border" ActionTag="998543537" VisibleForFrame="False" Tag="16" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" TopMargin="-158.5000" BottomMargin="-158.5000" LeftEage="42" RightEage="42" TopEage="62" BottomEage="62" Scale9OriginX="42" Scale9OriginY="62" Scale9Width="306" Scale9Height="443" ctype="ImageViewObjectData">
+              <AbstractNodeData Name="Outer_Background" ActionTag="1949882539" Tag="15" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" Scale9Enable="True" LeftEage="5" RightEage="5" TopEage="5" BottomEage="5" Scale9OriginX="5" Scale9OriginY="5" Scale9Width="368" Scale9Height="530" ctype="ImageViewObjectData">
                 <Size X="390.0000" Y="567.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                <Position X="195.0000" Y="125.0000" />
+                <Position X="195.0000" Y="283.5000" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.5000" Y="0.5000" />
-                <PreSize X="1.0000" Y="2.2680" />
+                <PreSize X="1.0000" Y="1.0000" />
+                <FileData Type="PlistSubImage" Path="pokemon_card_template_x3/outer_background_default.png" Plist="ccstd_assets/pokemon_card_template_x3.plist" />
+              </AbstractNodeData>
+              <AbstractNodeData Name="Outer_Border" ActionTag="998543537" Tag="16" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" Scale9Enable="True" LeftEage="24" RightEage="24" TopEage="24" BottomEage="24" Scale9OriginX="24" Scale9OriginY="24" Scale9Width="342" Scale9Height="519" ctype="ImageViewObjectData">
+                <Size X="390.0000" Y="567.0000" />
+                <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                <Position X="195.0000" Y="283.5000" />
+                <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                <CColor A="255" R="255" G="255" B="255" />
+                <PrePosition X="0.5000" Y="0.5000" />
+                <PreSize X="1.0000" Y="1.0000" />
                 <FileData Type="PlistSubImage" Path="pokemon_card_template_x3/card_border/border_0.png" Plist="ccstd_assets/pokemon_card_template_x3.plist" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Pokemon_Image" ActionTag="1937826656" Tag="9" IconVisible="False" PositionPercentXEnabled="True" LeftMargin="36.0000" RightMargin="36.0000" TopMargin="41.4400" BottomMargin="13.5600" LeftEage="34" RightEage="34" TopEage="21" BottomEage="21" Scale9OriginX="34" Scale9OriginY="21" Scale9Width="250" Scale9Height="153" ctype="ImageViewObjectData">
+              <AbstractNodeData Name="Pokemon_Image" ActionTag="1937826656" Tag="9" IconVisible="False" PositionPercentXEnabled="True" LeftMargin="36.0000" RightMargin="36.0000" TopMargin="340.4400" BottomMargin="31.5600" LeftEage="34" RightEage="34" TopEage="21" BottomEage="21" Scale9OriginX="34" Scale9OriginY="21" Scale9Width="250" Scale9Height="153" ctype="ImageViewObjectData">
                 <Size X="318.0000" Y="195.0000" />
                 <Children>
-                  <AbstractNodeData Name="Image_Frame" ActionTag="632562203" Tag="10" IconVisible="False" PositionPercentXEnabled="True" TopMargin="-3.2700" BottomMargin="0.2700" LeftEage="34" RightEage="34" TopEage="21" BottomEage="21" Scale9OriginX="34" Scale9OriginY="21" Scale9Width="250" Scale9Height="156" ctype="ImageViewObjectData">
+                  <AbstractNodeData Name="Image_Frame" ActionTag="632562203" Tag="10" IconVisible="False" PositionPercentXEnabled="True" LeftMargin="0.7147" RightMargin="-0.7147" TopMargin="-270.7897" BottomMargin="267.7897" LeftEage="34" RightEage="34" TopEage="21" BottomEage="21" Scale9OriginX="34" Scale9OriginY="21" Scale9Width="250" Scale9Height="156" ctype="ImageViewObjectData">
                     <Size X="318.0000" Y="198.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                    <Position X="159.0000" Y="99.2700" />
+                    <Position X="159.7147" Y="366.7897" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="255" G="255" B="255" />
-                    <PrePosition X="0.5000" Y="0.5091" />
+                    <PrePosition X="0.5022" Y="1.8810" />
                     <PreSize X="1.0000" Y="1.0154" />
                     <FileData Type="PlistSubImage" Path="pokemon_card_template_x3/image_border_default.png" Plist="ccstd_assets/pokemon_card_template_x3.plist" />
                   </AbstractNodeData>
                 </Children>
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                <Position X="195.0000" Y="111.0600" />
+                <Position X="195.0000" Y="129.0600" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
-                <PrePosition X="0.5000" Y="0.4442" />
-                <PreSize X="0.8154" Y="0.7800" />
+                <PrePosition X="0.5000" Y="0.2276" />
+                <PreSize X="0.8154" Y="0.3439" />
                 <FileData Type="PlistSubImage" Path="pokemon_card_template_x3/inner_background_card_default.png" Plist="ccstd_assets/pokemon_card_template_x3.plist" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Evo_Type" ActionTag="565833284" Tag="19" IconVisible="False" LeftMargin="33.6117" RightMargin="287.3883" TopMargin="6.8868" BottomMargin="216.1132" LeftEage="7" RightEage="7" TopEage="2" BottomEage="2" Scale9OriginX="7" Scale9OriginY="2" Scale9Width="55" Scale9Height="23" ctype="ImageViewObjectData">
+              <AbstractNodeData Name="Evo_Type" ActionTag="565833284" VisibleForFrame="False" Tag="19" IconVisible="False" LeftMargin="33.6117" RightMargin="287.3883" TopMargin="323.8868" BottomMargin="216.1132" LeftEage="7" RightEage="7" TopEage="2" BottomEage="2" Scale9OriginX="7" Scale9OriginY="2" Scale9Width="55" Scale9Height="23" ctype="ImageViewObjectData">
                 <Size X="69.0000" Y="27.0000" />
                 <Children>
-                  <AbstractNodeData Name="Evo_Text" ActionTag="882117780" Tag="23" IconVisible="False" LeftMargin="5.0361" RightMargin="-25.0361" TopMargin="-3.1356" BottomMargin="-12.8644" FontSize="36" LabelText="Basic" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                  <AbstractNodeData Name="Evo_Text" ActionTag="882117780" VisibleForFrame="False" Tag="23" IconVisible="False" LeftMargin="5.0361" RightMargin="-25.0361" TopMargin="-3.1356" BottomMargin="-12.8644" FontSize="36" LabelText="Basic" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
                     <Size X="89.0000" Y="43.0000" />
                     <AnchorPoint ScaleY="0.5000" />
                     <Position X="5.0361" Y="8.6356" />
@@ -71,24 +81,24 @@
                 <Position X="68.1117" Y="229.6132" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
-                <PrePosition X="0.1746" Y="0.9185" />
-                <PreSize X="0.1769" Y="0.1080" />
+                <PrePosition X="0.1746" Y="0.4050" />
+                <PreSize X="0.1769" Y="0.0476" />
                 <FileData Type="PlistSubImage" Path="pokemon_card_template_x3/evolution_text_panel.png" Plist="ccstd_assets/pokemon_card_template_x3.plist" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Evo_Arrow" ActionTag="-785453825" Tag="8" IconVisible="False" LeftMargin="12.9779" RightMargin="344.0221" TopMargin="-2.0980" BottomMargin="216.0980" LeftEage="7" RightEage="7" TopEage="7" BottomEage="7" Scale9OriginX="7" Scale9OriginY="7" Scale9Width="19" Scale9Height="22" ctype="ImageViewObjectData">
+              <AbstractNodeData Name="Evo_Arrow" ActionTag="-785453825" VisibleForFrame="False" Tag="8" IconVisible="False" LeftMargin="12.9779" RightMargin="344.0221" TopMargin="314.9020" BottomMargin="216.0980" LeftEage="7" RightEage="7" TopEage="7" BottomEage="7" Scale9OriginX="7" Scale9OriginY="7" Scale9Width="19" Scale9Height="22" ctype="ImageViewObjectData">
                 <Size X="33.0000" Y="36.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="29.4779" Y="234.0980" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
-                <PrePosition X="0.0756" Y="0.9364" />
-                <PreSize X="0.0846" Y="0.1440" />
+                <PrePosition X="0.0756" Y="0.4129" />
+                <PreSize X="0.0846" Y="0.0635" />
                 <FileData Type="PlistSubImage" Path="pokemon_card_template_x3/evolution_arrow.png" Plist="ccstd_assets/pokemon_card_template_x3.plist" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Evo_Square" Visible="False" ActionTag="1648738243" Tag="49" IconVisible="False" LeftMargin="36.4427" RightMargin="290.5573" TopMargin="36.3378" BottomMargin="153.6622" LeftEage="20" RightEage="20" TopEage="19" BottomEage="19" Scale9OriginX="20" Scale9OriginY="19" Scale9Width="23" Scale9Height="22" ctype="ImageViewObjectData">
+              <AbstractNodeData Name="Evo_Square" ActionTag="1648738243" VisibleForFrame="False" Tag="49" IconVisible="False" LeftMargin="36.4427" RightMargin="290.5573" TopMargin="353.3378" BottomMargin="153.6622" LeftEage="20" RightEage="20" TopEage="19" BottomEage="19" Scale9OriginX="20" Scale9OriginY="19" Scale9Width="23" Scale9Height="22" ctype="ImageViewObjectData">
                 <Size X="63.0000" Y="60.0000" />
                 <Children>
-                  <AbstractNodeData Name="Image_18" ActionTag="-1734533133" Tag="60" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="-28.5000" RightMargin="-28.5000" TopMargin="-58.3820" BottomMargin="6.3820" LeftEage="39" RightEage="39" TopEage="36" BottomEage="36" Scale9OriginX="39" Scale9OriginY="36" Scale9Width="42" Scale9Height="40" ctype="ImageViewObjectData">
+                  <AbstractNodeData Name="Image_18" ActionTag="-1734533133" VisibleForFrame="False" Tag="60" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="-28.5000" RightMargin="-28.5000" TopMargin="-58.3820" BottomMargin="6.3820" LeftEage="39" RightEage="39" TopEage="36" BottomEage="36" Scale9OriginX="39" Scale9OriginY="36" Scale9Width="42" Scale9Height="40" ctype="ImageViewObjectData">
                     <Size X="120.0000" Y="112.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="31.5000" Y="62.3820" />
@@ -103,82 +113,82 @@
                 <Position X="67.9427" Y="183.6622" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
-                <PrePosition X="0.1742" Y="0.7346" />
-                <PreSize X="0.1615" Y="0.2400" />
+                <PrePosition X="0.1742" Y="0.3239" />
+                <PreSize X="0.1615" Y="0.1058" />
                 <FileData Type="PlistSubImage" Path="pokemon_card_template_x3/evolution_square_panel.png" Plist="ccstd_assets/pokemon_card_template_x3.plist" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Pokemon_Name" ActionTag="1851822155" Tag="6" IconVisible="False" LeftMargin="102.9414" RightMargin="189.0586" TopMargin="11.9900" BottomMargin="209.0100" FontSize="24" LabelText="Kadabra" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+              <AbstractNodeData Name="Pokemon_Name" ActionTag="1851822155" VisibleForFrame="False" Tag="6" IconVisible="False" LeftMargin="102.9414" RightMargin="189.0586" TopMargin="328.9900" BottomMargin="209.0100" FontSize="24" LabelText="Kadabra" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
                 <Size X="98.0000" Y="29.0000" />
                 <AnchorPoint />
                 <Position X="102.9414" Y="209.0100" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="0" G="0" B="0" />
-                <PrePosition X="0.2640" Y="0.8360" />
-                <PreSize X="0.2513" Y="0.1160" />
+                <PrePosition X="0.2640" Y="0.3686" />
+                <PreSize X="0.2513" Y="0.0511" />
                 <FontResource Type="Normal" Path="ccstd_fonts/GillSans_ttf/Gill-Sans-Bold.ttf" Plist="" />
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Pre_Evo_Name" Visible="False" ActionTag="1156091910" Tag="59" IconVisible="False" LeftMargin="107.5228" RightMargin="-154.5228" TopMargin="22.5955" BottomMargin="184.4045" FontSize="36" LabelText="evolve from: Charmander" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+              <AbstractNodeData Name="Pre_Evo_Name" Visible="False" ActionTag="1156091910" Tag="59" IconVisible="False" LeftMargin="107.5228" RightMargin="-154.5228" TopMargin="339.5955" BottomMargin="184.4045" FontSize="36" LabelText="evolve from: Charmander" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
                 <Size X="437.0000" Y="43.0000" />
                 <AnchorPoint />
                 <Position X="107.5228" Y="184.4045" />
                 <Scale ScaleX="0.4000" ScaleY="0.4000" />
                 <CColor A="255" R="0" G="0" B="0" />
-                <PrePosition X="0.2757" Y="0.7376" />
-                <PreSize X="1.1205" Y="0.1720" />
+                <PrePosition X="0.2757" Y="0.3252" />
+                <PreSize X="1.1205" Y="0.0758" />
                 <FontResource Type="Normal" Path="ccstd_fonts/GillSans_ttf/Gill-Sans-Bold.ttf" Plist="" />
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Hp_Text" ActionTag="1233608033" Tag="11" IconVisible="False" LeftMargin="236.8983" RightMargin="98.1017" TopMargin="0.7167" BottomMargin="206.2833" FontSize="36" LabelText="HP" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+              <AbstractNodeData Name="Hp_Text" ActionTag="1233608033" VisibleForFrame="False" Tag="11" IconVisible="False" LeftMargin="236.8983" RightMargin="98.1017" TopMargin="317.7167" BottomMargin="206.2833" FontSize="36" LabelText="HP" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
                 <Size X="55.0000" Y="43.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="264.3983" Y="227.7833" />
                 <Scale ScaleX="0.4000" ScaleY="0.4000" />
                 <CColor A="255" R="0" G="0" B="0" />
-                <PrePosition X="0.6779" Y="0.9111" />
-                <PreSize X="0.1410" Y="0.1720" />
+                <PrePosition X="0.6779" Y="0.4017" />
+                <PreSize X="0.1410" Y="0.0758" />
                 <FontResource Type="Normal" Path="ccstd_fonts/GillSans_ttf/Gill-Sans-Bold.ttf" Plist="" />
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Hp_Value_Text" ActionTag="-523730455" Tag="12" IconVisible="False" LeftMargin="275.5105" RightMargin="52.4895" TopMargin="-0.0651" BottomMargin="207.0651" FontSize="36" LabelText="360" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+              <AbstractNodeData Name="Hp_Value_Text" ActionTag="-523730455" VisibleForFrame="False" Tag="12" IconVisible="False" LeftMargin="275.5105" RightMargin="52.4895" TopMargin="316.9349" BottomMargin="207.0651" FontSize="36" LabelText="360" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
                 <Size X="62.0000" Y="43.0000" />
                 <AnchorPoint ScaleY="0.5000" />
                 <Position X="275.5105" Y="228.5651" />
                 <Scale ScaleX="0.7000" ScaleY="0.7000" />
                 <CColor A="255" R="0" G="0" B="0" />
-                <PrePosition X="0.7064" Y="0.9143" />
-                <PreSize X="0.1590" Y="0.1720" />
+                <PrePosition X="0.7064" Y="0.4031" />
+                <PreSize X="0.1590" Y="0.0758" />
                 <FontResource Type="Normal" Path="ccstd_fonts/GillSans_ttf/Gill-Sans-Bold.ttf" Plist="" />
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Pokemon_Type" ActionTag="-1901792049" Tag="13" IconVisible="False" LeftMargin="285.3260" RightMargin="8.6740" TopMargin="-27.9238" BottomMargin="181.9238" LeftEage="10" RightEage="10" TopEage="10" BottomEage="10" Scale9OriginX="10" Scale9OriginY="10" Scale9Width="76" Scale9Height="76" ctype="ImageViewObjectData">
+              <AbstractNodeData Name="Pokemon_Type" ActionTag="-1901792049" VisibleForFrame="False" Tag="13" IconVisible="False" LeftMargin="285.3260" RightMargin="8.6740" TopMargin="289.0762" BottomMargin="181.9238" LeftEage="10" RightEage="10" TopEage="10" BottomEage="10" Scale9OriginX="10" Scale9OriginY="10" Scale9Width="76" Scale9Height="76" ctype="ImageViewObjectData">
                 <Size X="96.0000" Y="96.0000" />
                 <AnchorPoint ScaleX="0.4679" ScaleY="0.5541" />
                 <Position X="330.2444" Y="235.1174" />
                 <Scale ScaleX="0.4000" ScaleY="0.4000" />
                 <CColor A="255" R="255" G="255" B="255" />
-                <PrePosition X="0.8468" Y="0.9405" />
-                <PreSize X="0.2462" Y="0.3840" />
+                <PrePosition X="0.8468" Y="0.4147" />
+                <PreSize X="0.2462" Y="0.1693" />
                 <FileData Type="PlistSubImage" Path="pokemon_card_template_x3/energy/energy_fire.png" Plist="ccstd_assets/pokemon_card_template_x3.plist" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Middle_Panel" Visible="False" ActionTag="1404557248" VisibleForFrame="False" Tag="20" IconVisible="False" LeftMargin="21.4518" RightMargin="20.5482" TopMargin="-40.5815" BottomMargin="80.5815" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
+              <AbstractNodeData Name="Middle_Panel" Visible="False" ActionTag="1404557248" VisibleForFrame="False" Tag="20" IconVisible="False" LeftMargin="21.4518" RightMargin="20.5482" TopMargin="276.4185" BottomMargin="80.5815" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
                 <Size X="348.0000" Y="210.0000" />
                 <AnchorPoint />
                 <Position X="21.4518" Y="80.5815" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
-                <PrePosition X="0.0550" Y="0.3223" />
-                <PreSize X="0.8923" Y="0.8400" />
+                <PrePosition X="0.0550" Y="0.1421" />
+                <PreSize X="0.8923" Y="0.3704" />
                 <SingleColor A="255" R="150" G="200" B="255" />
                 <FirstColor A="255" R="150" G="200" B="255" />
                 <EndColor A="255" R="255" G="255" B="255" />
                 <ColorVector ScaleY="1.0000" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Bottom_Panel" Visible="False" ActionTag="-15304011" VisibleForFrame="False" Tag="14" IconVisible="False" LeftMargin="21.4518" RightMargin="20.5482" TopMargin="176.4200" BottomMargin="16.5800" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
+              <AbstractNodeData Name="Bottom_Panel" ActionTag="-15304011" VisibleForFrame="False" Tag="14" IconVisible="False" LeftMargin="21.4518" RightMargin="20.5482" TopMargin="493.4200" BottomMargin="16.5800" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
                 <Size X="348.0000" Y="57.0000" />
                 <Children>
                   <AbstractNodeData Name="Weakness_Panel" ActionTag="609825671" Tag="15" IconVisible="False" LeftMargin="3.0000" RightMargin="201.0000" TopMargin="3.0000" BottomMargin="30.0000" LeftEage="15" RightEage="15" TopEage="2" BottomEage="2" Scale9OriginX="15" Scale9OriginY="2" Scale9Width="114" Scale9Height="20" ctype="ImageViewObjectData">
@@ -327,8 +337,8 @@
                 <Position X="21.4518" Y="16.5800" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
-                <PrePosition X="0.0550" Y="0.0663" />
-                <PreSize X="0.8923" Y="0.2280" />
+                <PrePosition X="0.0550" Y="0.0292" />
+                <PreSize X="0.8923" Y="0.1005" />
                 <SingleColor A="255" R="150" G="200" B="255" />
                 <FirstColor A="255" R="150" G="200" B="255" />
                 <EndColor A="255" R="255" G="255" B="255" />
@@ -336,8 +346,8 @@
               </AbstractNodeData>
             </Children>
             <AnchorPoint />
-            <Position X="-194.1952" Y="-126.0792" />
-            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <Position X="-75.7263" Y="-110.7808" />
+            <Scale ScaleX="0.4000" ScaleY="0.4000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />
             <PreSize X="0.0000" Y="0.0000" />

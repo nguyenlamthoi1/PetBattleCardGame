@@ -19,7 +19,11 @@ BATTLE_SCENE_NS_BEG
 
 class BSCard : public cocos2d::ui::Layout {
 public:
-	static const cocos2d::Size CARD_SIZE;
+	static const cocos2d::Size ORIGIN_CARD_SIZE;
+	static const float CARD_SCALE_DOWN;
+	static cocos2d::Size CARD_SIZE;
+
+
 	static BSCard* createWithData(const std::shared_ptr<const CardData> &data);
 protected:
 	BSCard();

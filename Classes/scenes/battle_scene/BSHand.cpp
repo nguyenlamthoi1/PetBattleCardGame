@@ -40,7 +40,7 @@ bool BSHand::init() {
 	setBackGroundColor(Color3B(150, 200, 255));
 	setBackGroundColorOpacity(100);
 	setAnchorPoint(Vec2(0, 0));
-	setPosition(Vec2(0, -90));
+	setPosition(Vec2(0, -50));
 	//btlScn->addChild(this);
 
 	return true;

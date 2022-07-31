@@ -19,6 +19,7 @@ namespace COMPONENT_KEY {
 	const std::string GAME_POOL = "GAME_POOL";
 	const std::string WIDGET_TOUCH = "WIDGET_TOUCH";
 	const std::string CHILD_MAP = "CHILD_MAP";
+	const std::string DRAG = "DRAG";
 }
 
 class MComponent {

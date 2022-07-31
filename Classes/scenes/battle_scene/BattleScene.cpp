@@ -104,8 +104,8 @@ void BattleScene::start() {
 	auto firstPlayerId = PLAYER;
 	auto secondPlayerId = OPPONENT;
 	pushActions({
-		new DrawCardAction(firstPlayerId, 10),
-		new DrawCardAction(firstPlayerId, 10),
+		new DrawCardAction(firstPlayerId, 7),
+		//new DrawCardAction(firstPlayerId, 10),
 		});
 
 	// Bat dau action pipeline
