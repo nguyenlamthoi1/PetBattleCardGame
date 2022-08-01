@@ -57,5 +57,22 @@ Node* getChildByName(Node* root, const std::string &name) {
 	return node;
 }
 
+UTIL_NODE_BEGIN
+
+Vec2 getLocalPos(Node *node, Node *localNode) {
+	CCASSERT(node != nullptr, "Utilize::mnode::getLocalPos: node == nullptr");
+	if (!localNode)
+		return node->getPosition();
+	auto wPos = node->getParent()->convertToWorldSpaceAR(node->getPosition());
+	return localNode->convertToNodeSpaceAR(wPos);
+}
+
+cocos2d::Vec2 getWorldPos(cocos2d::Node *node) {
+	CCASSERT(node != nullptr, "Utilize::mnode::getWorldPos: node == nullptr");
+	return node->getParent()->convertToWorldSpaceAR(node->getPosition());
+}
+
+
+UTIL_NODE_END
 
 UTILIZE_NS_END

@@ -49,6 +49,19 @@ void WidgetTouchComponent::applyHandler() {
 						}
 					}, this, 0, 0, longTouchDelayCheckTime, false, HOLD_TOUCH_SCHEDULE_KEY);
 			}
+
+			// Drag mode
+			auto comp = getComponent<DragComponent>(widget, COMPONENT_KEY::DRAG);
+			if (comp) {
+				comp->isDragging = false;
+				comp->orgPos = widget->getPosition();
+				comp->orgZ = widget->getLocalZOrder();
+				comp->orgWorldPos = widget->getWorldPosition();
+				comp->offset = widget->getTouchBeganPosition() - comp->orgWorldPos;
+				comp->orgParent = widget->getParent();
+			}
+			// --
+
 			break;
 		}
 		case ui::Widget::TouchEventType::ENDED:
@@ -59,18 +72,80 @@ void WidgetTouchComponent::applyHandler() {
 
 			if (endedCb) 
 				endedCb(widget, nullptr, nullptr);
+
+			auto comp = getComponent<DragComponent>(widget, COMPONENT_KEY::DRAG);
+			if (comp && comp->isDragging) {
+				comp->isDragging = false;
+
+			/*	bool isDropped = false;
+				if (!comp->dropOnMove)
+					isDropped = DragComponent::checkDrop(widget, false);*/
+
+			}
+
 			break;
 		}
 		case ui::Widget::TouchEventType::MOVED: {
 			if (movedCb) 
 				movedCb(widget, nullptr, nullptr);
+
+			auto comp = getComponent<DragComponent>(widget, COMPONENT_KEY::DRAG);
+			if (comp) {
+				if (comp->isDragging) {
+					// Cap nhat lai thong tin cua Drag
+					widget->setPosition(widget->getTouchMovePosition() - comp->offset);
+					DragComponent::checkDrop(widget, widget->getTouchMovePosition(), true);
+				}
+				else {
+					// bat dau drag
+					auto d = widget->getTouchBeganPosition().distance(widget->getTouchMovePosition());
+					if (d > TOUCH_MOVE_DELTA) {
+						comp->isDragging = true;
+						widget->removeFromParent();
+						auto curScene = Director::getInstance()->getRunningScene();
+						curScene->addChild(widget);
+						widget->setPosition(widget->getTouchMovePosition() - comp->offset);
+						if (comp->dragBeginCallback)
+							comp->dragBeginCallback(widget, nullptr);
+					}
+				}
+			}
 			break;
 		}
 		}
 	};
+
 	widget->addTouchEventListener(func);
 }
 
+
+bool DragComponent::checkDrop(Node* node, Vec2 wtTouchPos, bool centerPointCheck) {
+	DragComponent *comp = getComponent<DragComponent>(node, COMPONENT_KEY::DRAG);
+	if (!comp)
+		return false;
+
+	Vec2 wCheckPos;
+	if (centerPointCheck) 
+		wCheckPos = node->getParent()->convertToWorldSpace(node->getPosition());
+	else
+		wCheckPos = wtTouchPos;
+	//curPos += comp->offset;
+
+	auto &destNodes = comp->destinations;
+	for (auto &destNode : destNodes) {
+		auto lCheckPos = destNode->convertToNodeSpace(wCheckPos);
+		auto s = destNode->getContentSize();
+		Rect rect = Rect(0, 0, s.width, s.height);
+		if (rect.containsPoint(lCheckPos))
+		{
+			CCLOG("%s contains touch", destNode->getName().c_str());
+			destNode->setColor(Color3B::RED);
+			return true;
+		}
+	}
+	return true;
+
+}
 
 WIDGET_TOUCH_NS_BEGIN
 
@@ -136,7 +211,7 @@ void enableDrag(ui::Widget* widget,
 
 	auto dragComp = getComponent<DragComponent>(widget, COMPONENT_KEY::DRAG);
 	if (dragComp) {
-		mvector::removeVectorElement<Node*>(dragComp.);
+		//mvector::removeVectorElement<Node*>(dragComp.);
 	}
 	//if (dragComp)
 	//	FWUTILS->removeVectorElement<cocos2d::Node*>(draggablesByTag[dragComp->tag], node);
@@ -159,5 +234,7 @@ void enableDrag(ui::Widget* widget,
 	//	}
 	//}
 }
+
+
 
 WIDGET_TOUCH_NS_END

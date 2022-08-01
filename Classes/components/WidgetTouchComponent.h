@@ -97,22 +97,26 @@ public:
 	define_DragHandlerFunc_Type;
 
 	bool isDragging;
-	float orgX, orgY, orgZ;
-	float orgWorldX, orgWorldY;
-	float offX, offY;
-	cocos2d::Node* orgParent;
+	cocos2d::Vec2 orgPos;
+	float orgZ;
+	cocos2d::Vec2 orgWorldPos;
+	cocos2d::Vec2 offset;
+	cocos2d::Node* orgParent = nullptr;
+	cocos2d::Node* dragContainer = nullptr; // Khi node duoc drag, node se duoc removeFromParent va addChild vao dragContainer
+	cocos2d::Node* hitDestNode = nullptr;
 	std::string tag;
 	bool snap;
-	std::vector 
+	bool useCenter = false;
+	std::vector<cocos2d::Node*> destinations;
 	/*
 		true: Co the drop khi dang drag, false: Chi co the drop khi release touch
 	*/
-	//bool dropOnMove;
+	bool dropOnMove;
 
 	DragHandlerFunc dropCallback;
 	DragHandlerFunc dragBeginCallback;
 	DragHandlerFunc dragEndCallback;
-
+	DragComponent() = default;
 	DragComponent(const std::string& _tag, 
 		const DragHandlerFunc& _dropCallback, 
 		const DragHandlerFunc& _dragBeginCallback, 
@@ -121,11 +125,13 @@ public:
 		tag(_tag), dragBeginCallback(_dragBeginCallback), 
 		dragEndCallback(_dragEndCallback), 
 		dropCallback(_dropCallback), 
-		//dropOnMove(_dropOnMove), 
+		dropOnMove(_dropOnMove), 
 		snap(_snap) {}
+
+	bool isDroppable() { return hitDestNode != nullptr; }
+
+	static bool checkDrop(cocos2d::Node* node, cocos2d::Vec2 wTouchPos, bool centerPointCheck);
 };
-
-
 
 
 WIDGET_TOUCH_NS_BEGIN

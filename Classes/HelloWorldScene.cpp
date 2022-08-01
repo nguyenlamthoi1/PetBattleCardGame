@@ -1,6 +1,12 @@
 #include "HelloWorldScene.h"
+#include "ui/UILayout.h"
+#include "ui/UIWidget.h"
+#include "components/WidgetTouchComponent.h"
+#include "common/Utilize.h"
+
 
 USING_NS_CC;
+UTILIZE_USE_NS;
 
 Scene* HelloWorld::createScene()
 {
@@ -18,7 +24,7 @@ Scene* HelloWorld::createScene()
 }
 
 // on "init" you need to initialize your instance
-bool HelloWorld::init()
+/*bool HelloWorld::init()
 {
     //////////////////////////////
     // 1. super init first
@@ -75,8 +81,182 @@ bool HelloWorld::init()
 	test();
 
     return true;
-}
+}*/
 
+bool HelloWorld::init() {
+	if (!Layer::init())
+		return false;
+	auto dir = Director::getInstance();
+	auto vSize = dir->getVisibleSize();
+
+	auto parentLayout = ui::Layout::create();
+	parentLayout->setBackGroundColorType(ui::Layout::BackGroundColorType::SOLID);
+	parentLayout->setBackGroundColor(Color3B::WHITE);
+	parentLayout->setContentSize(Size(800, 800));
+	parentLayout->setPosition(Vec2::ZERO);
+	this->addChild(parentLayout);
+
+	// L1
+	auto l1 = ui::Layout::create();
+	l1->setBackGroundColorType(ui::Layout::BackGroundColorType::SOLID);
+	l1->setBackGroundColor(Color3B::RED);
+	l1->setBackGroundColorOpacity(255 / 2);
+	l1->setContentSize(Size(400, 400));
+	l1->setPosition(Vec2(0, 400));
+	parentLayout->addChild(l1);
+
+	// OBJ
+	auto obj = ui::Layout::create();
+	obj->setBackGroundColorType(ui::Layout::BackGroundColorType::SOLID);
+	obj->setBackGroundColor(Color3B::YELLOW);
+	obj->setBackGroundColorOpacity(255 / 2);
+	obj->setContentSize(Size(200, 200));
+	obj->setPosition(Vec2(100, 100));
+	obj->setAnchorPoint(Vec2(0.5, 0.5));
+	obj->setName("Object");
+	l1->addChild(obj);
+
+	// L2
+	auto l2 = ui::Layout::create();
+	l2->setBackGroundColorType(ui::Layout::BackGroundColorType::SOLID);
+	l2->setBackGroundColor(Color3B::BLUE);
+	l2->setBackGroundColorOpacity(255 / 2);
+	l2->setContentSize(Size(400, 400));
+	l2->setPosition(Vec2(400, 0));
+	l2->setName("L2");
+	parentLayout->addChild(l2);
+
+	// L3
+	auto l3 = ui::Layout::create();
+	l3->setBackGroundColorType(ui::Layout::BackGroundColorType::SOLID);
+	l3->setBackGroundColor(Color3B::GREEN);
+	l3->setBackGroundColorOpacity(255 / 2);
+	l3->setContentSize(Size(400, 400));
+	l3->setPosition(Vec2(400, 400));
+	l3->setName("L3");
+	parentLayout->addChild(l3);
+
+	auto dragComp = new DragComponent();
+	dragComp->destinations.push_back(l2);
+	dragComp->destinations.push_back(l3);
+	dragComp->useCenter = false;
+
+	MyComponentNS::setComponent(obj, COMPONENT_KEY::DRAG, dragComp);
+	obj->setTouchEnabled(true);
+	obj->addTouchEventListener([this](Ref *sender, ui::Widget::TouchEventType eventType) {
+		auto widget = dynamic_cast<ui::Widget*>(sender);
+		switch (eventType) {
+		case ui::Widget::TouchEventType::BEGAN:
+		{
+			// Drag mode
+			auto comp = MyComponentNS::getComponent<DragComponent>(widget, COMPONENT_KEY::DRAG);
+			if (comp) {
+				comp->isDragging = false;
+				comp->orgPos = widget->getPosition();
+				comp->orgZ = widget->getLocalZOrder();
+				comp->orgWorldPos = widget->getWorldPosition();
+				comp->offset = widget->getTouchBeganPosition() - comp->orgWorldPos;
+				comp->orgParent = widget->getParent();
+
+			}
+			// --
+
+			break;
+		}
+		case ui::Widget::TouchEventType::ENDED:
+		case ui::Widget::TouchEventType::CANCELED:
+		{
+			auto comp = MyComponentNS::getComponent<DragComponent>(widget, COMPONENT_KEY::DRAG);
+			if (comp && comp->isDragging) {
+				comp->isDragging = false;
+				dragEnd(widget, comp->hitDestNode);
+				comp->hitDestNode = nullptr;
+			}
+
+			break;
+		}
+		case ui::Widget::TouchEventType::MOVED: {
+
+			auto comp = MyComponentNS::getComponent<DragComponent>(widget, COMPONENT_KEY::DRAG);
+			if (comp) {
+				if (comp->isDragging) {
+					// Cap nhat lai thong tin cua Drag
+					if (!comp->useCenter)
+						widget->setPosition(widget->getTouchMovePosition() - comp->offset);
+					else
+						widget->setPosition(widget->getTouchMovePosition());
+
+					bool useCenter = false;
+					auto wCheckPos = widget->getTouchMovePosition();
+					for (const auto &dNode : comp->destinations) {
+						auto s = dNode->getContentSize();
+
+						// C1
+						//auto wP = Utilize::mnode::getWorldPos(dNode);
+						//auto rect = Rect(wP.x, wP.y, s.width, s.height);
+						//bool check = rect.containsPoint(wCheckPos);
+						// C2
+						auto lPos = dNode->convertToNodeSpaceAR(wCheckPos);
+						auto rect = Rect(0, 0, s.width, s.height);
+						bool check = rect.containsPoint(lPos);
+
+						if (check) {
+
+							if (comp->hitDestNode && comp->hitDestNode != dNode) {
+								// DRAG OUT CALLBACK
+								dragOut(widget, comp->hitDestNode);
+								comp->hitDestNode = nullptr;
+							}
+
+							if (!comp->hitDestNode || comp->hitDestNode != dNode) {
+								// DRAG IN CALLBACK
+								dragIn(widget, dNode);
+								comp->hitDestNode = dNode;
+							}
+
+							break;
+						}
+						else {
+							if (comp->hitDestNode && comp->hitDestNode == dNode) {
+								// DRAG OUT CALLBACK
+								dragOut(widget, dNode);
+								comp->hitDestNode = nullptr;
+							}
+						}
+					}
+
+				}
+				else {
+					// bat dau drag
+					auto d = widget->getTouchBeganPosition().distance(widget->getTouchMovePosition());
+					if (d > 24) {
+						comp->isDragging = true;
+						widget->removeFromParent();
+						if (!comp->dragContainer) {
+							auto curScene = Director::getInstance()->getRunningScene();
+							curScene->addChild(widget, 9999);
+						}
+						else {
+							comp->dragContainer->addChild(widget);
+						}
+						if (!comp->useCenter)
+							widget->setPosition(widget->getTouchMovePosition() - comp->offset);
+						else
+							widget->setPosition(widget->getTouchMovePosition());
+
+						beginCb(); // DRAG BEGIN CALLBACK
+					}
+				}
+			}
+			break;
+		}
+		}
+		});
+
+
+	return true;
+
+}
 
 void HelloWorld::menuCloseCallback(Ref* pSender)
 {
@@ -93,6 +273,3 @@ public:
 		CCLOG("A: dtor called");
 	}
 };
-void HelloWorld::test() {
-	//A *a = new A();
-}

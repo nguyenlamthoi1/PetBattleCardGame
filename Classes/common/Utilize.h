@@ -18,6 +18,9 @@
 #define UTIL_VECTOR_BEGIN namespace mvector {
 #define UTIL_VECTOR_END }
 
+#define UTIL_NODE_BEGIN namespace mnode {
+#define UTIL_NODE_END }
+
 //#define UTIL_NODE_NS_BEGIN namespace node {
 //#define UTIL_NODE_NS_END }
 
@@ -35,6 +38,13 @@ cocos2d::Node* getChildByMap(cocos2d::Node* root, const std::string &childName, 
 cocos2d::Node* getChildByMap(cocos2d::Node* root, const std::string &name);
 cocos2d::Node* getChildByName(cocos2d::Node* root, const std::string &name);
 
+UTIL_NODE_BEGIN
+
+cocos2d::Vec2 getLocalPos(cocos2d::Node *node, cocos2d::Node *localNode = nullptr);
+cocos2d::Vec2 getWorldPos(cocos2d::Node *node);
+
+
+UTIL_NODE_END
 
 UTIL_VECTOR_BEGIN
 
