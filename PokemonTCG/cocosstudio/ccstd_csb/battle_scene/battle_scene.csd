@@ -9,23 +9,23 @@
           <AbstractNodeData Name="Under_Panel" CanEdit="False" ActionTag="-1398019257" Tag="393" IconVisible="False" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" TouchEnable="True" ClipAble="False" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
             <Size X="1280.0000" Y="720.0000" />
             <Children>
-              <AbstractNodeData Name="Blue_Board" ActionTag="-1506456338" Tag="5" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" LeftMargin="-0.0001" TopMargin="353.1600" BottomMargin="-29.1600" Scale9Enable="True" LeftEage="10" RightEage="10" TopEage="10" BottomEage="10" Scale9OriginX="10" Scale9OriginY="10" Scale9Width="1260" Scale9Height="284" ctype="ImageViewObjectData">
+              <AbstractNodeData Name="Blue_Board" ActionTag="-1506456338" Tag="5" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" TopMargin="353.1600" BottomMargin="-29.1600" Scale9Enable="True" LeftEage="10" RightEage="10" TopEage="10" BottomEage="10" Scale9OriginX="10" Scale9OriginY="10" Scale9Width="2540" Scale9Height="588" ctype="ImageViewObjectData">
                 <Size X="1280.0000" Y="396.0000" />
                 <AnchorPoint />
-                <Position X="-0.0001" Y="-29.1600" />
+                <Position Y="-29.1600" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
-                <PrePosition X="0.0000" Y="-0.0405" />
+                <PrePosition Y="-0.0405" />
                 <PreSize X="1.0000" Y="0.5500" />
                 <FileData Type="PlistSubImage" Path="battle_scene/p1_board.png" Plist="ccstd_assets/battle_scene.plist" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Red_Board" ActionTag="1523142889" Tag="1038" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" LeftMargin="-0.0001" TopMargin="-6.8285" BottomMargin="366.8285" Scale9Enable="True" LeftEage="10" RightEage="10" TopEage="10" BottomEage="10" Scale9OriginX="10" Scale9OriginY="10" Scale9Width="2540" Scale9Height="588" ctype="ImageViewObjectData">
+              <AbstractNodeData Name="Red_Board" ActionTag="1523142889" Tag="1038" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" TopMargin="-6.8400" BottomMargin="366.8400" Scale9Enable="True" LeftEage="10" RightEage="10" TopEage="10" BottomEage="10" Scale9OriginX="10" Scale9OriginY="10" Scale9Width="2540" Scale9Height="588" ctype="ImageViewObjectData">
                 <Size X="1280.0000" Y="360.0000" />
                 <AnchorPoint />
-                <Position X="-0.0001" Y="366.8285" />
+                <Position Y="366.8400" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
-                <PrePosition X="0.0000" Y="0.5095" />
+                <PrePosition Y="0.5095" />
                 <PreSize X="1.0000" Y="0.5000" />
                 <FileData Type="PlistSubImage" Path="battle_scene/p2_board.png" Plist="ccstd_assets/battle_scene.plist" />
               </AbstractNodeData>
@@ -44,17 +44,17 @@
           <AbstractNodeData Name="P2_Panel" CanEdit="False" ActionTag="-1729073216" VisibleForFrame="False" Tag="6" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" BottomMargin="360.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
             <Size X="1280.0000" Y="360.0000" />
             <Children>
-              <AbstractNodeData Name="P2_Board" ActionTag="188918523" Tag="7" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" PercentWidthEnable="True" PercentWidthEnabled="True" LeftMargin="-5.3171" RightMargin="5.3171" TopMargin="-304.0007" BottomMargin="360.0007" FlipY="True" LeftEage="422" RightEage="422" TopEage="100" BottomEage="100" Scale9OriginX="422" Scale9OriginY="100" Scale9Width="436" Scale9Height="104" ctype="ImageViewObjectData">
+              <AbstractNodeData Name="P2_Board" ActionTag="188918523" Tag="7" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" PercentWidthEnable="True" PercentWidthEnabled="True" LeftMargin="-5.3760" RightMargin="5.3760" TopMargin="-304.0000" BottomMargin="360.0000" FlipY="True" LeftEage="422" RightEage="422" TopEage="100" BottomEage="100" Scale9OriginX="422" Scale9OriginY="100" Scale9Width="1716" Scale9Height="408" ctype="ImageViewObjectData">
                 <Size X="1280.0000" Y="304.0000" />
                 <AnchorPoint />
-                <Position X="-5.3171" Y="360.0007" />
+                <Position X="-5.3760" Y="360.0000" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="-0.0042" Y="1.0000" />
                 <PreSize X="1.0000" Y="0.8444" />
                 <FileData Type="PlistSubImage" Path="battle_scene/p2_board.png" Plist="ccstd_assets/battle_scene.plist" />
               </AbstractNodeData>
-              <AbstractNodeData Name="P2_Bench" ActionTag="1650110509" Tag="11" IconVisible="False" LeftMargin="297.2430" RightMargin="294.7570" TopMargin="51.4329" BottomMargin="156.5671" LeftEage="227" RightEage="227" TopEage="50" BottomEage="50" Scale9OriginX="227" Scale9OriginY="50" Scale9Width="234" Scale9Height="52" ctype="ImageViewObjectData">
+              <AbstractNodeData Name="P2_Bench" ActionTag="1650110509" Tag="11" IconVisible="False" LeftMargin="297.2430" RightMargin="294.7570" TopMargin="51.4329" BottomMargin="156.5671" LeftEage="227" RightEage="227" TopEage="50" BottomEage="50" Scale9OriginX="227" Scale9OriginY="50" Scale9Width="922" Scale9Height="204" ctype="ImageViewObjectData">
                 <Size X="688.0000" Y="152.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="641.2430" Y="232.5671" />
@@ -64,7 +64,7 @@
                 <PreSize X="0.5375" Y="0.4222" />
                 <FileData Type="PlistSubImage" Path="battle_scene/bench_board.png" Plist="ccstd_assets/battle_scene.plist" />
               </AbstractNodeData>
-              <AbstractNodeData Name="P2_Active_Board" ActionTag="145962016" Tag="9" IconVisible="False" LeftMargin="748.2592" RightMargin="376.7408" TopMargin="263.7643" BottomMargin="24.2357" LeftEage="51" RightEage="51" TopEage="23" BottomEage="23" Scale9OriginX="51" Scale9OriginY="23" Scale9Width="53" Scale9Height="26" ctype="ImageViewObjectData">
+              <AbstractNodeData Name="P2_Active_Board" ActionTag="145962016" Tag="9" IconVisible="False" LeftMargin="748.2592" RightMargin="376.7408" TopMargin="263.7643" BottomMargin="24.2357" LeftEage="51" RightEage="51" TopEage="23" BottomEage="23" Scale9OriginX="51" Scale9OriginY="23" Scale9Width="208" Scale9Height="98" ctype="ImageViewObjectData">
                 <Size X="155.0000" Y="72.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="825.7592" Y="60.2357" />
@@ -77,8 +77,8 @@
               <AbstractNodeData Name="P2_Deck" ActionTag="1729155942" Tag="428" IconVisible="True" LeftMargin="1158.6104" RightMargin="121.3896" TopMargin="101.6730" BottomMargin="258.3270" ctype="SingleNodeObjectData">
                 <Size X="0.0000" Y="0.0000" />
                 <Children>
-                  <AbstractNodeData Name="P2_Deck_Icon" ActionTag="1151459457" Tag="429" IconVisible="False" LeftMargin="-17.0000" RightMargin="-17.0000" TopMargin="-17.0000" BottomMargin="-17.0000" ctype="SpriteObjectData">
-                    <Size X="34.0000" Y="34.0000" />
+                  <AbstractNodeData Name="P2_Deck_Icon" ActionTag="1151459457" Tag="429" IconVisible="False" LeftMargin="-34.0000" RightMargin="-34.0000" TopMargin="-34.0000" BottomMargin="-34.0000" ctype="SpriteObjectData">
+                    <Size X="68.0000" Y="68.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
@@ -143,7 +143,7 @@
                 <PreSize X="1.0000" Y="0.8444" />
                 <FileData Type="PlistSubImage" Path="battle_scene/p1_board.png" Plist="ccstd_assets/battle_scene.plist" />
               </AbstractNodeData>
-              <AbstractNodeData Name="P2_Active_Board" ActionTag="-1352214566" Tag="996" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="584.3953" RightMargin="588.6047" TopMargin="194.6942" BottomMargin="15.3058" Scale9Enable="True" LeftEage="10" RightEage="10" TopEage="10" BottomEage="10" Scale9OriginX="10" Scale9OriginY="10" Scale9Width="256" Scale9Height="374" ctype="ImageViewObjectData">
+              <AbstractNodeData Name="P2_Active_Board" ActionTag="-1352214566" Tag="996" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="584.4520" RightMargin="588.5480" TopMargin="194.7120" BottomMargin="15.2880" Scale9Enable="True" LeftEage="10" RightEage="10" TopEage="10" BottomEage="10" Scale9OriginX="10" Scale9OriginY="10" Scale9Width="256" Scale9Height="374" ctype="ImageViewObjectData">
                 <Size X="107.0000" Y="150.0000" />
                 <Children>
                   <AbstractNodeData Name="TestHolder_0" ActionTag="1987889034" Tag="997" IconVisible="True" LeftMargin="6.0000" RightMargin="101.0000" TopMargin="144.0000" BottomMargin="6.0000" StretchWidthEnable="False" StretchHeightEnable="False" InnerActionSpeed="1.0000" CustomSizeEnabled="False" ctype="ProjectNodeObjectData">
@@ -158,7 +158,7 @@
                   </AbstractNodeData>
                 </Children>
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                <Position X="637.8953" Y="90.3058" />
+                <Position X="637.9520" Y="90.2880" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.4984" Y="0.2508" />
@@ -180,7 +180,7 @@
           <AbstractNodeData Name="P1_Panel" ActionTag="-1947758208" Tag="4" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" TopMargin="360.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
             <Size X="1280.0000" Y="360.0000" />
             <Children>
-              <AbstractNodeData Name="P1_Bench" ActionTag="585886318" Tag="10" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="445.7762" RightMargin="434.2238" TopMargin="160.0294" BottomMargin="99.9706" Scale9Enable="True" LeftEage="4" RightEage="4" TopEage="4" BottomEage="4" Scale9OriginX="4" Scale9OriginY="4" Scale9Width="1368" Scale9Height="296" ctype="ImageViewObjectData">
+              <AbstractNodeData Name="P1_Bench" ActionTag="585886318" Tag="10" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="445.7599" RightMargin="434.2401" TopMargin="160.0240" BottomMargin="99.9760" Scale9Enable="True" LeftEage="4" RightEage="4" TopEage="4" BottomEage="4" Scale9OriginX="4" Scale9OriginY="4" Scale9Width="1368" Scale9Height="296" ctype="ImageViewObjectData">
                 <Size X="400.0000" Y="100.0000" />
                 <Children>
                   <AbstractNodeData Name="TestHolder_0" ActionTag="-1756700970" Tag="1890" IconVisible="True" LeftMargin="8.9277" RightMargin="391.0723" TopMargin="90.3819" BottomMargin="9.6181" StretchWidthEnable="False" StretchHeightEnable="False" InnerActionSpeed="1.0000" CustomSizeEnabled="False" ctype="ProjectNodeObjectData">
@@ -235,14 +235,14 @@
                   </AbstractNodeData>
                 </Children>
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                <Position X="645.7762" Y="149.9706" />
+                <Position X="645.7599" Y="149.9760" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.5045" Y="0.4166" />
                 <PreSize X="0.3125" Y="0.2778" />
                 <FileData Type="PlistSubImage" Path="battle_scene/bench_board.png" Plist="ccstd_assets/battle_scene.plist" />
               </AbstractNodeData>
-              <AbstractNodeData Name="P1_Active_Board" Visible="False" ActionTag="-975471591" VisibleForFrame="False" Tag="8" IconVisible="False" LeftMargin="275.3680" RightMargin="704.6320" TopMargin="16.6694" BottomMargin="271.3306" Scale9Enable="True" LeftEage="9" RightEage="3" TopEage="3" BottomEage="3" Scale9OriginX="9" Scale9OriginY="3" Scale9Width="143" Scale9Height="66" ctype="ImageViewObjectData">
+              <AbstractNodeData Name="P1_Active_Board" Visible="False" ActionTag="-975471591" VisibleForFrame="False" Tag="8" IconVisible="False" LeftMargin="275.3680" RightMargin="704.6320" TopMargin="16.6694" BottomMargin="271.3306" Scale9Enable="True" LeftEage="9" RightEage="3" TopEage="3" BottomEage="3" Scale9OriginX="9" Scale9OriginY="3" Scale9Width="298" Scale9Height="138" ctype="ImageViewObjectData">
                 <Size X="300.0000" Y="72.0000" />
                 <Children>
                   <AbstractNodeData Name="FileNode_1" Visible="False" ActionTag="684282440" VisibleForFrame="False" Tag="17" IconVisible="True" LeftMargin="99.3745" RightMargin="200.6255" TopMargin="-78.9667" BottomMargin="150.9667" StretchWidthEnable="False" StretchHeightEnable="False" InnerActionSpeed="1.0000" CustomSizeEnabled="False" ctype="ProjectNodeObjectData">
@@ -273,13 +273,13 @@
                 <PrePosition />
                 <PreSize X="0.0000" Y="0.0000" />
               </AbstractNodeData>
-              <AbstractNodeData Name="P1_Deck" ActionTag="-718942563" Tag="398" IconVisible="True" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="1224.8545" RightMargin="55.1455" TopMargin="42.1702" BottomMargin="317.8298" ctype="SingleNodeObjectData">
+              <AbstractNodeData Name="P1_Deck" ActionTag="-718942563" Tag="398" IconVisible="True" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="1224.8320" RightMargin="55.1680" TopMargin="42.1560" BottomMargin="317.8440" ctype="SingleNodeObjectData">
                 <Size X="0.0000" Y="0.0000" />
                 <Children>
                   <AbstractNodeData Name="P1_Deck_Icon" ActionTag="1101092828" Tag="395" IconVisible="False" LeftMargin="-34.0002" RightMargin="-33.9998" TopMargin="-34.0000" BottomMargin="-34.0000" ctype="SpriteObjectData">
                     <Size X="68.0000" Y="68.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                    <Position X="-0.0002" Y="0.0000" />
+                    <Position X="-0.0002" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="255" G="255" B="255" />
                     <PrePosition />
@@ -301,7 +301,7 @@
                   </AbstractNodeData>
                 </Children>
                 <AnchorPoint />
-                <Position X="1224.8545" Y="317.8298" />
+                <Position X="1224.8320" Y="317.8440" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.9569" Y="0.8829" />

@@ -27,7 +27,7 @@ void setComponent(Node *node, const string &key, MComponent *comp) {
 	}
 	else {
 		dict = dynamic_cast<ComponentDictionary*>(obj);
-		CCASSERT(dict == nullptr, "setComponent: node already has attached another component");
+		CCASSERT(dict != nullptr, "setComponent: node already has attached another component");
 	}
 
 	dict->erase(key); // Xoa old component co trung key

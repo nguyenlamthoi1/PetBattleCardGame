@@ -54,83 +54,39 @@ protected:
 	cocos2d::Vec2 beganTouchPos = cocos2d::Vec2::ZERO;
 
 	virtual void applyHandler();
-//	//Special touch callbacks
-//	bool _isCheckingLongTouch = false;
-//	float _longTouchDelayCheck = 0.0f;
-//	cocos2d::Vec2 beganTouchPos = cocos2d::Vec2::ZERO;
-//	CommonTouchCallback _touchHoldCallback = nullptr;
-//
-//	bool _swallowTouches = true;
-//	bool _forceTouchEnd = false;
-//	bool _checkEndedInsideNode = true;
-//
-//public:
-//	OneTouchHandlerComponent(
-//		const TouchBeganCallback& touchBeganCallback,
-//		const CommonTouchCallback& touchEndedCallback,
-//		const CommonTouchCallback& touchMovedCallback,
-//		/*const CommonTouchCallback& touchCancelledCallback,*/
-//		const CommonTouchCallback& longTouchCallback = nullptr,
-//		bool swallowTouches = true
-//	);
-//	void apply(cocos2d::Node* node);
-//	void apply(cocos2d::ui::Widget* widget);
-//
-//	void cleanup();
-//
-//	void setLongTouchDelay(float longTouchDelayCheck) { _longTouchDelayCheck = cocos2d::clampf(longTouchDelayCheck, 0.0f, COMPONENT_CONST::HOLD_TOUCH_DELAY); }
-//
-//	void setTouchBeganCallback(const TouchBeganCallback& touchBeganCallback) { _touchBeganCallback = touchBeganCallback; }
-//	void setTouchEndedCallback(const CommonTouchCallback& touchEndedCallback) { _touchEndedCallback = touchEndedCallback; }
-//	void setTouchMovedCallback(const CommonTouchCallback& touchMovedCallback) { _touchMovedCallback = touchMovedCallback; }
-//	void setTouchHoldCallback(const CommonTouchCallback& touchHoldCallback) { _touchHoldCallback = touchHoldCallback; }
-//
-//	void setSwallowTouches(bool swallowTouches);
-//	bool isSwallowTouches();
-//	static void cleanupTouchHandler(cocos2d::Node* node);
-
 };
 
 
 class DragComponent : public MComponent {
 public:
+	friend class WidgetTouchComponent;
+	friend class HelloWorld;
 	define_DragHandlerFunc_Type;
 
-	bool isDragging;
+	DragHandlerFunc dragBeginCallback; // Function duoc goi khi bat dau drag object
+	DragHandlerFunc dragEndCallback; // Function duoc goi khi release Touch luc dang drag object
+	DragHandlerFunc dragInCallback; // Function duoc goi khi drag object den 1 dest node
+	DragHandlerFunc dragOutCallback; // Function duoc goi khi drag object ra khoi 1 dest node
+	std::vector<cocos2d::Node*> destinations; // Danh sach cac node muc tieu(dest node) khi drag object
+	cocos2d::Node* dragContainer = nullptr; // Khi node duoc drag, node se duoc removeFromParent va addChild vao dragContainer
+	cocos2d::Node* draggedObj = nullptr;
+	/* 
+	useCenter la T -> Thi center point cua object duoc dung kiem tra object drag den 1 dest node 
+	useCenter la F -> Thi touch point cua object duoc dung kiem tra object drag den 1 dest node
+	*/
+	bool useCenter = false;
+
+	DragComponent() = default;
+	~DragComponent();
+	bool isDroppable() { return hitDestNode != nullptr; }
+protected:
+	bool isDragging = false;
 	cocos2d::Vec2 orgPos;
 	float orgZ;
 	cocos2d::Vec2 orgWorldPos;
 	cocos2d::Vec2 offset;
 	cocos2d::Node* orgParent = nullptr;
-	cocos2d::Node* dragContainer = nullptr; // Khi node duoc drag, node se duoc removeFromParent va addChild vao dragContainer
 	cocos2d::Node* hitDestNode = nullptr;
-	std::string tag;
-	bool snap;
-	bool useCenter = false;
-	std::vector<cocos2d::Node*> destinations;
-	/*
-		true: Co the drop khi dang drag, false: Chi co the drop khi release touch
-	*/
-	bool dropOnMove;
-
-	DragHandlerFunc dropCallback;
-	DragHandlerFunc dragBeginCallback;
-	DragHandlerFunc dragEndCallback;
-	DragComponent() = default;
-	DragComponent(const std::string& _tag, 
-		const DragHandlerFunc& _dropCallback, 
-		const DragHandlerFunc& _dragBeginCallback, 
-		const DragHandlerFunc& _dragEndCallback, 
-		bool _dropOnMove, bool _snap) : 
-		tag(_tag), dragBeginCallback(_dragBeginCallback), 
-		dragEndCallback(_dragEndCallback), 
-		dropCallback(_dropCallback), 
-		dropOnMove(_dropOnMove), 
-		snap(_snap) {}
-
-	bool isDroppable() { return hitDestNode != nullptr; }
-
-	static bool checkDrop(cocos2d::Node* node, cocos2d::Vec2 wTouchPos, bool centerPointCheck);
 };
 
 
@@ -151,13 +107,8 @@ void setWidgetTouchCb(cocos2d::ui::Widget *w,
 
 define_DragHandlerFunc_Type;
 
-void enableDrag(cocos2d::ui::Widget* widget,
-	const std::string& tag,
-	const DragHandlerFunc &dropCallback = nullptr,
-	const DragHandlerFunc& dragBeginCallback = nullptr,
-	const DragHandlerFunc& dragEndCallback = nullptr,
-	bool dropOnMove = false,
-	bool snap = true);
+void setDragComponent(cocos2d::ui::Widget* widget, DragComponent *comp);
+void removeDragComponent(cocos2d::ui::Widget* widget);
 
 WIDGET_TOUCH_NS_END
 

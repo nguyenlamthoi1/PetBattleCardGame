@@ -4,6 +4,8 @@
 #include "GameManager.h"
 #include "BSDeck.h"
 #include "common/ResourcePool.h"
+#include "common/Utilize.h"
+#include "components/WidgetTouchComponent.h"
 #include "ui/UIHelper.h"
 
 using namespace std;
@@ -78,11 +80,18 @@ void BSHand::drawCards(size_t n, std::function<void()> onDrawDone) {
 		++i;
 	}
 
+	// * Duyet vong lap tren danh sach card duoc draw
 	auto startPos = Vec2(handWidth + cardW + 30, handHeight);
 	for (size_t index = 0; index < drawnVec.size(); ++index) { // * Nhung card nay chua duoc addChild
 		auto card = drawnVec[index];
 		this->addChild(card);
 		card->setPosition(startPos);
+
+		// Them Drag component
+		auto dragComp = new DragComponent();
+		dragComp->useCenter = true;
+		WidgetTouchNS::setDragComponent(card, dragComp);
+		//--
 
 		if (index == drawnVec.size() - 1) {
 			auto action = Sequence::create(MoveTo::create(0.8f + index * 0.2f, Vec2(x + d * i, y)), CallFunc::create(onDrawDone), nullptr);

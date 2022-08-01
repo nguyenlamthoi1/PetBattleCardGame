@@ -114,10 +114,11 @@ bool PetCard::init() {
 	hpText = static_cast<ui::Text*>(Utilize::getChildByName(cardNode, "Hp_Value_Text"));
 	hpText->setString("0");
 
-	auto td = static_cast<ui::Layout*>(Utilize::getChildByName(cardNode, "Touch_Detector"));
+	/*auto td = static_cast<ui::Layout*>(Utilize::getChildByName(cardNode, "Touch_Detector"));
 	WidgetTouchNS::setWidgetTouchHold(td, bind(&PetCard::onTouchHold, this));
 	td->setTouchEnabled(true);
-
+	td->setSwallowTouches(false);*/
+	this->setTouchEnabled(true);
 	return true;
 }
 

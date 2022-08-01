@@ -16,7 +16,7 @@
             <PreSize X="0.0000" Y="0.0000" />
             <FileData Type="PlistSubImage" Path="battle_scene/p1_active_slot.png" Plist="ccstd_assets/battle_scene.plist" />
           </AbstractNodeData>
-          <AbstractNodeData Name="Card_Layout" ActionTag="-1647474267" Tag="14" IconVisible="False" LeftMargin="-75.7263" RightMargin="-314.2737" TopMargin="-456.2192" BottomMargin="-110.7808" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
+          <AbstractNodeData Name="Card_Layout" ActionTag="-1647474267" Tag="14" IconVisible="False" LeftMargin="-75.7263" RightMargin="-314.2737" TopMargin="-456.2192" BottomMargin="-110.7808" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
             <Size X="390.0000" Y="567.0000" />
             <Children>
               <AbstractNodeData Name="Outer_Background" ActionTag="1949882539" Tag="15" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" Scale9Enable="True" LeftEage="5" RightEage="5" TopEage="5" BottomEage="5" Scale9OriginX="5" Scale9OriginY="5" Scale9Width="368" Scale9Height="530" ctype="ImageViewObjectData">
@@ -42,10 +42,10 @@
               <AbstractNodeData Name="Pokemon_Image" ActionTag="1937826656" Tag="9" IconVisible="False" PositionPercentXEnabled="True" LeftMargin="36.0000" RightMargin="36.0000" TopMargin="340.4400" BottomMargin="31.5600" LeftEage="34" RightEage="34" TopEage="21" BottomEage="21" Scale9OriginX="34" Scale9OriginY="21" Scale9Width="250" Scale9Height="153" ctype="ImageViewObjectData">
                 <Size X="318.0000" Y="195.0000" />
                 <Children>
-                  <AbstractNodeData Name="Image_Frame" ActionTag="632562203" Tag="10" IconVisible="False" PositionPercentXEnabled="True" LeftMargin="0.7147" RightMargin="-0.7147" TopMargin="-270.7897" BottomMargin="267.7897" LeftEage="34" RightEage="34" TopEage="21" BottomEage="21" Scale9OriginX="34" Scale9OriginY="21" Scale9Width="250" Scale9Height="156" ctype="ImageViewObjectData">
+                  <AbstractNodeData Name="Image_Frame" ActionTag="632562203" Tag="10" IconVisible="False" PositionPercentXEnabled="True" LeftMargin="0.6996" RightMargin="-0.6996" TopMargin="-270.7897" BottomMargin="267.7897" LeftEage="34" RightEage="34" TopEage="21" BottomEage="21" Scale9OriginX="34" Scale9OriginY="21" Scale9Width="250" Scale9Height="156" ctype="ImageViewObjectData">
                     <Size X="318.0000" Y="198.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                    <Position X="159.7147" Y="366.7897" />
+                    <Position X="159.6996" Y="366.7897" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="255" G="255" B="255" />
                     <PrePosition X="0.5022" Y="1.8810" />

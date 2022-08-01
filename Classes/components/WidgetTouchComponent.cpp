@@ -7,6 +7,20 @@ MY_COMPONENT_USE_NS;
 UTILIZE_USE_NS;
 using namespace std;
 
+/*
+	DragComponent Class
+*/
+
+DragComponent::~DragComponent() {
+	CCLOG("DragComponent::dtor");
+}
+
+
+/*
+	WidgetTouchComponent Class
+*/
+
+
 WidgetTouchComponent::WidgetTouchComponent(ui::Widget *w,
 	const TouchHandlerFunc& beganFunc,
 	const TouchHandlerFunc& endedFunc,
@@ -50,8 +64,8 @@ void WidgetTouchComponent::applyHandler() {
 					}, this, 0, 0, longTouchDelayCheckTime, false, HOLD_TOUCH_SCHEDULE_KEY);
 			}
 
-			// Drag mode
-			auto comp = getComponent<DragComponent>(widget, COMPONENT_KEY::DRAG);
+			// Drag Comp
+			auto comp = MyComponentNS::getComponent<DragComponent>(widget, COMPONENT_KEY::DRAG);
 			if (comp) {
 				comp->isDragging = false;
 				comp->orgPos = widget->getPosition();
@@ -59,6 +73,7 @@ void WidgetTouchComponent::applyHandler() {
 				comp->orgWorldPos = widget->getWorldPosition();
 				comp->offset = widget->getTouchBeganPosition() - comp->orgWorldPos;
 				comp->orgParent = widget->getParent();
+
 			}
 			// --
 
@@ -73,15 +88,15 @@ void WidgetTouchComponent::applyHandler() {
 			if (endedCb) 
 				endedCb(widget, nullptr, nullptr);
 
-			auto comp = getComponent<DragComponent>(widget, COMPONENT_KEY::DRAG);
+			// Drag Comp
+			auto comp = MyComponentNS::getComponent<DragComponent>(widget, COMPONENT_KEY::DRAG);
 			if (comp && comp->isDragging) {
 				comp->isDragging = false;
-
-			/*	bool isDropped = false;
-				if (!comp->dropOnMove)
-					isDropped = DragComponent::checkDrop(widget, false);*/
-
+				if(comp->dragEndCallback)
+					comp->dragEndCallback(widget, comp->hitDestNode);
+				comp->hitDestNode = nullptr;
 			}
+			//--
 
 			break;
 		}
@@ -89,27 +104,84 @@ void WidgetTouchComponent::applyHandler() {
 			if (movedCb) 
 				movedCb(widget, nullptr, nullptr);
 
-			auto comp = getComponent<DragComponent>(widget, COMPONENT_KEY::DRAG);
+			// Drag comp
+			auto comp = MyComponentNS::getComponent<DragComponent>(widget, COMPONENT_KEY::DRAG);
 			if (comp) {
 				if (comp->isDragging) {
 					// Cap nhat lai thong tin cua Drag
-					widget->setPosition(widget->getTouchMovePosition() - comp->offset);
-					DragComponent::checkDrop(widget, widget->getTouchMovePosition(), true);
+					if (!comp->useCenter)
+						widget->setPosition(widget->getTouchMovePosition() - comp->offset);
+					else
+						widget->setPosition(widget->getTouchMovePosition());
+
+					bool useCenter = false;
+					auto wCheckPos = widget->getTouchMovePosition();
+					for (const auto &dNode : comp->destinations) {
+						auto s = dNode->getContentSize();
+
+						// C1
+						//auto wP = Utilize::mnode::getWorldPos(dNode);
+						//auto rect = Rect(wP.x, wP.y, s.width, s.height);
+						//bool check = rect.containsPoint(wCheckPos);
+						// C2
+						auto lPos = dNode->convertToNodeSpaceAR(wCheckPos);
+						auto rect = Rect(0, 0, s.width, s.height);
+						bool check = rect.containsPoint(lPos);
+
+						if (check) {
+
+							if (comp->hitDestNode && comp->hitDestNode != dNode) {
+								// DRAG OUT CALLBACK
+								if(comp->dragOutCallback)
+									comp->dragOutCallback(widget, comp->hitDestNode);
+								comp->hitDestNode = nullptr;
+							}
+
+							if (!comp->hitDestNode || comp->hitDestNode != dNode) {
+								// DRAG IN CALLBACK
+								if(comp->dragInCallback)
+									comp->dragInCallback(widget, dNode);
+								comp->hitDestNode = dNode;
+							}
+
+							break;
+						}
+						else {
+							if (comp->hitDestNode && comp->hitDestNode == dNode) {
+								// DRAG OUT CALLBACK
+								if(comp->dragOutCallback)
+									comp->dragOutCallback(widget, dNode);
+								comp->hitDestNode = nullptr;
+							}
+						}
+					}
+
 				}
 				else {
 					// bat dau drag
 					auto d = widget->getTouchBeganPosition().distance(widget->getTouchMovePosition());
-					if (d > TOUCH_MOVE_DELTA) {
+					if (d > 24) {
 						comp->isDragging = true;
 						widget->removeFromParent();
-						auto curScene = Director::getInstance()->getRunningScene();
-						curScene->addChild(widget);
-						widget->setPosition(widget->getTouchMovePosition() - comp->offset);
-						if (comp->dragBeginCallback)
-							comp->dragBeginCallback(widget, nullptr);
+						if (!comp->dragContainer) {
+							auto curScene = Director::getInstance()->getRunningScene();
+							curScene->addChild(widget, 9999);
+						}
+						else {
+							comp->dragContainer->addChild(widget);
+						}
+						if (!comp->useCenter)
+							widget->setPosition(widget->getTouchMovePosition() - comp->offset);
+						else
+							widget->setPosition(widget->getTouchMovePosition());
+
+						if(comp->dragBeginCallback)
+							comp->dragBeginCallback(widget, nullptr); // DRAG BEGIN CALLBACK
 					}
 				}
 			}
+			//--
+
 			break;
 		}
 		}
@@ -119,33 +191,6 @@ void WidgetTouchComponent::applyHandler() {
 }
 
 
-bool DragComponent::checkDrop(Node* node, Vec2 wtTouchPos, bool centerPointCheck) {
-	DragComponent *comp = getComponent<DragComponent>(node, COMPONENT_KEY::DRAG);
-	if (!comp)
-		return false;
-
-	Vec2 wCheckPos;
-	if (centerPointCheck) 
-		wCheckPos = node->getParent()->convertToWorldSpace(node->getPosition());
-	else
-		wCheckPos = wtTouchPos;
-	//curPos += comp->offset;
-
-	auto &destNodes = comp->destinations;
-	for (auto &destNode : destNodes) {
-		auto lCheckPos = destNode->convertToNodeSpace(wCheckPos);
-		auto s = destNode->getContentSize();
-		Rect rect = Rect(0, 0, s.width, s.height);
-		if (rect.containsPoint(lCheckPos))
-		{
-			CCLOG("%s contains touch", destNode->getName().c_str());
-			destNode->setColor(Color3B::RED);
-			return true;
-		}
-	}
-	return true;
-
-}
 
 WIDGET_TOUCH_NS_BEGIN
 
@@ -201,38 +246,21 @@ void setWidgetTouchCb(cocos2d::ui::Widget *w,
 	comp->setTouchCb(beganCb, endedCb, movedCb, holdCb);
 }
 
-void enableDrag(ui::Widget* widget,
-	const string& tag,
-	const DragHandlerFunc &dropCallback,
-	const DragHandlerFunc& dragBeginCallback,
-	const DragHandlerFunc& dragEndCallback,
-	bool dropOnMove,
-	bool snap) {
+void setDragComponent(ui::Widget* widget, DragComponent *comp) {
 
-	auto dragComp = getComponent<DragComponent>(widget, COMPONENT_KEY::DRAG);
-	if (dragComp) {
-		//mvector::removeVectorElement<Node*>(dragComp.);
+	setComponent(widget, COMPONENT_KEY::DRAG, comp);
+
+	// Them touch handler neu chua ton tai
+	auto touchComp = getComponent<WidgetTouchComponent>(widget, COMPONENT_KEY::WIDGET_TOUCH);
+	if (!touchComp)
+	{
+		touchComp = new WidgetTouchComponent(widget);
+		setComponent(widget, COMPONENT_KEY::WIDGET_TOUCH, touchComp);
 	}
-	//if (dragComp)
-	//	FWUTILS->removeVectorElement<cocos2d::Node*>(draggablesByTag[dragComp->tag], node);
+}
 
-	//Component::set(node, COMPONENT_KEY::DRAG, new DragComponent(tag, dropCallback, dragBeginCallback, dragEndCallback, dropOnMove, snap));
-	//draggablesByTag[tag].push_back(node);
-
-	//// add touch handler if not exist
-	//CallbacksComponent* comp = Component::get<CallbacksComponent*>(node, COMPONENT_KEY::CALLBACKS);
-	//if (!comp)
-	//{
-	//	cocos2d::ui::Widget* widget = dynamic_cast<cocos2d::ui::Widget*>(node);
-	//	if (widget)
-	//	{
-	//		setTouchCallbacks(widget, nullptr, nullptr, nullptr);
-	//	}
-	//	else
-	//	{
-	//		//  TODO: support FWObject
-	//	}
-	//}
+void removeDragComponent(ui::Widget* widget) {
+	removeComponent(widget, COMPONENT_KEY::DRAG);
 }
 
 
