@@ -264,15 +264,6 @@
                 <PreSize X="0.2344" Y="0.2000" />
                 <FileData Type="PlistSubImage" Path="battle_scene/p1_active_slot.png" Plist="ccstd_assets/battle_scene.plist" />
               </AbstractNodeData>
-              <AbstractNodeData Name="P1_Hand_Marker" ActionTag="2021093162" Tag="1326" IconVisible="True" RightMargin="1280.0000" TopMargin="360.0000" ctype="SingleNodeObjectData">
-                <Size X="0.0000" Y="0.0000" />
-                <AnchorPoint />
-                <Position />
-                <Scale ScaleX="1.0000" ScaleY="1.0000" />
-                <CColor A="255" R="255" G="255" B="255" />
-                <PrePosition />
-                <PreSize X="0.0000" Y="0.0000" />
-              </AbstractNodeData>
               <AbstractNodeData Name="P1_Deck" ActionTag="-718942563" Tag="398" IconVisible="True" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="1224.8320" RightMargin="55.1680" TopMargin="42.1560" BottomMargin="317.8440" ctype="SingleNodeObjectData">
                 <Size X="0.0000" Y="0.0000" />
                 <Children>
@@ -340,6 +331,15 @@
             <FirstColor A="255" R="150" G="200" B="255" />
             <EndColor A="255" R="255" G="255" B="255" />
             <ColorVector ScaleY="1.0000" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="P1_Hand_Marker" ActionTag="2021093162" Tag="1326" IconVisible="True" RightMargin="1280.0000" TopMargin="720.0000" ctype="SingleNodeObjectData">
+            <Size X="0.0000" Y="0.0000" />
+            <AnchorPoint />
+            <Position />
+            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition />
+            <PreSize X="0.0000" Y="0.0000" />
           </AbstractNodeData>
         </Children>
       </ObjectData>

@@ -108,12 +108,14 @@ void WidgetTouchComponent::applyHandler() {
 			auto comp = MyComponentNS::getComponent<DragComponent>(widget, COMPONENT_KEY::DRAG);
 			if (comp) {
 				if (comp->isDragging) {
-					// Cap nhat lai thong tin cua Drag
+					// Set position cho obj tuong doi voi drag container
+					Vec2 wPos;
 					if (!comp->useCenter)
-						widget->setPosition(widget->getTouchMovePosition() - comp->offset);
+						wPos = widget->getTouchMovePosition() - comp->offset;
 					else
-						widget->setPosition(widget->getTouchMovePosition());
-
+						wPos = widget->getTouchMovePosition();
+					auto lPos = widget->getParent()->convertToNodeSpaceAR(wPos);
+					widget->setPosition(comp->dragContainer == Director::getInstance()->getRunningScene() ? wPos : lPos);
 					bool useCenter = false;
 					auto wCheckPos = widget->getTouchMovePosition();
 					for (const auto &dNode : comp->destinations) {
@@ -155,26 +157,27 @@ void WidgetTouchComponent::applyHandler() {
 							}
 						}
 					}
-
 				}
 				else {
 					// bat dau drag
 					auto d = widget->getTouchBeganPosition().distance(widget->getTouchMovePosition());
-					if (d > 24) {
+					if (d > TOUCH_MOVE_DELTA) {
 						comp->isDragging = true;
-						widget->removeFromParent();
-						if (!comp->dragContainer) {
-							auto curScene = Director::getInstance()->getRunningScene();
-							curScene->addChild(widget, 9999);
-						}
-						else {
-							comp->dragContainer->addChild(widget);
-						}
-						if (!comp->useCenter)
-							widget->setPosition(widget->getTouchMovePosition() - comp->offset);
-						else
-							widget->setPosition(widget->getTouchMovePosition());
 
+						// add child vao drag container
+						widget->removeFromParent();
+						if (!comp->dragContainer) 
+							comp->dragContainer = Director::getInstance()->getRunningScene();
+						comp->dragContainer->addChild(widget, comp->zInContainer);
+
+						// Set position cho obj tuong doi voi drag container
+						Vec2 wPos;
+						if (!comp->useCenter) 
+							wPos = widget->getTouchMovePosition() - comp->offset;
+						else 
+							wPos = widget->getTouchMovePosition();
+						auto lPos = widget->getParent()->convertToNodeSpaceAR(wPos);
+						widget->setPosition(comp->dragContainer == Director::getInstance()->getRunningScene() ? wPos : lPos);
 						if(comp->dragBeginCallback)
 							comp->dragBeginCallback(widget, nullptr); // DRAG BEGIN CALLBACK
 					}
@@ -189,6 +192,105 @@ void WidgetTouchComponent::applyHandler() {
 
 	widget->addTouchEventListener(func);
 }
+
+
+/*
+	NodeTouchComponent Class
+*/
+
+//const float NodeTouchComponent::TOUCH_MOVE_DELTA = 24.0f;
+//const string NodeTouchComponent::NODE_HOLD_TOUCH_SCHEDULE_KEY = "NODE_HOLD_TOUCH_SCHEDULE_KEY";
+//
+//NodeTouchComponent::NodeTouchComponent(Node *n,
+//	const NodeTouchHandlerFunc& beganFunc,
+//	const NodeTouchHandlerFunc& endedFunc,
+//	const NodeTouchHandlerFunc& movedFunc,
+//	const NodeTouchHandlerFunc& holdFunc) :
+//	node(n), beganCb(beganFunc), endedCb(endedFunc), movedCb(movedFunc), holdCb(holdFunc)
+//{
+//	applyHandler();
+//}
+//
+//NodeTouchComponent::~NodeTouchComponent() {
+//	CCLOG("WidgetTouchComponent::dtor called");
+//}
+//
+//void NodeTouchComponent::applyHandler() {
+//	CCASSERT(node != nullptr, "WidgetTouchComponent::applyHandler: widget is NULL");
+//
+//	eventListener = EventListenerTouchOneByOne::create();
+//	eventListener->setSwallowTouches(swallowTouches);
+//	eventListener->onTouchBegan = [this](Touch* touch, Event* event)->bool {
+//		Node* target = event->getCurrentTarget();
+//
+//		CCASSERT(node != nullptr, "WidgetTouchComponent::applyHandler: widget is NULL");
+//
+//		Vec2 locationInNode = target->convertToNodeSpace(touch->getLocation());
+//		Size s = target->getContentSize();
+//		Rect rect = Rect(0, 0, s.width * target->getScaleX(), s.height * target->getScaleY());
+//		bool checkTouchBeganCond = target->isVisible() && rect.containsPoint(locationInNode);
+//
+//		if (checkTouchBeganCond) {
+//			CCLOG("TouchHandlerComponent:: onTouchBegan: %s", target->getName().c_str());
+//			if (beganCb)
+//				beganCb(node, nullptr, nullptr);
+//				
+//			if (!holdCb)
+//				return swallowTouches; // not handle long touch -> swallow touch 
+//
+//			if (holdCb) {
+//				checkingLongTouch = false;
+//				cocos2d::Director::getInstance()->getScheduler()->schedule([this, target, touch](float dt)
+//					{
+//						checkingLongTouch = true;
+//						Vec2 touchStartLoc = touch->getStartLocation();
+//						Vec2 touchCurLoc = touch->getLocation();
+//						float distance = touchStartLoc.distance(touchCurLoc);
+//						if (distance < TOUCH_MOVE_DELTA) { // Touch is not determined being moved 
+//							if (holdCb)
+//								holdCb(target, nullptr, nullptr);
+//						}
+//					}, this, 0, 0, longTouchDelayCheckTime, false, NODE_HOLD_TOUCH_SCHEDULE_KEY);
+//			}
+//		}
+//		return swallowTouches;
+//
+//		return false; // -> not swallow -> pass event
+//	};
+//
+//	eventListener->onTouchEnded = [this](Touch* touch, Event* event)->void {
+//		Node* node = event->getCurrentTarget();
+//		CCLOG("On Touch ended %s", node->getName().c_str());
+//
+//		// Handle long touch
+//		if (holdCb && !checkingLongTouch)
+//			cocos2d::Director::getInstance()->getScheduler()->unschedule(NODE_HOLD_TOUCH_SCHEDULE_KEY, this);
+//
+//		if (endedCb) {
+//			Vec2 touchStartLoc = touch->getStartLocation();
+//			Vec2 touchGetLocation = touch->getLocation();
+//			float distance = touchStartLoc.distance(touchGetLocation);
+//		}
+//
+//	};
+//	eventListener->onTouchMoved = [this](Touch* touch, Event* event) ->void {
+//		/*Node* target = event->getCurrentTarget();
+//		Rect rect = target->getBoundingBox();
+//		Vec2 locationInNode = target->convertToNodeSpace(touch->getLocation());
+//		bool checkTouchBeganCond = rect.containsPoint(locationInNode);
+//
+//		if (checkTouchBeganCond) {
+//			CCLOG("On Touch moved inside %s", target->getName().c_str());
+//
+//		}
+//		else {
+//			CCLOG("On Touch moved outside %s", target->getName().c_str());
+//		}*/
+//	};
+//
+//	auto eventDispatcher = Director::getInstance()->getEventDispatcher();
+//	eventDispatcher->addEventListenerWithSceneGraphPriority(eventListener, node);
+//}
 
 
 

@@ -6,20 +6,29 @@
       <ObjectData Name="Root" Tag="184" ctype="GameNodeObjectData">
         <Size X="0.0000" Y="0.0000" />
         <Children>
-          <AbstractNodeData Name="PanelHolder" ActionTag="275587318" Tag="185" IconVisible="False" RightMargin="-95.0000" TopMargin="-137.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" ctype="PanelObjectData">
+          <AbstractNodeData Name="PanelHolder" ActionTag="275587318" Tag="185" IconVisible="False" RightMargin="-95.0000" TopMargin="-137.0000" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
             <Size X="95.0000" Y="137.0000" />
             <Children>
-              <AbstractNodeData Name="FileNode_1" ActionTag="2023373604" Tag="186" IconVisible="True" LeftMargin="45.8630" RightMargin="49.1370" TopMargin="68.9494" BottomMargin="68.0506" StretchWidthEnable="False" StretchHeightEnable="False" InnerActionSpeed="1.0000" CustomSizeEnabled="False" ctype="ProjectNodeObjectData">
+              <AbstractNodeData Name="Holder_CardMaker" ActionTag="1765311801" Tag="695" IconVisible="True" LeftMargin="45.0000" RightMargin="50.0000" TopMargin="71.0000" BottomMargin="66.0000" ctype="SingleNodeObjectData">
                 <Size X="0.0000" Y="0.0000" />
                 <AnchorPoint />
-                <Position X="45.8630" Y="68.0506" />
+                <Position X="45.0000" Y="66.0000" />
+                <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                <CColor A="255" R="255" G="255" B="255" />
+                <PrePosition X="0.4737" Y="0.4818" />
+                <PreSize X="0.0000" Y="0.0000" />
+              </AbstractNodeData>
+              <AbstractNodeData Name="Ex(delete)" Visible="False" ActionTag="2023373604" VisibleForFrame="False" Tag="186" IconVisible="True" LeftMargin="45.0000" RightMargin="50.0000" TopMargin="71.0000" BottomMargin="66.0000" StretchWidthEnable="False" StretchHeightEnable="False" InnerActionSpeed="1.0000" CustomSizeEnabled="False" ctype="ProjectNodeObjectData">
+                <Size X="0.0000" Y="0.0000" />
+                <AnchorPoint />
+                <Position X="45.0000" Y="66.0000" />
                 <Scale ScaleX="0.6000" ScaleY="0.6000" />
                 <CColor A="255" R="255" G="255" B="255" />
-                <PrePosition X="0.4828" Y="0.4967" />
+                <PrePosition X="0.4737" Y="0.4818" />
                 <PreSize X="0.0000" Y="0.0000" />
                 <FileData Type="Normal" Path="ccstd_csb/cards/pokemon_card_2.csd" Plist="" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Hd_HpPanel" ActionTag="962443006" Tag="277" IconVisible="False" LeftMargin="35.0000" RightMargin="1.0000" TopMargin="-9.7100" BottomMargin="121.7100" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Enable="True" LeftEage="6" RightEage="6" TopEage="6" BottomEage="6" Scale9OriginX="6" Scale9OriginY="6" Scale9Width="97" Scale9Height="38" ctype="PanelObjectData">
+              <AbstractNodeData Name="Hd_HpPanel" ActionTag="962443006" VisibleForFrame="False" Tag="277" IconVisible="False" LeftMargin="35.0000" RightMargin="1.0000" TopMargin="-9.7100" BottomMargin="121.7100" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Enable="True" LeftEage="6" RightEage="6" TopEage="6" BottomEage="6" Scale9OriginX="6" Scale9OriginY="6" Scale9Width="97" Scale9Height="38" ctype="PanelObjectData">
                 <Size X="59.0000" Y="25.0000" />
                 <Children>
                   <AbstractNodeData Name="Hd_HpPanel_Energy" ActionTag="-1715175866" Tag="2756" IconVisible="False" LeftMargin="32.0000" RightMargin="-5.0000" TopMargin="-3.4752" BottomMargin="-3.5248" LeftEage="10" RightEage="10" TopEage="10" BottomEage="10" Scale9OriginX="10" Scale9OriginY="10" Scale9Width="12" Scale9Height="12" ctype="ImageViewObjectData">
@@ -57,7 +66,7 @@
                 <EndColor A="255" R="255" G="255" B="255" />
                 <ColorVector ScaleY="1.0000" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Hd_ColorPanel" ActionTag="-1448343792" VisibleForFrame="False" Tag="3016" IconVisible="False" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" ctype="PanelObjectData">
+              <AbstractNodeData Name="Hd_ColorPanel" ActionTag="-1448343792" VisibleForFrame="False" Tag="3016" IconVisible="False" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
                 <Size X="95.0000" Y="137.0000" />
                 <AnchorPoint />
                 <Position />

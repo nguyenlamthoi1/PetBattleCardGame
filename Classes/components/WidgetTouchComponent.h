@@ -10,7 +10,9 @@
 #define WIDGET_TOUCH_USE_NS using namespace WidgetTouchNS
 
 #define WIDGET_TOUCH_HANDLER_PARAMS cocos2d::ui::Widget*, cocos2d::Touch*, cocos2d::Event*
+#define NODE_TOUCH_HANDLER_PARAMS cocos2d::Node*, cocos2d::Touch*, cocos2d::Event*
 #define define_TouchHandlerFunc_Type using TouchHandlerFunc = std::function<void(WIDGET_TOUCH_HANDLER_PARAMS)>
+#define define_NodeTouchHandlerFunc_Type using NodeTouchHandlerFunc = std::function<void(NODE_TOUCH_HANDLER_PARAMS)>
 
 #define WIDGET_DRAG_HANDLER_PARAMS cocos2d::Node*, cocos2d::Node*
 #define define_DragHandlerFunc_Type using DragHandlerFunc = std::function<void(WIDGET_DRAG_HANDLER_PARAMS)>
@@ -57,6 +59,49 @@ protected:
 };
 
 
+//class NodeTouchComponent : public MComponent {
+//public:
+//	define_NodeTouchHandlerFunc_Type;
+//	NodeTouchComponent(cocos2d::Node *n,
+//		const NodeTouchHandlerFunc& beganFunc = nullptr,
+//		const NodeTouchHandlerFunc& endedFunc = nullptr,
+//		const NodeTouchHandlerFunc& movedFunc = nullptr,
+//		const NodeTouchHandlerFunc& holdFunc = nullptr);
+//	virtual ~NodeTouchComponent();
+//
+//	virtual bool isValid() const override { return node != nullptr; }
+//	void setTouchBeganCb(const NodeTouchHandlerFunc& cb) { beganCb = cb; }
+//	void setTouchEndedCb(const NodeTouchHandlerFunc& cb) { endedCb = cb; }
+//	void setTouchMovedCb(const NodeTouchHandlerFunc& cb) { movedCb = cb; }
+//	void setTouchHoldCb(const NodeTouchHandlerFunc& cb) { holdCb = cb; }
+//	void setTouchCb(const NodeTouchHandlerFunc& beganFunc = nullptr,
+//		const NodeTouchHandlerFunc& endedFunc = nullptr,
+//		const NodeTouchHandlerFunc& movedFunc = nullptr,
+//		const NodeTouchHandlerFunc& holdFunc = nullptr) {
+//		beganCb = beganFunc;
+//		endedCb = endedFunc;
+//		movedCb = movedFunc;
+//		holdCb = holdFunc;
+//	}
+//	float longTouchDelayCheckTime = 0.0f;
+//	static const float TOUCH_MOVE_DELTA;
+//	static const std::string NODE_HOLD_TOUCH_SCHEDULE_KEY;
+//protected:
+//	EventListenerTouchOneByOne *eventListener;
+//	bool swallowTouches = true;
+//
+//	cocos2d::Node *node = nullptr;
+//	NodeTouchHandlerFunc beganCb;
+//	NodeTouchHandlerFunc endedCb;
+//	NodeTouchHandlerFunc movedCb;
+//	NodeTouchHandlerFunc holdCb;
+//	bool checkingLongTouch = false;
+//	cocos2d::Vec2 beganTouchPos = cocos2d::Vec2::ZERO;
+//
+//	virtual void applyHandler();
+//};
+
+
 class DragComponent : public MComponent {
 public:
 	friend class WidgetTouchComponent;
@@ -68,7 +113,10 @@ public:
 	DragHandlerFunc dragInCallback; // Function duoc goi khi drag object den 1 dest node
 	DragHandlerFunc dragOutCallback; // Function duoc goi khi drag object ra khoi 1 dest node
 	std::vector<cocos2d::Node*> destinations; // Danh sach cac node muc tieu(dest node) khi drag object
+
 	cocos2d::Node* dragContainer = nullptr; // Khi node duoc drag, node se duoc removeFromParent va addChild vao dragContainer
+	float zInContainer = 999; // Local z cua object khi duoc add child vao dragContainer
+
 	cocos2d::Node* draggedObj = nullptr;
 	/* 
 	useCenter la T -> Thi center point cua object duoc dung kiem tra object drag den 1 dest node 
@@ -79,6 +127,12 @@ public:
 	DragComponent() = default;
 	~DragComponent();
 	bool isDroppable() { return hitDestNode != nullptr; }
+
+	cocos2d::Vec2 getOrgWorldPos() { return orgWorldPos; }
+	cocos2d::Node* getOrgParent() { return orgParent; }
+	cocos2d::Node* getHitDestNode() { return hitDestNode; }
+	float getOrgZ() { return orgZ; }
+	bool isObjDragging() { return isDragging; }
 protected:
 	bool isDragging = false;
 	cocos2d::Vec2 orgPos;

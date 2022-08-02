@@ -32,6 +32,9 @@ private:
 	PlayerIdType ownerId = PlayerIdInvalid;
 	BattleScene *btlScn;
 	std::vector<BSCard*> cards;
+
+	// Utilize functions
+	
 };
 
 BATTLE_SCENE_NS_END

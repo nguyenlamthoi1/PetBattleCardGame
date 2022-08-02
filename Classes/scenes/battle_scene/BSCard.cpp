@@ -116,9 +116,9 @@ bool PetCard::init() {
 
 	/*auto td = static_cast<ui::Layout*>(Utilize::getChildByName(cardNode, "Touch_Detector"));
 	WidgetTouchNS::setWidgetTouchHold(td, bind(&PetCard::onTouchHold, this));
-	td->setTouchEnabled(true);
+	td->setTouchEnabled(false);
 	td->setSwallowTouches(false);*/
-	this->setTouchEnabled(true);
+
 	return true;
 }
 

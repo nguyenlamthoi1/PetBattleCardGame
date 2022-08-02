@@ -14,12 +14,24 @@
 
 BATTLE_SCENE_NS_BEG
 
+class BattleScene;
 class CardHolder;
 
 class BSBoard final {
 public:
+	friend class BattleScene;
 private:
+	static BSBoard* create(BattleScene *scn, PlayerIdType id);
+	BSBoard(BattleScene *scn, PlayerIdType ownerId);
+	~BSBoard();
 
+	bool init();
+
+	PlayerIdType ownerId = PlayerIdInvalid;
+	BattleScene *btlScn;
+
+
+	// Utilize functions
 };
 
 BATTLE_SCENE_NS_END

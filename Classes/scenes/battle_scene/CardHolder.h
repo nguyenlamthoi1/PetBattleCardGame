@@ -20,6 +20,9 @@ public:
 	CardHolder();
 	virtual ~CardHolder();
 	virtual bool init() override;
+
+protected:
+	cococs2d::Node *node;
 };
 
 BATTLE_SCENE_NS_END

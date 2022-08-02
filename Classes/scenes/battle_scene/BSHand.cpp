@@ -90,7 +90,27 @@ void BSHand::drawCards(size_t n, std::function<void()> onDrawDone) {
 		// Them Drag component
 		auto dragComp = new DragComponent();
 		dragComp->useCenter = true;
+		dragComp->dragContainer = card->getParent();
+		dragComp->dragEndCallback = [this](Node *cardNode, Node *dest){
+			auto comp = MyComponentNS::getComponent<DragComponent>(cardNode, COMPONENT_KEY::DRAG);
+			if (comp) {
+				auto cardWidget = dynamic_cast<ui::Widget*>(cardNode);
+				auto wOldPos = comp->getOrgWorldPos();
+				auto orgParent = comp->getOrgParent();
+				cardWidget->removeFromParent();
+				orgParent->addChild(cardWidget);
+				auto lOldPos = orgParent->convertToNodeSpaceAR(wOldPos);
+				cardWidget->setZOrder(comp->getOrgZ());
+				cardWidget->setTouchEnabled(false);
+				cardWidget->runAction(
+					Sequence::create(MoveTo::create(0.2f, lOldPos), 
+						CallFunc::create([cardWidget]() {cardWidget->setTouchEnabled(true); }),
+						nullptr));
+			}
+		};
 		WidgetTouchNS::setDragComponent(card, dragComp);
+		card->setTouchEnabled(true);
+		card->setSwallowTouches(true);
 		//--
 
 		if (index == drawnVec.size() - 1) {

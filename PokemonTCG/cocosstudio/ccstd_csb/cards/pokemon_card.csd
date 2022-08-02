@@ -6,7 +6,7 @@
       <ObjectData Name="Node" Tag="12" ctype="GameNodeObjectData">
         <Size X="0.0000" Y="0.0000" />
         <Children>
-          <AbstractNodeData Name="Card_Layout" ActionTag="-1647474267" Tag="14" IconVisible="False" LeftMargin="-185.0000" RightMargin="-205.0000" TopMargin="-283.0000" BottomMargin="-284.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
+          <AbstractNodeData Name="Card_Layout" ActionTag="-1647474267" Tag="14" IconVisible="False" LeftMargin="-185.0000" RightMargin="-205.0000" TopMargin="-283.0000" BottomMargin="-284.0000" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
             <Size X="390.0000" Y="567.0000" />
             <Children>
               <AbstractNodeData Name="Outer_Background" ActionTag="1949882539" Tag="15" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="6.0000" RightMargin="6.0000" TopMargin="13.5000" BottomMargin="13.5000" Scale9Enable="True" LeftEage="5" RightEage="5" TopEage="5" BottomEage="5" Scale9OriginX="5" Scale9OriginY="5" Scale9Width="368" Scale9Height="530" ctype="ImageViewObjectData">
@@ -165,7 +165,7 @@
                 <PreSize X="0.2462" Y="0.1693" />
                 <FileData Type="PlistSubImage" Path="pokemon_card_template_x3/energy/energy_fire.png" Plist="ccstd_assets/pokemon_card_template_x3.plist" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Middle_Panel" ActionTag="1404557248" Tag="20" IconVisible="False" LeftMargin="21.4518" RightMargin="20.5482" TopMargin="276.4185" BottomMargin="80.5815" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
+              <AbstractNodeData Name="Middle_Panel" ActionTag="1404557248" Tag="20" IconVisible="False" LeftMargin="21.4518" RightMargin="20.5482" TopMargin="276.4185" BottomMargin="80.5815" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
                 <Size X="348.0000" Y="210.0000" />
                 <AnchorPoint />
                 <Position X="21.4518" Y="80.5815" />
@@ -178,7 +178,7 @@
                 <EndColor A="255" R="255" G="255" B="255" />
                 <ColorVector ScaleY="1.0000" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Bottom_Panel" ActionTag="-15304011" Tag="14" IconVisible="False" LeftMargin="21.4518" RightMargin="20.5482" TopMargin="493.4200" BottomMargin="16.5800" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
+              <AbstractNodeData Name="Bottom_Panel" ActionTag="-15304011" Tag="14" IconVisible="False" LeftMargin="21.4518" RightMargin="20.5482" TopMargin="493.4200" BottomMargin="16.5800" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
                 <Size X="348.0000" Y="57.0000" />
                 <Children>
                   <AbstractNodeData Name="Weakness_Panel" ActionTag="609825671" Tag="15" IconVisible="False" LeftMargin="3.0000" RightMargin="201.0000" TopMargin="3.0000" BottomMargin="30.0000" LeftEage="15" RightEage="15" TopEage="2" BottomEage="2" Scale9OriginX="15" Scale9OriginY="2" Scale9Width="114" Scale9Height="20" ctype="ImageViewObjectData">
@@ -346,7 +346,7 @@
             <EndColor A="255" R="255" G="255" B="255" />
             <ColorVector ScaleY="1.0000" />
           </AbstractNodeData>
-          <AbstractNodeData Name="Touch_Detector" ActionTag="-933704921" Tag="431" IconVisible="False" LeftMargin="-185.0000" RightMargin="-205.0000" TopMargin="-283.0000" BottomMargin="-284.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" ctype="PanelObjectData">
+          <AbstractNodeData Name="Touch_Detector" ActionTag="-933704921" Tag="431" IconVisible="False" LeftMargin="-185.0000" RightMargin="-205.0000" TopMargin="-283.0000" BottomMargin="-284.0000" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
             <Size X="390.0000" Y="567.0000" />
             <AnchorPoint />
             <Position X="-185.0000" Y="-284.0000" />
