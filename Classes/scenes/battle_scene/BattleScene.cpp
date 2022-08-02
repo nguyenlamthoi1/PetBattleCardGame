@@ -1,4 +1,10 @@
 #include "BattleScene.h"
+#include "BattleManager.h"
+
+#include "BSHand.h"
+#include "BSDeck.h"
+#include "BSBoard.h"
+
 #include "actions/BSAction.h"
 
 #include "GameManager.h"
@@ -8,11 +14,6 @@
 #include "common/Utilize.h"
 #include "components/WidgetTouchComponent.h"
 #include "define/CommonDefine.h"
-
-#include "BSHand.h"
-#include "BSDeck.h"
-
-#include "BattleManager.h"
 
 #include "ui/UIHelper.h"
 
@@ -66,8 +67,12 @@ bool BattleScene::init() {
 	auto resPool = gm->getPool();
 	
 	ui = static_cast<ui::Layout*>(resPool->tryGetNodeCsb("ccstd_csb/battle_scene/battle_scene.csb"));
+	ui::Helper::doLayout(ui);
 	if (!ui)
 		return false;
+
+	playerPanels[PLAYER] = dynamic_cast<ui::Layout*>(ui->getChildByName("P1_Panel"));
+	playerPanels[OPPONENT] = dynamic_cast<ui::Layout*>(ui->getChildByName("P2_Panel"));
 
 	// Khoi tao 2 player data
 	playerData[PLAYER] = ::PlayerData::createPseudo(true);
@@ -76,13 +81,16 @@ bool BattleScene::init() {
 	// Khoi tao Hand
 	hands[PLAYER] = BSHand::create(this, PLAYER); 
 	hands[PLAYER]->retain();
-	Node *tempMarker = Utilize::getChildByName(ui, "P1_Hand_Marker");
+	Node *tempMarker = ui->getChildByName("P1_Panel")->getChildByName("Hand_Marker");
 	tempMarker->addChild(hands[PLAYER]); // *Hand duoc addChild vao BattleScene
 
 	// Khoi tao deck
 	decks[PLAYER] = BSDeck::create(this, PLAYER);
-	decks[OPPONENT] = BSDeck::create(this, OPPONENT);
+	//decks[OPPONENT] = BSDeck::create(this, OPPONENT);
 
+	// Khoi tao Board
+	boards[PLAYER] = BSBoard::create(this, PLAYER);
+	boards[OPPONENT] = BSBoard::create(this, OPPONENT);
 
 	ui->setContentSize(winSize);
 	ui::Helper::doLayout(ui);

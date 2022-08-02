@@ -31,12 +31,17 @@ bool BSDeck::init() {
 	if (!btlScn || ownerId == PlayerIdInvalid)
 		return false;
 
-	bool isPlayer = ownerId == PLAYER;
-	deckIcon = dynamic_cast<Sprite*>(Utilize::getChildByName(btlScn->ui, isPlayer ? "P1_Deck_Icon" : "P2_Deck_Icon"));
+	auto panel = btlScn->playerPanels[ownerId];
+	
+	deckNode = panel->getChildByName("Deck");
+	if (!deckNode)
+		return false;
+
+	deckIcon = dynamic_cast<Sprite*>(deckNode->getChildByName("Deck_Icon"));
 	if (!deckIcon)
 		return false;
 
-	deckText = dynamic_cast<ui::Text*>(Utilize::getChildByName(btlScn->ui, isPlayer ? "P1_Deck_Text" : "P2_Deck_Text"));
+	deckText = dynamic_cast<ui::Text*>(deckNode->getChildByName("Deck_Text"));
 	if (!deckText)
 		return false;
 

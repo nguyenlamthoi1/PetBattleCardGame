@@ -21,6 +21,7 @@ class BSHand;
 class BSDeck;
 class BSAction;
 class PlayerData;
+class BSBoard;
 
 using BManagerPtr = std::shared_ptr<BattleManager>;
 
@@ -29,6 +30,7 @@ class BattleScene final : public cocos2d::Scene
 public:
 	friend class BSHand;
 	friend class BSDeck;
+	friend class BSBoard;
 
 	static BattleScene* getScn();
     static BattleScene* create();
@@ -48,9 +50,11 @@ public:
 	std::unordered_map<PlayerIdType, ::PlayerData*> playerData;
 	std::unordered_map<PlayerIdType, BSHand*> hands;
 	std::unordered_map<PlayerIdType, BSDeck*> decks;
-
+	std::unordered_map<PlayerIdType, BSBoard*> boards;
 
 	cocos2d::ui::Layout *ui = nullptr;
+	std::unordered_map<PlayerIdType, cocos2d::ui::Layout*> playerPanels;
+	cocos2d::ui::Layout* getBattleSceneUI() { return ui; }
 
 	//--Data member-end--
 

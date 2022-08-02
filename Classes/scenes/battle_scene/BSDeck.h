@@ -2,6 +2,7 @@
 #define __BS_DECK_H__
 
 #include "cocos2d.h"
+#include "ui/UILayout.h"
 #include "ui/UIText.h"
 #include "BSDefine.h"
 
@@ -37,6 +38,8 @@ private:
 	PlayerIdType ownerId = PlayerIdInvalid;
 	BattleScene *btlScn = nullptr;
 	std::vector<BSCard*> cards;
+
+	cocos2d::Node *deckNode = nullptr;
 	cocos2d::Sprite *deckIcon = nullptr;
 	cocos2d::ui::Text *deckText = nullptr;
 };

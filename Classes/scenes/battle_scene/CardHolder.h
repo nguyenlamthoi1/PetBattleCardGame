@@ -16,13 +16,17 @@ BATTLE_SCENE_NS_BEG
 
 class CardHolder : public cocos2d::ui::Layout {
 public:
+	static cocos2d::Size HOLDER_SIZE;
 	static CardHolder* create();
 	CardHolder();
 	virtual ~CardHolder();
 	virtual bool init() override;
+	void setHolderSizeH(float h);
+	void setHolderSizeW(float w);
 
+	
 protected:
-	cococs2d::Node *node;
+	cocos2d::Node *node;
 };
 
 BATTLE_SCENE_NS_END

@@ -28,10 +28,20 @@ private:
 	bool init();
 
 	PlayerIdType ownerId = PlayerIdInvalid;
-	BattleScene *btlScn;
+	BattleScene *btlScn = nullptr;
 
+	cocos2d::ui::Layout *boardPanel = nullptr; // * Parent cua tat ca node khac
+
+	size_t maxBenchCapacity = DEFAULT_MAX_BENCH_CAPACITY; // default : 5
+	float holderScale = 1.0f;
+	cocos2d::ui::Layout *benchBoard = nullptr;
+	std::vector<CardHolder*> benchHolders;
+
+	cocos2d::ui::Layout *activeBoard = nullptr;
+	CardHolder *activeHolder = nullptr;
 
 	// Utilize functions
+	void alignHoldersOnBenchBoard(bool forceDoLayout);
 };
 
 BATTLE_SCENE_NS_END

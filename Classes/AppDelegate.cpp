@@ -7,9 +7,9 @@
 USING_NS_CC;
 
 static cocos2d::Size designResolutionSize = cocos2d::Size(1280, 720);
-static cocos2d::Size smallResolutionSize = cocos2d::Size(960, 540);
+static cocos2d::Size smallResolutionSize = cocos2d::Size(1280, 720);
 static cocos2d::Size mediumResolutionSize = cocos2d::Size(1280, 720);
-static cocos2d::Size largeResolutionSize = cocos2d::Size(1920, 1080);
+static cocos2d::Size largeResolutionSize = cocos2d::Size(1280, 720);
 
 AppDelegate::AppDelegate() {
 
@@ -45,7 +45,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     if(!glview) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) || (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
         //glview = GLViewImpl::createWithRect("Pokemon TCG - made by CatCoder", Rect(0, 0, designResolutionSize.width, designResolutionSize.height));
-		glview = GLViewImpl::createWithRect("Pokemon TCG - made by CatCoder", Rect(0, 0, 1500, 960));
+		glview = GLViewImpl::createWithRect("Pokemon TCG - made by CatCoder", Rect(0, 0, 1520, 920));
 #else
         glview = GLViewImpl::create("PetBattleCardGame");
 #endif

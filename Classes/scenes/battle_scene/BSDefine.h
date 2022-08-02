@@ -21,10 +21,13 @@
 #define BATTLE_MANAGER_NS_USE using namespace BattleManagerNS // Ket thuc bang ';'
 
 BATTLE_SCENE_NS_BEG
+
 using PlayerIdType = unsigned char;
 constexpr PlayerIdType PLAYER = 77;
 constexpr PlayerIdType OPPONENT = PLAYER + 1; // OPPONENT > PLAYER
 #define PlayerIdInvalid -1
+
+constexpr unsigned int DEFAULT_MAX_BENCH_CAPACITY = 5; // So luong pokemon toi da dat duoc len bench mac dinh
 
 BATTLE_SCENE_NS_END
 
