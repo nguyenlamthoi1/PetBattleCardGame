@@ -1,4 +1,5 @@
 #include "ResourcePool.h"
+#include "common/Utilize.h"
 #include "components/GamePoolComponent.h"
 #include "cocostudio/ActionTimeline/CSLoader.h"
 
@@ -150,6 +151,9 @@ bool ResourcePool::hasFreeNodeOfKey(const std::string &fileKey) {
 	auto it = pool.find(fileKey);
 	return it != pool.end() && it->second.hasFreeNode();
 }
+
+
+
 
 
 //RESOURCE_POOL_NS_END

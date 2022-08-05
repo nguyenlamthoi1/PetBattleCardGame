@@ -1,11 +1,14 @@
 #include "PlayerData.h"
 #include "CardData.h"
+#include "GameManager.h"
+#include "common/DataManager.h"
+
 using namespace std;
 
-PlayerData* PlayerData::createPseudo(bool isPlayer) {
+shared_ptr<PlayerData> PlayerData::createPseudo(bool isPlayer) {
 	auto data = new PlayerData();
 	data->decks.push_back({});
-	return data;
+	return shared_ptr<PlayerData>(data);
 }
 
 
@@ -23,7 +26,18 @@ bool PlayerData::loadDataFromFile(const string &file) {
 }
 
 PlayerData::DeckList PlayerData::getCurDeck() const{
-	return !decks.empty() ? decks[curDeck] : DeckList();
+	DeckList ret;
+	auto dataMgr = GM_DATA_MGR;
+	for (const auto &it : deckList[curDeck]) {
+		int i = 0;
+		int num = it.second;
+		auto cardData = dataMgr->getCardData(it.first);
+		while (i < num) {
+			ret.push_back(cardData);
+			++i;
+		}
+	}
+	return ret;
 }
 
 

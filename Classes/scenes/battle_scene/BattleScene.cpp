@@ -4,12 +4,14 @@
 #include "BSHand.h"
 #include "BSDeck.h"
 #include "BSBoard.h"
+#include "BSPlayer.h"
 
 #include "actions/BSAction.h"
 
 #include "GameManager.h"
 #include "common/ResourceLoader.h"
 #include "common/ResourcePool.h"
+#include "common/DataManager.h"
 #include "common/LangSys.h"
 #include "common/Utilize.h"
 #include "components/WidgetTouchComponent.h"
@@ -75,8 +77,14 @@ bool BattleScene::init() {
 	playerPanels[OPPONENT] = dynamic_cast<ui::Layout*>(ui->getChildByName("P2_Panel"));
 
 	// Khoi tao 2 player data
-	playerData[PLAYER] = ::PlayerData::createPseudo(true);
+	auto dataMgr = GM_DATA_MGR;
+	playerData[PLAYER] = dataMgr->getPlayerData();
 	playerData[OPPONENT] = ::PlayerData::createPseudo(false);
+
+	// Khoi tao du lieu player trong game
+	players[PLAYER] = make_shared<BSPlayer>(PLAYER);
+	players[OPPONENT] = make_shared<BSPlayer>(OPPONENT);
+
 	
 	// Khoi tao Hand
 	hands[PLAYER] = BSHand::create(this, PLAYER); 
@@ -113,7 +121,7 @@ void BattleScene::start() {
 	auto secondPlayerId = OPPONENT;
 	pushActions({
 		new DrawCardAction(firstPlayerId, 7),
-		//new DrawCardAction(firstPlayerId, 10),
+		new DrawCardAction(firstPlayerId, 7),
 		});
 
 	// Bat dau action pipeline

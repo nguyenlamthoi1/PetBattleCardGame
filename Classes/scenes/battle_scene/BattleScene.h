@@ -15,13 +15,15 @@
 #include <unordered_map>
 #include <list>
 
+class PlayerData;
+
 BATTLE_SCENE_NS_BEG
 class BattleManager;
 class BSHand;
 class BSDeck;
 class BSAction;
-class PlayerData;
 class BSBoard;
+class BSPlayer;
 
 using BManagerPtr = std::shared_ptr<BattleManager>;
 
@@ -47,10 +49,12 @@ public:
 	//--Graphic Data member-begin--
 
 	//BManagerPtr bm;
-	std::unordered_map<PlayerIdType, ::PlayerData*> playerData;
+	std::unordered_map<PlayerIdType, std::shared_ptr<PlayerData>> playerData;
 	std::unordered_map<PlayerIdType, BSHand*> hands;
 	std::unordered_map<PlayerIdType, BSDeck*> decks;
 	std::unordered_map<PlayerIdType, BSBoard*> boards;
+
+	std::unordered_map<PlayerIdType, std::shared_ptr<BSPlayer>> players;
 
 	cocos2d::ui::Layout *ui = nullptr;
 	std::unordered_map<PlayerIdType, cocos2d::ui::Layout*> playerPanels;

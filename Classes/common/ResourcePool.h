@@ -72,6 +72,7 @@ public:
 	*/
 	cocos2d::Node* loadNodeFromCsb(const std::string &fileKey);
 
+
 	~ResourcePool();
 	ResourcePool();
 private:

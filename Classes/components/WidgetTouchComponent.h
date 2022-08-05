@@ -133,6 +133,9 @@ public:
 	cocos2d::Node* getHitDestNode() { return hitDestNode; }
 	float getOrgZ() { return orgZ; }
 	bool isObjDragging() { return isDragging; }
+	
+	void setEnabled(bool e) { enabled = e; }
+	bool isEnabled() { return enabled; }
 protected:
 	bool isDragging = false;
 	cocos2d::Vec2 orgPos;
@@ -141,6 +144,8 @@ protected:
 	cocos2d::Vec2 offset;
 	cocos2d::Node* orgParent = nullptr;
 	cocos2d::Node* hitDestNode = nullptr;
+
+	bool enabled = true;
 };
 
 
@@ -163,6 +168,7 @@ define_DragHandlerFunc_Type;
 
 void setDragComponent(cocos2d::ui::Widget* widget, DragComponent *comp);
 void removeDragComponent(cocos2d::ui::Widget* widget);
+void enableDragComponent(cocos2d::ui::Widget* widget);
 
 WIDGET_TOUCH_NS_END
 

@@ -2,6 +2,7 @@
 #include "GameManager.h"
 #include "common/ResourceLoader.h"
 #include "common/LangSys.h"
+#include "common/DataManager.h"
 #include "define/CommonDefine.h"
 
 USING_NS_CC;
@@ -107,9 +108,25 @@ void LoadingScene::startLoading() {
 	// Them file can load
 	//loader->addPlistFile("");
 	loader->addLoadedObj(LoadedObject("data\\localization\\en.txt", []()->bool {
-		auto lang = GameManager::getInstance()->getLang();
-		return lang->load("data\\localization\\en.txt");
+		return GameManager::getInstance()->getLang()->load("data\\localization\\en.txt");
 		}));
+
+	loader->addLoadedObj(LoadedObject("data\\energy_cards.json", []()->bool {
+		return GameManager::getInstance()->getDataManager()->loadEnergyCards();
+		}));
+
+	loader->addLoadedObj(LoadedObject("data\\pet_cards.json", []()->bool {
+		return GameManager::getInstance()->getDataManager()->loadPetCards();
+		}));
+
+	loader->addLoadedObj(LoadedObject("data\\player_data.json", []()->bool {
+		return GameManager::getInstance()->getDataManager()->loadPlayerData();
+		}));
+
+	loader->addLoadedObj(LoadedObject("data\\energy_images_x3.plist", []()->bool {
+		return GameManager::getInstance()->getLoader()->loadPlistFile("ccstd_assets/energy_images_x3.plist");
+		}));
+	
 	//--
 
 	auto fileCount = loader->stepCount();

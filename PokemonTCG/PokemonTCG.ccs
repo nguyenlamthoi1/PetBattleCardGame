@@ -48,6 +48,15 @@
             <PlistImageFile Name="energies_x3_energy_steel.png" Key="energies/x3/energy_steel.png" />
             <PlistImageFile Name="energies_x3_energy_water.png" Key="energies/x3/energy_water.png" />
           </PlistImageFolder>
+          <PlistImageFolder Image="energy_images_x3.png" PListFile="energy_images_x3.plist" Name=".energy_images_x3_PList.Dir">
+            <PlistImageFile Name="energy_image_x3_electric_energy_img_x3_0.png" Key="energy_image_x3/electric_energy_img_x3_0.png" />
+            <PlistImageFile Name="energy_image_x3_fighting_energy_img_x3_0.png" Key="energy_image_x3/fighting_energy_img_x3_0.png" />
+            <PlistImageFile Name="energy_image_x3_fire_energy_img_x3_0.png" Key="energy_image_x3/fire_energy_img_x3_0.png" />
+            <PlistImageFile Name="energy_image_x3_grass_energy_img_x3_0.png" Key="energy_image_x3/grass_energy_img_x3_0.png" />
+            <PlistImageFile Name="energy_image_x3_normal_energy_img_x3_0.png" Key="energy_image_x3/normal_energy_img_x3_0.png" />
+            <PlistImageFile Name="energy_image_x3_psychic_energy_img_x3_0.png" Key="energy_image_x3/psychic_energy_img_x3_0.png" />
+            <PlistImageFile Name="energy_image_x3_water_energy_img_x3_0.png" Key="energy_image_x3/water_energy_img_x3_0.png" />
+          </PlistImageFolder>
           <PlistImageFolder Image="mini_pokemon_list.png" PListFile="mini_pokemon_list.plist" Name=".mini_pokemon_list_PList.Dir">
             <PlistImageFile Name="mini_pokemon_004.png" Key="mini_pokemon/004.png" />
             <PlistImageFile Name="mini_pokemon_005.png" Key="mini_pokemon/005.png" />
@@ -113,6 +122,7 @@
             <PlistImageFile Name="pokemon_card_template_x3_move_btn_normal.png" Key="pokemon_card_template_x3/move_btn_normal.png" />
             <PlistImageFile Name="pokemon_card_template_x3_outer_background_default.png" Key="pokemon_card_template_x3/outer_background_default.png" />
             <PlistImageFile Name="pokemon_card_template_x3_white_square.png" Key="pokemon_card_template_x3/white_square.png" />
+            <PlistImageFile Name="pokemon_card_template_x3_energy_name_panel.png" Key="pokemon_card_template_x3/energy_name_panel.png" />
           </PlistImageFolder>
           <PlistImageFolder Image="title_scene.png" PListFile="title_scene.plist" Name=".title_scene_PList.Dir">
             <PlistImageFile Name="title_scene_pkm_for_title_scn_0.png" Key="title_scene/pkm_for_title_scn_0.png" />
@@ -132,6 +142,7 @@
           <Folder Name="cards">
             <Project Name="pokemon_card.csd" Type="Node" />
             <Project Name="pokemon_card_2.csd" Type="Node" />
+            <Project Name="energy_card.csd" Type="Node" />
           </Folder>
           <Folder Name="title_scene">
             <Project Name="title_scene.csd" Type="Scene" />

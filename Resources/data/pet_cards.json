@@ -1,0 +1,56 @@
+{
+  "P01":{
+    "Type": "Fire",
+    "Name": "Charmander",
+    "Hp": 60,
+    "Image": "",
+    "OuterImage" : "",
+    "Retreat":{
+      "Normal" : 1
+    },
+    "Weakness":[
+      "Water"
+    ],
+    "Moves":[
+      {
+        "Name" : "Scratch",
+        "DamageText" : "20",
+        "Cost" : {
+          "Normal" : 2
+        },
+        "ContentText" : ""
+      }
+    ]
+  },
+  "P02":{
+    "Type": "Fire",
+    "Name": "Charmeleon",
+    "Hp": 90,
+    "Image": "",
+    "OuterImage" : "",
+    "Evolve":{
+      "FromName" : "Charmander",
+      "Image": ""
+    },
+    "Retreat":{
+      "Normal" : 2
+    },
+    "Weakness":[
+      "Water"
+    ],
+    "Resistance":{
+      "Grass" : -20
+    },
+    "Moves":[
+      {
+        "Name" : "Ember",
+        "DamageText" : "20",
+        "Cost" : {
+          "Normal" : 2,
+          "Fire" : 1
+        },
+        "ContentText" : ""
+      }
+    ]
+  }  
+}

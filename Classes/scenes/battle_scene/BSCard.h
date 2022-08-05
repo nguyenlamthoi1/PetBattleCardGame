@@ -4,6 +4,7 @@
 #include "cocos2d.h"
 #include "ui/UILayout.h"
 #include "ui/UIText.h"
+#include "ui/UIImageView.h"
 
 #include "BSDefine.h"
 #include <initializer_list>
@@ -14,6 +15,7 @@
 
 class CardData;
 class PetCardData;
+class EnergyCardData;
 
 BATTLE_SCENE_NS_BEG
 
@@ -36,7 +38,7 @@ protected:
 class PetCard : public BSCard {
 public:
 	static PetCard* createWithData(const std::shared_ptr<const CardData> &data);
-	static PetCard* create(const PetCardData *data);
+	//static PetCard* create(const PetCardData *data);
 	static PetCard* create();
 
 	virtual bool init() override;
@@ -49,6 +51,23 @@ public:
 	cocos2d::ui::Text *hpText = nullptr;
 
 	bool isEmpty() const { return !data; }
+};
+
+class EnergyCard : public BSCard {
+public:
+	static EnergyCard* createWithData(const std::shared_ptr<const CardData> &data);
+	//static EnergyCard* create(const PetCardData *data);
+	static EnergyCard* create();
+
+	virtual bool init() override;
+	virtual bool initWithData(const std::shared_ptr<const CardData> &data) override;
+
+	std::shared_ptr<const EnergyCardData> data;
+
+	cocos2d::Node *cardNode = nullptr;
+	cocos2d::ui::Text *nameText = nullptr;
+	cocos2d::ui::ImageView *image = nullptr;
+	
 };
 
 BATTLE_SCENE_NS_END

@@ -38,10 +38,13 @@ private:
 	PlayerIdType ownerId = PlayerIdInvalid;
 	BattleScene *btlScn = nullptr;
 	std::vector<BSCard*> cards;
+	unsigned int orgTotal = 0;
 
 	cocos2d::Node *deckNode = nullptr;
 	cocos2d::Sprite *deckIcon = nullptr;
 	cocos2d::ui::Text *deckText = nullptr;
+
+	// Utilize functions
 };
 
 BATTLE_SCENE_NS_END

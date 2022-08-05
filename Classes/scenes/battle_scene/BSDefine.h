@@ -1,6 +1,7 @@
 #ifndef __BS_DEFINE_H__
 #define __BS_DEFINE_H__
 
+#include "define/CommonDefine.h"
 #include "cocos2d.h"
 
 #include <initializer_list>

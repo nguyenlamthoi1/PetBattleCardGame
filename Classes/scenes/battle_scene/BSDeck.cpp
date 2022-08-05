@@ -1,6 +1,7 @@
 #include "BSDeck.h"
 #include "BSCard.h"
 #include "data/CardData.h"
+#include "data/PlayerData.h"
 #include "BattleScene.h"
 #include "common/Utilize.h"
 #include <new>
@@ -45,18 +46,21 @@ bool BSDeck::init() {
 	if (!deckText)
 		return false;
 
-	/*auto deck = btlScn->playerData[ownerId]->getCurDeck();
+	auto playerData = btlScn->playerData[ownerId];
+	auto deck = btlScn->playerData[ownerId]->getCurDeck();
 	for (auto &cardData : deck) {
 		auto card = BSCard::createWithData(cardData);
 		card->retain();
-		cards.push_back(nullptr);
-	}*/
+		cards.push_back(card);
+	}
 
-	for (size_t i = 0; i < 60; i++) {
+	/*for (size_t i = 0; i < 60; i++) {
 		auto card = BSCard::createWithData(make_shared<PetCardData>());
 		card->retain();
 		cards.push_back(card);
-	}
+	}*/
+
+	orgTotal = cards.size();
 }
 
 vector<BSCard*> BSDeck::drawTop(size_t n) {
@@ -71,6 +75,7 @@ vector<BSCard*> BSDeck::drawTop(size_t n) {
 		ret.push_back(card);
 	}
 	cards.erase(cards.cbegin(), cards.cbegin() + n);
+	deckText->setString(to_string(cards.size()) + "/" + to_string(orgTotal));
 	return ret;
 }
 
@@ -86,6 +91,8 @@ std::vector<BSCard*>::iterator BSDeck::drawTop(size_t n, std::vector<BSCard*> &v
 		v.push_back(card);
 	}
 	cards.erase(cards.cbegin(), cards.cbegin() + n);
+
+
 	return retIt;
 }
 

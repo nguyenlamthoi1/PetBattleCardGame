@@ -157,8 +157,10 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\components\ComponentDictionary.cpp" />
     <ClCompile Include="..\Classes\components\GamePoolComponent.cpp" />
     <ClCompile Include="..\Classes\components\MyComponent.cpp" />
+    <ClCompile Include="..\Classes\components\SpriteAnimatorComponent.cpp" />
     <ClCompile Include="..\Classes\components\WidgetTouchComponent.cpp" />
     <ClCompile Include="..\Classes\data\CardData.cpp" />
+    <ClCompile Include="..\Classes\data\MoveData.cpp" />
     <ClCompile Include="..\Classes\data\PlayerData.cpp" />
     <ClCompile Include="..\Classes\GameManager.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
@@ -169,6 +171,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\scenes\battle_scene\BSCard.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene\BSDeck.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene\BSHand.cpp" />
+    <ClCompile Include="..\Classes\scenes\battle_scene\BSPlayer.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene\CardHolder.cpp" />
     <ClCompile Include="..\Classes\scenes\loading_scene\LoadingScene.cpp" />
     <ClCompile Include="..\Classes\scenes\title_scene\TitleScene.cpp" />
@@ -186,8 +189,10 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\components\ComponentDictionary.h" />
     <ClInclude Include="..\Classes\components\GamePoolComponent.h" />
     <ClInclude Include="..\Classes\components\MyComponent.h" />
+    <ClInclude Include="..\Classes\components\SpriteAnimatorComponent.h" />
     <ClInclude Include="..\Classes\components\WidgetTouchComponent.h" />
     <ClInclude Include="..\Classes\data\CardData.h" />
+    <ClInclude Include="..\Classes\data\MoveData.h" />
     <ClInclude Include="..\Classes\data\PlayerData.h" />
     <ClInclude Include="..\Classes\define\CommonDefine.h" />
     <ClInclude Include="..\Classes\GameManager.h" />
@@ -238,6 +243,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\scenes\battle_scene\BSDefine.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene\BMPlayer.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene\BSHand.h" />
+    <ClInclude Include="..\Classes\scenes\battle_scene\BSPlayer.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene\CardHolder.h" />
     <ClInclude Include="..\Classes\scenes\loading_scene\LoadingScene.h" />
     <ClInclude Include="..\Classes\scenes\title_scene\TitleScene.h" />

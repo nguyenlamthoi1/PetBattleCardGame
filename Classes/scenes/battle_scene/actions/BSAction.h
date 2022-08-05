@@ -18,6 +18,11 @@ class BSAction {
 public:
 	friend class BattleScene;
 
+	enum class ActionType{
+		NONE,
+		Draw_Card
+	};
+
 	enum class State{
 		Wait,
 		Processed,
@@ -27,6 +32,7 @@ public:
 	virtual ~BSAction();
 	virtual void start() = 0;
 	virtual void end() = 0;
+	virtual ActionType getType() = 0;
 
 	void pushedTo(BattleScene *bs); // * Khong virtual, tat ca subClass se deu su dung function nay
 	void pop();
@@ -48,6 +54,7 @@ public:
 
 	virtual void start() override;
 	virtual void end() override;
+	virtual ActionType getType() override { return ActionType::Draw_Card; }
 protected:
 	PlayerIdType playerId = PlayerIdInvalid;
 	size_t drawnNum = 0;

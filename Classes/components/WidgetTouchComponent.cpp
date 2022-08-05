@@ -66,7 +66,7 @@ void WidgetTouchComponent::applyHandler() {
 
 			// Drag Comp
 			auto comp = MyComponentNS::getComponent<DragComponent>(widget, COMPONENT_KEY::DRAG);
-			if (comp) {
+			if (comp && comp->isEnabled()) {
 				comp->isDragging = false;
 				comp->orgPos = widget->getPosition();
 				comp->orgZ = widget->getLocalZOrder();
@@ -90,7 +90,7 @@ void WidgetTouchComponent::applyHandler() {
 
 			// Drag Comp
 			auto comp = MyComponentNS::getComponent<DragComponent>(widget, COMPONENT_KEY::DRAG);
-			if (comp && comp->isDragging) {
+			if (comp && comp->isEnabled() && comp->isDragging) {
 				comp->isDragging = false;
 				if(comp->dragEndCallback)
 					comp->dragEndCallback(widget, comp->hitDestNode);
@@ -106,7 +106,7 @@ void WidgetTouchComponent::applyHandler() {
 
 			// Drag comp
 			auto comp = MyComponentNS::getComponent<DragComponent>(widget, COMPONENT_KEY::DRAG);
-			if (comp) {
+			if (comp && comp->isEnabled()) {
 				if (comp->isDragging) {
 					// Set position cho obj tuong doi voi drag container
 					Vec2 wPos;
@@ -364,6 +364,13 @@ void setDragComponent(ui::Widget* widget, DragComponent *comp) {
 void removeDragComponent(ui::Widget* widget) {
 	removeComponent(widget, COMPONENT_KEY::DRAG);
 }
+
+void enableDragComponent(cocos2d::ui::Widget* widget) {
+	auto comp = getComponent<DragComponent>(widget, COMPONENT_KEY::DRAG);
+	if (comp) 
+		comp->setEnabled(true);
+}
+
 
 
 

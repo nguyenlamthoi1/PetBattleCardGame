@@ -106,6 +106,14 @@ void ResourceLoader::addLoadedObj(const LoadedObject &obj) {
 	loadedObjVec.push_back(obj);
 }
 
+bool ResourceLoader::loadPlistFile(const std::string &fileName) {
+	if (!Utilize::mstr::has_suffix(fileName, ".plist")) {
+		CCLOG("ResourcePool::loadPlistFile: wrong file path");
+		return false;
+	}
+	SpriteFrameCache::getInstance()->addSpriteFramesWithFile(fileName);
+	return true;
+}
 
 //}
 RESOURCE_LOADER_NS_END

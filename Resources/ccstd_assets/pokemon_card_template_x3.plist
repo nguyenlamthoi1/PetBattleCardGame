@@ -355,10 +355,23 @@
         <key>sourceSize</key>
         <string>{390,567}</string>
       </dict>
+      <key>pokemon_card_template_x3/energy_name_panel.png</key>
+      <dict>
+        <key>frame</key>
+        <string>{{641,1708},{348,45}}</string>
+        <key>offset</key>
+        <string>{0,0}</string>
+        <key>rotated</key>
+        <false/>
+        <key>sourceColorRect</key>
+        <string>{{0,0},{348,45}}</string>
+        <key>sourceSize</key>
+        <string>{348,45}</string>
+      </dict>
       <key>pokemon_card_template_x3/outer_background_default.png</key>
       <dict>
         <key>frame</key>
-        <string>{{785,1139},{378,540}}</string>
+        <string>{{991,1139},{378,540}}</string>
         <key>offset</key>
         <string>{0,0}</string>
         <key>rotated</key>

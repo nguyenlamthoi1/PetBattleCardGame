@@ -57,6 +57,8 @@ public:
 	void addPlistFile(const std::string &file);
 	void addLoadedObj(const LoadedObject &obj);
 	
+	static bool loadPlistFile(const std::string &file);
+
 	size_t stepCount() const { return loadedObjVec.size(); }
 
 	~ResourceLoader(); // Dtor
