@@ -1,5 +1,9 @@
 #include "BSHand.h"
 #include "BSCard.h"
+#include "BSBoard.h"
+#include "CardHolder.h"
+#include "data/CardData.h"
+
 #include "BattleScene.h"
 #include "GameManager.h"
 #include "BSDeck.h"
@@ -80,6 +84,11 @@ void BSHand::drawCards(size_t n, std::function<void()> onDrawDone) {
 		++i;
 	}
 
+	auto board = btlScn->boards[ownerId];
+	vector<CardHolder*> destVec;
+	destVec.push_back(board->activeHolder);
+	destVec.insert(destVec.cend(), board->benchHolders.cbegin(), board->benchHolders.cend());
+
 	// * Duyet vong lap tren danh sach card duoc draw
 	auto startPos = Vec2(handWidth + cardW + 30, handHeight);
 	for (size_t index = 0; index < drawnVec.size(); ++index) { // * Nhung card nay chua duoc addChild
@@ -87,26 +96,48 @@ void BSHand::drawCards(size_t n, std::function<void()> onDrawDone) {
 		this->addChild(card);
 		card->setPosition(startPos);
 
+		// Them hold touch
+		WidgetTouchNS::setWidgetTouchHold(card, [card, this](WIDGET_TOUCH_HANDLER_PARAMS) {
+			CCLOG("Hold Card");
+			btlScn->showCardDetails(card->getData());
+			}, 0.3f);
+
+		WidgetTouchNS::setWidgetTouchEnded(card, [card, this](WIDGET_TOUCH_HANDLER_PARAMS) {
+			btlScn->hideCardDetails();
+			});
+
 		// Them Drag component
 		auto dragComp = new DragComponent();
 		dragComp->useCenter = true;
 		dragComp->dragContainer = card->getParent();
+		dragComp->destinations.insert(dragComp->destinations.cend(), destVec.cbegin(), destVec.cend());
+		dragComp->dragBeginCallback = [this](Node * cardNode, Node *dest) {
+			btlScn->hideCardDetails(); 
+		};
+		/*dragComp->dragInCallback = [this](Node * cardNode, Node *dest) {
+			auto card = dynamic_cast<BSCard*>(cardNode);
+			onDragIn(card, dest);
+		};
+		dragComp->dragOutCallback = [this](Node * cardNode, Node *dest) {
+			auto card = dynamic_cast<BSCard*>(cardNode);
+			onDragIn(card, dest);
+		};*/
+
 		dragComp->dragEndCallback = [this](Node *cardNode, Node *dest){
-			auto comp = MyComponentNS::getComponent<DragComponent>(cardNode, COMPONENT_KEY::DRAG);
-			if (comp) {
-				auto cardWidget = dynamic_cast<ui::Widget*>(cardNode);
-				auto wOldPos = comp->getOrgWorldPos();
-				auto orgParent = comp->getOrgParent();
-				cardWidget->removeFromParent();
-				orgParent->addChild(cardWidget);
-				auto lOldPos = orgParent->convertToNodeSpaceAR(wOldPos);
-				cardWidget->setZOrder(comp->getOrgZ());
-				cardWidget->setTouchEnabled(false);
-				cardWidget->runAction(
-					Sequence::create(MoveTo::create(0.2f, lOldPos), 
-						CallFunc::create([cardWidget]() {cardWidget->setTouchEnabled(true); }),
-						nullptr));
+			if (!dest) {
+				auto comp = MyComponentNS::getComponent<DragComponent>(cardNode, COMPONENT_KEY::DRAG);
+				if (comp) {
+					auto card = dynamic_cast<BSCard*>(cardNode);
+					onDragBack(card);
+				}
 			}
+			else {
+				auto card = dynamic_cast<BSCard*>(cardNode);
+				bool suc = onDragEnd(card, dest);
+				if (!suc) 
+					onDragBack(card);
+			}
+			
 		};
 		WidgetTouchNS::setDragComponent(card, dragComp);
 		card->setTouchEnabled(true);
@@ -126,5 +157,56 @@ void BSHand::drawCards(size_t n, std::function<void()> onDrawDone) {
 	}
 	cards.insert(cards.cend(), drawnVec.cbegin(), drawnVec.cend());
 }
+
+void BSHand::onDragIn(BSCard *card, cocos2d::Node *dest) {
+	auto holder = dynamic_cast<CardHolder*>(dest);
+	if (holder) {
+	}
+}
+void BSHand::onDragOut(BSCard *card, cocos2d::Node *dest) {
+
+}
+
+void BSHand::onDragBack(BSCard *cardNode) {
+	auto comp = MyComponentNS::getComponent<DragComponent>(cardNode, COMPONENT_KEY::DRAG);
+	if (comp) {
+		auto cardWidget = dynamic_cast<ui::Widget*>(cardNode);
+		auto wOldPos = comp->getOrgWorldPos();
+		auto orgParent = comp->getOrgParent();
+		cardWidget->removeFromParent();
+		orgParent->addChild(cardWidget);
+		auto lOldPos = orgParent->convertToNodeSpaceAR(wOldPos);
+		cardWidget->setZOrder(comp->getOrgZ());
+		cardWidget->setTouchEnabled(false);
+		cardWidget->runAction(
+			Sequence::create(MoveTo::create(0.2f, lOldPos),
+				CallFunc::create([cardWidget]() {cardWidget->setTouchEnabled(true); }),
+				nullptr));
+	}
+}
+
+
+bool BSHand::onDragEnd(BSCard *card, cocos2d::Node *dest) {
+	BSCard *ret = nullptr;
+	auto data = card->getData();
+	switch (data->type) {
+	case CardData::Type::Pet: {
+		auto petCard = dynamic_cast<PetCard*>(card);
+		auto petData = dynamic_pointer_cast<const PetCardData>(data);
+		auto holder = dynamic_cast<CardHolder*>(dest);
+		bool suc = holder->tryAddPetCard(petCard);
+		return suc;
+	}
+		break;
+	case CardData::Type::Energy:
+		break;
+	}
+	return false;
+}
+
+void BSHand::updateHandPos() {
+
+}
+
 
 BATTLE_SCENE_NS_END

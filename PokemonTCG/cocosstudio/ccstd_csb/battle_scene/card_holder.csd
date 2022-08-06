@@ -79,6 +79,18 @@
                 <EndColor A="255" R="255" G="255" B="255" />
                 <ColorVector ScaleY="1.0000" />
               </AbstractNodeData>
+              <AbstractNodeData Name="Flying_Text" ActionTag="-622108568" VisibleForFrame="False" Tag="120" IconVisible="False" LeftMargin="-88.4105" RightMargin="-84.5895" TopMargin="26.2982" BottomMargin="24.7018" FontSize="72" LabelText="Evolution" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                <Size X="268.0000" Y="86.0000" />
+                <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                <Position X="45.5895" Y="67.7018" />
+                <Scale ScaleX="0.5000" ScaleY="0.5000" />
+                <CColor A="255" R="255" G="255" B="255" />
+                <PrePosition X="0.4799" Y="0.4942" />
+                <PreSize X="2.8211" Y="0.6277" />
+                <FontResource Type="Normal" Path="ccstd_fonts/GillSans_ttf/Gill Sans.ttf" Plist="" />
+                <OutlineColor A="255" R="255" G="0" B="0" />
+                <ShadowColor A="255" R="110" G="110" B="110" />
+              </AbstractNodeData>
             </Children>
             <AnchorPoint />
             <Position />

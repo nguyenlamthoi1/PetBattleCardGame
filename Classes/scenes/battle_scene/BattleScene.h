@@ -24,12 +24,19 @@ class BSDeck;
 class BSAction;
 class BSBoard;
 class BSPlayer;
+class BSCard;
 
 using BManagerPtr = std::shared_ptr<BattleManager>;
+
+namespace BATTLE_SCENE_Z {
+	const float DETAILED_CARD = 1000;
+};
 
 class BattleScene final : public cocos2d::Scene
 {
 public:
+	
+
 	friend class BSHand;
 	friend class BSDeck;
 	friend class BSBoard;
@@ -72,6 +79,10 @@ public:
 	void pushActions(std::initializer_list<BSAction*> list);
 
 	//--Action pipeline-end--
+	BSCard *detailedCard = nullptr;
+	void showCardDetails(const std::shared_ptr<const CardData> &card);
+	void hideCardDetails();
+	void clearCardDetails();
 
 };
 

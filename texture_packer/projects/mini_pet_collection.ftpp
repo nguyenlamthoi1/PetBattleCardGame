@@ -8,7 +8,7 @@
     "D:/Cocos2d-x/LVTN/PetBattleCardGame/texture_packer/raws/mini_pokemon"
   ],
   "packOptions": {
-    "textureName": "mini_pokemon_list",
+    "textureName": "mini_pet_collection",
     "textureFormat": "png",
     "removeFileExtension": false,
     "prependFolderName": true,

@@ -20,7 +20,7 @@ class CardHolder;
 class BSBoard final {
 public:
 	friend class BattleScene;
-private:
+//private:
 	static BSBoard* create(BattleScene *scn, PlayerIdType id);
 	BSBoard(BattleScene *scn, PlayerIdType ownerId);
 	~BSBoard();

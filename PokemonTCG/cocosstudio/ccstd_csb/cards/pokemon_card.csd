@@ -54,15 +54,15 @@
               <AbstractNodeData Name="Evo_Type" ActionTag="565833284" Tag="19" IconVisible="False" LeftMargin="23.1215" RightMargin="297.8785" TopMargin="22.3165" BottomMargin="517.6835" LeftEage="7" RightEage="7" TopEage="2" BottomEage="2" Scale9OriginX="7" Scale9OriginY="2" Scale9Width="55" Scale9Height="23" ctype="ImageViewObjectData">
                 <Size X="69.0000" Y="27.0000" />
                 <Children>
-                  <AbstractNodeData Name="Evo_Text" ActionTag="882117780" Tag="23" IconVisible="False" LeftMargin="5.0361" RightMargin="-25.0361" TopMargin="-3.1356" BottomMargin="-12.8644" FontSize="36" LabelText="Basic" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
-                    <Size X="89.0000" Y="43.0000" />
-                    <AnchorPoint ScaleY="0.5000" />
-                    <Position X="5.0361" Y="8.6356" />
-                    <Scale ScaleX="0.6500" ScaleY="0.6500" />
+                  <AbstractNodeData Name="Evo_Text" ActionTag="882117780" Tag="23" IconVisible="False" LeftMargin="-9.3700" RightMargin="-12.6300" TopMargin="-3.1356" BottomMargin="-12.8644" FontSize="36" LabelText="basic" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                    <Size X="91.0000" Y="43.0000" />
+                    <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                    <Position X="36.1300" Y="8.6356" />
+                    <Scale ScaleX="0.4300" ScaleY="0.4300" />
                     <CColor A="255" R="77" G="77" B="77" />
-                    <PrePosition X="0.0730" Y="0.3198" />
-                    <PreSize X="1.2899" Y="1.5926" />
-                    <FontResource Type="Normal" Path="ccstd_fonts/GillSans_ttf/Gill-Sans-Bold.ttf" Plist="" />
+                    <PrePosition X="0.5236" Y="0.3198" />
+                    <PreSize X="1.3188" Y="1.5926" />
+                    <FontResource Type="Normal" Path="ccstd_fonts/GillSans_ttf/Gill-Sans-Heavy-Italic.ttf" Plist="" />
                     <OutlineColor A="255" R="255" G="0" B="0" />
                     <ShadowColor A="255" R="110" G="110" B="110" />
                   </AbstractNodeData>
@@ -88,7 +88,7 @@
               <AbstractNodeData Name="Evo_Square" ActionTag="1648738243" Tag="49" IconVisible="False" LeftMargin="25.9524" RightMargin="301.0476" TopMargin="51.7680" BottomMargin="455.2320" LeftEage="20" RightEage="20" TopEage="19" BottomEage="19" Scale9OriginX="20" Scale9OriginY="19" Scale9Width="23" Scale9Height="22" ctype="ImageViewObjectData">
                 <Size X="63.0000" Y="60.0000" />
                 <Children>
-                  <AbstractNodeData Name="Image_18" ActionTag="-1734533133" Tag="60" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="-28.5000" RightMargin="-28.5000" TopMargin="-58.3820" BottomMargin="6.3820" LeftEage="39" RightEage="39" TopEage="36" BottomEage="36" Scale9OriginX="39" Scale9OriginY="36" Scale9Width="42" Scale9Height="40" ctype="ImageViewObjectData">
+                  <AbstractNodeData Name="Evo_Img" ActionTag="-1734533133" Tag="60" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="-28.5000" RightMargin="-28.5000" TopMargin="-58.3820" BottomMargin="6.3820" LeftEage="39" RightEage="39" TopEage="36" BottomEage="36" Scale9OriginX="39" Scale9OriginY="36" Scale9Width="42" Scale9Height="40" ctype="ImageViewObjectData">
                     <Size X="120.0000" Y="112.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="31.5000" Y="62.3820" />
@@ -165,7 +165,7 @@
                 <PreSize X="0.2462" Y="0.1693" />
                 <FileData Type="PlistSubImage" Path="pokemon_card_template_x3/energy/energy_fire.png" Plist="ccstd_assets/pokemon_card_template_x3.plist" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Middle_Panel" ActionTag="1404557248" Tag="20" IconVisible="False" LeftMargin="21.4518" RightMargin="20.5482" TopMargin="276.4185" BottomMargin="80.5815" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
+              <AbstractNodeData Name="Middle_Panel" ActionTag="1404557248" Tag="20" IconVisible="False" LeftMargin="21.4518" RightMargin="20.5482" TopMargin="276.4185" BottomMargin="80.5815" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
                 <Size X="348.0000" Y="210.0000" />
                 <AnchorPoint />
                 <Position X="21.4518" Y="80.5815" />
@@ -346,7 +346,7 @@
             <EndColor A="255" R="255" G="255" B="255" />
             <ColorVector ScaleY="1.0000" />
           </AbstractNodeData>
-          <AbstractNodeData Name="Touch_Detector" ActionTag="-933704921" Tag="431" IconVisible="False" LeftMargin="-185.0000" RightMargin="-205.0000" TopMargin="-283.0000" BottomMargin="-284.0000" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
+          <AbstractNodeData Name="Touch_Detector" ActionTag="-933704921" Tag="431" IconVisible="False" LeftMargin="-185.0000" RightMargin="-205.0000" TopMargin="-283.0000" BottomMargin="-284.0000" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
             <Size X="390.0000" Y="567.0000" />
             <AnchorPoint />
             <Position X="-185.0000" Y="-284.0000" />

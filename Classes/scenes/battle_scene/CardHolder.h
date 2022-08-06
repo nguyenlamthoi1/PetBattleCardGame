@@ -14,6 +14,10 @@
 
 BATTLE_SCENE_NS_BEG
 
+class BSCard;
+class PetCard;
+class EnergyCard;
+
 class CardHolder : public cocos2d::ui::Layout {
 public:
 	static cocos2d::Size HOLDER_SIZE;
@@ -23,10 +27,19 @@ public:
 	virtual bool init() override;
 	void setHolderSizeH(float h);
 	void setHolderSizeW(float w);
-
-	
+	bool tryAddPetCard(PetCard *card);
+	void updateInfoPanel(bool show);
 protected:
-	cocos2d::Node *node;
+	PetCard *petCard = nullptr;
+	std::vector<PetCard*> preEvCardVec;
+	std::vector<EnergyCard*> energyCardVec;
+
+	cocos2d::Node *cardMarker = nullptr;
+
+	cocos2d::ui::Text *flyingText = nullptr;
+	void showFlyingText(const std::string &s);
+
+	cocos2d::Node *node = nullptr;
 };
 
 BATTLE_SCENE_NS_END

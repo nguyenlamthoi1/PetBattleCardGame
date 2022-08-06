@@ -5,6 +5,7 @@
 #include "BSDeck.h"
 #include "BSBoard.h"
 #include "BSPlayer.h"
+#include "BSCard.h"
 
 #include "actions/BSAction.h"
 
@@ -57,6 +58,8 @@ BattleScene::BattleScene(){
 BattleScene::~BattleScene(){
 	CCLOG("BattleScene::dtor called");
 	clearPipeline();
+
+	clearCardDetails();
 }
 
 bool BattleScene::init() {
@@ -159,6 +162,34 @@ void BattleScene::clearPipeline() {
 		action = nullptr;
 	}
 	pipeline.clear();
+}
+
+void BattleScene::showCardDetails(const std::shared_ptr<const CardData> &data) {
+	if (detailedCard) {
+		detailedCard->removeFromParent();
+		detailedCard = nullptr;
+	}
+	detailedCard = BSCard::createWithData(data);
+	detailedCard->removeFromParent();
+	this->addChild(detailedCard, BATTLE_SCENE_Z::DETAILED_CARD);
+
+	auto dir = Director::getInstance();
+	auto vSize = dir->getVisibleSize();
+	detailedCard->setPosition(Vec2(vSize.width / 2, vSize.height / 2 + 20));
+	detailedCard->setVisible(true);
+	detailedCard->setNormalSize();
+	//detailedCard->setScale(1.0f);
+}
+
+void BattleScene::hideCardDetails() {
+	clearCardDetails();
+}
+
+void BattleScene::clearCardDetails() {
+	if (detailedCard) {
+		detailedCard->removeFromParent();
+		detailedCard = nullptr;
+	}
 }
 
 BATTLE_SCENE_NS_END

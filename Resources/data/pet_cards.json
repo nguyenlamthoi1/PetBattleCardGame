@@ -3,8 +3,8 @@
     "Type": "Fire",
     "Name": "Charmander",
     "Hp": 60,
-    "Image": "",
-    "OuterImage" : "",
+    "Image": "pet_collection_1/004_0.png",
+    "OuterImage" : "card_outer_background/card_outer_bg_8.png",
     "Retreat":{
       "Normal" : 1
     },
@@ -14,11 +14,20 @@
     "Moves":[
       {
         "Name" : "Scratch",
-        "DamageText" : "20",
+        "DamageText" : "10",
         "Cost" : {
-          "Normal" : 2
+          "Normal" : 1
         },
         "ContentText" : ""
+      },
+      {
+        "Name" : "Ember",
+        "DamageText" : "30",
+        "Cost" : {
+          "Fire": 1,
+          "Normal" : 1
+        },
+        "ContentText" : "Discard 1 Fire Energy attached to Charmander"
       }
     ]
   },
@@ -26,11 +35,12 @@
     "Type": "Fire",
     "Name": "Charmeleon",
     "Hp": 90,
-    "Image": "",
-    "OuterImage" : "",
+    "Image": "pet_collection_1/005_0.png",
+    "OuterImage" : "card_outer_background/card_outer_bg_8.png",
     "Evolve":{
       "FromName" : "Charmander",
-      "Image": ""
+      "Image": "mini_pokemon/charmander.png",
+      "Stage" : 1
     },
     "Retreat":{
       "Normal" : 2
@@ -43,14 +53,53 @@
     },
     "Moves":[
       {
-        "Name" : "Ember",
-        "DamageText" : "20",
+        "Name" : "Slash",
+        "DamageText" : "30",
         "Cost" : {
-          "Normal" : 2,
-          "Fire" : 1
+          "Normal" : 3
         },
         "ContentText" : ""
+      },
+      {
+        "Name" : "Flamethrower",
+        "DamageText" : "50",
+        "Cost" : {
+          "Fire" : 2,
+          "Normal" : 1
+        },
+        "ContentText" : "Discard 1 Fire Energy attached to Charmander"
       }
     ]
-  }  
+  },
+  "P03":{
+    "Type": "Fire",
+    "Name": "Charizard",
+    "Hp": 120,
+    "Image": "pet_collection_1/006_0.png",
+    "OuterImage" : "card_outer_background/card_outer_bg_8.png",
+    "Evolve":{
+      "FromName" : "Charmeleon",
+      "Image": "mini_pokemon/charmeleon.png",
+      "Stage" : 2
+    },
+    "Retreat":{
+      "Normal" : 3
+    },
+    "Weakness":[
+      "Water"
+    ],
+    "Resistance":{
+      "Grass" : -30
+    },
+    "Moves":[
+      {
+        "Name" : "Fire Spin",
+        "DamageText" : "20",
+        "Cost" : {
+          "Fire" : 4
+        },
+        "ContentText" : "Discard 2 Energy attached to Charizard"
+      }
+    ]
+  } 
 }

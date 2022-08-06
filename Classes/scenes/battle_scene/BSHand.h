@@ -34,7 +34,11 @@ private:
 	std::vector<BSCard*> cards;
 
 	// Utilize functions
-	
+	void onDragIn(BSCard *card, cocos2d::Node *dest);
+	void onDragOut(BSCard *card, cocos2d::Node *dest);
+	bool onDragEnd(BSCard *card, cocos2d::Node *dest);
+	void onDragBack(BSCard *card);
+	void updateHandPos();
 };
 
 BATTLE_SCENE_NS_END

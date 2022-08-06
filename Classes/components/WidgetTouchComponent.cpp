@@ -104,9 +104,12 @@ void WidgetTouchComponent::applyHandler() {
 			if (movedCb) 
 				movedCb(widget, nullptr, nullptr);
 
+
 			// Drag comp
 			auto comp = MyComponentNS::getComponent<DragComponent>(widget, COMPONENT_KEY::DRAG);
 			if (comp && comp->isEnabled()) {
+				cocos2d::Director::getInstance()->getScheduler()->unschedule(HOLD_TOUCH_SCHEDULE_KEY, this);
+
 				if (comp->isDragging) {
 					// Set position cho obj tuong doi voi drag container
 					Vec2 wPos;

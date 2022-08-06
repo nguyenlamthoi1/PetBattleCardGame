@@ -27,6 +27,9 @@ public:
 
 
 	static BSCard* createWithData(const std::shared_ptr<const CardData> &data);
+	virtual std::shared_ptr<const CardData> getData() = 0;
+	virtual void setNormalSize() = 0;
+
 protected:
 	BSCard();
 	virtual ~BSCard();
@@ -37,20 +40,36 @@ protected:
 
 class PetCard : public BSCard {
 public:
+
 	static PetCard* createWithData(const std::shared_ptr<const CardData> &data);
 	//static PetCard* create(const PetCardData *data);
 	static PetCard* create();
 
 	virtual bool init() override;
 	virtual bool initWithData(const std::shared_ptr<const CardData> &data) override;
+	virtual std::shared_ptr<const CardData> getData() override;
+	virtual void setNormalSize() override;
 
 	std::shared_ptr<const PetCardData> data;
 
 	cocos2d::Node *cardNode = nullptr;
 	cocos2d::ui::Text *nameText = nullptr;
 	cocos2d::ui::Text *hpText = nullptr;
+	cocos2d::ui::ImageView *petImg = nullptr;
+	cocos2d::ui::ImageView *outerImg = nullptr;
+
+	cocos2d::ui::Text *evText = nullptr;
+	cocos2d::ui::ImageView *evArrow = nullptr;
+	cocos2d::ui::Text *evFromText = nullptr;
+	cocos2d::ui::ImageView *evFromImg = nullptr;
+
+
+
 
 	bool isEmpty() const { return !data; }
+	bool isBasic() const;
+private:
+	static const std::string EMPTY_PET_IMG;
 };
 
 class EnergyCard : public BSCard {
@@ -67,7 +86,8 @@ public:
 	cocos2d::Node *cardNode = nullptr;
 	cocos2d::ui::Text *nameText = nullptr;
 	cocos2d::ui::ImageView *image = nullptr;
-	
+	virtual std::shared_ptr<const CardData> getData() override;
+	virtual void setNormalSize() override;
 };
 
 BATTLE_SCENE_NS_END

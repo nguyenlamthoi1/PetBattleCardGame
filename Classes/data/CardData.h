@@ -50,6 +50,7 @@ public:
 	bool isEvolutionCard() { return !evolveFrom.empty(); }
 	std::string evolveFrom;
 	std::string preEvImg;
+	unsigned char evStage = 0;
 };
 
 class EnergyCardData final : public CardData {

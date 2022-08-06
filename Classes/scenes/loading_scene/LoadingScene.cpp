@@ -126,6 +126,18 @@ void LoadingScene::startLoading() {
 	loader->addLoadedObj(LoadedObject("data\\energy_images_x3.plist", []()->bool {
 		return GameManager::getInstance()->getLoader()->loadPlistFile("ccstd_assets/energy_images_x3.plist");
 		}));
+
+	loader->addLoadedObj(LoadedObject("my_res/mini_pet_collection.plist", []()->bool {
+		return GameManager::getInstance()->getLoader()->loadPlistFile("my_res/mini_pet_collection.plist");
+		}));
+
+	loader->addLoadedObj(LoadedObject("my_res/pet_collection_1.plist", []()->bool {
+		return GameManager::getInstance()->getLoader()->loadPlistFile("my_res/pet_collection_1.plist");
+		}));
+
+	loader->addLoadedObj(LoadedObject("my_res/outer_pet_pg.plist", []()->bool {
+		return GameManager::getInstance()->getLoader()->loadPlistFile("my_res/outer_pet_pg.plist");
+		}));
 	
 	//--
 

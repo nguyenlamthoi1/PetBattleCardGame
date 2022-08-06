@@ -75,6 +75,8 @@ bool BSCard::onTouchHold() {
 	PetCard Class
 */
 
+const std::string PetCard::EMPTY_PET_IMG = "pet_collection_1/000.png";
+
 PetCard* PetCard::createWithData(const std::shared_ptr<const CardData> &data) {
 	auto card = new (nothrow) PetCard();
 	if (card && card->initWithData(data)) {
@@ -112,10 +114,22 @@ bool PetCard::init() {
 	auto layoutSize = this->getContentSize();
 	cardNode->setScale(CARD_SCALE_DOWN); // *TODO: Nen tinh toan ra gia tri scale, sao cho kich thuong card bang dung voi CARD_SIZE
 	cardNode->setPosition(layoutSize.width / 2, layoutSize.height / 2);
+
+	auto cardLayout = cardNode->getChildByName("Card_Layout");
+	petImg = dynamic_cast<ui::ImageView*>(cardLayout->getChildByName("Pokemon_Image"));
+	outerImg = dynamic_cast<ui::ImageView*>(cardLayout->getChildByName("Outer_Background"));
+
+
 	nameText = static_cast<ui::Text*>(Utilize::getChildByName(cardNode, "Pokemon_Name"));
 	nameText->setString("");
 	hpText = static_cast<ui::Text*>(Utilize::getChildByName(cardNode, "Hp_Value_Text"));
 	hpText->setString("0");
+
+	evText = static_cast<ui::Text*>(Utilize::getChildByName(cardNode, "Evo_Text"));
+	evArrow = static_cast<ui::ImageView*>(Utilize::getChildByName(cardNode, "Evo_Arrow"));
+	evFromText = static_cast<ui::Text*>(Utilize::getChildByName(cardNode, "Pre_Evo_Name"));
+	//evFromImg = static_cast<ui::ImageView*>(Utilize::getChildByName(cardNode, "Evo_Img"));
+	evFromImg = static_cast<ui::ImageView*>(cardLayout->getChildByName("Evo_Square")->getChildByName("Evo_Img"));
 
 	/*auto td = static_cast<ui::Layout*>(Utilize::getChildByName(cardNode, "Touch_Detector"));
 	WidgetTouchNS::setWidgetTouchHold(td, bind(&PetCard::onTouchHold, this));
@@ -129,10 +143,47 @@ bool PetCard::initWithData(const std::shared_ptr<const CardData> &dta) {
 	if (!init())
 		return false;
 
-	data = dynamic_pointer_cast<const PetCardData>(data);
+	data = dynamic_pointer_cast<const PetCardData>(dta);
 	if (!data || !data->isValid()) // Khoi tao thanh cong 1 empty card
 		return true;
+
+	if(!data->petImg.empty()) 
+		petImg->loadTexture(data->petImg, ui::Widget::TextureResType::PLIST);
+	else
+		petImg->loadTexture(EMPTY_PET_IMG, ui::Widget::TextureResType::PLIST);
+
+	if (!data->outerImg.empty()) 
+		outerImg->loadTexture(data->outerImg, ui::Widget::TextureResType::PLIST);
+
+	hpText->setString(to_string(data->hp));
+	nameText->setString(data->name);
+
+	bool evolved = data->evStage >= 1;
+	if (evolved) {
+		evText->setString("Stage" + to_string(data->evStage));
+		evFromText->setString("Evolves from " + data->evolveFrom);
+		evFromImg->loadTexture(data->preEvImg, ui::Widget::TextureResType::PLIST);
+	}
+	else {
+		evText->setString("Basic");
+	}
+	evArrow->setVisible(evolved);
+	return true;
 }
+
+std::shared_ptr<const CardData> PetCard::getData() {
+	return data;
+}
+
+void PetCard::setNormalSize() {
+	this->setScale(1.0f);
+	cardNode->setScale(1.0f);
+}
+
+bool PetCard::isBasic() const {
+	return data->evStage < 1;
+}
+
 
 
 /*
@@ -202,6 +253,17 @@ bool EnergyCard::initWithData(const std::shared_ptr<const CardData> &dta) {
 
 	if (!data->image.empty())
 		image->loadTexture(data->image, ui::Widget::TextureResType::PLIST);
+
+}
+
+
+std::shared_ptr<const CardData> EnergyCard::getData() {
+	return data;
+}
+
+void EnergyCard::setNormalSize() {
+	this->setScale(1.0f);
+	cardNode->setScale(1.0f);
 }
 
 BATTLE_SCENE_NS_END

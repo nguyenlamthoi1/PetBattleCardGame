@@ -116,6 +116,7 @@ bool DataManager::loadPetCards() {
 			auto evObj = foundItr->value.GetObj();
 			data->evolveFrom = evObj["FromName"].GetString();
 			data->preEvImg = evObj["Image"].GetString();
+			data->evStage = evObj["Stage"].GetUint();
 		}
 
 
