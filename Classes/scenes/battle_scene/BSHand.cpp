@@ -205,7 +205,7 @@ bool BSHand::onDragEnd(BSCard *card, cocos2d::Node *dest) {
 }
 
 void BSHand::updateHandPos() {
-
+	
 }
 
 

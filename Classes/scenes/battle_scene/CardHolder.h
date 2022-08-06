@@ -5,6 +5,7 @@
 #include "cocos2d.h"
 #include "ui/UILayout.h"
 #include "ui/UIText.h"
+#include "ui/UIImageView.h"
 
 #include <initializer_list>
 #include <functional>
@@ -30,6 +31,8 @@ public:
 	bool tryAddPetCard(PetCard *card);
 	void updateInfoPanel(bool show);
 protected:
+	int dmgCounter = 0;
+
 	PetCard *petCard = nullptr;
 	std::vector<PetCard*> preEvCardVec;
 	std::vector<EnergyCard*> energyCardVec;
@@ -38,6 +41,10 @@ protected:
 
 	cocos2d::ui::Text *flyingText = nullptr;
 	void showFlyingText(const std::string &s);
+
+	cocos2d::ui::Layout *hpPanel = nullptr;
+	cocos2d::ui::ImageView *petTypeImg = nullptr;
+	cocos2d::ui::Text *hpText = nullptr;
 
 	cocos2d::Node *node = nullptr;
 };

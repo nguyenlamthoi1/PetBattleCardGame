@@ -60,6 +60,10 @@ bool CardHolder::init() {
 	auto layout = node->getChildByName("PanelHolder");
 	this->setContentSize(layout->getContentSize());
 
+	hpPanel = dynamic_cast<ui::Layout*>(panel->getChildByName("Hd_HpPanel"));
+	hpText = dynamic_cast<ui::Text*>(hpPanel->getChildByName("Hd_HpPanel_Text"));
+	petTypeImg = dynamic_cast<ui::ImageView*>(hpPanel->getChildByName("Hd_HpPanel_Energy"));
+
 	return true;
 }
 
@@ -119,13 +123,17 @@ bool CardHolder::tryAddPetCard(PetCard *card) {
 		card->setPosition(pos + Vec2(0, 10));
 		card->runAction(MoveTo::create(0.15f, pos));
 		showFlyingText("Evolved");
+		updateInfoPanel(true);
 		return true;
 	}
 	return false;
 }
 
 void CardHolder::updateInfoPanel(bool show) {
-
+	auto holderPetData = dynamic_pointer_cast<const PetCardData>(petCard->getData());
+	if (show)
+		hpPanel->setVisible(true);
+	hpText->setString(to_string(holderPetData->hp - dmgCounter));
 }
 
 void CardHolder::showFlyingText(const string &s) {
