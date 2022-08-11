@@ -178,8 +178,7 @@ void BattleScene::clearPipeline() {
 
 void BattleScene::showCardDetails(const std::shared_ptr<const CardData> &data) {
 	if (detailedCard) {
-		detailedCard->removeFromParent();
-		detailedCard = nullptr;
+		hideCardDetails();
 	}
 	detailedCard = BSCard::createWithData(data);
 	detailedCard->removeFromParent();
@@ -194,8 +193,13 @@ void BattleScene::showCardDetails(const std::shared_ptr<const CardData> &data) {
 }
 
 void BattleScene::hideCardDetails() {
-	clearCardDetails();
+	if (detailedCard) {
+		detailedCard->returnToPool();
+		detailedCard->removeFromParent();
+		detailedCard = nullptr;
+	}
 }
+	
 
 void BattleScene::clearCardDetails() {
 	if (detailedCard) {

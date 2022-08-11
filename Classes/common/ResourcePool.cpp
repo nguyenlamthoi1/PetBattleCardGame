@@ -18,7 +18,6 @@ PoolVector::~PoolVector() {
 
 void PoolVector::clear() {
 	map<string, int> res;
-
 	for (const auto& node : nodes) {
 		auto comp = getComponent<GamePoolComponent>(node, COMPONENT_KEY::GAME_POOL);
 		res[comp->getKey()] = res[comp->getKey()] + 1;
@@ -51,8 +50,8 @@ void PoolVector::pushBack(Node *node, const string &fileKey) {
 	CCASSERT(node != nullptr, "PoolVector::pushBack: node is NULL");
 	CCASSERT(!fileKey.empty(), "PoolVector::pushBack: fileKey is empty");
 	node->retain();
-	setComponent(node, COMPONENT_KEY::GAME_POOL, new GamePoolComponent(this, nodes.size() - 1, fileKey));
 	nodes.push_back(node);
+	setComponent(node, COMPONENT_KEY::GAME_POOL, new GamePoolComponent(this, nodes.size() - 1, fileKey));
 	CCLOG("PoolVector::pushBack %s used/total: %d / %d", fileKey.c_str(), freeIdx, nodes.size());
 }
 

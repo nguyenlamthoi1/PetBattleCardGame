@@ -29,7 +29,7 @@ public:
 	static BSCard* createWithData(const std::shared_ptr<const CardData> &data);
 	virtual std::shared_ptr<const CardData> getData() = 0;
 	virtual void setNormalSize() = 0;
-
+	virtual void returnToPool(){}
 protected:
 	BSCard();
 	virtual ~BSCard();
@@ -47,6 +47,7 @@ public:
 
 	virtual bool init() override;
 	virtual bool initWithData(const std::shared_ptr<const CardData> &data) override;
+	virtual void returnToPool();
 	virtual std::shared_ptr<const CardData> getData() override;
 	virtual void setNormalSize() override;
 
@@ -63,9 +64,6 @@ public:
 	cocos2d::ui::Text *evFromText = nullptr;
 	cocos2d::ui::ImageView *evFromImg = nullptr;
 
-
-
-
 	bool isEmpty() const { return !data; }
 	bool isBasic() const;
 private:
@@ -80,6 +78,7 @@ public:
 
 	virtual bool init() override;
 	virtual bool initWithData(const std::shared_ptr<const CardData> &data) override;
+	virtual void returnToPool();
 
 	std::shared_ptr<const EnergyCardData> data;
 
@@ -88,6 +87,7 @@ public:
 	cocos2d::ui::ImageView *image = nullptr;
 	virtual std::shared_ptr<const CardData> getData() override;
 	virtual void setNormalSize() override;
+
 };
 
 BATTLE_SCENE_NS_END

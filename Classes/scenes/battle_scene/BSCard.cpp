@@ -99,6 +99,14 @@ PetCard* PetCard::create() {
 	return card;
 }
 
+void PetCard::returnToPool() {
+	if (cardNode) {
+		cardNode->removeFromParent();
+		PoolVector::returnNode(cardNode);
+		cardNode = nullptr;
+	}
+}
+
 
 bool PetCard::init() {
 	if (!BSCard::init())
@@ -212,6 +220,13 @@ EnergyCard* EnergyCard::create() {
 	return card;
 }
 
+void EnergyCard::returnToPool() {
+	if (cardNode) {
+		cardNode->removeFromParent();
+		PoolVector::returnNode(cardNode);
+		cardNode = nullptr;
+	}
+}
 
 bool EnergyCard::init() {
 	if (!BSCard::init())
