@@ -17,9 +17,18 @@ PoolVector::~PoolVector() {
 }
 
 void PoolVector::clear() {
+	map<string, int> res;
+
 	for (const auto& node : nodes) {
+		auto comp = getComponent<GamePoolComponent>(node, COMPONENT_KEY::GAME_POOL);
+		res[comp->getKey()] = res[comp->getKey()] + 1;
+
 		removeComponent(node, COMPONENT_KEY::GAME_POOL);
 		node->release();
+	}
+
+	for (const auto &it : res) {
+		CCLOG("PoolVector::clear %s %d", it.first.c_str(), it.second);
 	}
 }
 

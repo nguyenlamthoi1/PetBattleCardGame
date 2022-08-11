@@ -13,11 +13,11 @@ shared_ptr<PlayerData> PlayerData::createPseudo(bool isPlayer) {
 
 
 PlayerData::PlayerData() : curDeck(0) {
-
+	CCLOG("PlayerData::Ctor %p", this);
 }
 
 PlayerData::~PlayerData() {
-
+	CCLOG("PlayerData::Dtor %p", this);
 }
 
 bool PlayerData::loadDataFromFile(const string &file) {
@@ -27,6 +27,10 @@ bool PlayerData::loadDataFromFile(const string &file) {
 
 PlayerData::DeckList PlayerData::getCurDeck() const{
 	DeckList ret;
+
+	if (deckList.empty())
+		return ret;
+
 	auto dataMgr = GM_DATA_MGR;
 	for (const auto &it : deckList[curDeck]) {
 		int i = 0;

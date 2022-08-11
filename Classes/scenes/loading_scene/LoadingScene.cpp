@@ -139,6 +139,7 @@ void LoadingScene::startLoading() {
 		return GameManager::getInstance()->getLoader()->loadPlistFile("my_res/outer_pet_pg.plist");
 		}));
 	
+
 	//--
 
 	auto fileCount = loader->stepCount();

@@ -112,6 +112,7 @@
             <PlistImageFile Name="pokemon_card_template_x3_energy_energy_psychic.png" Key="pokemon_card_template_x3/energy/energy_psychic.png" />
             <PlistImageFile Name="pokemon_card_template_x3_energy_energy_steel.png" Key="pokemon_card_template_x3/energy/energy_steel.png" />
             <PlistImageFile Name="pokemon_card_template_x3_energy_energy_water.png" Key="pokemon_card_template_x3/energy/energy_water.png" />
+            <PlistImageFile Name="pokemon_card_template_x3_energy_name_panel.png" Key="pokemon_card_template_x3/energy_name_panel.png" />
             <PlistImageFile Name="pokemon_card_template_x3_evolution_arrow.png" Key="pokemon_card_template_x3/evolution_arrow.png" />
             <PlistImageFile Name="pokemon_card_template_x3_evolution_square_panel.png" Key="pokemon_card_template_x3/evolution_square_panel.png" />
             <PlistImageFile Name="pokemon_card_template_x3_evolution_text_panel.png" Key="pokemon_card_template_x3/evolution_text_panel.png" />
@@ -122,7 +123,6 @@
             <PlistImageFile Name="pokemon_card_template_x3_move_btn_normal.png" Key="pokemon_card_template_x3/move_btn_normal.png" />
             <PlistImageFile Name="pokemon_card_template_x3_outer_background_default.png" Key="pokemon_card_template_x3/outer_background_default.png" />
             <PlistImageFile Name="pokemon_card_template_x3_white_square.png" Key="pokemon_card_template_x3/white_square.png" />
-            <PlistImageFile Name="pokemon_card_template_x3_energy_name_panel.png" Key="pokemon_card_template_x3/energy_name_panel.png" />
           </PlistImageFolder>
           <PlistImageFolder Image="title_scene.png" PListFile="title_scene.plist" Name=".title_scene_PList.Dir">
             <PlistImageFile Name="title_scene_pkm_for_title_scn_0.png" Key="title_scene/pkm_for_title_scn_0.png" />
@@ -136,13 +136,16 @@
         </Folder>
         <Folder Name="ccstd_csb">
           <Folder Name="battle_scene">
+            <Folder Name="prefabs">
+              <Project Name="energy_item.csd" Type="Node" />
+            </Folder>
             <Project Name="battle_scene.csd" Type="Scene" />
             <Project Name="card_holder.csd" Type="Node" />
           </Folder>
           <Folder Name="cards">
+            <Project Name="energy_card.csd" Type="Node" />
             <Project Name="pokemon_card.csd" Type="Node" />
             <Project Name="pokemon_card_2.csd" Type="Node" />
-            <Project Name="energy_card.csd" Type="Node" />
           </Folder>
           <Folder Name="title_scene">
             <Project Name="title_scene.csd" Type="Scene" />

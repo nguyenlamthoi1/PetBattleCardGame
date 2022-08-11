@@ -31,7 +31,7 @@ private:
 
 	PlayerIdType ownerId = PlayerIdInvalid;
 	BattleScene *btlScn;
-	std::vector<BSCard*> cards;
+	std::vector<BSCard*> cards; CHECK_CLEAN_FLAG
 
 	// Utilize functions
 	void onDragIn(BSCard *card, cocos2d::Node *dest);

@@ -42,6 +42,11 @@ private:
 class ResourcePool
 {
 public:
+	static bool returnNode(cocos2d::Node *node) {
+		return PoolVector::returnNode(node);
+	}
+
+
 	bool empty();
 	
 	/* Hint: function add 1 node bat ky vao pool voi fileKey

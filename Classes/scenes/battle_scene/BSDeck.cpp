@@ -21,10 +21,11 @@ BSDeck* BSDeck::create(BattleScene *scn, PlayerIdType id) {
 }
 
 BSDeck::BSDeck(BattleScene *scn, PlayerIdType id) : btlScn(scn), ownerId(id)  {
-
+	CCLOG("BSDeck::Ctor %p", this);
 }
 
 BSDeck::~BSDeck() {
+	CCLOG("BSDeck::Dtor %p", this);
 	clear();
 }
 
@@ -52,6 +53,7 @@ bool BSDeck::init() {
 		auto card = BSCard::createWithData(cardData);
 		card->retain();
 		cards.push_back(card);
+		allCards.push_back(card);
 	}
 
 	/*for (size_t i = 0; i < 60; i++) {
@@ -71,7 +73,7 @@ vector<BSCard*> BSDeck::drawTop(size_t n) {
 
 	for (auto it = cards.cbegin(); it != cards.cbegin() + n; ++it) {
 		auto &card = (*it);
-		//card->release();
+		//card->release(); // NO NEED
 		ret.push_back(card);
 	}
 	cards.erase(cards.cbegin(), cards.cbegin() + n);
@@ -92,13 +94,12 @@ std::vector<BSCard*>::iterator BSDeck::drawTop(size_t n, std::vector<BSCard*> &v
 	}
 	cards.erase(cards.cbegin(), cards.cbegin() + n);
 
-
 	return retIt;
 }
 
 
 void BSDeck::clear() {
-	for (auto &card : cards) {
+	for (auto &card : allCards) {
 		card->release();
 		card = nullptr;
 	}

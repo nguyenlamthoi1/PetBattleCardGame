@@ -55,6 +55,9 @@
     <Filter Include="src\include\rapidjson\msinttypes">
       <UniqueIdentifier>{36a66609-59ce-4d70-b789-4b14262614f6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\scenes\battle_scene\prefabs">
+      <UniqueIdentifier>{7fc01801-63a9-48ad-8689-65d7a902ec3a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -143,6 +146,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\data\MoveData.cpp">
       <Filter>src\data</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene\prefabs\EnergyItem.cpp">
+      <Filter>src\scenes\battle_scene\prefabs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -355,6 +361,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\data\MoveData.h">
       <Filter>src\data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\battle_scene\prefabs\BSPrefabs.h">
+      <Filter>src\scenes\battle_scene\prefabs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -28,10 +28,11 @@ BSHand* BSHand::create(BattleScene *scn, PlayerIdType id) {
 }
 
 BSHand::BSHand(BattleScene *scn, PlayerIdType id) : btlScn(scn), ownerId(id){
+	CCLOG("BSHand::Ctor %p", this);
 }
 
 BSHand::~BSHand() {
-
+	CCLOG("BSHand::Dtor %p", this);
 }
 
 bool BSHand::init() {
@@ -192,13 +193,16 @@ bool BSHand::onDragEnd(BSCard *card, cocos2d::Node *dest) {
 	switch (data->type) {
 	case CardData::Type::Pet: {
 		auto petCard = dynamic_cast<PetCard*>(card);
-		auto petData = dynamic_pointer_cast<const PetCardData>(data);
 		auto holder = dynamic_cast<CardHolder*>(dest);
 		bool suc = holder->tryAddPetCard(petCard);
 		return suc;
 	}
 		break;
 	case CardData::Type::Energy:
+		auto energyCard = dynamic_cast<EnergyCard*>(card);
+		auto holder = dynamic_cast<CardHolder*>(dest);
+		bool suc = holder->tryAddEnergyCard(energyCard);
+		return suc;
 		break;
 	}
 	return false;

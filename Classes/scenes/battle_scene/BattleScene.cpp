@@ -58,8 +58,21 @@ BattleScene::BattleScene(){
 BattleScene::~BattleScene(){
 	CCLOG("BattleScene::dtor called");
 	clearPipeline();
+	detailedCard = nullptr;
 
-	clearCardDetails();
+#if DEBUG_CLEAN > 0
+	checkClean();
+#endif
+}
+
+void BattleScene::checkClean() {
+#if DEBUG_CLEAN > 0
+	for (const auto& e : pipeline) {
+		CCASSERT(e == nullptr, "checkClean:: mem leak!");
+	}
+
+	CCASSERT(detailedCard == nullptr, "checkClean:: mem leak!");
+#endif
 }
 
 bool BattleScene::init() {
@@ -68,16 +81,19 @@ bool BattleScene::init() {
 
 	auto director = Director::getInstance();
 	auto winSize = director->getWinSize();
-	auto gm = GameManager::getInstance();
-	auto resPool = gm->getPool();
+	auto pool = GM_POOL;
 	
-	ui = static_cast<ui::Layout*>(resPool->tryGetNodeCsb("ccstd_csb/battle_scene/battle_scene.csb"));
-	ui::Helper::doLayout(ui);
-	if (!ui)
+	root = static_cast<ui::Layout*>(pool->tryGetNodeCsb("ccstd_csb/battle_scene/battle_scene.csb"));
+	ui::Helper::doLayout(root);
+	if (!root)
 		return false;
 
-	playerPanels[PLAYER] = dynamic_cast<ui::Layout*>(ui->getChildByName("P1_Panel"));
-	playerPanels[OPPONENT] = dynamic_cast<ui::Layout*>(ui->getChildByName("P2_Panel"));
+	root->setContentSize(winSize);
+	ui::Helper::doLayout(root);
+	this->addChild(root);
+
+	playerPanels[PLAYER] = dynamic_cast<ui::Layout*>(root->getChildByName("P1_Panel"));
+	playerPanels[OPPONENT] = dynamic_cast<ui::Layout*>(root->getChildByName("P2_Panel"));
 
 	// Khoi tao 2 player data
 	auto dataMgr = GM_DATA_MGR;
@@ -88,24 +104,20 @@ bool BattleScene::init() {
 	players[PLAYER] = make_shared<BSPlayer>(PLAYER);
 	players[OPPONENT] = make_shared<BSPlayer>(OPPONENT);
 
-	
 	// Khoi tao Hand
 	hands[PLAYER] = BSHand::create(this, PLAYER); 
-	hands[PLAYER]->retain();
-	Node *tempMarker = ui->getChildByName("P1_Panel")->getChildByName("Hand_Marker");
+	Node *tempMarker = root->getChildByName("P1_Panel")->getChildByName("Hand_Marker");
 	tempMarker->addChild(hands[PLAYER]); // *Hand duoc addChild vao BattleScene
 
 	// Khoi tao deck
-	decks[PLAYER] = BSDeck::create(this, PLAYER);
-	//decks[OPPONENT] = BSDeck::create(this, OPPONENT);
+	decks[PLAYER] = shared_ptr<BSDeck>(BSDeck::create(this, PLAYER));
+	decks[OPPONENT] = shared_ptr<BSDeck>(BSDeck::create(this, OPPONENT));
 
 	// Khoi tao Board
 	boards[PLAYER] = BSBoard::create(this, PLAYER);
-	boards[OPPONENT] = BSBoard::create(this, OPPONENT);
+	//boards[OPPONENT] = BSBoard::create(this, OPPONENT);
 
-	ui->setContentSize(winSize);
-	ui::Helper::doLayout(ui);
-	this->addChild(ui);
+
 	return true;
 }
 

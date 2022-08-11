@@ -173,6 +173,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\scenes\battle_scene\BSHand.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene\BSPlayer.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene\CardHolder.cpp" />
+    <ClCompile Include="..\Classes\scenes\battle_scene\prefabs\EnergyItem.cpp" />
     <ClCompile Include="..\Classes\scenes\loading_scene\LoadingScene.cpp" />
     <ClCompile Include="..\Classes\scenes\title_scene\TitleScene.cpp" />
     <ClCompile Include="main.cpp" />
@@ -245,6 +246,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\scenes\battle_scene\BSHand.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene\BSPlayer.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene\CardHolder.h" />
+    <ClInclude Include="..\Classes\scenes\battle_scene\prefabs\BSPrefabs.h" />
     <ClInclude Include="..\Classes\scenes\loading_scene\LoadingScene.h" />
     <ClInclude Include="..\Classes\scenes\title_scene\TitleScene.h" />
     <ClInclude Include="main.h" />

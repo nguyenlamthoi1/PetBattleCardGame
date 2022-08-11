@@ -9,6 +9,7 @@ public:
     static cocos2d::Scene* createScene();
 
     virtual bool init();
+	bool init1();
     
     // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);

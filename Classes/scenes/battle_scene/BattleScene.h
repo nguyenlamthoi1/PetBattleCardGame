@@ -18,6 +18,7 @@
 class PlayerData;
 
 BATTLE_SCENE_NS_BEG
+
 class BattleManager;
 class BSHand;
 class BSDeck;
@@ -58,32 +59,38 @@ public:
 	//BManagerPtr bm;
 	std::unordered_map<PlayerIdType, std::shared_ptr<PlayerData>> playerData;
 	std::unordered_map<PlayerIdType, BSHand*> hands;
-	std::unordered_map<PlayerIdType, BSDeck*> decks;
+	std::unordered_map<PlayerIdType, std::shared_ptr<BSDeck>> decks;
 	std::unordered_map<PlayerIdType, BSBoard*> boards;
 
 	std::unordered_map<PlayerIdType, std::shared_ptr<BSPlayer>> players;
 
-	cocos2d::ui::Layout *ui = nullptr;
+	cocos2d::ui::Layout* getBattleSceneUI() { return root; }
+	cocos2d::ui::Layout *root = nullptr; // * Scene load tu csb
+
 	std::unordered_map<PlayerIdType, cocos2d::ui::Layout*> playerPanels;
-	cocos2d::ui::Layout* getBattleSceneUI() { return ui; }
 
 	//--Data member-end--
+	std::shared_ptr<BSPlayer> getPlayer(PlayerIdType id) { return players[id]; }
 
 	
 	//--Action pipeline members-begin--
 
-	std::list<BSAction*> pipeline;
+	std::list<BSAction*> pipeline; CHECK_CLEAN_FLAG
 	void startPipeline();
 	void clearPipeline();
 	void updatePipeline(float dt);
 	void pushActions(std::initializer_list<BSAction*> list);
 
 	//--Action pipeline-end--
-	BSCard *detailedCard = nullptr;
+
+	BSCard *detailedCard = nullptr; CHECK_CLEAN_FLAG
 	void showCardDetails(const std::shared_ptr<const CardData> &card);
 	void hideCardDetails();
 	void clearCardDetails();
 
+
+	// Utilize functions
+	void checkClean();
 };
 
 BATTLE_SCENE_NS_END

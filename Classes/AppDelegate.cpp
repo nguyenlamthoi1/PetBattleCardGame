@@ -84,8 +84,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	if (!gm)
 		return false; // can't start the game
 
-    // *HelloWorld Scene dung de test
-    /*auto scene = HelloWorld::createScene();
+    //*HelloWorld Scene dung de test
+   /* auto scene = HelloWorld::createScene();
     director->runWithScene(scene);
 	return true;*/
 

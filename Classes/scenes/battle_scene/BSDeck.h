@@ -21,23 +21,28 @@ class BSDeck final {
 public:
 	friend class BattleScene;
 
-	std::vector<BSCard*> drawTop(size_t n);
+	static BSDeck* create(BattleScene *scn, PlayerIdType playerId);
+
+	BSDeck(BattleScene *scn, PlayerIdType playerId);
+	~BSDeck();
 
 	/*
 		Hint: function return end iterator neu draw khong thanh cong, nguoc lai return iterator den vi tri phan tu dau tien duoc add
 	*/
 	std::vector<BSCard*>::iterator drawTop(size_t n, std::vector<BSCard*> &v);
+	std::vector<BSCard*> drawTop(size_t n);
+
 	void clear();
 
 private:
-	static BSDeck* create(BattleScene *scn, PlayerIdType playerId);
-	BSDeck(BattleScene *scn, PlayerIdType playerId);
-	~BSDeck();
+	
 	bool init();
 
 	PlayerIdType ownerId = PlayerIdInvalid;
 	BattleScene *btlScn = nullptr;
 	std::vector<BSCard*> cards;
+	std::vector<BSCard*> allCards;
+
 	unsigned int orgTotal = 0;
 
 	cocos2d::Node *deckNode = nullptr;

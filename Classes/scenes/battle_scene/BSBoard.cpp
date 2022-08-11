@@ -41,7 +41,7 @@ bool BSBoard::init() {
 
 	activeBoard = dynamic_cast<ui::Layout*>(boardPanel->getChildByName("Active_Board"));
 	// Them holder vao active board
-	activeHolder = CardHolder::create();
+	activeHolder = CardHolder::create(btlScn, ownerId);
 	activeBoard->addChild(activeHolder);
 	activeHolder->setPosition(Vec2(6, 6));
 
@@ -50,7 +50,7 @@ bool BSBoard::init() {
 	auto cardH = benchSize.height - 12;
 	
 	while (benchHolders.size() < maxBenchCapacity) {
-		auto holder = CardHolder::create();
+		auto holder = CardHolder::create(btlScn, ownerId);
 		holder->setHolderSizeH(cardH);
 		benchBoard->addChild(holder);
 		benchHolders.push_back(holder);

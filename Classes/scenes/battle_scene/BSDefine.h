@@ -10,6 +10,9 @@
 #include <vector>
 #include <unordered_map>
 
+#define DEBUG_CLEAN 1
+#define CHECK_CLEAN_FLAG // CHECK_CLEANING
+
 #define BATTLE_SCENE_NS_BEG namespace BattleSceneNS {
 #define BATTLE_SCENE_NS_END }
 //#define BATTLE_SCENE_NS_BEG 
@@ -29,6 +32,17 @@ constexpr PlayerIdType OPPONENT = PLAYER + 1; // OPPONENT > PLAYER
 #define PlayerIdInvalid -1
 
 constexpr unsigned int DEFAULT_MAX_BENCH_CAPACITY = 5; // So luong pokemon toi da dat duoc len bench mac dinh
+
+constexpr unsigned int ACTION_PLAY_BASIC_PET_MAX_COUNT_PER_TURN = UINT_MAX;
+constexpr unsigned int ACTION_ATTACH_ENERGY_MAX_COUNT_PER_TURN = UINT_MAX;
+constexpr unsigned int ACTION_RETREAT_PET_MAX_COUNT_PER_TURN = 1;
+constexpr unsigned int ACTION_ATTACK_MAX_COUNT_PER_TURN = 1;
+constexpr unsigned int ACTION_USE_SUPPORTER_MAX_COUNT_PER_TURN = 1;
+constexpr unsigned int ACTION_USE_ITEM_MAX_COUNT_PER_TURN = UINT_MAX;
+constexpr unsigned int ACTION_EVOLVE_COUNT_PER_TURN = UINT_MAX;
+constexpr unsigned int BEGIN_TURN_DRAW_COUNT = 7;
+constexpr unsigned int PER_TURN_DRAW_COUNT = 1;
+
 
 BATTLE_SCENE_NS_END
 

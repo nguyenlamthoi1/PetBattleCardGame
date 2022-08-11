@@ -2,26 +2,42 @@
 #include "BSCard.h"
 #include "GameManager.h"
 #include "data/CardData.h"
+#include "BattleScene.h"
+#include "BSPlayer.h"
+#include "prefabs/BSPrefabs.h"
 #include "common/ResourcePool.h"
 #include "common/Utilize.h"
 #include <new>
 
 using namespace std;
 USING_NS_CC;
+BS_PREFABS_USE_NS;
+
 BATTLE_SCENE_NS_BEG
 
 Size CardHolder::HOLDER_SIZE = Size(95, 137);
 
-CardHolder::CardHolder() {
-
+CardHolder::CardHolder(BattleScene *scn, PlayerIdType id) : btlScn(scn), ownerId(id) {
 }
 
 CardHolder::~CardHolder() {
-
+	CCLOG("CardHolder dtor : called");
+	clear();
 }
 
-CardHolder* CardHolder::create() {
-	auto holder = new (nothrow) CardHolder();
+void CardHolder::clear() {
+	node = nullptr;
+
+	for (auto &it : energyItemMap) {
+		auto &eItem = it.second;
+		eItem->release();
+		eItem = nullptr;
+	}
+	energyItemMap.clear();
+}
+
+CardHolder* CardHolder::create(BattleScene *scn, PlayerIdType id) {
+	auto holder = new (nothrow) CardHolder(scn, id);
 	if (holder && holder->init()) {
 		holder->autorelease();
 		return holder;
@@ -53,6 +69,7 @@ bool CardHolder::init() {
 	
 	auto panel = node->getChildByName("PanelHolder");
 	cardMarker = panel->getChildByName("Holder_CardMaker");
+	energyCardMarker = panel->getChildByName("Energy_Cards_Marker");
 
 	flyingText = dynamic_cast<ui::Text*>(panel->getChildByName("Flying_Text"));
 	flyingText->setVisible(false);
@@ -63,6 +80,8 @@ bool CardHolder::init() {
 	hpPanel = dynamic_cast<ui::Layout*>(panel->getChildByName("Hd_HpPanel"));
 	hpText = dynamic_cast<ui::Text*>(hpPanel->getChildByName("Hd_HpPanel_Text"));
 	petTypeImg = dynamic_cast<ui::ImageView*>(hpPanel->getChildByName("Hd_HpPanel_Energy"));
+
+	energyPanel = dynamic_cast<ui::Layout*>(panel->getChildByName("Energy_Panel"));
 
 	return true;
 }
@@ -99,8 +118,8 @@ bool CardHolder::tryAddPetCard(PetCard *card) {
 		card->removeFromParent();
 		cardMarker->addChild(card);
 		auto pos = Vec2(0, 0);
-		card->setPosition(pos + Vec2(0, 10));
-		card->runAction(MoveTo::create(0.15f, pos));
+		card->setPosition(pos + Vec2(0, 25));
+		card->runAction(MoveTo::create(0.5f, pos));
 		updateInfoPanel(true);
 		return true;
 	}
@@ -120,13 +139,61 @@ bool CardHolder::tryAddPetCard(PetCard *card) {
 		card->removeFromParent();
 		cardMarker->addChild(card);
 		auto pos = Vec2(0, 0);
-		card->setPosition(pos + Vec2(0, 10));
-		card->runAction(MoveTo::create(0.15f, pos));
+		card->setPosition(pos + Vec2(0, 25));
+		card->runAction(MoveTo::create(0.5f, pos));
 		showFlyingText("Evolved");
 		updateInfoPanel(true);
 		return true;
 	}
 	return false;
+}
+
+bool CardHolder::tryAddEnergyCard(EnergyCard *energyCard) {
+	if (!petCard)
+		return false;
+	
+	auto energyData = dynamic_pointer_cast<const EnergyCardData>(energyCard->getData());
+	auto player = btlScn->getPlayer(ownerId);
+	auto energyAttach = player->getActionData(BSPlayer::PlayerActionId::ATTACH_ENERGY);
+	
+	if (energyAttach->doneCount >= energyAttach->maxCount)
+		return false;
+
+	auto eType = energyData->eType;
+	auto foundIt = energyItemMap.find(eType);
+	if (foundIt == energyItemMap.cend()) {
+		auto &eItem = energyItemMap[eType] = EnergyItem::create(eType, 1);
+		eItem->retain();
+		eItem->stack(0);
+		energyPanel->addChild(eItem);
+		
+		// Them Energy Sprite
+		auto startPos = Vec2(0, 0);
+		auto insIdx = energyItemMap.size() - 1;
+		auto spaceX = -5.0f;
+		auto ewidth = eItem->getEnergySize().width;
+		auto xinc = (eItem->getEnergySize().width + spaceX) * insIdx;
+		eItem->setPosition(startPos + xinc * Vec2(1, 0));
+	}
+	else {
+		auto &eItem = foundIt->second;
+		eItem->stack(1);
+	}
+	// Them card
+	energyCardVec.push_back(energyCard);
+	energyCard->removeFromParent();
+	energyCardMarker->addChild(energyCard);
+	auto pos = Vec2(0, 0);
+	energyCard->setPosition(pos + Vec2(50, 0));
+	energyCard->runAction(MoveTo::create(0.5f, pos));
+	showFlyingText("Energy attached");
+
+
+	energyAttach->doneCount += 1;
+
+	return true;
+
+
 }
 
 void CardHolder::updateInfoPanel(bool show) {

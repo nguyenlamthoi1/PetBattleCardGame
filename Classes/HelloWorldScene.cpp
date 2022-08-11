@@ -111,6 +111,69 @@ bool HelloWorld::init() {
 	obj->setBackGroundColor(Color3B::YELLOW);
 	obj->setBackGroundColorOpacity(255 / 2);
 	obj->setContentSize(Size(200, 200));
+	obj->setPosition(Vec2(200, 200));
+	obj->setAnchorPoint(Vec2(0.5, 0.5));
+	obj->setName("Object");
+	l1->addChild(obj);
+
+	auto fromScale = obj->getScale() * 1.0f;
+	auto toScale1 = obj->getScale() * 1.4f;
+	auto toScale2 = obj->getScale() * 0.8f;
+	auto toScale3 = obj->getScale() * 1.0f;
+
+
+	obj->runAction(Sequence::create(
+		ScaleTo::create(0.35f, toScale1),
+		ScaleTo::create(0.3f, toScale2),
+		ScaleTo::create(0.3f, toScale3),
+
+		//ScaleTo::create(0.5f, obj->getScale() * 1.5f),
+		nullptr));
+
+	// L2
+	auto l2 = ui::Layout::create();
+	l2->setBackGroundColorType(ui::Layout::BackGroundColorType::SOLID);
+	l2->setBackGroundColor(Color3B::BLUE);
+	l2->setBackGroundColorOpacity(255 / 2);
+	l2->setContentSize(Size(400, 400));
+	l2->setPosition(Vec2(400, 0));
+	l2->setName("L2");
+	parentLayout->addChild(l2);
+
+	
+
+	return true;
+
+}
+
+bool HelloWorld::init1() {
+	if (!Layer::init())
+		return false;
+	auto dir = Director::getInstance();
+	auto vSize = dir->getVisibleSize();
+
+	auto parentLayout = ui::Layout::create();
+	parentLayout->setBackGroundColorType(ui::Layout::BackGroundColorType::SOLID);
+	parentLayout->setBackGroundColor(Color3B::WHITE);
+	parentLayout->setContentSize(Size(800, 800));
+	parentLayout->setPosition(Vec2::ZERO);
+	this->addChild(parentLayout);
+
+	// L1
+	auto l1 = ui::Layout::create();
+	l1->setBackGroundColorType(ui::Layout::BackGroundColorType::SOLID);
+	l1->setBackGroundColor(Color3B::RED);
+	l1->setBackGroundColorOpacity(255 / 2);
+	l1->setContentSize(Size(400, 400));
+	l1->setPosition(Vec2(0, 400));
+	parentLayout->addChild(l1);
+
+	// OBJ
+	auto obj = ui::Layout::create();
+	obj->setBackGroundColorType(ui::Layout::BackGroundColorType::SOLID);
+	obj->setBackGroundColor(Color3B::YELLOW);
+	obj->setBackGroundColorOpacity(255 / 2);
+	obj->setContentSize(Size(200, 200));
 	obj->setPosition(Vec2(100, 100));
 	obj->setAnchorPoint(Vec2(0.5, 0.5));
 	obj->setName("Object");

@@ -37,6 +37,9 @@ namespace CardDefine {
 		const EnergyType Fighting = "Fighting";
 		const EnergyType Psychic = "Psychic";
 		const EnergyType Electric = "Electric";
+		const EnergyType Dark = "Dark";
+		const EnergyType Dragon = "Dragon";
+		const EnergyType Steel = "Steel";
 	}
 
 	namespace PetType {
@@ -48,6 +51,9 @@ namespace CardDefine {
 		const std::string Fighting = "Fighting";
 		const std::string Psychic = "Psychic";
 		const std::string Electric = "Electric";
+		const std::string Dark = "Dark";
+		const std::string Dragon = "Dragon";
+		const std::string Steel = "Steel";
 	}
 }
 
