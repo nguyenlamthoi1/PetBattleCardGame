@@ -13,11 +13,13 @@
 BATTLE_SCENE_NS_BEG
 
 class CardHolder;
+class BattleManager;
 
-class BSPlayer final {
+class BSPlayer {
 public:
 	friend class BattleScene;
 	friend class CardHolder;
+	friend class BattleManager;
 
 	enum class PlayerActionId {
 		NONE,
@@ -41,11 +43,19 @@ public:
 
 	PlayerIdType id = PlayerIdInvalid;
 
-private:
+protected:
+	void drawFromDeck(unsigned int num);
+
+protected:
 	std::shared_ptr<PlayerAction> getActionData(PlayerActionId id);
 	std::unordered_map<PlayerActionId, std::shared_ptr<PlayerAction>> actionMap;
 
 	// Utilize
+};
+
+
+class BSOpponent : public BSPlayer {
+
 };
 
 BATTLE_SCENE_NS_END

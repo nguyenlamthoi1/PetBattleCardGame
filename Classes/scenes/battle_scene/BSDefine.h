@@ -26,10 +26,12 @@
 
 BATTLE_SCENE_NS_BEG
 
-using PlayerIdType = unsigned char;
-constexpr PlayerIdType PLAYER = 77;
-constexpr PlayerIdType OPPONENT = PLAYER + 1; // OPPONENT > PLAYER
-#define PlayerIdInvalid -1
+//using PlayerIdType = unsigned char;
+using PlayerIdType = std::string;
+const PlayerIdType PLAYER = "Player";
+const PlayerIdType OPPONENT = "Opponent"; // OPPONENT > PLAYER
+//#define PlayerIdInvalid -1
+#define PlayerIdInvalid ""
 
 constexpr unsigned int DEFAULT_MAX_BENCH_CAPACITY = 5; // So luong pokemon toi da dat duoc len bench mac dinh
 

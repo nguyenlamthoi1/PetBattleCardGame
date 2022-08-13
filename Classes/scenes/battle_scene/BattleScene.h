@@ -27,8 +27,6 @@ class BSBoard;
 class BSPlayer;
 class BSCard;
 
-using BManagerPtr = std::shared_ptr<BattleManager>;
-
 namespace BATTLE_SCENE_Z {
 	const float DETAILED_CARD = 1000;
 };
@@ -36,7 +34,6 @@ namespace BATTLE_SCENE_Z {
 class BattleScene final : public cocos2d::Scene
 {
 public:
-	
 
 	friend class BSHand;
 	friend class BSDeck;
@@ -54,9 +51,9 @@ public:
 
 	void start();
 	
+
 	//--Graphic Data member-begin--
 
-	//BManagerPtr bm;
 	std::unordered_map<PlayerIdType, std::shared_ptr<PlayerData>> playerData;
 	std::unordered_map<PlayerIdType, BSHand*> hands;
 	std::unordered_map<PlayerIdType, std::shared_ptr<BSDeck>> decks;
@@ -91,6 +88,12 @@ public:
 
 	// Utilize functions
 	void checkClean();
+
+public:
+	std::shared_ptr<BattleManager> getBattleManager() { return btlMgr; }
+	static BattleScene* BattleScene::getScene();
+private:
+	std::shared_ptr<BattleManager> btlMgr;
 };
 
 BATTLE_SCENE_NS_END

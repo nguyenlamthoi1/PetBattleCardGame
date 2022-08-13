@@ -32,6 +32,11 @@ class PlayerData;
 
 BATTLE_SCENE_NS_BEG;
 
+BattleScene* BattleScene::getScene() {
+	return dynamic_cast<BattleScene*>(Director::getInstance()->getRunningScene());
+}
+
+
 BattleScene* BattleScene::create() {
 	auto scn = new (nothrow) BattleScene();
 	if (scn && scn->init()) {
@@ -51,12 +56,12 @@ BattleScene* BattleScene::getScn() {
 }
 
 
-BattleScene::BattleScene(){
-	CCLOG("BattleScene::ctor called");
+BattleScene::BattleScene() : btlMgr(new BattleManager(this)){
+	CCLOG("BattleScene::Ctor called");
 }
 
 BattleScene::~BattleScene(){
-	CCLOG("BattleScene::dtor called");
+	CCLOG("BattleScene::Dtor called");
 	clearPipeline();
 	detailedCard = nullptr;
 
@@ -101,8 +106,8 @@ bool BattleScene::init() {
 	playerData[OPPONENT] = ::PlayerData::createPseudo(false);
 
 	// Khoi tao du lieu player trong game
-	players[PLAYER] = make_shared<BSPlayer>(PLAYER);
-	players[OPPONENT] = make_shared<BSPlayer>(OPPONENT);
+	//players[PLAYER] = make_shared<BSPlayer>(PLAYER);
+	//players[OPPONENT] = make_shared<BSPlayer>(OPPONENT);
 
 	// Khoi tao Hand
 	hands[PLAYER] = BSHand::create(this, PLAYER); 
@@ -131,16 +136,17 @@ void BattleScene::onExit() {
 }
 
 void BattleScene::start() {
+	btlMgr->startGame();
 	// Thiet lap cac first action
-	auto firstPlayerId = PLAYER;
-	auto secondPlayerId = OPPONENT;
-	pushActions({
-		new DrawCardAction(firstPlayerId, 7),
-		new DrawCardAction(firstPlayerId, 7),
-		});
+	//auto firstPlayerId = PLAYER;
+	//auto secondPlayerId = OPPONENT;
+	//pushActions({
+	//	new DrawCardAction(firstPlayerId, 7),
+	//	new DrawCardAction(firstPlayerId, 7),
+	//	});
 
-	// Bat dau action pipeline
-	startPipeline();
+	//// Bat dau action pipeline
+	//startPipeline();
 }
 
 
