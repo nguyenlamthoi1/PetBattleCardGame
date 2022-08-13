@@ -1,7 +1,14 @@
 #include "HelloWorldScene.h"
+
 #include "ui/UILayout.h"
 #include "ui/UIWidget.h"
+#include "ui/UIText.h"
+
 #include "components/WidgetTouchComponent.h"
+#include "components/SpriteAnimatorComponent.h"
+#include "GameManager.h"
+#include "common/ResourcePool.h"
+
 #include "common/Utilize.h"
 
 
@@ -88,237 +95,167 @@ bool HelloWorld::init() {
 		return false;
 	auto dir = Director::getInstance();
 	auto vSize = dir->getVisibleSize();
+	auto pool = GM_POOL;
 
-	auto parentLayout = ui::Layout::create();
-	parentLayout->setBackGroundColorType(ui::Layout::BackGroundColorType::SOLID);
-	parentLayout->setBackGroundColor(Color3B::WHITE);
-	parentLayout->setContentSize(Size(800, 800));
-	parentLayout->setPosition(Vec2::ZERO);
-	this->addChild(parentLayout);
+	root = pool->tryGetNodeCsb("ccstd_csb/battle_scene/flip_coin_layer.csb");
+	this->addChild(root);
+	root->setPosition(Vec2(0, 0));
 
-	// L1
-	auto l1 = ui::Layout::create();
-	l1->setBackGroundColorType(ui::Layout::BackGroundColorType::SOLID);
-	l1->setBackGroundColor(Color3B::RED);
-	l1->setBackGroundColorOpacity(255 / 2);
-	l1->setContentSize(Size(400, 400));
-	l1->setPosition(Vec2(0, 400));
-	parentLayout->addChild(l1);
-
-	// OBJ
-	auto obj = ui::Layout::create();
-	obj->setBackGroundColorType(ui::Layout::BackGroundColorType::SOLID);
-	obj->setBackGroundColor(Color3B::YELLOW);
-	obj->setBackGroundColorOpacity(255 / 2);
-	obj->setContentSize(Size(200, 200));
-	obj->setPosition(Vec2(200, 200));
-	obj->setAnchorPoint(Vec2(0.5, 0.5));
-	obj->setName("Object");
-	l1->addChild(obj);
-
-	auto fromScale = obj->getScale() * 1.0f;
-	auto toScale1 = obj->getScale() * 1.4f;
-	auto toScale2 = obj->getScale() * 0.8f;
-	auto toScale3 = obj->getScale() * 1.0f;
-
-
-	obj->runAction(Sequence::create(
-		ScaleTo::create(0.35f, toScale1),
-		ScaleTo::create(0.3f, toScale2),
-		ScaleTo::create(0.3f, toScale3),
-
-		//ScaleTo::create(0.5f, obj->getScale() * 1.5f),
-		nullptr));
-
-	// L2
-	auto l2 = ui::Layout::create();
-	l2->setBackGroundColorType(ui::Layout::BackGroundColorType::SOLID);
-	l2->setBackGroundColor(Color3B::BLUE);
-	l2->setBackGroundColorOpacity(255 / 2);
-	l2->setContentSize(Size(400, 400));
-	l2->setPosition(Vec2(400, 0));
-	l2->setName("L2");
-	parentLayout->addChild(l2);
-
+	flip1Panel = root->getChildByName("1_Flip_Panel"); flip1Panel->setVisible(false);
+	flipMulPanel = root->getChildByName("Multiple_Flip_Panel"); flipMulPanel->setVisible(false);
+	coinSprite = dynamic_cast<Sprite*>(root->getChildByName("Coin_Marker")->getChildByName("Coin_Sprite")); coinSprite->setVisible(true);
 	
+	flipMul();
 
 	return true;
 
 }
 
-bool HelloWorld::init1() {
-	if (!Layer::init())
-		return false;
-	auto dir = Director::getInstance();
-	auto vSize = dir->getVisibleSize();
+void HelloWorld::onEnter() {
+	Layer::onEnter();
+}
 
-	auto parentLayout = ui::Layout::create();
-	parentLayout->setBackGroundColorType(ui::Layout::BackGroundColorType::SOLID);
-	parentLayout->setBackGroundColor(Color3B::WHITE);
-	parentLayout->setContentSize(Size(800, 800));
-	parentLayout->setPosition(Vec2::ZERO);
-	this->addChild(parentLayout);
+void HelloWorld::doFlipMulCoins() {
 
-	// L1
-	auto l1 = ui::Layout::create();
-	l1->setBackGroundColorType(ui::Layout::BackGroundColorType::SOLID);
-	l1->setBackGroundColor(Color3B::RED);
-	l1->setBackGroundColorOpacity(255 / 2);
-	l1->setContentSize(Size(400, 400));
-	l1->setPosition(Vec2(0, 400));
-	parentLayout->addChild(l1);
+	auto comp = SpriteAnimatorComponent::getComponent(coinSprite);
+	if (!comp) {
+		comp = SpriteAnimatorComponent::setComponent(coinSprite);
+	}
+	comp->addAnimation("Flip_Pikachu", {
+		"flip_coin_animations/yellow/flip_coin_yellow_pikachu.png",
+		"flip_coin_animations/yellow/flip_coin_yellow_0.png",
+		"flip_coin_animations/yellow/flip_coin_yellow_1.png",
+		"flip_coin_animations/yellow/flip_coin_yellow_2.png",
+		"flip_coin_animations/yellow/flip_coin_yellow_3.png",
+		"flip_coin_animations/yellow/flip_coin_yellow_4.png",
+		"flip_coin_animations/yellow/flip_coin_yellow_5.png",
+		"flip_coin_animations/yellow/flip_coin_yellow_6.png"
+		}, 1.0f / 8);
+	comp->addAnimation("Flip_Pikachu_End", {
+	"flip_coin_animations/yellow/flip_coin_yellow_pikachu.png",
+	"flip_coin_animations/yellow/flip_coin_yellow_0.png",
+	"flip_coin_animations/yellow/flip_coin_yellow_1.png",
+	"flip_coin_animations/yellow/flip_coin_yellow_2.png",
+	"flip_coin_animations/yellow/flip_coin_yellow_3.png",
+	"flip_coin_animations/yellow/flip_coin_yellow_4.png",
+	"flip_coin_animations/yellow/flip_coin_yellow_5.png",
+	"flip_coin_animations/yellow/flip_coin_yellow_6.png",
+	//"flip_coin_animations/yellow/flip_coin_yellow_pikachu.png"
+	"flip_coin_animations/yellow/flip_coin_yellow_3.png"
 
-	// OBJ
-	auto obj = ui::Layout::create();
-	obj->setBackGroundColorType(ui::Layout::BackGroundColorType::SOLID);
-	obj->setBackGroundColor(Color3B::YELLOW);
-	obj->setBackGroundColorOpacity(255 / 2);
-	obj->setContentSize(Size(200, 200));
-	obj->setPosition(Vec2(100, 100));
-	obj->setAnchorPoint(Vec2(0.5, 0.5));
-	obj->setName("Object");
-	l1->addChild(obj);
+		}, 1.0f / 9);
+	auto resBoard = flip1Panel->getChildByName("Result_Flip_Board");
+	resBoard->setVisible(true);
+	resBoard->setOpacity(0);
 
-	// L2
-	auto l2 = ui::Layout::create();
-	l2->setBackGroundColorType(ui::Layout::BackGroundColorType::SOLID);
-	l2->setBackGroundColor(Color3B::BLUE);
-	l2->setBackGroundColorOpacity(255 / 2);
-	l2->setContentSize(Size(400, 400));
-	l2->setPosition(Vec2(400, 0));
-	l2->setName("L2");
-	parentLayout->addChild(l2);
+	comp->playAnimation("Flip_Pikachu", true);
+	coinSprite->setPosition(Vec2(0, 0));
+	coinSprite->runAction(Sequence::create(
+		MoveBy::create(0.5f, Vec2(0, 45)),
+		MoveBy::create(0.5f, Vec2(0, -45)),
+		CallFunc::create([this]() {
+			auto comp = SpriteAnimatorComponent::getComponent(coinSprite);
+			comp->playAnimation("Flip_Pikachu_End", false, [this](std::string anim) {
+				auto gotHead = cocos2d::RandomHelper::random_int(0, 1) == 1;
+				auto preStr = gotHead ? "Head : " : "Tails : ";
 
-	// L3
-	auto l3 = ui::Layout::create();
-	l3->setBackGroundColorType(ui::Layout::BackGroundColorType::SOLID);
-	l3->setBackGroundColor(Color3B::GREEN);
-	l3->setBackGroundColorOpacity(255 / 2);
-	l3->setContentSize(Size(400, 400));
-	l3->setPosition(Vec2(400, 400));
-	l3->setName("L3");
-	parentLayout->addChild(l3);
-
-	auto dragComp = new DragComponent();
-	dragComp->destinations.push_back(l2);
-	dragComp->destinations.push_back(l3);
-	dragComp->useCenter = false;
-
-	MyComponentNS::setComponent(obj, COMPONENT_KEY::DRAG, dragComp);
-	obj->setTouchEnabled(true);
-	obj->addTouchEventListener([this](Ref *sender, ui::Widget::TouchEventType eventType) {
-		auto widget = dynamic_cast<ui::Widget*>(sender);
-		switch (eventType) {
-		case ui::Widget::TouchEventType::BEGAN:
-		{
-			// Drag mode
-			auto comp = MyComponentNS::getComponent<DragComponent>(widget, COMPONENT_KEY::DRAG);
-			if (comp) {
-				comp->isDragging = false;
-				comp->orgPos = widget->getPosition();
-				comp->orgZ = widget->getLocalZOrder();
-				comp->orgWorldPos = widget->getWorldPosition();
-				comp->offset = widget->getTouchBeganPosition() - comp->orgWorldPos;
-				comp->orgParent = widget->getParent();
-
-			}
-			// --
-
-			break;
-		}
-		case ui::Widget::TouchEventType::ENDED:
-		case ui::Widget::TouchEventType::CANCELED:
-		{
-			auto comp = MyComponentNS::getComponent<DragComponent>(widget, COMPONENT_KEY::DRAG);
-			if (comp && comp->isDragging) {
-				comp->isDragging = false;
-				dragEnd(widget, comp->hitDestNode);
-				comp->hitDestNode = nullptr;
-			}
-
-			break;
-		}
-		case ui::Widget::TouchEventType::MOVED: {
-
-			auto comp = MyComponentNS::getComponent<DragComponent>(widget, COMPONENT_KEY::DRAG);
-			if (comp) {
-				if (comp->isDragging) {
-					// Cap nhat lai thong tin cua Drag
-					if (!comp->useCenter)
-						widget->setPosition(widget->getTouchMovePosition() - comp->offset);
-					else
-						widget->setPosition(widget->getTouchMovePosition());
-
-					bool useCenter = false;
-					auto wCheckPos = widget->getTouchMovePosition();
-					for (const auto &dNode : comp->destinations) {
-						auto s = dNode->getContentSize();
-
-						// C1
-						//auto wP = Utilize::mnode::getWorldPos(dNode);
-						//auto rect = Rect(wP.x, wP.y, s.width, s.height);
-						//bool check = rect.containsPoint(wCheckPos);
-						// C2
-						auto lPos = dNode->convertToNodeSpaceAR(wCheckPos);
-						auto rect = Rect(0, 0, s.width, s.height);
-						bool check = rect.containsPoint(lPos);
-
-						if (check) {
-
-							if (comp->hitDestNode && comp->hitDestNode != dNode) {
-								// DRAG OUT CALLBACK
-								dragOut(widget, comp->hitDestNode);
-								comp->hitDestNode = nullptr;
-							}
-
-							if (!comp->hitDestNode || comp->hitDestNode != dNode) {
-								// DRAG IN CALLBACK
-								dragIn(widget, dNode);
-								comp->hitDestNode = dNode;
-							}
-
-							break;
-						}
-						else {
-							if (comp->hitDestNode && comp->hitDestNode == dNode) {
-								// DRAG OUT CALLBACK
-								dragOut(widget, dNode);
-								comp->hitDestNode = nullptr;
-							}
-						}
-					}
-
+				auto subStr = gotHead ? std::to_string(++numHeads) : std::to_string(++numTails);
+				if (gotHead) {
+					auto headsText = dynamic_cast<ui::Text*>(flipMulPanel->getChildByName("Num_Heads_Board")->getChildByName("Num_Heads_Text"));
+					headsText->setString(preStr + subStr);
 				}
 				else {
-					// bat dau drag
-					auto d = widget->getTouchBeganPosition().distance(widget->getTouchMovePosition());
-					if (d > 24) {
-						comp->isDragging = true;
-						widget->removeFromParent();
-						if (!comp->dragContainer) {
-							auto curScene = Director::getInstance()->getRunningScene();
-							curScene->addChild(widget, 9999);
-						}
-						else {
-							comp->dragContainer->addChild(widget);
-						}
-						if (!comp->useCenter)
-							widget->setPosition(widget->getTouchMovePosition() - comp->offset);
-						else
-							widget->setPosition(widget->getTouchMovePosition());
-
-						beginCb(); // DRAG BEGIN CALLBACK
-					}
+					auto tailsText = dynamic_cast<ui::Text*>(flipMulPanel->getChildByName("Num_Tails_Board")->getChildByName("Num_Tails_Text"));
+					tailsText->setString(preStr + subStr);
 				}
-			}
-			break;
-		}
-		}
-		});
+				--numFlipLeft;
+				if (numFlipLeft > 0)
+					doFlipMulCoins();
+				});
+			}),
+		nullptr));
+}
 
 
-	return true;
+void HelloWorld::doFlip1Coin() {
+	auto comp = SpriteAnimatorComponent::setComponent(coinSprite);
+	comp->addAnimation("Flip_Pikachu", {
+		"flip_coin_animations/yellow/flip_coin_yellow_pikachu.png",
+		"flip_coin_animations/yellow/flip_coin_yellow_0.png",
+		"flip_coin_animations/yellow/flip_coin_yellow_1.png",
+		"flip_coin_animations/yellow/flip_coin_yellow_2.png",
+		"flip_coin_animations/yellow/flip_coin_yellow_3.png",
+		"flip_coin_animations/yellow/flip_coin_yellow_4.png",
+		"flip_coin_animations/yellow/flip_coin_yellow_5.png",
+		"flip_coin_animations/yellow/flip_coin_yellow_6.png"
+		}, 1.0f / 8);
+	comp->addAnimation("Flip_Pikachu_End", {
+	"flip_coin_animations/yellow/flip_coin_yellow_pikachu.png",
+	"flip_coin_animations/yellow/flip_coin_yellow_0.png",
+	"flip_coin_animations/yellow/flip_coin_yellow_1.png",
+	"flip_coin_animations/yellow/flip_coin_yellow_2.png",
+	"flip_coin_animations/yellow/flip_coin_yellow_3.png",
+	"flip_coin_animations/yellow/flip_coin_yellow_4.png",
+	"flip_coin_animations/yellow/flip_coin_yellow_5.png",
+	"flip_coin_animations/yellow/flip_coin_yellow_6.png",
+	//"flip_coin_animations/yellow/flip_coin_yellow_pikachu.png"
+	"flip_coin_animations/yellow/flip_coin_yellow_3.png"
 
+		}, 1.0f / 9);
+	auto resBoard = flip1Panel->getChildByName("Result_Flip_Board");
+	resBoard->setVisible(true);
+	resBoard->setOpacity(0);
+
+	comp->playAnimation("Flip_Pikachu", true);
+	coinSprite->setPosition(Vec2(0, 0));
+	coinSprite->runAction(Sequence::create(
+		MoveBy::create(0.5f, Vec2(0, 45)),
+		MoveBy::create(0.5f, Vec2(0, -45)),
+		CallFunc::create([this]() {
+			auto comp = SpriteAnimatorComponent::getComponent(coinSprite);
+			comp->playAnimation("Flip_Pikachu_End", false, [this](std::string anim) {
+				auto resBoard = flip1Panel->getChildByName("Result_Flip_Board");
+				auto resText = dynamic_cast<ui::Text*>(resBoard->getChildByName("Result_Flip_Text"));
+				resText->setString("Tails");
+				resBoard->runAction(FadeIn::create(0.5f));
+				});
+			}),
+		nullptr));
+}
+
+void HelloWorld::flip1() {
+	flip1Panel->setScale(0.75f);
+	flip1Panel->setVisible(true);
+	flip1Panel->setOpacity(0);
+	flip1Panel->runAction(Sequence::create(
+		Spawn::create(
+			FadeIn::create(0.3f),
+			ScaleTo::create(0.3f, 1.0f),
+			nullptr),
+		DelayTime::create(0.5f),
+		CallFunc::create([this]() {
+			doFlip1Coin();
+			}),
+		nullptr
+		));
+}
+
+void HelloWorld::flipMul() {
+	numFlipLeft = 5;
+	flipMulPanel->setScale(0.75f);
+	flipMulPanel->setVisible(true);
+	flipMulPanel->setOpacity(0);
+	flipMulPanel->runAction(Sequence::create(
+		Spawn::create(
+			FadeIn::create(0.3f),
+			ScaleTo::create(0.3f, 1.0f),
+			nullptr),
+		DelayTime::create(0.5f),
+		CallFunc::create([this]() {
+			doFlipMulCoins();
+			}),
+		nullptr
+				));
 }
 
 void HelloWorld::menuCloseCallback(Ref* pSender)
@@ -329,10 +266,3 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
     exit(0);
 #endif
 }
-
-class A : public Ref {
-public:
-	virtual ~A() {
-		CCLOG("A: dtor called");
-	}
-};

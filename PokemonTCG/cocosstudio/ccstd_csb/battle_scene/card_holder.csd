@@ -90,28 +90,6 @@
               </AbstractNodeData>
               <AbstractNodeData Name="Energy_Panel" ActionTag="522181739" Tag="41" IconVisible="False" TopMargin="97.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
                 <Size X="95.0000" Y="40.0000" />
-                <Children>
-                  <AbstractNodeData Name="FileNode_1_0" ActionTag="1649801140" Tag="161" IconVisible="True" RightMargin="95.0000" TopMargin="40.0000" StretchWidthEnable="False" StretchHeightEnable="False" InnerActionSpeed="1.0000" CustomSizeEnabled="False" ctype="ProjectNodeObjectData">
-                    <Size X="0.0000" Y="0.0000" />
-                    <AnchorPoint />
-                    <Position />
-                    <Scale ScaleX="1.0000" ScaleY="1.0000" />
-                    <CColor A="255" R="255" G="255" B="255" />
-                    <PrePosition />
-                    <PreSize X="0.0000" Y="0.0000" />
-                    <FileData Type="Normal" Path="ccstd_csb/battle_scene/prefabs/energy_item.csd" Plist="" />
-                  </AbstractNodeData>
-                  <AbstractNodeData Name="FileNode_1" ActionTag="-772471450" Tag="126" IconVisible="True" LeftMargin="32.0000" RightMargin="63.0000" TopMargin="40.0000" StretchWidthEnable="False" StretchHeightEnable="False" InnerActionSpeed="1.0000" CustomSizeEnabled="False" ctype="ProjectNodeObjectData">
-                    <Size X="0.0000" Y="0.0000" />
-                    <AnchorPoint />
-                    <Position X="32.0000" />
-                    <Scale ScaleX="1.0000" ScaleY="1.0000" />
-                    <CColor A="255" R="255" G="255" B="255" />
-                    <PrePosition X="0.3368" />
-                    <PreSize X="0.0000" Y="0.0000" />
-                    <FileData Type="Normal" Path="ccstd_csb/battle_scene/prefabs/energy_item.csd" Plist="" />
-                  </AbstractNodeData>
-                </Children>
                 <AnchorPoint />
                 <Position />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />

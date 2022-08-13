@@ -31,7 +31,7 @@ bool SA_Animation::isValid() {
 	return ccAnimation;
 }
 
-bool SA_Animation::initWithSpriteFrames(const Vector<SpriteFrame*>& frames, float delay, unsigned int loops) {
+bool SA_Animation::initWithSpriteFrames(const Vector<SpriteFrame*> &frames, float delay, unsigned int loops) {
 	ccAnimation = Animation::createWithSpriteFrames(frames, delay, loops);
 	ccAnimation->retain();
 	return true;
@@ -80,12 +80,27 @@ void SpriteAnimatorComponent::cleanup() {
 		sprite = nullptr;
 }
 
-void SpriteAnimatorComponent::addAnimation(const AnimationID& animationId, const Vector<std::string*>& arrayOfSpriteFrameNames, float delay,unsigned int loop) {
-	
+void SpriteAnimatorComponent::addAnimation(const AnimationID& animationId, std::initializer_list<std::string> arrayOfSpriteFrameNames, float delay, unsigned int loop) {
+	cocos2d::Vector<cocos2d::SpriteFrame*> arrayFrames;
+	auto sfCache = SpriteFrameCache::getInstance();
+
+	for (const auto &frameName : arrayOfSpriteFrameNames) {
+		auto frame = sfCache->getSpriteFrameByName(frameName.c_str());
+		arrayFrames.pushBack(frame);
+	}
+
+	SA_Animation *saAnimation = new (std::nothrow) SA_Animation();
+	saAnimation->initWithSpriteFrames(arrayFrames, delay, loop);
+	saAnimation->autorelease();
+	animationMap.insert(animationId, saAnimation);
+}
+
+
+void SpriteAnimatorComponent::addAnimation(const AnimationID& animationId, const Vector<std::string>& arrayOfSpriteFrameNames, float delay,unsigned int loop) {
 	cocos2d::Vector<cocos2d::SpriteFrame*> arrayFrames;
 	auto sfCache = SpriteFrameCache::getInstance();
 	for (auto& frameName : arrayOfSpriteFrameNames) {
-		auto frame = sfCache->getSpriteFrameByName(frameName->c_str());
+		auto frame = sfCache->getSpriteFrameByName(frameName.c_str());
 		arrayFrames.pushBack(frame);
 	}
 	SA_Animation *saAnimation = new (std::nothrow) SA_Animation();

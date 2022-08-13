@@ -1,5 +1,7 @@
 #pragma once
 
+#include <initializer_list>
+
 #include "MyComponent.h"
 #include "cocos2d.h"
 
@@ -41,7 +43,7 @@ protected:
 	cocos2d::Sprite* sprite = nullptr;
 	cocos2d::Map<AnimationID, SA_Animation*> animationMap;
 	AnimationID currentAnimation;
-	cocos2d::Action* ccAnimateAction;
+	cocos2d::Action *ccAnimateAction = nullptr;
 public:
 	SpriteAnimatorComponent(cocos2d::Sprite *s);
 	virtual ~SpriteAnimatorComponent();
@@ -52,7 +54,8 @@ public:
 
 	virtual void cleanup();
 
-	void addAnimation(const AnimationID& animationId, const cocos2d::Vector<std::string*>& arrayOfSpriteFrameNames, float delay = 0.0f, unsigned int loop = 1);
+	void addAnimation(const AnimationID& animationId, std::initializer_list<std::string> arrayOfSpriteFrameNames, float delay = 0.0f, unsigned int loop = 1);
+	void addAnimation(const AnimationID& animationId, const cocos2d::Vector<std::string>& arrayOfSpriteFrameNames, float delay = 0.0f, unsigned int loop = 1);
 	void addAnimation(const AnimationID& animationId, const std::string& plistPath, const char* format, int startCount, int lastCount, float delay = 0.0f, unsigned int loop = 1);
 	void playAnimation(const AnimationID& animation, bool loopForever = false, AnimationFinishedCallback finishedCallback = nullptr); // Play 1 animation voi id(string)
 	void setAnimationFinishedCallback(const AnimationID& animationId, const AnimationFinishedCallback& finishedCallback);
