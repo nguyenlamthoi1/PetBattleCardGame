@@ -85,14 +85,14 @@ bool AppDelegate::applicationDidFinishLaunching() {
 		return false; // can't start the game
 
     //*HelloWorld Scene dung de test
-    auto scene = HelloWorld::createScene();
+   /* auto scene = HelloWorld::createScene();
     director->runWithScene(scene);
-	return true;
+	return true;*/
 
 	// Chay Loading Scene
-	/*auto scene = LoadingScene::create();
+	auto scene = LoadingScene::create();
 	gm->changeScene(scene);
-    return true;*/
+    return true;
 }
 
 // This function will be called when the app is inactive. When comes a phone call,it's be invoked too

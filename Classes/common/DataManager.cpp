@@ -169,6 +169,16 @@ bool DataManager::loadPlayerData() {
 				player->ownedCards.insert({ cardId, cardNum });
 		}
 	}
+
+	// Coin list
+	foundItr = val.FindMember("CoinList");
+	if (foundItr != val.MemberEnd())
+		for (auto &v : foundItr->value.GetArray()) 
+			player->coins.insert(v.GetString());
+
+	foundItr = val.FindMember("UsedCoin");
+	if (foundItr != val.MemberEnd())
+		player->usedCoin = foundItr->value.GetString();
 	
 	return true;
 }

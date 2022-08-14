@@ -25,6 +25,10 @@ bool PlayerData::loadDataFromFile(const string &file) {
 	return true;
 }
 
+string PlayerData::getUsedCoin() const {
+	return usedCoin;
+}
+
 PlayerData::DeckList PlayerData::getCurDeck() const{
 	DeckList ret;
 

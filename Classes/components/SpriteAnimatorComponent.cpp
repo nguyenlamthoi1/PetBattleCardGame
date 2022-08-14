@@ -96,7 +96,7 @@ void SpriteAnimatorComponent::addAnimation(const AnimationID& animationId, std::
 }
 
 
-void SpriteAnimatorComponent::addAnimation(const AnimationID& animationId, const Vector<std::string>& arrayOfSpriteFrameNames, float delay,unsigned int loop) {
+void SpriteAnimatorComponent::addAnimation(const AnimationID& animationId, const vector<std::string> &arrayOfSpriteFrameNames, float delay,unsigned int loop) {
 	cocos2d::Vector<cocos2d::SpriteFrame*> arrayFrames;
 	auto sfCache = SpriteFrameCache::getInstance();
 	for (auto& frameName : arrayOfSpriteFrameNames) {

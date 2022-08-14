@@ -6,6 +6,7 @@
 #include "BSBoard.h"
 #include "BSPlayer.h"
 #include "BSCard.h"
+#include "BSCoinFlipper.h"
 
 #include "actions/BSAction.h"
 
@@ -122,6 +123,8 @@ bool BattleScene::init() {
 	boards[PLAYER] = BSBoard::create(this, PLAYER);
 	//boards[OPPONENT] = BSBoard::create(this, OPPONENT);
 
+	// Khoi tao Coin Flipper
+	coinFlipper = shared_ptr<BSCoinFlipper>(BSCoinFlipper::create(this));
 
 	return true;
 }
@@ -137,18 +140,7 @@ void BattleScene::onExit() {
 
 void BattleScene::start() {
 	btlMgr->startGame();
-	// Thiet lap cac first action
-	//auto firstPlayerId = PLAYER;
-	//auto secondPlayerId = OPPONENT;
-	//pushActions({
-	//	new DrawCardAction(firstPlayerId, 7),
-	//	new DrawCardAction(firstPlayerId, 7),
-	//	});
-
-	//// Bat dau action pipeline
-	//startPipeline();
 }
-
 
 /*
 	Action pipline members

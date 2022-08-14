@@ -4,6 +4,7 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <set>
 
 class CardData;
 class DataManager;
@@ -32,6 +33,7 @@ public:
 
 	bool loadDataFromFile(const std::string &file);
 	DeckList getCurDeck() const;
+	std::string getUsedCoin() const;
 private:
 	
 	std::vector<DeckList> decks;
@@ -39,6 +41,10 @@ private:
 	size_t curDeck = 0;
 	std::unordered_map<CardId, CardNum> ownedCards;
 	std::unordered_map<CardType, CardList> cards;
+	
+	std::string usedCoin;
+	std::set<std::string> coins;
+
 };
 
 #endif // __PLAYER_DATA_H__

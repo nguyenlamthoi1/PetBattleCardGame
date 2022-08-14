@@ -26,6 +26,7 @@ class BSAction;
 class BSBoard;
 class BSPlayer;
 class BSCard;
+class BSCoinFlipper;
 
 namespace BATTLE_SCENE_Z {
 	const float DETAILED_CARD = 1000;
@@ -34,7 +35,6 @@ namespace BATTLE_SCENE_Z {
 class BattleScene final : public cocos2d::Scene
 {
 public:
-
 	friend class BSHand;
 	friend class BSDeck;
 	friend class BSBoard;
@@ -42,22 +42,28 @@ public:
 	static BattleScene* getScn();
     static BattleScene* create();
 
+	std::shared_ptr<BSPlayer> getPlayer(PlayerIdType id) { return players[id]; }
+	std::shared_ptr<PlayerData> getPlayerData(PlayerIdType id) { return playerData[id]; }
+private:
 	BattleScene();
 	virtual ~BattleScene();
 
-    virtual bool init() override;
+	virtual bool init() override;
 	virtual void onEnter() override;
 	virtual void onExit() override;
 
 	void start();
-	
+
+	std::unordered_map<PlayerIdType, std::shared_ptr<PlayerData>> playerData;
+public:
 
 	//--Graphic Data member-begin--
 
-	std::unordered_map<PlayerIdType, std::shared_ptr<PlayerData>> playerData;
 	std::unordered_map<PlayerIdType, BSHand*> hands;
 	std::unordered_map<PlayerIdType, std::shared_ptr<BSDeck>> decks;
 	std::unordered_map<PlayerIdType, BSBoard*> boards;
+
+	std::shared_ptr<BSCoinFlipper> coinFlipper;
 
 	std::unordered_map<PlayerIdType, std::shared_ptr<BSPlayer>> players;
 
@@ -67,7 +73,9 @@ public:
 	std::unordered_map<PlayerIdType, cocos2d::ui::Layout*> playerPanels;
 
 	//--Data member-end--
-	std::shared_ptr<BSPlayer> getPlayer(PlayerIdType id) { return players[id]; }
+
+
+
 
 	
 	//--Action pipeline members-begin--

@@ -26,5 +26,28 @@
       "E07" : 2
     }
   ],
-  "CurrentDeckIdx" : 0
+  "CurrentDeckIdx" : 0,
+  "UsedCoin" : "Pikachu",
+  "CoinList" :[
+    "Horsea",
+    "Psyduck",
+    "Starmine",
+    "Pikachu",
+    "Raichu",
+    "Magnemite",
+    "Lugia",
+    "Arbok",
+    "Golbat",
+    "Oddish",
+    "Charmander",
+    "GR",
+    "Dugtrio",
+    "Magmar",
+    "Kabuto",
+    "Machamp",
+    "Ponyta",
+    "Togepi",
+    "Snorlax",
+    "Jigglypuff"
+  ]
 }

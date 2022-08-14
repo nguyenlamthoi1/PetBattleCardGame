@@ -55,7 +55,7 @@ public:
 	virtual void cleanup();
 
 	void addAnimation(const AnimationID& animationId, std::initializer_list<std::string> arrayOfSpriteFrameNames, float delay = 0.0f, unsigned int loop = 1);
-	void addAnimation(const AnimationID& animationId, const cocos2d::Vector<std::string>& arrayOfSpriteFrameNames, float delay = 0.0f, unsigned int loop = 1);
+	void addAnimation(const AnimationID& animationId, const std::vector<std::string> &arrayOfSpriteFrameNames, float delay = 0.0f, unsigned int loop = 1);
 	void addAnimation(const AnimationID& animationId, const std::string& plistPath, const char* format, int startCount, int lastCount, float delay = 0.0f, unsigned int loop = 1);
 	void playAnimation(const AnimationID& animation, bool loopForever = false, AnimationFinishedCallback finishedCallback = nullptr); // Play 1 animation voi id(string)
 	void setAnimationFinishedCallback(const AnimationID& animationId, const AnimationFinishedCallback& finishedCallback);
