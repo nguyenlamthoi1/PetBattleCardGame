@@ -44,6 +44,7 @@ public:
 
 	std::shared_ptr<BSPlayer> getPlayer(PlayerIdType id) { return players[id]; }
 	std::shared_ptr<PlayerData> getPlayerData(PlayerIdType id) { return playerData[id]; }
+	std::shared_ptr<BSCoinFlipper> getCoinFlipper() { return coinFlipper; }
 private:
 	BattleScene();
 	virtual ~BattleScene();

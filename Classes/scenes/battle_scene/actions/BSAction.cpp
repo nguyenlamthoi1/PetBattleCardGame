@@ -2,10 +2,12 @@
 #include "../BattleScene.h"
 #include "../BattleManager.h"
 #include "../BSHand.h"
+#include "../BSCoinFlipper.h"
 
 #include <algorithm>
 
 using namespace std;
+USING_NS_CC;
 
 BATTLE_SCENE_NS_BEG
 
@@ -48,7 +50,6 @@ void BSAction::pop() {
 
 CustomAction::CustomAction(std::function<void()> f) : doFunc(f) {
 	CCLOG("CustomAction::Ctor %p", this);
-
 }
 
 CustomAction::~CustomAction() {
@@ -56,16 +57,36 @@ CustomAction::~CustomAction() {
 }
 
 void CustomAction::start() {
-	BSAction::start();
-
+	if (state != State::Wait)
+		return;
+	state = State::Processed;
 	if (doFunc)
 		doFunc();
 	state = State::Done;
 }
 
-void CustomAction::end() {
+void CustomAction::end() {}
 
+/*
+	WaitAction Class
+*/
+
+const string WaitAction::WAIT_ACTION_SCHEDULER = "WAIT_ACTION_SCHEDULER";
+
+WaitAction::WaitAction(float t) : waitTime(t) {}
+WaitAction::~WaitAction() {}
+
+void WaitAction::start() {
+	if (state != State::Wait)
+		return;
+
+	state = State::Processed;
+	Director::getInstance()->getScheduler()->schedule([this](float t) {
+		state = State::Done;
+		}, this, 0, 0, waitTime, false, WAIT_ACTION_SCHEDULER);
 }
+void WaitAction::end() {}
+
 
 /*
 	DrawCardAction Class
@@ -80,7 +101,10 @@ DrawCardAction::~DrawCardAction() {
 }
 
 void DrawCardAction::start() {
-	BSAction::start();
+	if (state != State::Wait)
+		return;
+
+	state = State::Processed;
 	auto btlScn = btlMgr->getBattleScene();
 	auto &hand = btlScn->hands[playerId];
 	hand->drawCards(drawnNum, [this]() {
@@ -90,8 +114,55 @@ void DrawCardAction::start() {
 	state = State::Done;
 }
 
-void DrawCardAction::end() {
+void DrawCardAction::end() {}
 
+/*
+	FlipCoinAction
+*/
+
+FlipCoinAction* FlipCoinAction::createFlip1Coin(shared_ptr<BattleManager> &bm, PlayerIdType id) {
+	auto ret = new FlipCoinAction(bm, id);
+	ret->flipNum = 1;
+	ret->flipType = FlipType::Flip_1;
+	return ret;
 }
+
+FlipCoinAction* FlipCoinAction::createFlipMulCoins(shared_ptr<BattleManager> &bm, PlayerIdType id, unsigned int count) {
+	auto ret = new FlipCoinAction(bm, id);
+	ret->flipNum = count;
+	ret->flipType = FlipType::Flip_Mul;
+	return ret;
+}
+
+FlipCoinAction* FlipCoinAction::createFlipUntilTails(shared_ptr<BattleManager> &bm, PlayerIdType id) {
+	return nullptr;
+}
+
+FlipCoinAction::FlipCoinAction(shared_ptr<BattleManager> &bm, PlayerIdType id) : BSAction(bm), playerId(id) {}
+
+FlipCoinAction::~FlipCoinAction() {}
+
+void FlipCoinAction::start() {
+	if (state != State::Wait)
+		return;
+
+	state = State::Processed;
+
+	auto btlScn = btlMgr->getBattleScene();
+	auto flipper = btlScn->getCoinFlipper();
+
+	flipper->registFlipEndCallbackOnce([this]() {state = State::Done; });
+
+	switch (flipType) {
+	case FlipType::Flip_1:
+		flipper->startFlip1Coin(playerId);
+		break;
+	case FlipType::Flip_Mul:
+		flipper->startFlipMulCoins(playerId, flipNum);
+		break;
+	}
+}
+
+void FlipCoinAction::end() {}
 
 BATTLE_SCENE_NS_END

@@ -56,7 +56,9 @@ void BattleManager::changeState(GameState fromState, GameState toState) {
 				//new DrawCardAction(btlScn->getBattleManager(), OPPONENT, BEGIN_TURN_DRAW_COUNT), //TODO
 				new CustomAction([this]() {
 					changeState(gameState, GameState::SET_UP);
-					})
+					}),
+				new WaitAction(0.5f),
+				FlipCoinAction::createFlip1Coin(btlScn->getBattleManager(), PLAYER)
 				});
 			gameState = toState;
 			return;

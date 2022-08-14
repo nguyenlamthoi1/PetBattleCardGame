@@ -58,7 +58,7 @@ bool BSCoinFlipper::init() {
 
 void BSCoinFlipper::startFlip1Coin(PlayerIdType whoFlip) {
 	CCASSERT(whoFlip == PLAYER || whoFlip == OPPONENT, "BSCoinFlipper::startFlip1Coin: wrong id");
-
+	root->setVisible(true);
 	// Reset ket qua flip truoc do
 	auto &flipInfo = flipInfos[whoFlip];
 	flipInfo.clear();
@@ -69,6 +69,11 @@ void BSCoinFlipper::startFlip1Coin(PlayerIdType whoFlip) {
 	currentFlipper = whoFlip;
 	curFlipType = FlipType::Flip_1;
 
+	auto resBoard = flip1Panel->getChildByName("Result_Flip_Board");
+	resBoard->setOpacity(0);
+	resBoard->setVisible(true);
+
+
 	flip1Panel->setScale(0.75f);
 	flip1Panel->setVisible(true);
 	flip1Panel->setOpacity(0);
@@ -78,7 +83,8 @@ void BSCoinFlipper::startFlip1Coin(PlayerIdType whoFlip) {
 			ScaleTo::create(0.3f, 1.0f),
 			nullptr),
 		DelayTime::create(0.5f),
-		CallFunc::create([this]() {
+		CallFunc::create([this, whoFlip]() {
+			doFlip1Coin(whoFlip);
 			}),
 		nullptr
 		));
@@ -90,6 +96,7 @@ void BSCoinFlipper::onFlipActionDone() {
 	//curFlipType = FlipType::Flip_1;
 	//--
 	CCLOG("Flip 1 done");
+	notifyEvent(EventType::Flip_Action_Ended);
 }
 
 void BSCoinFlipper::createFlipAnimation(PlayerIdType whoFlip) {
@@ -163,7 +170,7 @@ void BSCoinFlipper::doFlip1Coin(PlayerIdType whoFlip) {
 		return; //->error
 	}
 
-	bool gotHead = *(flipInfo.resVec.cend()) != TAILS;
+	bool gotHead = flipInfo.resVec.back() != TAILS;
 
 	if (flipInfo.flipVec.empty()) 
 		createFlipAnimation(whoFlip);
@@ -195,6 +202,7 @@ void BSCoinFlipper::doFlip1Coin(PlayerIdType whoFlip) {
 				// Ket thuc 1 lan flip
 				auto resBoard = flip1Panel->getChildByName("Result_Flip_Board");
 				resBoard->runAction(FadeIn::create(0.5f));
+
 				auto resText = dynamic_cast<ui::Text*>(resBoard->getChildByName("Result_Flip_Text"));
 				resText->setString(gotHead ? "Heads" : "Tails");
 
@@ -207,9 +215,22 @@ void BSCoinFlipper::doFlip1Coin(PlayerIdType whoFlip) {
 		nullptr));
 }
 
-void BSCoinFlipper::startFlipMulCoins(PlayerIdType whoFlip) {
+void BSCoinFlipper::startFlipMulCoins(PlayerIdType whoFlip, unsigned int n) {
 
 }
 
+void BSCoinFlipper::notifyEvent(EventType ev) {
+	switch (ev) {
+	case EventType::Flip_Action_Ended:
+		for (const auto &f : onFlipEndedOnce)
+			f();
+		onFlipEndedOnce.clear(); // Xoa callback sau khi call
+		break;
+	}
+}
+
+void BSCoinFlipper::registFlipEndCallbackOnce(const OnFlipEnded &f) {
+	onFlipEndedOnce.push_back(f);
+}
 
 BATTLE_SCENE_NS_END

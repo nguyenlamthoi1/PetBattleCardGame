@@ -125,6 +125,7 @@ bool BattleScene::init() {
 
 	// Khoi tao Coin Flipper
 	coinFlipper = shared_ptr<BSCoinFlipper>(BSCoinFlipper::create(this));
+	coinFlipper->getNode()->setVisible(false);
 
 	return true;
 }

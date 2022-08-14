@@ -23,6 +23,7 @@ public:
 	enum class ActionType{
 		None,
 		Custom,
+		Wait,
 		Draw_Card
 	};
 
@@ -61,6 +62,21 @@ protected:
 	std::function<void()> doFunc;
 };
 
+
+class WaitAction : public BSAction {
+public:
+	static const std::string WAIT_ACTION_SCHEDULER;
+	WaitAction(float t);
+	virtual ~WaitAction();
+
+	virtual void start() override;
+	virtual void end() override;
+	virtual ActionType getType() override { return ActionType::Draw_Card; }
+protected:
+	float waitTime = 0.0f;
+};
+
+
 class DrawCardAction : public BSAction {
 public:
 	DrawCardAction(std::shared_ptr<BattleManager> &btlMgr, PlayerIdType id, size_t n);
@@ -73,6 +89,32 @@ public:
 protected:
 	PlayerIdType playerId = PlayerIdInvalid;
 	size_t drawnNum = 0;
+};
+
+class FlipCoinAction : public BSAction {
+public:
+	enum class FlipType {
+		None, 
+		Flip_1,
+		Flip_Mul,
+		Flip_Until_Tails
+	};
+	static FlipCoinAction* createFlip1Coin(std::shared_ptr<BattleManager> &btlMgr, PlayerIdType id);
+	static FlipCoinAction* createFlipMulCoins(std::shared_ptr<BattleManager> &btlMgr, PlayerIdType id, unsigned int count);
+	static FlipCoinAction* createFlipUntilTails(std::shared_ptr<BattleManager> &btlMgr, PlayerIdType id);
+
+	FlipCoinAction(std::shared_ptr<BattleManager> &btlMgr, PlayerIdType id);
+	virtual ~FlipCoinAction();
+
+	virtual void start() override;
+	virtual void end() override;
+	virtual ActionType getType() override { return ActionType::Custom; }
+
+protected:
+	PlayerIdType playerId = PlayerIdInvalid;
+	FlipType flipType = FlipType::None;
+	unsigned int flipNum = 0;
+	bool untilTails = false;
 };
 
 class EndGameAction : public BSAction {

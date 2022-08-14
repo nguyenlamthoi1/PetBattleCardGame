@@ -20,6 +20,8 @@ class BSCoinFlipper final {
 public:
 	friend class BattleScene;
 
+	using OnFlipEnded = std::function<void()>;
+
 	enum class FlipType {
 		None,
 		Flip_1,
@@ -31,7 +33,13 @@ public:
 	~BSCoinFlipper();
 
 	void startFlip1Coin(PlayerIdType whoFlip);
-	void startFlipMulCoins(PlayerIdType whoFlip);
+	void startFlipMulCoins(PlayerIdType whoFlip, unsigned int n);
+	cocos2d::Node* getNode() const { return root; }
+
+	enum class EventType {
+		Flip_Action_Ended
+	};
+	void registFlipEndCallbackOnce(const OnFlipEnded &f);
 
 private:
 
@@ -75,12 +83,13 @@ private:
 	PlayerIdType currentFlipper = PlayerIdInvalid;
 	std::unordered_map<PlayerIdType, FlipInfo> flipInfos;
 
+	std::list<OnFlipEnded> onFlipEndedOnce; // List cac callback
+
 	void createFlipAnimation(PlayerIdType whoFlip);
 	void onFlipActionDone(); // * Called khi flip action ket thuc
-
 	void doFlip1Coin(PlayerIdType whoFlip);
 	
-	
+	void notifyEvent(EventType ev);
 };
 
 BATTLE_SCENE_NS_END
