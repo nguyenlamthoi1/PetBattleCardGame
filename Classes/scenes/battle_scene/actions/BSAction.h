@@ -24,7 +24,8 @@ public:
 		None,
 		Custom,
 		Wait,
-		Draw_Card
+		Draw_Card,
+		Setup
 	};
 
 	enum class State{
@@ -122,6 +123,21 @@ public:
 	//static EndGameAction* createFoundWinner();
 	//static EndGameAction* createDrawMatch();
 };
+
+class SetupAction : public BSAction {
+public:
+	SetupAction(std::shared_ptr<BattleManager> &btlMgr, PlayerIdType id);
+	virtual ~SetupAction();
+
+	virtual void start() override;
+	virtual void end() override;
+	virtual ActionType getType() override { return ActionType::Setup; }
+
+protected:
+	PlayerIdType playerId = PlayerIdInvalid;
+	bool checkSetup();
+};
+
 
 BATTLE_SCENE_NS_END
 

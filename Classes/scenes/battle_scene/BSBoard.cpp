@@ -92,5 +92,8 @@ void BSBoard::alignHoldersOnBenchBoard(bool forceDoLayout) {
 		layout->requestDoLayout();
 }
 
+bool BSBoard::hasActivePet() {
+	return activeHolder->hasPetCard();
+}
 
 BATTLE_SCENE_NS_END

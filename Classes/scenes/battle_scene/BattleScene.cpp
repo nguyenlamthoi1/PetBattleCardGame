@@ -108,7 +108,7 @@ bool BattleScene::init() {
 	playerData[OPPONENT] = ::PlayerData::createPseudo(false);
 
 	// Khoi tao du lieu player trong game
-	//players[PLAYER] = make_shared<BSPlayer>(PLAYER);
+	players[PLAYER] = make_shared<BSPlayer>(PLAYER);
 	//players[OPPONENT] = make_shared<BSPlayer>(OPPONENT);
 
 	// Khoi tao Hand
@@ -121,7 +121,7 @@ bool BattleScene::init() {
 	decks[OPPONENT] = shared_ptr<BSDeck>(BSDeck::create(this, OPPONENT));
 
 	// Khoi tao Board
-	boards[PLAYER] = BSBoard::create(this, PLAYER);
+	boards[PLAYER] = shared_ptr<BSBoard>(BSBoard::create(this, PLAYER));
 	//boards[OPPONENT] = BSBoard::create(this, OPPONENT);
 
 	// Khoi tao Coin Flipper

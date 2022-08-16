@@ -53,22 +53,28 @@ void BattleManager::changeState(GameState fromState, GameState toState) {
 		if (toState == GameState::START) { // NONE -> START
 			// Thiet lap cac first action
 			startPipeline({
-				//new DrawCardAction(btlScn->getBattleManager(), PLAYER, BEGIN_TURN_DRAW_COUNT),
+				new DrawCardAction(btlScn->getBattleManager(), PLAYER, BEGIN_TURN_DRAW_COUNT),
 				//new DrawCardAction(btlScn->getBattleManager(), OPPONENT, BEGIN_TURN_DRAW_COUNT), //TODO
-				/*new CustomAction([this]() {
-					changeState(gameState, GameState::SET_UP);
-					}),*/
-				//new WaitAction(0.5f),
 				new CustomAction([this]() {
+					changeState(gameState, GameState::SET_UP);
+					}),
+				new WaitAction(1.0f),
+				new SetupAction(btlScn->getBattleManager(), PLAYER)
+				/*new CustomAction([this]() {
 					btlScn->getNotifier()->showMsgWithDone("Tap ready button if you are ready to play the game and having fun", [this]() {
 						CCLOG("Click Done Btn");
 						btlScn->getNotifier()->hideMsg();
 						});
-					}),
+					}),*/
 				//FlipCoinAction::createFlip1Coin(btlScn->getBattleManager(), PLAYER)
 				});
 			gameState = toState;
 			return;
+		}
+	}
+
+	if (fromState == GameState::START) {
+		if (toState == GameState::SET_UP) { // START -> SET_UP
 		}
 	}
 	

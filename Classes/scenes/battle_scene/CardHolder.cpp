@@ -213,4 +213,12 @@ void CardHolder::showFlyingText(const string &s) {
 		nullptr));
 }
 
+/*
+	Checker
+*/
+
+bool CardHolder::hasPetCard() {
+	return petCard != nullptr;
+}
+
 BATTLE_SCENE_NS_END

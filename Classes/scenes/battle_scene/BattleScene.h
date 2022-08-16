@@ -45,8 +45,10 @@ public:
 
 	std::shared_ptr<BSPlayer> getPlayer(PlayerIdType id) { return players[id]; }
 	std::shared_ptr<PlayerData> getPlayerData(PlayerIdType id) { return playerData[id]; }
+	std::shared_ptr<BSBoard> getBoard(PlayerIdType id) { return boards[id]; }
 	std::shared_ptr<BSCoinFlipper> getCoinFlipper() { return coinFlipper; }
 	std::shared_ptr<BSNotifier> getNotifier() { return notifier; }
+
 private:
 	BattleScene();
 	virtual ~BattleScene();
@@ -64,7 +66,7 @@ public:
 
 	std::unordered_map<PlayerIdType, BSHand*> hands;
 	std::unordered_map<PlayerIdType, std::shared_ptr<BSDeck>> decks;
-	std::unordered_map<PlayerIdType, BSBoard*> boards;
+	std::unordered_map<PlayerIdType, std::shared_ptr<BSBoard>> boards;
 
 	std::shared_ptr<BSCoinFlipper> coinFlipper;
 	std::shared_ptr<BSNotifier> notifier;

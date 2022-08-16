@@ -223,7 +223,7 @@
             <PreSize X="1.0000" Y="1.0000" />
             <FileData Type="Normal" Path="ccstd_csb/battle_scene/flip_coin_layer.csd" Plist="" />
           </AbstractNodeData>
-          <AbstractNodeData Name="Msg_Layer" ActionTag="-678695008" Tag="55" IconVisible="True" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" StretchWidthEnable="False" StretchHeightEnable="False" InnerActionSpeed="1.0000" CustomSizeEnabled="False" ctype="ProjectNodeObjectData">
+          <AbstractNodeData Name="Msg_Layer" ActionTag="-678695008" VisibleForFrame="False" Tag="55" IconVisible="True" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" StretchWidthEnable="False" StretchHeightEnable="False" InnerActionSpeed="1.0000" CustomSizeEnabled="False" ctype="ProjectNodeObjectData">
             <Size X="1280.0000" Y="720.0000" />
             <AnchorPoint />
             <Position />
@@ -233,8 +233,26 @@
             <PreSize X="1.0000" Y="1.0000" />
             <FileData Type="Normal" Path="ccstd_csb/battle_scene/msg_layer.csd" Plist="" />
           </AbstractNodeData>
-          <AbstractNodeData Name="Top_Layer" ActionTag="1056330814" VisibleForFrame="False" Tag="72" IconVisible="False" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" ctype="PanelObjectData">
+          <AbstractNodeData Name="Top_Layer" ActionTag="1056330814" Tag="72" IconVisible="False" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
             <Size X="1280.0000" Y="720.0000" />
+            <Children>
+              <AbstractNodeData Name="Done_Button" ActionTag="1897636301" VisibleForFrame="False" Tag="56" IconVisible="False" HorizontalEdge="RightEdge" VerticalEdge="BottomEdge" LeftMargin="1165.0000" RightMargin="15.0000" TopMargin="669.0000" BottomMargin="15.0000" TouchEnable="True" FontSize="24" ButtonText="Done" Scale9Enable="True" LeftEage="6" RightEage="6" TopEage="6" BottomEage="6" Scale9OriginX="6" Scale9OriginY="6" Scale9Width="34" Scale9Height="24" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
+                <Size X="100.0000" Y="36.0000" />
+                <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                <Position X="1215.0000" Y="33.0000" />
+                <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                <CColor A="255" R="0" G="128" B="0" />
+                <PrePosition X="0.9492" Y="0.0458" />
+                <PreSize X="0.0781" Y="0.0500" />
+                <FontResource Type="Normal" Path="ccstd_fonts/GillSans_ttf/Gill Sans.ttf" Plist="" />
+                <TextColor A="255" R="0" G="0" B="0" />
+                <DisabledFileData Type="Default" Path="Default/Button_Disable.png" Plist="" />
+                <PressedFileData Type="Default" Path="Default/Button_Press.png" Plist="" />
+                <NormalFileData Type="Default" Path="Default/Button_Normal.png" Plist="" />
+                <OutlineColor A="255" R="255" G="0" B="0" />
+                <ShadowColor A="255" R="110" G="110" B="110" />
+              </AbstractNodeData>
+            </Children>
             <AnchorPoint />
             <Position />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />

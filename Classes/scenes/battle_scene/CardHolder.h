@@ -40,6 +40,10 @@ public:
 	bool tryAddEnergyCard(EnergyCard *card);
 
 	void updateInfoPanel(bool show);
+
+	// Checker
+	bool hasPetCard();
+
 protected:
 	virtual void clear();
 

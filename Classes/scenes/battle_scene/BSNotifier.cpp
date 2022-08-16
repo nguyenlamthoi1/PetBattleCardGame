@@ -87,6 +87,27 @@ void BSNotifier::showMsgWithDone(const std::string &msg, DoneFunc f, bool hideDo
 		});
 }
 
+void BSNotifier::showMsgWithDone(const std::string &msg, CheckDoneFunc checkFunc, DoneFunc doneFunc, OnCheckError errorFunc, bool hideOnSuccess) {
+	showMsg(msg);
+	doneBtn->setVisible(true);
+	doneBtn->addClickEventListener([this, checkFunc, doneFunc, errorFunc, hideOnSuccess](Ref *btn) {
+		auto check = !checkFunc || checkFunc(); // Kiem tra action truoc khi done
+		if (check) { // Neu action hoan tat -> Done
+			if (doneFunc)
+				doneFunc();
+			if (hideOnSuccess) {
+				hideMsg();
+				doneBtn->setVisible(false);
+			}
+		}
+		else { // Neu action khong hoan tat duoc
+			if (errorFunc)
+				errorFunc();
+		}
+		});
+}
+
+
 void BSNotifier::setMsg(const string &msg) {
 	auto text = dynamic_cast<ui::Text*>(msgBoard->getChildByName("Msg_Text"));
 	text->setString(msg);
@@ -107,6 +128,7 @@ void BSNotifier::setMsg(const string &msg) {
 
 	msgBoard->setLayoutType(ui::Layout::Type::RELATIVE);
 	msgBoard->requestDoLayout();
+	msgBoard->setPosition(msgBoard->getPosition() + Vec2(0, 80));
 }
 
 BATTLE_SCENE_NS_END

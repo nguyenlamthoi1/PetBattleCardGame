@@ -22,6 +22,9 @@ public:
 	friend class BattleScene;
 
 	using DoneFunc = std::function<void()>;
+	using CheckDoneFunc = std::function<bool()>;
+	using OnCheckError = std::function<void()>;
+
 
 	static BSNotifier* create(BattleScene *scn);
 	BSNotifier(BattleScene *scn);
@@ -45,6 +48,8 @@ public:
 
 	void showMsgAndHideAfter(const std::string &msg, float t);
 	void showMsgWithDone(const std::string &msg, DoneFunc f, bool hideDoneOnClick = true);
+	void showMsgWithDone(const std::string &msg, CheckDoneFunc checkFunc, DoneFunc doneFunc, OnCheckError errorFunc, bool hideOnSuccess = true);
+
 
 
 	// Utilize

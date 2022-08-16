@@ -3,6 +3,9 @@
 #include "../BattleManager.h"
 #include "../BSHand.h"
 #include "../BSCoinFlipper.h"
+#include "../BSPlayer.h"
+#include "../BSNotifier.h"
+#include "../BSBoard.h"
 
 #include <algorithm>
 
@@ -163,5 +166,44 @@ void FlipCoinAction::start() {
 }
 
 void FlipCoinAction::end() {}
+
+/*
+	SetupAction Class
+*/
+
+SetupAction::SetupAction(std::shared_ptr<BattleManager> &btlMgr, PlayerIdType id) : BSAction(btlMgr), playerId(id) {
+	CCLOG("DrawCardAction::Ctor %p", this);
+}
+
+SetupAction::~SetupAction(){
+	CCLOG("DrawCardAction::Dtor %p", this);
+}
+
+void SetupAction::start() {
+	if (state != State::Wait)
+		return;
+
+	state = State::Processed;
+
+	auto btlScn = btlMgr->getBattleScene();
+	auto player = btlScn->getPlayer(playerId); // PLAYER or OPPONENT
+	auto notifier = btlScn->getNotifier();
+
+	notifier->showMsgWithDone("Drag a Pokemon to your Active Spot",
+		[this]() -> bool {return checkSetup(); },
+		[this]() -> void {
+			state = State::Done;
+		},
+		nullptr, true);
+
+	player->doSetup();
+}
+
+bool SetupAction::checkSetup() {
+	return btlMgr->getBattleScene()->getBoard(playerId)->hasActivePet();
+}
+
+
+void SetupAction::end(){}
 
 BATTLE_SCENE_NS_END

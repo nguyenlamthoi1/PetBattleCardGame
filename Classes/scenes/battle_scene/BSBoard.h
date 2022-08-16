@@ -42,6 +42,9 @@ public:
 
 	// Utilize functions
 	void alignHoldersOnBenchBoard(bool forceDoLayout);
+
+	// Checker
+	bool hasActivePet();
 };
 
 BATTLE_SCENE_NS_END

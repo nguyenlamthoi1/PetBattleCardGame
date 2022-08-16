@@ -43,6 +43,9 @@ public:
 
 	PlayerIdType id = PlayerIdInvalid;
 
+	// Player Action
+	virtual void doSetup();
+
 protected:
 	void drawFromDeck(unsigned int num);
 

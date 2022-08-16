@@ -51,6 +51,9 @@ shared_ptr<BSPlayer::PlayerAction> BSPlayer::getActionData(PlayerActionId id) {
 	return nullptr;
 }
 
+void BSPlayer::doSetup() {
+
+}
 
 
 
