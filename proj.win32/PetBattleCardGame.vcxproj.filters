@@ -156,6 +156,9 @@
     <ClCompile Include="..\Classes\scenes\battle_scene\BSCoinFlipper.cpp">
       <Filter>src\scenes\battle_scene</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene\BSNotifier.cpp">
+      <Filter>src\scenes\battle_scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -375,6 +378,9 @@
       <Filter>src\scenes\battle_scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\scenes\battle_scene\BSCoinFlipper.h">
+      <Filter>src\scenes\battle_scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\battle_scene\BSNotifier.h">
       <Filter>src\scenes\battle_scene</Filter>
     </ClInclude>
   </ItemGroup>

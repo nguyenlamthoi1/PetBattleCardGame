@@ -213,38 +213,28 @@
             <EndColor A="255" R="255" G="255" B="255" />
             <ColorVector ScaleY="1.0000" />
           </AbstractNodeData>
-          <AbstractNodeData Name="Msg_Layer" ActionTag="-202915438" VisibleForFrame="False" Tag="69" IconVisible="False" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
+          <AbstractNodeData Name="Flip_Coin_Layer" ActionTag="-590322561" VisibleForFrame="False" Tag="221" IconVisible="True" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" StretchWidthEnable="False" StretchHeightEnable="False" InnerActionSpeed="1.0000" CustomSizeEnabled="False" ctype="ProjectNodeObjectData">
             <Size X="1280.0000" Y="720.0000" />
-            <Children>
-              <AbstractNodeData Name="Msg_Board" ActionTag="960068407" Tag="70" IconVisible="False" PositionPercentXEnabled="True" LeftMargin="340.0000" RightMargin="340.0000" TopMargin="384.9700" BottomMargin="275.0300" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Enable="True" LeftEage="6" RightEage="6" TopEage="6" BottomEage="6" Scale9OriginX="6" Scale9OriginY="6" Scale9Width="42" Scale9Height="42" ctype="PanelObjectData">
-                <Size X="600.0000" Y="60.0000" />
-                <Children>
-                  <AbstractNodeData Name="Msg_Text" ActionTag="544213056" Tag="73" IconVisible="False" LeftMargin="102.5000" RightMargin="102.5000" TopMargin="22.0000" BottomMargin="14.0000" FontSize="20" LabelText="We're gonna write something in this white board" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
-                    <Size X="395.0000" Y="24.0000" />
-                    <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                    <Position X="300.0000" Y="26.0000" />
-                    <Scale ScaleX="1.0000" ScaleY="1.0000" />
-                    <CColor A="255" R="26" G="26" B="26" />
-                    <PrePosition X="0.5000" Y="0.4333" />
-                    <PreSize X="0.6583" Y="0.4000" />
-                    <FontResource Type="Normal" Path="ccstd_fonts/GillSans_ttf/Gill Sans.ttf" Plist="" />
-                    <OutlineColor A="255" R="255" G="0" B="0" />
-                    <ShadowColor A="255" R="110" G="110" B="110" />
-                  </AbstractNodeData>
-                </Children>
-                <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                <Position X="640.0000" Y="305.0300" />
-                <Scale ScaleX="1.0000" ScaleY="1.0000" />
-                <CColor A="255" R="255" G="255" B="255" />
-                <PrePosition X="0.5000" Y="0.4237" />
-                <PreSize X="0.4688" Y="0.0833" />
-                <FileData Type="PlistSubImage" Path="battle_scene/white_square.png" Plist="ccstd_assets/battle_scene.plist" />
-                <SingleColor A="255" R="150" G="200" B="255" />
-                <FirstColor A="255" R="150" G="200" B="255" />
-                <EndColor A="255" R="255" G="255" B="255" />
-                <ColorVector ScaleY="1.0000" />
-              </AbstractNodeData>
-            </Children>
+            <AnchorPoint />
+            <Position />
+            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition />
+            <PreSize X="1.0000" Y="1.0000" />
+            <FileData Type="Normal" Path="ccstd_csb/battle_scene/flip_coin_layer.csd" Plist="" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="Msg_Layer" ActionTag="-678695008" Tag="55" IconVisible="True" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" StretchWidthEnable="False" StretchHeightEnable="False" InnerActionSpeed="1.0000" CustomSizeEnabled="False" ctype="ProjectNodeObjectData">
+            <Size X="1280.0000" Y="720.0000" />
+            <AnchorPoint />
+            <Position />
+            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition />
+            <PreSize X="1.0000" Y="1.0000" />
+            <FileData Type="Normal" Path="ccstd_csb/battle_scene/msg_layer.csd" Plist="" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="Top_Layer" ActionTag="1056330814" VisibleForFrame="False" Tag="72" IconVisible="False" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" ctype="PanelObjectData">
+            <Size X="1280.0000" Y="720.0000" />
             <AnchorPoint />
             <Position />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
@@ -255,16 +245,6 @@
             <FirstColor A="255" R="150" G="200" B="255" />
             <EndColor A="255" R="255" G="255" B="255" />
             <ColorVector ScaleY="1.0000" />
-          </AbstractNodeData>
-          <AbstractNodeData Name="Flip_Coin_Layer" ActionTag="-590322561" Tag="221" IconVisible="True" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" StretchWidthEnable="False" StretchHeightEnable="False" InnerActionSpeed="1.0000" CustomSizeEnabled="False" ctype="ProjectNodeObjectData">
-            <Size X="1280.0000" Y="720.0000" />
-            <AnchorPoint />
-            <Position />
-            <Scale ScaleX="1.0000" ScaleY="1.0000" />
-            <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition />
-            <PreSize X="1.0000" Y="1.0000" />
-            <FileData Type="Normal" Path="ccstd_csb/battle_scene/flip_coin_layer.csd" Plist="" />
           </AbstractNodeData>
         </Children>
       </ObjectData>

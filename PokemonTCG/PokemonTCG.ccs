@@ -58,62 +58,62 @@
             <PlistImageFile Name="energy_image_x3_water_energy_img_x3_0.png" Key="energy_image_x3/water_energy_img_x3_0.png" />
           </PlistImageFolder>
           <PlistImageFolder Image="flip_coin_animations.png" PListFile="flip_coin_animations.plist" Name=".flip_coin_animations_PList.Dir">
+            <PlistImageFile Name="flip_coin_animations_blue_flip_coin_blue_0.png" Key="flip_coin_animations/blue/flip_coin_blue_0.png" />
+            <PlistImageFile Name="flip_coin_animations_blue_flip_coin_blue_1.png" Key="flip_coin_animations/blue/flip_coin_blue_1.png" />
+            <PlistImageFile Name="flip_coin_animations_blue_flip_coin_blue_2.png" Key="flip_coin_animations/blue/flip_coin_blue_2.png" />
             <PlistImageFile Name="flip_coin_animations_blue_flip_coin_blue_3.png" Key="flip_coin_animations/blue/flip_coin_blue_3.png" />
+            <PlistImageFile Name="flip_coin_animations_blue_flip_coin_blue_4.png" Key="flip_coin_animations/blue/flip_coin_blue_4.png" />
+            <PlistImageFile Name="flip_coin_animations_blue_flip_coin_blue_5.png" Key="flip_coin_animations/blue/flip_coin_blue_5.png" />
+            <PlistImageFile Name="flip_coin_animations_blue_flip_coin_blue_6.png" Key="flip_coin_animations/blue/flip_coin_blue_6.png" />
             <PlistImageFile Name="flip_coin_animations_blue_flip_coin_blue_horsea.png" Key="flip_coin_animations/blue/flip_coin_blue_horsea.png" />
             <PlistImageFile Name="flip_coin_animations_blue_flip_coin_blue_psyduck.png" Key="flip_coin_animations/blue/flip_coin_blue_psyduck.png" />
             <PlistImageFile Name="flip_coin_animations_blue_flip_coin_blue_starmine.png" Key="flip_coin_animations/blue/flip_coin_blue_starmine.png" />
+            <PlistImageFile Name="flip_coin_animations_green_flip_coin_green_0.png" Key="flip_coin_animations/green/flip_coin_green_0.png" />
+            <PlistImageFile Name="flip_coin_animations_green_flip_coin_green_1.png" Key="flip_coin_animations/green/flip_coin_green_1.png" />
+            <PlistImageFile Name="flip_coin_animations_green_flip_coin_green_2.png" Key="flip_coin_animations/green/flip_coin_green_2.png" />
             <PlistImageFile Name="flip_coin_animations_green_flip_coin_green_3.png" Key="flip_coin_animations/green/flip_coin_green_3.png" />
+            <PlistImageFile Name="flip_coin_animations_green_flip_coin_green_4.png" Key="flip_coin_animations/green/flip_coin_green_4.png" />
+            <PlistImageFile Name="flip_coin_animations_green_flip_coin_green_5.png" Key="flip_coin_animations/green/flip_coin_green_5.png" />
+            <PlistImageFile Name="flip_coin_animations_green_flip_coin_green_6.png" Key="flip_coin_animations/green/flip_coin_green_6.png" />
             <PlistImageFile Name="flip_coin_animations_green_flip_coin_green_arbok.png" Key="flip_coin_animations/green/flip_coin_green_arbok.png" />
             <PlistImageFile Name="flip_coin_animations_green_flip_coin_green_golbat.png" Key="flip_coin_animations/green/flip_coin_green_golbat.png" />
             <PlistImageFile Name="flip_coin_animations_green_flip_coin_green_oddish.png" Key="flip_coin_animations/green/flip_coin_green_oddish.png" />
+            <PlistImageFile Name="flip_coin_animations_red_flip_coin_red_0.png" Key="flip_coin_animations/red/flip_coin_red_0.png" />
+            <PlistImageFile Name="flip_coin_animations_red_flip_coin_red_1.png" Key="flip_coin_animations/red/flip_coin_red_1.png" />
+            <PlistImageFile Name="flip_coin_animations_red_flip_coin_red_2.png" Key="flip_coin_animations/red/flip_coin_red_2.png" />
             <PlistImageFile Name="flip_coin_animations_red_flip_coin_red_3.png" Key="flip_coin_animations/red/flip_coin_red_3.png" />
+            <PlistImageFile Name="flip_coin_animations_red_flip_coin_red_4.png" Key="flip_coin_animations/red/flip_coin_red_4.png" />
+            <PlistImageFile Name="flip_coin_animations_red_flip_coin_red_5.png" Key="flip_coin_animations/red/flip_coin_red_5.png" />
+            <PlistImageFile Name="flip_coin_animations_red_flip_coin_red_6.png" Key="flip_coin_animations/red/flip_coin_red_6.png" />
             <PlistImageFile Name="flip_coin_animations_red_flip_coin_red_charmander.png" Key="flip_coin_animations/red/flip_coin_red_charmander.png" />
-            <PlistImageFile Name="flip_coin_animations_blue_flip_coin_blue_0.png" Key="flip_coin_animations/blue/flip_coin_blue_0.png" />
             <PlistImageFile Name="flip_coin_animations_red_flip_coin_red_dugtrio.png" Key="flip_coin_animations/red/flip_coin_red_dugtrio.png" />
             <PlistImageFile Name="flip_coin_animations_red_flip_coin_red_gr.png" Key="flip_coin_animations/red/flip_coin_red_gr.png" />
             <PlistImageFile Name="flip_coin_animations_red_flip_coin_red_kabuto.png" Key="flip_coin_animations/red/flip_coin_red_kabuto.png" />
             <PlistImageFile Name="flip_coin_animations_red_flip_coin_red_machamp.png" Key="flip_coin_animations/red/flip_coin_red_machamp.png" />
             <PlistImageFile Name="flip_coin_animations_red_flip_coin_red_magmar.png" Key="flip_coin_animations/red/flip_coin_red_magmar.png" />
             <PlistImageFile Name="flip_coin_animations_red_flip_coin_red_rapidash.png" Key="flip_coin_animations/red/flip_coin_red_rapidash.png" />
+            <PlistImageFile Name="flip_coin_animations_white_flip_coin_white_0.png" Key="flip_coin_animations/white/flip_coin_white_0.png" />
+            <PlistImageFile Name="flip_coin_animations_white_flip_coin_white_1.png" Key="flip_coin_animations/white/flip_coin_white_1.png" />
+            <PlistImageFile Name="flip_coin_animations_white_flip_coin_white_2.png" Key="flip_coin_animations/white/flip_coin_white_2.png" />
             <PlistImageFile Name="flip_coin_animations_white_flip_coin_white_3.png" Key="flip_coin_animations/white/flip_coin_white_3.png" />
+            <PlistImageFile Name="flip_coin_animations_white_flip_coin_white_4.png" Key="flip_coin_animations/white/flip_coin_white_4.png" />
+            <PlistImageFile Name="flip_coin_animations_white_flip_coin_white_5.png" Key="flip_coin_animations/white/flip_coin_white_5.png" />
+            <PlistImageFile Name="flip_coin_animations_white_flip_coin_white_6.png" Key="flip_coin_animations/white/flip_coin_white_6.png" />
             <PlistImageFile Name="flip_coin_animations_white_flip_coin_white_chansey.png" Key="flip_coin_animations/white/flip_coin_white_chansey.png" />
             <PlistImageFile Name="flip_coin_animations_white_flip_coin_white_jigglypuff.png" Key="flip_coin_animations/white/flip_coin_white_jigglypuff.png" />
             <PlistImageFile Name="flip_coin_animations_white_flip_coin_white_snorlax.png" Key="flip_coin_animations/white/flip_coin_white_snorlax.png" />
-            <PlistImageFile Name="flip_coin_animations_blue_flip_coin_blue_2.png" Key="flip_coin_animations/blue/flip_coin_blue_2.png" />
             <PlistImageFile Name="flip_coin_animations_white_flip_coin_white_togepi.png" Key="flip_coin_animations/white/flip_coin_white_togepi.png" />
+            <PlistImageFile Name="flip_coin_animations_yellow_flip_coin_yellow_0.png" Key="flip_coin_animations/yellow/flip_coin_yellow_0.png" />
+            <PlistImageFile Name="flip_coin_animations_yellow_flip_coin_yellow_1.png" Key="flip_coin_animations/yellow/flip_coin_yellow_1.png" />
+            <PlistImageFile Name="flip_coin_animations_yellow_flip_coin_yellow_2.png" Key="flip_coin_animations/yellow/flip_coin_yellow_2.png" />
             <PlistImageFile Name="flip_coin_animations_yellow_flip_coin_yellow_3.png" Key="flip_coin_animations/yellow/flip_coin_yellow_3.png" />
+            <PlistImageFile Name="flip_coin_animations_yellow_flip_coin_yellow_4.png" Key="flip_coin_animations/yellow/flip_coin_yellow_4.png" />
+            <PlistImageFile Name="flip_coin_animations_yellow_flip_coin_yellow_5.png" Key="flip_coin_animations/yellow/flip_coin_yellow_5.png" />
+            <PlistImageFile Name="flip_coin_animations_yellow_flip_coin_yellow_6.png" Key="flip_coin_animations/yellow/flip_coin_yellow_6.png" />
             <PlistImageFile Name="flip_coin_animations_yellow_flip_coin_yellow_lugia.png" Key="flip_coin_animations/yellow/flip_coin_yellow_lugia.png" />
             <PlistImageFile Name="flip_coin_animations_yellow_flip_coin_yellow_magnemite.png" Key="flip_coin_animations/yellow/flip_coin_yellow_magnemite.png" />
             <PlistImageFile Name="flip_coin_animations_yellow_flip_coin_yellow_pikachu.png" Key="flip_coin_animations/yellow/flip_coin_yellow_pikachu.png" />
             <PlistImageFile Name="flip_coin_animations_yellow_flip_coin_yellow_raichu.png" Key="flip_coin_animations/yellow/flip_coin_yellow_raichu.png" />
-            <PlistImageFile Name="flip_coin_animations_blue_flip_coin_blue_4.png" Key="flip_coin_animations/blue/flip_coin_blue_4.png" />
-            <PlistImageFile Name="flip_coin_animations_blue_flip_coin_blue_6.png" Key="flip_coin_animations/blue/flip_coin_blue_6.png" />
-            <PlistImageFile Name="flip_coin_animations_green_flip_coin_green_0.png" Key="flip_coin_animations/green/flip_coin_green_0.png" />
-            <PlistImageFile Name="flip_coin_animations_green_flip_coin_green_2.png" Key="flip_coin_animations/green/flip_coin_green_2.png" />
-            <PlistImageFile Name="flip_coin_animations_green_flip_coin_green_4.png" Key="flip_coin_animations/green/flip_coin_green_4.png" />
-            <PlistImageFile Name="flip_coin_animations_green_flip_coin_green_6.png" Key="flip_coin_animations/green/flip_coin_green_6.png" />
-            <PlistImageFile Name="flip_coin_animations_blue_flip_coin_blue_1.png" Key="flip_coin_animations/blue/flip_coin_blue_1.png" />
-            <PlistImageFile Name="flip_coin_animations_blue_flip_coin_blue_5.png" Key="flip_coin_animations/blue/flip_coin_blue_5.png" />
-            <PlistImageFile Name="flip_coin_animations_green_flip_coin_green_1.png" Key="flip_coin_animations/green/flip_coin_green_1.png" />
-            <PlistImageFile Name="flip_coin_animations_red_flip_coin_red_0.png" Key="flip_coin_animations/red/flip_coin_red_0.png" />
-            <PlistImageFile Name="flip_coin_animations_red_flip_coin_red_2.png" Key="flip_coin_animations/red/flip_coin_red_2.png" />
-            <PlistImageFile Name="flip_coin_animations_red_flip_coin_red_4.png" Key="flip_coin_animations/red/flip_coin_red_4.png" />
-            <PlistImageFile Name="flip_coin_animations_red_flip_coin_red_6.png" Key="flip_coin_animations/red/flip_coin_red_6.png" />
-            <PlistImageFile Name="flip_coin_animations_white_flip_coin_white_0.png" Key="flip_coin_animations/white/flip_coin_white_0.png" />
-            <PlistImageFile Name="flip_coin_animations_white_flip_coin_white_2.png" Key="flip_coin_animations/white/flip_coin_white_2.png" />
-            <PlistImageFile Name="flip_coin_animations_white_flip_coin_white_4.png" Key="flip_coin_animations/white/flip_coin_white_4.png" />
-            <PlistImageFile Name="flip_coin_animations_white_flip_coin_white_6.png" Key="flip_coin_animations/white/flip_coin_white_6.png" />
-            <PlistImageFile Name="flip_coin_animations_yellow_flip_coin_yellow_0.png" Key="flip_coin_animations/yellow/flip_coin_yellow_0.png" />
-            <PlistImageFile Name="flip_coin_animations_yellow_flip_coin_yellow_2.png" Key="flip_coin_animations/yellow/flip_coin_yellow_2.png" />
-            <PlistImageFile Name="flip_coin_animations_yellow_flip_coin_yellow_4.png" Key="flip_coin_animations/yellow/flip_coin_yellow_4.png" />
-            <PlistImageFile Name="flip_coin_animations_yellow_flip_coin_yellow_6.png" Key="flip_coin_animations/yellow/flip_coin_yellow_6.png" />
-            <PlistImageFile Name="flip_coin_animations_green_flip_coin_green_5.png" Key="flip_coin_animations/green/flip_coin_green_5.png" />
-            <PlistImageFile Name="flip_coin_animations_red_flip_coin_red_1.png" Key="flip_coin_animations/red/flip_coin_red_1.png" />
-            <PlistImageFile Name="flip_coin_animations_red_flip_coin_red_5.png" Key="flip_coin_animations/red/flip_coin_red_5.png" />
-            <PlistImageFile Name="flip_coin_animations_white_flip_coin_white_1.png" Key="flip_coin_animations/white/flip_coin_white_1.png" />
-            <PlistImageFile Name="flip_coin_animations_white_flip_coin_white_5.png" Key="flip_coin_animations/white/flip_coin_white_5.png" />
-            <PlistImageFile Name="flip_coin_animations_yellow_flip_coin_yellow_1.png" Key="flip_coin_animations/yellow/flip_coin_yellow_1.png" />
-            <PlistImageFile Name="flip_coin_animations_yellow_flip_coin_yellow_5.png" Key="flip_coin_animations/yellow/flip_coin_yellow_5.png" />
           </PlistImageFolder>
           <PlistImageFolder Image="mini_pokemon_list.png" PListFile="mini_pokemon_list.plist" Name=".mini_pokemon_list_PList.Dir">
             <PlistImageFile Name="mini_pokemon_004.png" Key="mini_pokemon/004.png" />
@@ -200,6 +200,7 @@
             <Project Name="battle_scene.csd" Type="Scene" />
             <Project Name="card_holder.csd" Type="Node" />
             <Project Name="flip_coin_layer.csd" Type="Layer" />
+            <Project Name="msg_layer.csd" Type="Layer" />
           </Folder>
           <Folder Name="cards">
             <Project Name="energy_card.csd" Type="Node" />

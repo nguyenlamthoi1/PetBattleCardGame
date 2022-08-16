@@ -7,6 +7,7 @@
 #include "BSPlayer.h"
 #include "BSCard.h"
 #include "BSCoinFlipper.h"
+#include "BSNotifier.h"
 
 #include "actions/BSAction.h"
 
@@ -126,6 +127,10 @@ bool BattleScene::init() {
 	// Khoi tao Coin Flipper
 	coinFlipper = shared_ptr<BSCoinFlipper>(BSCoinFlipper::create(this));
 	coinFlipper->getNode()->setVisible(false);
+
+	// Khoi tao Notifier
+	notifier = shared_ptr<BSNotifier>(BSNotifier::create(this));
+	notifier->getNode()->setVisible(true);
 
 	return true;
 }

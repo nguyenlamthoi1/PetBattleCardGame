@@ -62,17 +62,17 @@
             <EndColor A="255" R="255" G="255" B="255" />
             <ColorVector ScaleY="1.0000" />
           </AbstractNodeData>
-          <AbstractNodeData Name="Multiple_Flip_Panel" ActionTag="1078748641" VisibleForFrame="False" Tag="268" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="427.5000" RightMargin="427.5000" TopMargin="445.8000" BottomMargin="224.2000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Enable="True" LeftEage="6" RightEage="6" TopEage="6" BottomEage="6" Scale9OriginX="6" Scale9OriginY="6" Scale9Width="42" Scale9Height="42" ctype="PanelObjectData">
+          <AbstractNodeData Name="Multiple_Flip_Panel" ActionTag="1078748641" VisibleForFrame="False" Tag="268" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="427.5000" RightMargin="427.5000" TopMargin="445.8080" BottomMargin="224.1920" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Enable="True" LeftEage="6" RightEage="6" TopEage="6" BottomEage="6" Scale9OriginX="6" Scale9OriginY="6" Scale9Width="42" Scale9Height="42" ctype="PanelObjectData">
             <Size X="425.0000" Y="50.0000" />
             <Children>
-              <AbstractNodeData Name="Flip_Text" ActionTag="1037638670" Tag="269" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="152.0000" RightMargin="152.0000" TopMargin="18.0000" BottomMargin="8.0000" FontSize="20" LabelText="Flipping 5 Coin" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
-                <Size X="121.0000" Y="24.0000" />
+              <AbstractNodeData Name="Flip_Text" ActionTag="1037638670" Tag="269" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="168.5000" RightMargin="168.5000" TopMargin="18.0000" BottomMargin="8.0000" FontSize="20" LabelText="Flip 5 Coin" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                <Size X="88.0000" Y="24.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="212.5000" Y="20.0000" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="26" G="26" B="26" />
                 <PrePosition X="0.5000" Y="0.4000" />
-                <PreSize X="0.2847" Y="0.4800" />
+                <PreSize X="0.2071" Y="0.4800" />
                 <FontResource Type="Normal" Path="ccstd_fonts/GillSans_ttf/Gill Sans.ttf" Plist="" />
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
@@ -135,7 +135,7 @@
               </AbstractNodeData>
             </Children>
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="640.0000" Y="249.2000" />
+            <Position X="640.0000" Y="249.1920" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.5000" Y="0.3461" />

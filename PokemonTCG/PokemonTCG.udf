@@ -28,5 +28,15 @@
         <LastRunType Value="Windows" />
       </Value>
     </Item>
+    <Item Key="TabsParamsKey">
+      <Value ctype="TabsInfo">
+        <OpenedDocuments>
+          <FilePathData Path="ccstd_csb/battle_scene/battle_scene.csd" />
+          <FilePathData Path="ccstd_csb/battle_scene/flip_coin_layer.csd" />
+          <FilePathData Path="ccstd_csb/battle_scene/msg_layer.csd" />
+        </OpenedDocuments>
+        <ActiveDocument Path="ccstd_csb/battle_scene/msg_layer.csd" />
+      </Value>
+    </Item>
   </Properties>
 </UserData>

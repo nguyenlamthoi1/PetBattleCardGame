@@ -27,6 +27,7 @@ class BSBoard;
 class BSPlayer;
 class BSCard;
 class BSCoinFlipper;
+class BSNotifier;
 
 namespace BATTLE_SCENE_Z {
 	const float DETAILED_CARD = 1000;
@@ -45,6 +46,7 @@ public:
 	std::shared_ptr<BSPlayer> getPlayer(PlayerIdType id) { return players[id]; }
 	std::shared_ptr<PlayerData> getPlayerData(PlayerIdType id) { return playerData[id]; }
 	std::shared_ptr<BSCoinFlipper> getCoinFlipper() { return coinFlipper; }
+	std::shared_ptr<BSNotifier> getNotifier() { return notifier; }
 private:
 	BattleScene();
 	virtual ~BattleScene();
@@ -65,6 +67,7 @@ public:
 	std::unordered_map<PlayerIdType, BSBoard*> boards;
 
 	std::shared_ptr<BSCoinFlipper> coinFlipper;
+	std::shared_ptr<BSNotifier> notifier;
 
 	std::unordered_map<PlayerIdType, std::shared_ptr<BSPlayer>> players;
 
@@ -74,10 +77,6 @@ public:
 	std::unordered_map<PlayerIdType, cocos2d::ui::Layout*> playerPanels;
 
 	//--Data member-end--
-
-
-
-
 	
 	//--Action pipeline members-begin--
 

@@ -32,6 +32,8 @@ BSCoinFlipper::BSCoinFlipper(BattleScene *scn) : btlScn(scn) {
 
 BSCoinFlipper::~BSCoinFlipper() {
 	CCLOG("BSCoinFlipper::Dtor %p", this);
+
+	Director::getInstance()->getScheduler()->unscheduleAllForTarget(this);
 }
 
 bool BSCoinFlipper::init() {
@@ -56,48 +58,8 @@ bool BSCoinFlipper::init() {
 	return true;
 }
 
-void BSCoinFlipper::startFlip1Coin(PlayerIdType whoFlip) {
-	CCASSERT(whoFlip == PLAYER || whoFlip == OPPONENT, "BSCoinFlipper::startFlip1Coin: wrong id");
-	root->setVisible(true);
-	// Reset ket qua flip truoc do
-	auto &flipInfo = flipInfos[whoFlip];
-	flipInfo.clear();
-	// Tao ket qua moi
-	SideType resSide = RandomHelper::random_int((int)TAILS, (int)HEADS); // 0 hoac 1
-	flipInfo.resVec.push_back(resSide);
-	//Bat dau
-	currentFlipper = whoFlip;
-	curFlipType = FlipType::Flip_1;
-
-	auto resBoard = flip1Panel->getChildByName("Result_Flip_Board");
-	resBoard->setOpacity(0);
-	resBoard->setVisible(true);
-
-
-	flip1Panel->setScale(0.75f);
-	flip1Panel->setVisible(true);
-	flip1Panel->setOpacity(0);
-	flip1Panel->runAction(Sequence::create(
-		Spawn::create(
-			FadeIn::create(0.3f),
-			ScaleTo::create(0.3f, 1.0f),
-			nullptr),
-		DelayTime::create(0.5f),
-		CallFunc::create([this, whoFlip]() {
-			doFlip1Coin(whoFlip);
-			}),
-		nullptr
-		));
-}
-
-void BSCoinFlipper::onFlipActionDone() {
-	// * Khong can reset, vi de get data cua FlipAction vua moi duoc thuc hien
-	//currentFlipper = ""; 
-	//curFlipType = FlipType::Flip_1;
-	//--
-	CCLOG("Flip 1 done");
-	notifyEvent(EventType::Flip_Action_Ended);
-}
+const string BSCoinFlipper::FLIP_BEGIN_ANIM = "FLIP_BEGIN_ANIM";
+const string BSCoinFlipper::FLIP_END_ANIM = "FLIP_END_ANIM";
 
 void BSCoinFlipper::createFlipAnimation(PlayerIdType whoFlip) {
 	// Yellow
@@ -131,7 +93,7 @@ void BSCoinFlipper::createFlipAnimation(PlayerIdType whoFlip) {
 	static const string TOGEPI = "Togepi";
 
 	static const char format[] = "flip_coin_animations/%s/flip_coin_%s_%d.png";
-	
+
 	auto &flipInfo = flipInfos[whoFlip];
 	const auto &usedCoin = flipInfo.usedCoin;
 	auto &flipVec = flipInfo.flipVec;
@@ -159,39 +121,75 @@ void BSCoinFlipper::createFlipAnimation(PlayerIdType whoFlip) {
 	}
 }
 
-const string BSCoinFlipper::FLIP_BEGIN_ANIM = "FLIP_BEGIN_ANIM";
-const string BSCoinFlipper::FLIP_END_ANIM = "FLIP_END_ANIM";
 
-void BSCoinFlipper::doFlip1Coin(PlayerIdType whoFlip) {
+////////////////////
+////Flip 1 Coins///
+///////////////////
+
+void BSCoinFlipper::startFlip1Coin(PlayerIdType whoFlip) {
+	CCASSERT(whoFlip == PLAYER || whoFlip == OPPONENT, "BSCoinFlipper::startFlip1Coin: wrong id");
+	root->setVisible(true);
+	// Reset ket qua flip truoc do
+	auto &flipInfo = flipInfos[whoFlip];
+	flipInfo.clear();
+	// Tao ket qua moi
+	SideType resSide = RandomHelper::random_int((int)TAILS, (int)HEADS); // 0 hoac 1
+	flipInfo.resVec.push_back(resSide);
+	//Bat dau
+	currentFlipper = whoFlip;
+	curFlipType = FlipType::Flip_1;
+
+	auto resBoard = flip1Panel->getChildByName("Result_Flip_Board");
+	resBoard->setOpacity(0);
+	resBoard->setVisible(true);
+
+
+	flip1Panel->setScale(0.75f);
+	flip1Panel->setVisible(true);
+	flip1Panel->setOpacity(0);
+	flip1Panel->runAction(Sequence::create(
+		Spawn::create(
+			FadeIn::create(0.3f),
+			ScaleTo::create(0.3f, 1.0f),
+			nullptr),
+		DelayTime::create(0.5f),
+		CallFunc::create([this, whoFlip]() {
+			doFlip1Coin_Flip1Type(whoFlip);
+			}),
+		nullptr
+				));
+}
+
+void BSCoinFlipper::doFlip1Coin_Flip1Type(PlayerIdType whoFlip) {
 	auto &flipInfo = flipInfos[whoFlip];
 
-	if (flipInfo.resVec.size() != 1) {
+	if (flipInfo.resVec.empty()) {
 		CCLOG("BSCoinFlipper::doFlip1Coin: wrong resVec");
 		return; //->error
 	}
 
-	bool gotHead = flipInfo.resVec.back() != TAILS;
+	SideType flippedSide = flipInfo.resVec.back();
+	bool gotHead = flippedSide != TAILS;
 
-	if (flipInfo.flipVec.empty()) 
+	if (flipInfo.flipVec.empty())
 		createFlipAnimation(whoFlip);
 
 	auto comp = SpriteAnimatorComponent::getComponent(coinSprite);
-	if (!comp) 
+	if (!comp)
 		comp = SpriteAnimatorComponent::setComponent(coinSprite);
-	
 	// Add Animations
 	comp->addAnimation(FLIP_BEGIN_ANIM, flipInfo.flipVec, 1.0f / 8); // FLIP_BEGIN_ANIM
 
-	flipInfo.flipVec.emplace_back(gotHead ? flipInfo.SFNHeads : flipInfo.SFNTails); 
+	flipInfo.flipVec.emplace_back(gotHead ? flipInfo.SFNHeads : flipInfo.SFNTails);
 	comp->addAnimation(FLIP_END_ANIM, flipInfo.flipVec, 1.0f / 9); // FLIP_END_ANIM
 	flipInfo.flipVec.pop_back();
 	//--
+	comp->playAnimation(FLIP_BEGIN_ANIM, true); // * play FLIP_BEGIN_ANIM animation
 
-	auto resBoard = flip1Panel->getChildByName("Result_Flip_Board");
+	auto resBoard = flip1Panel->getChildByName("Result_Flip_Board"); //
 	resBoard->setVisible(true);
 	resBoard->setOpacity(0);
 
-	comp->playAnimation(FLIP_BEGIN_ANIM, true); // * play FLIP_BEGIN_ANIM animation
 	coinSprite->setPosition(Vec2(0, 0));
 	coinSprite->runAction(Sequence::create(
 		MoveBy::create(0.5f, Vec2(0, 45)), // * Must be 0.5f
@@ -202,12 +200,13 @@ void BSCoinFlipper::doFlip1Coin(PlayerIdType whoFlip) {
 				// Ket thuc 1 lan flip
 				auto resBoard = flip1Panel->getChildByName("Result_Flip_Board");
 				resBoard->runAction(FadeIn::create(0.5f));
-
 				auto resText = dynamic_cast<ui::Text*>(resBoard->getChildByName("Result_Flip_Text"));
 				resText->setString(gotHead ? "Heads" : "Tails");
 
 				auto &flipInfo = flipInfos[whoFlip];
 				++flipInfo.doneCount;
+				flipInfo.result[gotHead ? HEADS : TAILS] += 1;
+
 				if (flipInfo.doneCount == flipInfo.resVec.size())  // Ket thuc flip
 					onFlipActionDone();
 				});
@@ -215,8 +214,124 @@ void BSCoinFlipper::doFlip1Coin(PlayerIdType whoFlip) {
 		nullptr));
 }
 
-void BSCoinFlipper::startFlipMulCoins(PlayerIdType whoFlip, unsigned int n) {
 
+////////////////////////
+////////////////////////
+////////////////////////
+
+
+//////////////////////////
+////Flip Multiple Coins///
+//////////////////////////
+
+void BSCoinFlipper::startFlipMulCoins(PlayerIdType whoFlip, unsigned int n) {
+	CCASSERT(whoFlip == PLAYER || whoFlip == OPPONENT, "BSCoinFlipper::startFlip1Coin: wrong id");
+
+	if (n < 1)
+		return;
+
+	root->setVisible(true);
+
+	// Reset ket qua flip truoc do
+	auto &flipInfo = flipInfos[whoFlip];
+	flipInfo.clear();
+	// Tao ket qua moi
+	for (unsigned int i = 0; i < n; ++i) {
+		SideType resSide = RandomHelper::random_int((int)TAILS, (int)HEADS); // 0 hoac 1
+		flipInfo.resVec.push_back(resSide);
+	}
+	//Bat dau
+	currentFlipper = whoFlip;
+	curFlipType = FlipType::Flip_Mul;
+	auto flipCount = flipInfo.resVec.size();
+
+	auto titleText = dynamic_cast<ui::Text*>(flipMulPanel->getChildByName("Flip_Text"));
+	titleText->setString(StringUtils::format("Flip %d ", flipCount) + (flipCount > 1 ? "Coins" : "Coin"));
+	auto headsText = dynamic_cast<ui::Text*>(flipMulPanel->getChildByName("Num_Heads_Board")->getChildByName("Num_Heads_Text"));
+	headsText->setString("Heads : 0");
+	auto tailsText = dynamic_cast<ui::Text*>(flipMulPanel->getChildByName("Num_Tails_Board")->getChildByName("Num_Tails_Text"));
+	tailsText->setString("Tails : 0");
+
+	flipMulPanel->setScale(0.75f);
+	flipMulPanel->setVisible(true);
+	flipMulPanel->setOpacity(0);
+	flipMulPanel->runAction(Sequence::create(
+		Spawn::create(
+			FadeIn::create(0.3f),
+			ScaleTo::create(0.3f, 1.0f),
+			nullptr),
+		DelayTime::create(0.5f),
+		CallFunc::create([this, whoFlip]() {
+			doFlip1Coin_FlipMulType(whoFlip);
+			}),
+		nullptr
+	));
+}
+
+void BSCoinFlipper::doFlip1Coin_FlipMulType(PlayerIdType whoFlip) {
+	auto &flipInfo = flipInfos[whoFlip];
+
+	if (flipInfo.resVec.empty()) {
+		CCLOG("BSCoinFlipper::doFlip1Coin: wrong resVec");
+		return; //->error
+	}
+
+	SideType flippedSide = *(flipInfo.resVec.cbegin() + flipInfo.doneCount);
+	bool gotHead = flippedSide != TAILS;
+
+	if (flipInfo.flipVec.empty())
+		createFlipAnimation(whoFlip);
+
+	auto comp = SpriteAnimatorComponent::getComponent(coinSprite);
+	if (!comp)
+		comp = SpriteAnimatorComponent::setComponent(coinSprite);
+	// Add Animations
+	comp->addAnimation(FLIP_BEGIN_ANIM, flipInfo.flipVec, 1.0f / 8); // FLIP_BEGIN_ANIM
+
+	flipInfo.flipVec.emplace_back(gotHead ? flipInfo.SFNHeads : flipInfo.SFNTails);
+	comp->addAnimation(FLIP_END_ANIM, flipInfo.flipVec, 1.0f / 9); // FLIP_END_ANIM
+	flipInfo.flipVec.pop_back();
+	//--
+	comp->playAnimation(FLIP_BEGIN_ANIM, true); // * play FLIP_BEGIN_ANIM animation
+
+	coinSprite->setPosition(Vec2(0, 0));
+	coinSprite->runAction(Sequence::create(
+		MoveBy::create(0.5f, Vec2(0, 45)), // * Must be 0.5f
+		MoveBy::create(0.5f, Vec2(0, -45)), // * Must be o.5f
+		CallFunc::create([this, flippedSide, whoFlip]() {
+			auto comp = SpriteAnimatorComponent::getComponent(coinSprite);
+			comp->playAnimation(FLIP_END_ANIM, false, [this, flippedSide, whoFlip](string anim) {
+
+				auto &flipInfo = flipInfos[whoFlip];
+				++flipInfo.doneCount;
+				flipInfo.result[flippedSide] += 1;
+
+				auto headsText = dynamic_cast<ui::Text*>(flipMulPanel->getChildByName("Num_Heads_Board")->getChildByName("Num_Heads_Text"));
+				headsText->setString(string("Heads : ") + to_string(flipInfo.result[HEADS]));
+				auto tailsText = dynamic_cast<ui::Text*>(flipMulPanel->getChildByName("Num_Tails_Board")->getChildByName("Num_Tails_Text"));
+				tailsText->setString(string("Tails : ") + to_string(flipInfo.result[TAILS]));
+
+				if (flipInfo.doneCount == flipInfo.resVec.size())  // Ket thuc flip
+					onFlipActionDone();
+				else
+					callDelayFunc([this, whoFlip](float t) {doFlip1Coin_FlipMulType(whoFlip); }, 0.5f);
+				});
+			}),
+		nullptr));
+}
+
+//////////////////////////
+//////////////////////////
+//////////////////////////
+
+
+void BSCoinFlipper::onFlipActionDone() {
+	// * Khong can reset, vi de get data cua FlipAction vua moi duoc thuc hien
+	//currentFlipper = ""; 
+	//curFlipType = FlipType::Flip_1;
+	//--
+	CCLOG("Flip 1 done");
+	notifyEvent(EventType::Flip_Action_Ended);
 }
 
 void BSCoinFlipper::notifyEvent(EventType ev) {
@@ -232,5 +347,12 @@ void BSCoinFlipper::notifyEvent(EventType ev) {
 void BSCoinFlipper::registFlipEndCallbackOnce(const OnFlipEnded &f) {
 	onFlipEndedOnce.push_back(f);
 }
+
+const string BSCoinFlipper::DELAY_SCHEDULER = "DELAY_SCHEDULER";
+
+void BSCoinFlipper::callDelayFunc(const DelayFunc &f, float t) {
+	Director::getInstance()->getScheduler()->schedule(f, this, 0, 0, t, 0, DELAY_SCHEDULER);
+}
+
 
 BATTLE_SCENE_NS_END

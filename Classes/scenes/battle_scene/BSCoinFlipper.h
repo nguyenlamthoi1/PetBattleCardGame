@@ -34,6 +34,7 @@ public:
 
 	void startFlip1Coin(PlayerIdType whoFlip);
 	void startFlipMulCoins(PlayerIdType whoFlip, unsigned int n);
+
 	cocos2d::Node* getNode() const { return root; }
 
 	enum class EventType {
@@ -42,6 +43,8 @@ public:
 	void registFlipEndCallbackOnce(const OnFlipEnded &f);
 
 private:
+	static const std::string DELAY_SCHEDULER;
+	using DelayFunc = std::function<void(float t)>;
 
 	bool init();
 
@@ -55,9 +58,9 @@ private:
 	static const std::string FLIP_BEGIN_ANIM;
 	static const std::string FLIP_END_ANIM;
 
-	using SideType = unsigned char;
-	const SideType HEADS = 1;
-	const SideType TAILS = 0;
+	using SideType = bool;
+	const SideType HEADS = true;
+	const SideType TAILS = false;
 
 	struct FlipInfo {
 		friend class BSCoinFlipper;
@@ -87,9 +90,12 @@ private:
 
 	void createFlipAnimation(PlayerIdType whoFlip);
 	void onFlipActionDone(); // * Called khi flip action ket thuc
-	void doFlip1Coin(PlayerIdType whoFlip);
+
+	void doFlip1Coin_Flip1Type(PlayerIdType whoFlip); // * call sau khi call startFlip1Coin
+	void doFlip1Coin_FlipMulType(PlayerIdType whoFlip); // * call sau khi call startFlipMulCoins
 	
 	void notifyEvent(EventType ev);
+	void callDelayFunc(const DelayFunc &f, float t = 0.0f);
 };
 
 BATTLE_SCENE_NS_END

@@ -3,6 +3,7 @@
 #include "ui/UILayout.h"
 #include "ui/UIWidget.h"
 #include "ui/UIText.h"
+#include "ui/UIHelper.h"
 
 #include "components/WidgetTouchComponent.h"
 #include "components/SpriteAnimatorComponent.h"
@@ -97,15 +98,41 @@ bool HelloWorld::init() {
 	auto vSize = dir->getVisibleSize();
 	auto pool = GM_POOL;
 
-	root = pool->tryGetNodeCsb("ccstd_csb/battle_scene/flip_coin_layer.csb");
+	root = pool->tryGetNodeCsb("ccstd_csb/battle_scene/msg_layer.csb");
 	this->addChild(root);
 	root->setPosition(Vec2(0, 0));
 
-	flip1Panel = root->getChildByName("1_Flip_Panel"); flip1Panel->setVisible(false);
-	flipMulPanel = root->getChildByName("Multiple_Flip_Panel"); flipMulPanel->setVisible(false);
-	coinSprite = dynamic_cast<Sprite*>(root->getChildByName("Coin_Marker")->getChildByName("Coin_Sprite")); coinSprite->setVisible(true);
-	
-	flipMul();
+	ui::Helper::doLayout(root);
+
+	std::string msg = "Tap ready button if you are ready to play the game and having fun \n dgsdg dgdg sdfdsf dfdg ";
+
+	ui::Layout* msgBoard = dynamic_cast<ui::Layout*>(root->getChildByName("Msg_Board"));
+	msgBoard->setVisible(true);
+
+	auto text = dynamic_cast<ui::Text*>(msgBoard->getChildByName("Msg_Text"));
+	text->setString(msg);
+	auto textSize = text->getContentSize();
+	auto boardSize = msgBoard->getContentSize();
+
+	constexpr float D_WIDTH = 20;
+	constexpr float D_HEIGHT = 10;
+
+	float newW = textSize.width + D_WIDTH * 2;
+	float newH = textSize.height + D_HEIGHT * 2;
+	msgBoard->setContentSize(Size(newW, newH));
+
+	auto layPara = ui::RelativeLayoutParameter::create();
+	//layPara->setMargin(ui::Margin(D_WIDTH, D_HEIGHT, D_WIDTH, D_HEIGHT));
+	layPara->setAlign(ui::RelativeLayoutParameter::RelativeAlign::CENTER_IN_PARENT);
+	text->setLayoutParameter(layPara);
+
+	msgBoard->setLayoutType(ui::Layout::Type::RELATIVE);
+	msgBoard->requestDoLayout();
+	//msgBoard->doLayout();
+
+	//text->setAnchorPoint(Vec2(0.5, 0.5));
+	//auto newBoardSize = msgBoard->getContentSize();
+	//text->setPosition(Vec2(newBoardSize.width / 2, newBoardSize.height / 2)); // Text o vi tri center
 
 	return true;
 

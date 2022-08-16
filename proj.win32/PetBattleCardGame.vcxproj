@@ -173,6 +173,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\scenes\battle_scene\BSCoinFlipper.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene\BSDeck.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene\BSHand.cpp" />
+    <ClCompile Include="..\Classes\scenes\battle_scene\BSNotifier.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene\BSPlayer.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene\CardHolder.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene\prefabs\EnergyItem.cpp" />
@@ -248,6 +249,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\scenes\battle_scene\BSDefine.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene\BMPlayer.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene\BSHand.h" />
+    <ClInclude Include="..\Classes\scenes\battle_scene\BSNotifier.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene\BSPlayer.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene\CardHolder.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene\prefabs\BSPrefabs.h" />

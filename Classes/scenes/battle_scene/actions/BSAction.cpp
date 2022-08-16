@@ -111,7 +111,6 @@ void DrawCardAction::start() {
 		CCLOG("Action draw end");
 		state = State::Done; 
 		});
-	state = State::Done;
 }
 
 void DrawCardAction::end() {}
