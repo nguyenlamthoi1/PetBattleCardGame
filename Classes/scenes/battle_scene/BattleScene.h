@@ -40,8 +40,10 @@ public:
 	friend class BSDeck;
 	friend class BSBoard;
 
+	static BattleScene* BattleScene::getScene();
 	static BattleScene* getScn();
     static BattleScene* create();
+	std::shared_ptr<BattleManager> getBattleManager() { return btlMgr; }
 
 	std::shared_ptr<BSPlayer> getPlayer(PlayerIdType id) { return players[id]; }
 	std::shared_ptr<PlayerData> getPlayerData(PlayerIdType id) { return playerData[id]; }
@@ -54,12 +56,16 @@ private:
 	virtual ~BattleScene();
 
 	virtual bool init() override;
+	void initTopLayer();
+
 	virtual void onEnter() override;
 	virtual void onExit() override;
 
 	void start();
 
+private:
 	std::unordered_map<PlayerIdType, std::shared_ptr<PlayerData>> playerData;
+
 public:
 
 	//--Graphic Data member-begin--
@@ -75,6 +81,7 @@ public:
 
 	cocos2d::ui::Layout* getBattleSceneUI() { return root; }
 	cocos2d::ui::Layout *root = nullptr; // * Scene load tu csb
+	cocos2d::ui::Layout *topLayout = nullptr;
 
 	std::unordered_map<PlayerIdType, cocos2d::ui::Layout*> playerPanels;
 
@@ -95,15 +102,12 @@ public:
 	void hideCardDetails();
 	void clearCardDetails();
 
-
 	// Utilize functions
 	void checkClean();
 
-public:
-	std::shared_ptr<BattleManager> getBattleManager() { return btlMgr; }
-	static BattleScene* BattleScene::getScene();
 private:
 	std::shared_ptr<BattleManager> btlMgr;
+	std::string oppId;
 };
 
 BATTLE_SCENE_NS_END

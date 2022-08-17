@@ -194,3 +194,77 @@ std::shared_ptr<const CardData> DataManager::getCardData(CardId id) {
 		return foundIt->second;
 	return nullptr;
 }
+
+bool DataManager::loadOpponentsData() {
+	opponents.clear();
+
+	Document doc;
+	ssize_t size;
+	std::string fileName = "data/opponents_data.json";
+	auto fileStr = FileUtils::getInstance()->getStringFromFile(fileName);
+	doc.Parse(fileStr.c_str());
+
+	CCASSERT(doc.IsObject(), "loadOpponentsData:: doc is not Object");
+
+	rapidjson::Value::ConstMemberIterator foundItr;
+	auto val = doc.GetObj();
+
+	for (auto itr = doc.MemberBegin(); itr != doc.MemberEnd(); ++itr) {
+		auto key = itr->name.GetString(); // Opponent Id
+		auto val = itr->value.GetObj();
+
+		CCASSERT(cardMap.find(key) == cardMap.end(), "loadPetCards:: duplicate key");
+
+		auto &oppId = key;
+		auto &oppData = opponents[oppId];
+		oppData.reset(new PlayerData());
+		
+		// Avatar
+		foundItr = val.FindMember("Avatar");
+		if (foundItr != val.MemberEnd()) 
+			oppData->avatarImg = foundItr->value.GetString();
+		
+		// Deck List
+		foundItr = val.FindMember("DeckList");
+		if (foundItr != val.MemberEnd())
+			for (auto &v : foundItr->value.GetArray()) {
+				oppData->deckList.push_back(PlayerData::DeckMap());
+				auto &deckVec = oppData->deckList.back();
+				for (auto &v : v.GetObj())
+					deckVec.insert({ v.name.GetString(), v.value.GetUint() });
+			}
+
+		foundItr = val.FindMember("CurrentDeckIdx");
+		if (foundItr != val.MemberEnd())
+			oppData->curDeck = foundItr->value.GetUint();
+
+		// Owned cards
+		foundItr = val.FindMember("OwnedCards");
+		if (foundItr != val.MemberEnd()) {
+			for (auto &v : foundItr->value.GetObj()) {
+				auto cardId = v.name.GetString();
+				auto cardNum = v.value.GetUint();
+				auto foundIt = oppData->ownedCards.find(cardId);
+
+				if (foundIt != oppData->ownedCards.cend())   // Found
+					foundIt->second += cardNum;
+				else //Not Found
+					oppData->ownedCards.insert({ cardId, cardNum });
+			}
+		}
+
+		// Coin list
+		foundItr = val.FindMember("CoinList");
+		if (foundItr != val.MemberEnd())
+			for (auto &v : foundItr->value.GetArray())
+				oppData->coins.insert(v.GetString());
+
+		foundItr = val.FindMember("UsedCoin");
+		if (foundItr != val.MemberEnd())
+			oppData->usedCoin = foundItr->value.GetString();
+	}
+
+	return true;
+}
+
+

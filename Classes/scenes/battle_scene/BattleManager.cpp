@@ -1,8 +1,15 @@
 #include "BattleManager.h"
 #include "BattleScene.h"
 #include "BSPlayer.h"
-#include "actions/BSAction.h"
 #include "BSNotifier.h"
+#include "BSCard.h"
+#include "BSBoard.h"
+#include "CardHolder.h"
+
+#include "data/CardData.h"
+#include "data/PlayerData.h"
+
+#include "actions/BSAction.h"
 
 #include "cocos2d.h"
 
@@ -119,6 +126,53 @@ void BattleManager::updatePipeline(float dt) {
 
 void BattleManager::onActionEnd(std::shared_ptr<BSAction> endedaAction) {
 	//TODO
+}
+
+
+//////////////////////
+////Player Actions////
+//////////////////////
+
+bool BattleManager::playerTryPlayPetCard(PlayerIdType id, PetCard *card, CardHolder *holder) {
+	if (!card || !holder || isPlayerIdInvalid(id))
+		return false;
+
+	auto petData = dynamic_pointer_cast<const PetCardData>(card->getData());
+
+	// Kiem tra player co the play pet card tai thoi diem nay
+	bool isBasic = petData->isEvolutionCard();
+	if (gameState == GameState::SET_UP && curTurnId == id) {
+		auto board = btlScn->getBoard(id);
+		if(!board->hasActivePet() && holder->)
+		if (id == PLAYER) {
+			return holder->tryAddPetCard(card);
+		}
+		else {
+
+		}
+
+	}
+
+
+}
+
+bool BattleManager::playerTryPlayEnergyCard(PlayerIdType id, EnergyCard *card, CardHolder *holder) {
+	if (!card || !holder || !isPlayerIdInvalid(id))
+		return false;
+
+	if (id == PLAYER) {
+		return holder->tryAddEnergyCard(card);
+	}
+	else {
+
+	}
+}
+
+bool BattleManager::playerStartSetup(PlayerIdType id) {
+	if (!isPlayerIdInvalid(id) || gameState != GameState::SET_UP)
+		return false;
+
+	curTurnId = id;
 }
 
 

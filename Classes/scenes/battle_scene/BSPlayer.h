@@ -14,6 +14,41 @@ BATTLE_SCENE_NS_BEG
 
 class CardHolder;
 class BattleManager;
+class CardHolder;
+class PetCard;
+class EnergyCard;
+
+//namespace PlayerAction {
+//	class Action {
+//	public:
+//		enum class Type {
+//			None,
+//			PlayPetCard,
+//			PlayEnergy,
+//			RetreatPet,
+//			PlayItem,
+//			PlaySupporter
+//		};
+//
+//		Action(Type aType, PlayerIdType pId) : type(aType), id(pId) {}
+//		virtual ~Action() = default;
+//		Type getType() const { return type; }
+//
+//	protected:
+//		Type type = Type::None;
+//		PlayerIdType id = PlayerIdInvalid;
+//	};
+//
+//	class PlayPet : public Action{
+//	public:
+//		std::shared_ptr<PlayPet> create(PlayerIdType id);
+//		PlayPet(PlayerIdType id) : Action(Type::PlayPetCard, id){}
+//		virtual ~PlayPet(){}
+//	};
+//}
+
+
+
 
 class BSPlayer {
 public:

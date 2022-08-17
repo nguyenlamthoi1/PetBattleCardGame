@@ -185,18 +185,27 @@ void SetupAction::start() {
 
 	state = State::Processed;
 
+	if (!btlMgr->playerStartSetup(playerId))
+		return;
+
 	auto btlScn = btlMgr->getBattleScene();
 	auto player = btlScn->getPlayer(playerId); // PLAYER or OPPONENT
-	auto notifier = btlScn->getNotifier();
 
-	notifier->showMsgWithDone("Drag a Pokemon to your Active Spot",
-		[this]() -> bool {return checkSetup(); },
-		[this]() -> void {
-			state = State::Done;
-		},
-		nullptr, true);
+	if (playerId == PLAYER) {
+		auto notifier = btlScn->getNotifier();
+		notifier->showMsgWithDone("Drag a Pokemon to your Active Spot",
+			[this]() -> bool {return checkSetup(); },
+			[this]() -> void {
+				state = State::Done;
+			},
+			nullptr, true);
 
-	player->doSetup();
+		player->doSetup();
+	}
+	else if (playerId == OPPONENT) {
+
+	}
+	
 }
 
 bool SetupAction::checkSetup() {

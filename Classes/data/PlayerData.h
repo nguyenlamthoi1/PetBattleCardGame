@@ -34,6 +34,7 @@ public:
 	bool loadDataFromFile(const std::string &file);
 	DeckList getCurDeck() const;
 	std::string getUsedCoin() const;
+	std::string getAvatarImg() const;
 private:
 	
 	std::vector<DeckList> decks;
@@ -45,6 +46,7 @@ private:
 	std::string usedCoin;
 	std::set<std::string> coins;
 
+	std::string avatarImg;
 };
 
 #endif // __PLAYER_DATA_H__

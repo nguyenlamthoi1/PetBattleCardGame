@@ -1,0 +1,34 @@
+{
+  "OPP_0" : {
+    "OwnedCards" : {},
+    "DeckList":[
+      {
+        "E01" : 2,
+        "E02" : 2,
+        "P01" : 2,
+        "P02" : 2,
+        "P03" : 2
+      }
+    ],
+    "CurrentDeckIdx" : 0,
+    "UsedCoin" : "GR",
+    "CoinList" :[],
+    "Avatar" : "duelist_x3/duelist_1.png"
+  },
+  "OPP_1" : {
+    "OwnedCards" : {},
+    "DeckList":[
+      {
+        "E01" : 2,
+        "E02" : 2,
+        "P01" : 2,
+        "P02" : 2,
+        "P03" : 2
+      }
+    ],
+    "CurrentDeckIdx" : 0,
+    "UsedCoin" : "GR",
+    "CoinList" :[],
+    "Avatar" : "duelist_x3/duelist_13.png"
+  }
+}

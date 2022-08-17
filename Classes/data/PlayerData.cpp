@@ -29,6 +29,10 @@ string PlayerData::getUsedCoin() const {
 	return usedCoin;
 }
 
+string PlayerData::getAvatarImg() const {
+	return avatarImg;
+}
+
 PlayerData::DeckList PlayerData::getCurDeck() const{
 	DeckList ret;
 

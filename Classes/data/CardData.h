@@ -47,7 +47,7 @@ public:
 	std::map<EnergyType, int> resistanceMap;
 	std::vector<std::shared_ptr<MoveData>> moveVec;
 	
-	bool isEvolutionCard() { return !evolveFrom.empty(); }
+	bool isEvolutionCard() const { return evStage < 1; }
 	std::string evolveFrom;
 	std::string preEvImg;
 	unsigned char evStage = 0;

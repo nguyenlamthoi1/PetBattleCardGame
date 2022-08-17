@@ -26,6 +26,50 @@
             <PlistImageFile Name="battle_scene_trainer_frame.png" Key="battle_scene/trainer_frame.png" />
             <PlistImageFile Name="battle_scene_white_square.png" Key="battle_scene/white_square.png" />
           </PlistImageFolder>
+          <PlistImageFolder Image="character_portraits_x3.png" PListFile="character_portraits_x3.plist" Name=".character_portraits_x3_PList.Dir">
+            <PlistImageFile Name="duelist_x3_duelist_0.png" Key="duelist_x3/duelist_0.png" />
+            <PlistImageFile Name="duelist_x3_duelist_1.png" Key="duelist_x3/duelist_1.png" />
+            <PlistImageFile Name="duelist_x3_duelist_10.png" Key="duelist_x3/duelist_10.png" />
+            <PlistImageFile Name="duelist_x3_duelist_11.png" Key="duelist_x3/duelist_11.png" />
+            <PlistImageFile Name="duelist_x3_duelist_12.png" Key="duelist_x3/duelist_12.png" />
+            <PlistImageFile Name="duelist_x3_duelist_13.png" Key="duelist_x3/duelist_13.png" />
+            <PlistImageFile Name="duelist_x3_duelist_14.png" Key="duelist_x3/duelist_14.png" />
+            <PlistImageFile Name="duelist_x3_duelist_15.png" Key="duelist_x3/duelist_15.png" />
+            <PlistImageFile Name="duelist_x3_duelist_16.png" Key="duelist_x3/duelist_16.png" />
+            <PlistImageFile Name="duelist_x3_duelist_17.png" Key="duelist_x3/duelist_17.png" />
+            <PlistImageFile Name="duelist_x3_duelist_18.png" Key="duelist_x3/duelist_18.png" />
+            <PlistImageFile Name="duelist_x3_duelist_19.png" Key="duelist_x3/duelist_19.png" />
+            <PlistImageFile Name="duelist_x3_duelist_2.png" Key="duelist_x3/duelist_2.png" />
+            <PlistImageFile Name="duelist_x3_duelist_20.png" Key="duelist_x3/duelist_20.png" />
+            <PlistImageFile Name="duelist_x3_duelist_21.png" Key="duelist_x3/duelist_21.png" />
+            <PlistImageFile Name="duelist_x3_duelist_22.png" Key="duelist_x3/duelist_22.png" />
+            <PlistImageFile Name="duelist_x3_duelist_23.png" Key="duelist_x3/duelist_23.png" />
+            <PlistImageFile Name="duelist_x3_duelist_24.png" Key="duelist_x3/duelist_24.png" />
+            <PlistImageFile Name="duelist_x3_duelist_25.png" Key="duelist_x3/duelist_25.png" />
+            <PlistImageFile Name="duelist_x3_duelist_26.png" Key="duelist_x3/duelist_26.png" />
+            <PlistImageFile Name="duelist_x3_duelist_27.png" Key="duelist_x3/duelist_27.png" />
+            <PlistImageFile Name="duelist_x3_duelist_28.png" Key="duelist_x3/duelist_28.png" />
+            <PlistImageFile Name="duelist_x3_duelist_29.png" Key="duelist_x3/duelist_29.png" />
+            <PlistImageFile Name="duelist_x3_duelist_30.png" Key="duelist_x3/duelist_30.png" />
+            <PlistImageFile Name="duelist_x3_duelist_31.png" Key="duelist_x3/duelist_31.png" />
+            <PlistImageFile Name="duelist_x3_duelist_32.png" Key="duelist_x3/duelist_32.png" />
+            <PlistImageFile Name="duelist_x3_duelist_33.png" Key="duelist_x3/duelist_33.png" />
+            <PlistImageFile Name="duelist_x3_duelist_34.png" Key="duelist_x3/duelist_34.png" />
+            <PlistImageFile Name="duelist_x3_duelist_35.png" Key="duelist_x3/duelist_35.png" />
+            <PlistImageFile Name="duelist_x3_duelist_36.png" Key="duelist_x3/duelist_36.png" />
+            <PlistImageFile Name="duelist_x3_duelist_37.png" Key="duelist_x3/duelist_37.png" />
+            <PlistImageFile Name="duelist_x3_duelist_38.png" Key="duelist_x3/duelist_38.png" />
+            <PlistImageFile Name="duelist_x3_duelist_39.png" Key="duelist_x3/duelist_39.png" />
+            <PlistImageFile Name="duelist_x3_duelist_4.png" Key="duelist_x3/duelist_4.png" />
+            <PlistImageFile Name="duelist_x3_duelist_40.png" Key="duelist_x3/duelist_40.png" />
+            <PlistImageFile Name="duelist_x3_duelist_5.png" Key="duelist_x3/duelist_5.png" />
+            <PlistImageFile Name="duelist_x3_duelist_6.png" Key="duelist_x3/duelist_6.png" />
+            <PlistImageFile Name="duelist_x3_duelist_7.png" Key="duelist_x3/duelist_7.png" />
+            <PlistImageFile Name="duelist_x3_duelist_8.png" Key="duelist_x3/duelist_8.png" />
+            <PlistImageFile Name="duelist_x3_duelist_9.png" Key="duelist_x3/duelist_9.png" />
+            <PlistImageFile Name="duelist_x3_duelist_z.png" Key="duelist_x3/duelist_z.png" />
+            <PlistImageFile Name="duelist_x3_duelist_3.png" Key="duelist_x3/duelist_3.png" />
+          </PlistImageFolder>
           <PlistImageFolder Image="energies.png" PListFile="energies.plist" Name=".energies_PList.Dir">
             <PlistImageFile Name="energies_x1_energy_dark.png" Key="energies/x1/energy_dark.png" />
             <PlistImageFile Name="energies_x1_energy_dragon.png" Key="energies/x1/energy_dragon.png" />

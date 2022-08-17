@@ -32,6 +32,9 @@ const PlayerIdType PLAYER = "Player";
 const PlayerIdType OPPONENT = "Opponent"; // OPPONENT > PLAYER
 //#define PlayerIdInvalid -1
 #define PlayerIdInvalid ""
+bool isPlayerIdInvalid(const PlayerIdType &id) {
+	return id == PLAYER || id == OPPONENT;
+}
 
 constexpr unsigned int DEFAULT_MAX_BENCH_CAPACITY = 5; // So luong pokemon toi da dat duoc len bench mac dinh
 

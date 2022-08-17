@@ -15,6 +15,11 @@ BATTLE_SCENE_NS_BEG
 class BattleScene;
 class BSPlayer;
 class BSAction;
+class PlayerAction;
+
+class PetCard;
+class EnergyCard;
+class CardHolder;
 
 class BattleManager final {
 public:
@@ -45,6 +50,7 @@ private:
 	
 	GameState gameState = GameState::NONE;
 	int curTurn = -1;
+	PlayerIdType curTurnId = PlayerIdInvalid;
 
 	// Game Actions
 	enum class PipelineState {
@@ -64,7 +70,16 @@ private:
 	void updatePipeline(float dt); 
 
 	void onActionEnd(std::shared_ptr<BSAction> endedaAction);
-	
+
+	// Player Actions
+public:
+	bool playerTryPlayPetCard(PlayerIdType id, PetCard *card, CardHolder *holder);
+	bool playerTryPlayEnergyCard(PlayerIdType id, EnergyCard *card, CardHolder *holder);
+
+	bool playerStartSetup(PlayerIdType);
+
+	// Checker
+
 };
 
 BATTLE_SCENE_NS_END

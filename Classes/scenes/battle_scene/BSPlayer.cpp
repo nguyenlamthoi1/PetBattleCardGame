@@ -6,6 +6,17 @@ USING_NS_CC;
 BATTLE_SCENE_NS_BEG
 
 /*
+	PlayerAction
+*/
+
+//namespace PlayerAction {
+//	shared_ptr<PlayPet> PlayPet::create(PlayerIdType id) {
+//		return shared_ptr<PlayPet>(new (nothrow) PlayPet(id));
+//	}
+//}
+
+
+/*
 	PlayerAction Class
 */
 

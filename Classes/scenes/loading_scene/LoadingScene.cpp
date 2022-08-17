@@ -123,6 +123,10 @@ void LoadingScene::startLoading() {
 		return GameManager::getInstance()->getDataManager()->loadPlayerData();
 		}));
 
+	loader->addLoadedObj(LoadedObject("data\\opponents_data.json", []()->bool {
+		return GameManager::getInstance()->getDataManager()->loadOpponentsData();
+		}));
+
 	loader->addLoadedObj(LoadedObject("data\\energy_images_x3.plist", []()->bool {
 		return GameManager::getInstance()->getLoader()->loadPlistFile("ccstd_assets/energy_images_x3.plist");
 		}));

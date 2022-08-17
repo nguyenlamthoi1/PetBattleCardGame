@@ -252,6 +252,58 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
+              <AbstractNodeData Name="Portrait_P2" ActionTag="-1427606720" Tag="40" IconVisible="False" HorizontalEdge="LeftEdge" VerticalEdge="TopEdge" LeftMargin="10.0000" RightMargin="1112.0000" TopMargin="180.0000" BottomMargin="382.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Enable="True" LeftEage="10" RightEage="10" TopEage="10" BottomEage="10" Scale9OriginX="10" Scale9OriginY="10" Scale9Width="142" Scale9Height="142" ctype="PanelObjectData">
+                <Size X="158.0000" Y="158.0000" />
+                <Children>
+                  <AbstractNodeData Name="Portrait_Image" ActionTag="1371002883" Tag="41" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="8.5000" RightMargin="8.5000" TopMargin="8.5000" BottomMargin="8.5000" LeftEage="46" RightEage="46" TopEage="46" BottomEage="46" Scale9OriginX="46" Scale9OriginY="46" Scale9Width="49" Scale9Height="49" ctype="ImageViewObjectData">
+                    <Size X="141.0000" Y="141.0000" />
+                    <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                    <Position X="79.0000" Y="79.0000" />
+                    <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                    <CColor A="255" R="255" G="255" B="255" />
+                    <PrePosition X="0.5000" Y="0.5000" />
+                    <PreSize X="0.8924" Y="0.8924" />
+                    <FileData Type="PlistSubImage" Path="duelist_x3/duelist_1.png" Plist="ccstd_assets/character_portraits_x3.plist" />
+                  </AbstractNodeData>
+                </Children>
+                <AnchorPoint />
+                <Position X="10.0000" Y="382.0000" />
+                <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                <CColor A="255" R="255" G="255" B="255" />
+                <PrePosition X="0.0078" Y="0.5306" />
+                <PreSize X="0.1234" Y="0.2194" />
+                <FileData Type="PlistSubImage" Path="battle_scene/trainer_frame.png" Plist="ccstd_assets/battle_scene.plist" />
+                <SingleColor A="255" R="150" G="200" B="255" />
+                <FirstColor A="255" R="150" G="200" B="255" />
+                <EndColor A="255" R="255" G="255" B="255" />
+                <ColorVector ScaleY="1.0000" />
+              </AbstractNodeData>
+              <AbstractNodeData Name="Portrait_P1" ActionTag="1322679099" Tag="42" IconVisible="False" HorizontalEdge="LeftEdge" VerticalEdge="BottomEdge" LeftMargin="10.0000" RightMargin="1112.0000" TopMargin="377.0000" BottomMargin="185.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Enable="True" LeftEage="10" RightEage="10" TopEage="10" BottomEage="10" Scale9OriginX="10" Scale9OriginY="10" Scale9Width="142" Scale9Height="142" ctype="PanelObjectData">
+                <Size X="158.0000" Y="158.0000" />
+                <Children>
+                  <AbstractNodeData Name="Portrait_Image" ActionTag="-1140089343" Tag="43" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="8.5000" RightMargin="8.5000" TopMargin="8.5000" BottomMargin="8.5000" LeftEage="46" RightEage="46" TopEage="46" BottomEage="46" Scale9OriginX="46" Scale9OriginY="46" Scale9Width="49" Scale9Height="49" ctype="ImageViewObjectData">
+                    <Size X="141.0000" Y="141.0000" />
+                    <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                    <Position X="79.0000" Y="79.0000" />
+                    <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                    <CColor A="255" R="255" G="255" B="255" />
+                    <PrePosition X="0.5000" Y="0.5000" />
+                    <PreSize X="0.8924" Y="0.8924" />
+                    <FileData Type="PlistSubImage" Path="duelist_x3/duelist_0.png" Plist="ccstd_assets/character_portraits_x3.plist" />
+                  </AbstractNodeData>
+                </Children>
+                <AnchorPoint />
+                <Position X="10.0000" Y="185.0000" />
+                <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                <CColor A="255" R="255" G="255" B="255" />
+                <PrePosition X="0.0078" Y="0.2569" />
+                <PreSize X="0.1234" Y="0.2194" />
+                <FileData Type="PlistSubImage" Path="battle_scene/trainer_frame.png" Plist="ccstd_assets/battle_scene.plist" />
+                <SingleColor A="255" R="150" G="200" B="255" />
+                <FirstColor A="255" R="150" G="200" B="255" />
+                <EndColor A="255" R="255" G="255" B="255" />
+                <ColorVector ScaleY="1.0000" />
+              </AbstractNodeData>
             </Children>
             <AnchorPoint />
             <Position />

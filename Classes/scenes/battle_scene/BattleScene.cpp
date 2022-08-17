@@ -19,6 +19,7 @@
 #include "common/Utilize.h"
 #include "components/WidgetTouchComponent.h"
 #include "define/CommonDefine.h"
+#include "data/PlayerData.h"
 
 #include "ui/UIHelper.h"
 
@@ -105,7 +106,8 @@ bool BattleScene::init() {
 	// Khoi tao 2 player data
 	auto dataMgr = GM_DATA_MGR;
 	playerData[PLAYER] = dataMgr->getPlayerData();
-	playerData[OPPONENT] = ::PlayerData::createPseudo(false);
+	oppId = "OPP_0";
+	playerData[OPPONENT] = dataMgr->getOpponentData(oppId);
 
 	// Khoi tao du lieu player trong game
 	players[PLAYER] = make_shared<BSPlayer>(PLAYER);
@@ -132,7 +134,21 @@ bool BattleScene::init() {
 	notifier = shared_ptr<BSNotifier>(BSNotifier::create(this));
 	notifier->getNode()->setVisible(true);
 
+	// Khoi tao Top Layer
+	initTopLayer();
+
 	return true;
+}
+
+void BattleScene::initTopLayer() {
+	topLayout = dynamic_cast<ui::Layout*>(root->getChildByName("Top_Layer"));
+
+	// P1
+	auto portraitImg1 = dynamic_cast<ui::ImageView*>(topLayout->getChildByName("Portrait_P1")->getChildByName("Portrait_Image"));
+	portraitImg1->loadTexture(playerData[PLAYER]->getAvatarImg(), ui::Widget::TextureResType::PLIST);
+	// P2
+	auto portraitImg2 = dynamic_cast<ui::ImageView*>(topLayout->getChildByName("Portrait_P2")->getChildByName("Portrait_Image"));
+	portraitImg2->loadTexture(playerData[OPPONENT]->getAvatarImg(), ui::Widget::TextureResType::PLIST);
 }
 
 void BattleScene::onEnter() {
