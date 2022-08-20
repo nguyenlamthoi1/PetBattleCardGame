@@ -59,18 +59,27 @@ void BSNotifier::showMsg(const string &msg) {
 	);
 }
 
-void BSNotifier::hideMsg(float afterT) {
+void BSNotifier::hideMsg(float afterT, function<void()> onHide) {
 	if (msgBoard->isVisible()) {
 		msgBoard->setOpacity(255);
 		msgBoard->runAction(
 			Sequence::create(
 				DelayTime::create(afterT),
 				FadeOut::create(0.3f),
-				CallFunc::create([this]() {msgBoard->setVisible(false); }),
+				CallFunc::create([this, onHide]() {
+					msgBoard->setVisible(false); 
+					if (onHide)
+						onHide();
+					}),
 				nullptr)
 		);
 	}
 }
+
+void BSNotifier::instantHideMsg() {
+	msgBoard->setVisible(false);
+}
+
 
 void BSNotifier::showMsgAndHideAfter(const std::string &msg, float t) {
 	showMsg(msg);

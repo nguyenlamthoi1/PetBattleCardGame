@@ -33,19 +33,8 @@ public:
 
 MY_COMPONENT_NS_BEG
 
-//template<typename T>
-//T getComponent(cocos2d::Node *node, const std::string &compKey) {
-//	cocos2d::Ref *obj = node->getUserObject();
-//	if (!obj) // Object == nullptr
-//		return nullptr;
-//	cocos2d::Dictionary* dict = dynamic_cast<cocos2d::Dictionary*>(obj);
-//	if (!dict) // Object != nullptr va Object khong phai Dictionary
-//		return nullptr;
-//
-//	return dynamic_cast<T>(dict->objectForKey(compKey));
-//}
 template<typename T>
-T* getComponent(cocos2d::Node *node, const std::string &compKey) {
+T* getComponent(cocos2d::Node *node, const std::string &compKey) { // Deprecated
 	cocos2d::Ref *obj = node->getUserObject();
 	if (!obj) // Object == nullptr
 		return nullptr;
@@ -55,9 +44,14 @@ T* getComponent(cocos2d::Node *node, const std::string &compKey) {
 	return dynamic_cast<T*>(dict->at(compKey).get());
 }
 
-std::shared_ptr<MComponent> getComponent(cocos2d::Node *node, const std::string &compKey);
-void setComponent(cocos2d::Node *node, const std::string &key, MComponent *comp);
-void removeComponent(cocos2d::Node *node, const std::string &compKey);
+std::shared_ptr<MComponent> getShComp(cocos2d::Node *node, const std::string &compKey);
+MComponent* getComp(cocos2d::Node *node, const std::string &compKey);
+
+
+void setComponent(cocos2d::Node *node, const std::string &key, MComponent *comp); // Deprecated
+void removeComponent(cocos2d::Node *node, const std::string &compKey); // Deprecated
+void setComp(cocos2d::Node *node, const std::string &key, MComponent *comp);
+void removeComp(cocos2d::Node *node, const std::string &compKey);
 
 MY_COMPONENT_NS_END
 

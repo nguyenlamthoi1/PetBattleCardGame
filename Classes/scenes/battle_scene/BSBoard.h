@@ -40,6 +40,10 @@ public:
 	cocos2d::ui::Layout *activeBoard = nullptr;
 	CardHolder *activeHolder = nullptr;
 
+	// Getters
+	const std::vector<CardHolder*> getBenchHolders() const;
+	//const std::vector<CardHolder*> getAllHolders() const;
+
 	// Utilize functions
 	void alignHoldersOnBenchBoard(bool forceDoLayout);
 

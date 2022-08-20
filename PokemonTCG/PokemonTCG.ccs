@@ -50,6 +50,7 @@
             <PlistImageFile Name="duelist_x3_duelist_27.png" Key="duelist_x3/duelist_27.png" />
             <PlistImageFile Name="duelist_x3_duelist_28.png" Key="duelist_x3/duelist_28.png" />
             <PlistImageFile Name="duelist_x3_duelist_29.png" Key="duelist_x3/duelist_29.png" />
+            <PlistImageFile Name="duelist_x3_duelist_3.png" Key="duelist_x3/duelist_3.png" />
             <PlistImageFile Name="duelist_x3_duelist_30.png" Key="duelist_x3/duelist_30.png" />
             <PlistImageFile Name="duelist_x3_duelist_31.png" Key="duelist_x3/duelist_31.png" />
             <PlistImageFile Name="duelist_x3_duelist_32.png" Key="duelist_x3/duelist_32.png" />
@@ -68,7 +69,6 @@
             <PlistImageFile Name="duelist_x3_duelist_8.png" Key="duelist_x3/duelist_8.png" />
             <PlistImageFile Name="duelist_x3_duelist_9.png" Key="duelist_x3/duelist_9.png" />
             <PlistImageFile Name="duelist_x3_duelist_z.png" Key="duelist_x3/duelist_z.png" />
-            <PlistImageFile Name="duelist_x3_duelist_3.png" Key="duelist_x3/duelist_3.png" />
           </PlistImageFolder>
           <PlistImageFolder Image="energies.png" PListFile="energies.plist" Name=".energies_PList.Dir">
             <PlistImageFile Name="energies_x1_energy_dark.png" Key="energies/x1/energy_dark.png" />

@@ -159,6 +159,9 @@
     <ClCompile Include="..\Classes\scenes\battle_scene\BSNotifier.cpp">
       <Filter>src\scenes\battle_scene</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene\BSDefine.cpp">
+      <Filter>src\scenes\battle_scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">

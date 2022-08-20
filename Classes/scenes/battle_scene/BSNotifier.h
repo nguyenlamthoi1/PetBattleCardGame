@@ -44,7 +44,8 @@ private:
 
 public:
 	void showMsg(const std::string &msg);
-	void hideMsg(float afterT = 0);
+	void hideMsg(float afterT = 0, std::function<void()> onHide = nullptr);
+	void instantHideMsg();
 
 	void showMsgAndHideAfter(const std::string &msg, float t);
 	void showMsgWithDone(const std::string &msg, DoneFunc f, bool hideDoneOnClick = true);

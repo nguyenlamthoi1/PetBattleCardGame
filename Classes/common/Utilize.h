@@ -50,7 +50,7 @@ UTIL_VECTOR_BEGIN
 
 // vector
 template <typename T>
-bool removeVectorElement(std::vector<T>& vector, const T& element)
+bool removeElement(std::vector<T>& vector, const T& element)
 {
 	auto it = std::find(vector.begin(), vector.end(), element);
 	if (it != vector.end())

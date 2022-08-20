@@ -41,7 +41,7 @@ bool BSBoard::init() {
 
 	activeBoard = dynamic_cast<ui::Layout*>(boardPanel->getChildByName("Active_Board"));
 	// Them holder vao active board
-	activeHolder = CardHolder::create(btlScn, ownerId);
+	activeHolder = CardHolder::createActive(btlScn, ownerId);
 	activeBoard->addChild(activeHolder);
 	activeHolder->setPosition(Vec2(6, 6));
 
@@ -50,7 +50,7 @@ bool BSBoard::init() {
 	auto cardH = benchSize.height - 12;
 	
 	while (benchHolders.size() < maxBenchCapacity) {
-		auto holder = CardHolder::create(btlScn, ownerId);
+		auto holder = CardHolder::createBench(btlScn, ownerId);
 		holder->setHolderSizeH(cardH);
 		benchBoard->addChild(holder);
 		benchHolders.push_back(holder);
@@ -95,5 +95,14 @@ void BSBoard::alignHoldersOnBenchBoard(bool forceDoLayout) {
 bool BSBoard::hasActivePet() {
 	return activeHolder->hasPetCard();
 }
+
+/*
+	Getters
+*/
+
+const std::vector<CardHolder*> BSBoard::getBenchHolders() const {
+	return benchHolders;
+}
+
 
 BATTLE_SCENE_NS_END

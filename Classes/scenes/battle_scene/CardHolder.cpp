@@ -2,7 +2,10 @@
 #include "BSCard.h"
 #include "GameManager.h"
 #include "data/CardData.h"
+
 #include "BattleScene.h"
+#include "BattleManager.h"
+
 #include "BSPlayer.h"
 #include "prefabs/BSPrefabs.h"
 #include "common/ResourcePool.h"
@@ -17,11 +20,12 @@ BATTLE_SCENE_NS_BEG
 
 Size CardHolder::HOLDER_SIZE = Size(95, 137);
 
-CardHolder::CardHolder(BattleScene *scn, PlayerIdType id) : btlScn(scn), ownerId(id) {
+CardHolder::CardHolder(HolderType hType, BattleScene *scn, PlayerIdType id) : type(hType), btlScn(scn), ownerId(id) {
+	CCLOG("CardHolder::Ctor %p", this);
 }
 
 CardHolder::~CardHolder() {
-	CCLOG("CardHolder dtor : called");
+	CCLOG("CardHolder::Dtor %p", this);
 	clear();
 }
 
@@ -36,16 +40,26 @@ void CardHolder::clear() {
 	energyItemMap.clear();
 }
 
-CardHolder* CardHolder::create(BattleScene *scn, PlayerIdType id) {
-	auto holder = new (nothrow) CardHolder(scn, id);
+
+CardHolder* CardHolder::createActive(BattleScene *scn, PlayerIdType id) {
+	auto holder = new (nothrow) CardHolder(HolderType::Active, scn, id);
 	if (holder && holder->init()) {
 		holder->autorelease();
 		return holder;
 	}
-	else {
-		delete holder;
-		holder = nullptr;
+	delete holder;
+	holder = nullptr;
+	return holder;
+}
+
+CardHolder* CardHolder::createBench(BattleScene *scn, PlayerIdType id) {
+	auto holder = new (nothrow) CardHolder(HolderType::Bench, scn, id);
+	if (holder && holder->init()) {
+		holder->autorelease();
+		return holder;
 	}
+	delete holder;
+	holder = nullptr;
 	return holder;
 }
 
@@ -96,6 +110,7 @@ void CardHolder::setHolderSizeH(float h) {
 	setContentSize(newThisSize);
 	node->setScale(s);
 }
+
 void CardHolder::setHolderSizeW(float w) {
 	auto layout = node->getChildByName("PanelHolder");
 	auto layoutSize = layout->getContentSize();
@@ -109,6 +124,8 @@ void CardHolder::setHolderSizeW(float w) {
 
 
 bool CardHolder::tryAddPetCard(PetCard *card) {
+	auto btlMgr = btlScn->getBattleManager();
+
 	auto petData = dynamic_pointer_cast<const PetCardData>(card->getData());
 	bool isBasic = petData->evStage < 1;
 	if (isBasic) {
@@ -121,6 +138,11 @@ bool CardHolder::tryAddPetCard(PetCard *card) {
 		card->setPosition(pos + Vec2(0, 25));
 		card->runAction(MoveTo::create(0.5f, pos));
 		updateInfoPanel(true);
+
+		// * Cap nhat thong tin holder
+		dmgCounter = 0;
+		playedTurn = btlMgr->getCurTurn();
+
 		return true;
 	}
 	else { // Evolved card
@@ -143,6 +165,10 @@ bool CardHolder::tryAddPetCard(PetCard *card) {
 		card->runAction(MoveTo::create(0.5f, pos));
 		showFlyingText("Evolved");
 		updateInfoPanel(true);
+
+		// * Cap nhat thong tin holder
+		playedTurn = btlMgr->getCurTurn();
+
 		return true;
 	}
 	return false;
@@ -220,5 +246,21 @@ void CardHolder::showFlyingText(const string &s) {
 bool CardHolder::hasPetCard() {
 	return petCard != nullptr;
 }
+
+bool CardHolder::isActiveSpot() {
+	return type == HolderType::Active;
+}
+
+bool CardHolder::canEvolveTo(PetCard *card) {
+	auto toPetData = dynamic_pointer_cast<const PetCardData>(card->getData());
+	auto fromPetData = dynamic_pointer_cast<const PetCardData>(petCard->getData());
+
+	auto btlMgr = btlScn->getBattleManager();
+
+	return hasPetCard() && // Holder da co Pet Card
+		btlMgr->getCurTurn() > playedTurn && // Tai luot nay co the tien hoa
+		toPetData->evolveFrom == fromPetData->name; // Co the tien hoa len Pokemon duoc check
+}
+
 
 BATTLE_SCENE_NS_END

@@ -114,6 +114,8 @@ void DrawCardAction::start() {
 		CCLOG("Action draw end");
 		state = State::Done; 
 		});
+
+	//isPlayerIdInvalid(playerId);
 }
 
 void DrawCardAction::end() {}
@@ -193,14 +195,34 @@ void SetupAction::start() {
 
 	if (playerId == PLAYER) {
 		auto notifier = btlScn->getNotifier();
-		notifier->showMsgWithDone("Drag a Pokemon to your Active Spot",
-			[this]() -> bool {return checkSetup(); },
-			[this]() -> void {
-				state = State::Done;
-			},
-			nullptr, true);
-
+		notifier->showMsg("Drag a Pokemon to your Active Spot");
 		player->doSetup();
+
+		if (playPetListener)
+			playPetListener->release();
+
+		playPetListener = BattleManager::registEvt(BattleManager::PLAY_PET_CARD_EV, [this](EventCustom *evt) {
+			auto data = static_cast<BattleManager::PlayPetEvData*>(evt->getUserData());
+			if (data->suc) {
+				auto btlScn = btlMgr->getBattleScene();
+				auto notifier = btlScn->getNotifier();
+				notifier->hideMsg(0.5f, [this, notifier]() {
+					notifier->showMsgWithDone("You can play any basic pet card. Tap done button when you're ready",
+						[]() -> bool {return true; },
+						[this]() -> void {
+							state = State::Done;
+						},
+						nullptr, true);
+					});
+			
+
+				auto evDispatcher = Director::getInstance()->getEventDispatcher();
+				evDispatcher->removeEventListener(playPetListener);
+				playPetListener->release();
+				playPetListener = nullptr;
+			}
+			});
+		playPetListener->retain();
 	}
 	else if (playerId == OPPONENT) {
 

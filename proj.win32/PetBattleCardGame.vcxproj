@@ -172,6 +172,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\scenes\battle_scene\BSCard.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene\BSCoinFlipper.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene\BSDeck.cpp" />
+    <ClCompile Include="..\Classes\scenes\battle_scene\BSDefine.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene\BSHand.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene\BSNotifier.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene\BSPlayer.cpp" />

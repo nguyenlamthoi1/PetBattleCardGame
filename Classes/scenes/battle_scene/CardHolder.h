@@ -26,12 +26,21 @@ class EnergyCard;
 
 class CardHolder : public cocos2d::ui::Layout {
 public:
+	enum class HolderType {
+		Active,
+		Bench
+	};
+
 	using EnergyId = std::string;
 
 	static cocos2d::Size HOLDER_SIZE;
-	static CardHolder* create(BattleScene *btlScn, PlayerIdType id);
-	CardHolder(BattleScene *btlScn, PlayerIdType id);
+
+	static CardHolder* createActive(BattleScene *btlScn, PlayerIdType id);
+	static CardHolder* createBench(BattleScene *btlScn, PlayerIdType id);
+
+	CardHolder(HolderType hType, BattleScene *btlScn, PlayerIdType id);
 	virtual ~CardHolder();
+
 	virtual bool init() override;
 	void setHolderSizeH(float h);
 	void setHolderSizeW(float w);
@@ -43,14 +52,19 @@ public:
 
 	// Checker
 	bool hasPetCard();
-
+	bool isActiveSpot();
+	bool canEvolveTo(PetCard *card);
+	
 protected:
 	virtual void clear();
 
+	HolderType type;
 	BattleScene *btlScn = nullptr;
 	PlayerIdType ownerId = PlayerIdInvalid;
 
+	// Thong tin cua pet trong tran dau
 	int dmgCounter = 0;
+	int playedTurn = -1;
 
 	PetCard *petCard = nullptr;
 	std::vector<PetCard*> preEvCardVec;
@@ -71,6 +85,7 @@ protected:
 
 	cocos2d::Node *node = nullptr;
 
+	// Utilize functions
 };
 
 BATTLE_SCENE_NS_END

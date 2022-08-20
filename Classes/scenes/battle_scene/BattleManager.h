@@ -28,7 +28,8 @@ public:
 	enum class GameState {
 		NONE,
 		START,
-		SET_UP
+		SET_UP,
+		PLAY
 	};
 
 	static const std::string BATTLE_MANAGER_SCHEDULER;
@@ -38,6 +39,9 @@ public:
 
 	BattleManager(BattleScene *scn);
 	~BattleManager();
+
+	// Getters
+	unsigned int getCurTurn();
 
 private:
 	void startGame();
@@ -49,7 +53,7 @@ private:
 	std::unordered_map<PlayerIdType, std::shared_ptr<BSPlayer>> players;
 	
 	GameState gameState = GameState::NONE;
-	int curTurn = -1;
+	unsigned int curTurn = 0;
 	PlayerIdType curTurnId = PlayerIdInvalid;
 
 	// Game Actions
@@ -71,15 +75,27 @@ private:
 
 	void onActionEnd(std::shared_ptr<BSAction> endedaAction);
 
-	// Player Actions
+///PlayerAction///
 public:
 	bool playerTryPlayPetCard(PlayerIdType id, PetCard *card, CardHolder *holder);
 	bool playerTryPlayEnergyCard(PlayerIdType id, EnergyCard *card, CardHolder *holder);
+	bool playerStartSetup(PlayerIdType id);
 
-	bool playerStartSetup(PlayerIdType);
+///Events///
+public:
+	static const std::string PLAY_PET_CARD_EV;
 
+	struct PlayPetEvData {
+		PlayerIdType id = PlayerIdInvalid;
+		PetCard *card = nullptr;
+		CardHolder *holder = nullptr;
+		bool suc = false;
+	};
+
+	static cocos2d::EventListenerCustom* registEvt(const std::string evt, const std::function<void(cocos2d::EventCustom*)> &listener);
+private:
+	static void dispatchEvt(const std::string s, void *evtData);
 	// Checker
-
 };
 
 BATTLE_SCENE_NS_END

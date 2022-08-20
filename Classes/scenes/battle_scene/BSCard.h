@@ -21,6 +21,8 @@ BATTLE_SCENE_NS_BEG
 
 class BSCard : public cocos2d::ui::Layout {
 public:
+	using DragHandler = std::function<void(cocos2d::Node*, cocos2d::Node*)> ;
+
 	static const cocos2d::Size ORIGIN_CARD_SIZE;
 	static const float CARD_SCALE_DOWN;
 	static cocos2d::Size CARD_SIZE;
@@ -30,12 +32,30 @@ public:
 	virtual std::shared_ptr<const CardData> getData() = 0;
 	virtual void setNormalSize() = 0;
 	virtual void returnToPool(){}
+
+	/*
+		Hint: Them cac callback de xu ly dragCard
+		- moi khi function duoc call se tu dong add 1 DragComponent, va override nhung callback truoc do
+		- Luu y them danh sach destNodes de co the drag toi vi tri minh muon
+	*/
+	void setDragHandler(
+		const std::vector<cocos2d::Node*> &destNodes,
+		const DragHandler &dragBeg,
+		const DragHandler &dragEnd,
+		const DragHandler &dragIn = nullptr,
+		const DragHandler &dragOut = nullptr);
+
 protected:
 	BSCard();
 	virtual ~BSCard();
 	virtual bool init() override = 0;
 	virtual bool initWithData(const std::shared_ptr<const CardData> &data) = 0;
 	virtual bool onTouchHold();
+
+	DragHandler dragBeg = nullptr;
+	DragHandler dragEnd = nullptr;
+	DragHandler dragIn = nullptr;
+	DragHandler dragOut = nullptr;
 };
 
 class PetCard : public BSCard {
@@ -87,7 +107,6 @@ public:
 	cocos2d::ui::ImageView *image = nullptr;
 	virtual std::shared_ptr<const CardData> getData() override;
 	virtual void setNormalSize() override;
-
 };
 
 BATTLE_SCENE_NS_END

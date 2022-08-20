@@ -108,13 +108,17 @@ public:
 	friend class HelloWorld;
 	define_DragHandlerFunc_Type;
 
+	static std::shared_ptr<DragComponent> getShComp(cocos2d::Node *node);
+	static DragComponent* getComp(cocos2d::Node *node);
+	static void setComp(cocos2d::Node *node, DragComponent* comp);
+
+
 	DragHandlerFunc dragBeginCallback; // Function duoc goi khi bat dau drag object
 	DragHandlerFunc dragEndCallback; // Function duoc goi khi release Touch luc dang drag object
 	DragHandlerFunc dragInCallback; // Function duoc goi khi drag object den 1 dest node
 	DragHandlerFunc dragOutCallback; // Function duoc goi khi drag object ra khoi 1 dest node
 	std::vector<cocos2d::Node*> destinations; // Danh sach cac node muc tieu(dest node) khi drag object
 
-	cocos2d::Node* dragContainer = nullptr; // Khi node duoc drag, node se duoc removeFromParent va addChild vao dragContainer
 	float zInContainer = 999; // Local z cua object khi duoc add child vao dragContainer
 
 	cocos2d::Node* draggedObj = nullptr;
@@ -122,21 +126,26 @@ public:
 	useCenter la T -> Thi center point cua object duoc dung kiem tra object drag den 1 dest node 
 	useCenter la F -> Thi touch point cua object duoc dung kiem tra object drag den 1 dest node
 	*/
-	bool useCenter = false;
 
 	DragComponent() = default;
 	~DragComponent();
 	bool isDroppable() { return hitDestNode != nullptr; }
 
+	// Setters
+	void setUseCenter(bool use) { useCenter = use; }
+	void setEnabled(bool e) { enabled = e; }
+	void setDragContainer(cocos2d::Node *container) { dragContainer = container; }
+
+	// Getters
 	cocos2d::Vec2 getOrgWorldPos() { return orgWorldPos; }
 	cocos2d::Node* getOrgParent() { return orgParent; }
 	cocos2d::Node* getHitDestNode() { return hitDestNode; }
 	float getOrgZ() { return orgZ; }
 	bool isObjDragging() { return isDragging; }
-	
-	void setEnabled(bool e) { enabled = e; }
 	bool isEnabled() { return enabled; }
 protected:
+	bool useCenter = true;
+	cocos2d::Node* dragContainer = nullptr; // Khi node duoc drag, node se duoc removeFromParent va addChild vao dragContainer
 	bool isDragging = false;
 	cocos2d::Vec2 orgPos;
 	float orgZ;

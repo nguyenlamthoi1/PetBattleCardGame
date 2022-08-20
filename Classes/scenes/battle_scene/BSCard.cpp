@@ -70,6 +70,51 @@ bool BSCard::onTouchHold() {
 	return true;
 }
 
+void BSCard::setDragHandler(const std::vector<cocos2d::Node*> &destNodes,
+	const DragHandler &begF,
+	const DragHandler &endF,
+	const DragHandler &inF,
+	const DragHandler &outF) {
+
+	dragBeg = begF;
+	dragEnd = endF;
+	dragIn = inF;
+	dragOut = outF;
+
+	auto comp = DragComponent::getComp(this);
+	if (!comp) { // Them Drag component
+		comp = new DragComponent();
+		DragComponent::setComp(this, comp);
+	}
+	comp->destinations.clear();
+	comp->destinations.insert(comp->destinations.cend(), destNodes.begin(), destNodes.end());
+
+	comp->dragBeginCallback = [this](Node * cardNode, Node *dest) {
+		auto comp = DragComponent::getComp(this);
+		comp->setDragContainer(this->getParent());
+		if (dragBeg)
+			dragBeg(cardNode, dest);
+	};
+
+	comp->dragInCallback = [this](Node * cardNode, Node *dest) {
+		if (dragIn)
+			dragIn(cardNode, dest);
+	};
+
+	comp->dragOutCallback = [this](Node * cardNode, Node *dest) {
+		if (dragOut)
+			dragOut(cardNode, dest);
+	};
+
+	comp->dragEndCallback = [this](Node *cardNode, Node *dest) {
+		if (dragEnd)
+			dragEnd(cardNode, dest);
+	};
+
+	this->setTouchEnabled(true);
+	this->setSwallowTouches(true);
+}
+
 
 /*
 	PetCard Class

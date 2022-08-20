@@ -67,12 +67,6 @@ void BattleManager::changeState(GameState fromState, GameState toState) {
 					}),
 				new WaitAction(1.0f),
 				new SetupAction(btlScn->getBattleManager(), PLAYER)
-				/*new CustomAction([this]() {
-					btlScn->getNotifier()->showMsgWithDone("Tap ready button if you are ready to play the game and having fun", [this]() {
-						CCLOG("Click Done Btn");
-						btlScn->getNotifier()->hideMsg();
-						});
-					}),*/
 				//FlipCoinAction::createFlip1Coin(btlScn->getBattleManager(), PLAYER)
 				});
 			gameState = toState;
@@ -82,6 +76,8 @@ void BattleManager::changeState(GameState fromState, GameState toState) {
 
 	if (fromState == GameState::START) {
 		if (toState == GameState::SET_UP) { // START -> SET_UP
+			gameState = toState;
+			return;
 		}
 	}
 	
@@ -129,31 +125,34 @@ void BattleManager::onActionEnd(std::shared_ptr<BSAction> endedaAction) {
 }
 
 
-//////////////////////
-////Player Actions////
-//////////////////////
+
+///Player Actions///
 
 bool BattleManager::playerTryPlayPetCard(PlayerIdType id, PetCard *card, CardHolder *holder) {
-	if (!card || !holder || isPlayerIdInvalid(id))
+	if (!card || !holder || !isPlayerIdInvalid(id))
 		return false;
 
 	auto petData = dynamic_pointer_cast<const PetCardData>(card->getData());
-
-	// Kiem tra player co the play pet card tai thoi diem nay
+	auto board = btlScn->getBoard(id);
 	bool isBasic = petData->isEvolutionCard();
-	if (gameState == GameState::SET_UP && curTurnId == id) {
-		auto board = btlScn->getBoard(id);
-		if(!board->hasActivePet() && holder->)
-		if (id == PLAYER) {
-			return holder->tryAddPetCard(card);
-		}
-		else {
+	bool suc = false;
+	if (gameState == GameState::SET_UP || gameState == GameState::PLAY) {
+		suc = true;
+		if (curTurnId != id) /// Chua den luot player
+			suc = false;
 
-		}
+		if (!isBasic && /// Player play evolved card
+			(!board->hasActivePet() || !holder->canEvolveTo(card))) 
+			suc = false;
 
+		if(suc) /// Player co thay play card
+			suc = holder->tryAddPetCard(card);
 	}
 
+	PlayPetEvData evtData = {id, card, holder, suc};
+	dispatchEvt(PLAY_PET_CARD_EV, &evtData);
 
+	return suc;
 }
 
 bool BattleManager::playerTryPlayEnergyCard(PlayerIdType id, EnergyCard *card, CardHolder *holder) {
@@ -166,6 +165,7 @@ bool BattleManager::playerTryPlayEnergyCard(PlayerIdType id, EnergyCard *card, C
 	else {
 
 	}
+	return true;
 }
 
 bool BattleManager::playerStartSetup(PlayerIdType id) {
@@ -173,6 +173,27 @@ bool BattleManager::playerStartSetup(PlayerIdType id) {
 		return false;
 
 	curTurnId = id;
+}
+
+
+///Events///
+
+const string BattleManager::PLAY_PET_CARD_EV = "PLAY_PET_CARD_EV";
+
+void BattleManager::dispatchEvt(const std::string ev, void *evtData) {
+	Director::getInstance()->getEventDispatcher()->dispatchCustomEvent(ev, evtData);
+}
+
+EventListenerCustom* BattleManager::registEvt(const std::string evt, const std::function<void(cocos2d::EventCustom*)> &listener)
+{
+	return Director::getInstance()->getEventDispatcher()->addCustomEventListener(evt, listener);
+}
+
+
+///Getters///
+
+unsigned int BattleManager::getCurTurn() {
+	return curTurn;
 }
 
 

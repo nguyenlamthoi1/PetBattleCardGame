@@ -34,11 +34,12 @@ private:
 	std::vector<BSCard*> cards; CHECK_CLEAN_FLAG
 
 	// Utilize functions
-	void onDragIn(BSCard *card, cocos2d::Node *dest);
-	void onDragOut(BSCard *card, cocos2d::Node *dest);
 	bool onDragEnd(BSCard *card, cocos2d::Node *dest);
 	void onDragBack(BSCard *card);
-	void updateHandPos();
+	void onDragSucceeded();
+	void updateCardPositions();
+
+protected:
 };
 
 BATTLE_SCENE_NS_END

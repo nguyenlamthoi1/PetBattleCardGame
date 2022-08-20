@@ -15,6 +15,19 @@ DragComponent::~DragComponent() {
 	CCLOG("DragComponent::dtor");
 }
 
+shared_ptr<DragComponent> DragComponent::getShComp(cocos2d::Node *node) {
+	return dynamic_pointer_cast<DragComponent>(MyComponentNS::getShComp(node, COMPONENT_KEY::DRAG));
+}
+
+DragComponent* DragComponent::getComp(cocos2d::Node *node) {
+	return dynamic_cast<DragComponent*>(MyComponentNS::getComp(node, COMPONENT_KEY::DRAG));
+}
+
+void DragComponent::setComp(cocos2d::Node *node, DragComponent* comp) {
+	MyComponentNS::setComp(node, COMPONENT_KEY::DRAG, comp);
+}
+
+
 
 /*
 	WidgetTouchComponent Class
@@ -161,8 +174,10 @@ void WidgetTouchComponent::applyHandler() {
 						}
 					}
 				}
-				else {
-					// bat dau drag
+				else { // bat dau drag
+					if (comp->dragBeginCallback)
+						comp->dragBeginCallback(widget, nullptr); // DRAG BEGIN CALLBACK
+
 					auto d = widget->getTouchBeganPosition().distance(widget->getTouchMovePosition());
 					if (d > TOUCH_MOVE_DELTA) {
 						comp->isDragging = true;
@@ -181,8 +196,6 @@ void WidgetTouchComponent::applyHandler() {
 							wPos = widget->getTouchMovePosition();
 						auto lPos = widget->getParent()->convertToNodeSpaceAR(wPos);
 						widget->setPosition(comp->dragContainer == Director::getInstance()->getRunningScene() ? wPos : lPos);
-						if(comp->dragBeginCallback)
-							comp->dragBeginCallback(widget, nullptr); // DRAG BEGIN CALLBACK
 					}
 				}
 			}

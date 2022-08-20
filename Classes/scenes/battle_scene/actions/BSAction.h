@@ -15,7 +15,6 @@ BATTLE_SCENE_NS_BEG
 class BattleScene;
 class BattleManager;
 
-
 class BSAction {
 public:
 	friend class BattleScene;
@@ -136,6 +135,8 @@ public:
 protected:
 	PlayerIdType playerId = PlayerIdInvalid;
 	bool checkSetup();
+	cocos2d::EventListenerCustom *playPetListener = nullptr;
+	
 };
 
 
