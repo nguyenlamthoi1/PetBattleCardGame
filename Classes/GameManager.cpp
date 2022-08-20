@@ -3,6 +3,7 @@
 #include "common/ResourcePool.h"
 #include "common/LangSys.h"
 #include "common/DataManager.h"
+#include "common/event/EventManager.h"
 #include "HelloWorldScene.h"
 #include "scenes/title_scene/TitleScene.h"
 
@@ -26,7 +27,8 @@ GameManager::GameManager() :
 	loader(new ResourceLoader()), 
 	pool(new ResourcePool()),
 	lang(new LangSys()),
-	dataMgr(new DataManager())
+	dataMgr(new DataManager()),
+	evMgr(new EventManager())
 {
 }
 

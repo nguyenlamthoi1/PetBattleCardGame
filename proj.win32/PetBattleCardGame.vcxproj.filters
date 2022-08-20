@@ -58,6 +58,9 @@
     <Filter Include="src\scenes\battle_scene\prefabs">
       <UniqueIdentifier>{7fc01801-63a9-48ad-8689-65d7a902ec3a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\common\event">
+      <UniqueIdentifier>{8fd5af67-a4a2-411a-a6af-02bcfa7a8573}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -161,6 +164,18 @@
     </ClCompile>
     <ClCompile Include="..\Classes\scenes\battle_scene\BSDefine.cpp">
       <Filter>src\scenes\battle_scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\common\event\EventManager.cpp">
+      <Filter>src\common\event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\common\event\EventHandler.cpp">
+      <Filter>src\common\event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\common\event\EventHandlerVec.cpp">
+      <Filter>src\common\event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\common\event\MEvent.cpp">
+      <Filter>src\common\event</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -385,6 +400,18 @@
     </ClInclude>
     <ClInclude Include="..\Classes\scenes\battle_scene\BSNotifier.h">
       <Filter>src\scenes\battle_scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\event\EventManager.h">
+      <Filter>src\common\event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\event\EventHandler.h">
+      <Filter>src\common\event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\event\EventHandlerVec.h">
+      <Filter>src\common\event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\common\event\MEvent.h">
+      <Filter>src\common\event</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

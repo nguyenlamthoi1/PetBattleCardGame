@@ -11,6 +11,7 @@ namespace ResourceLoaderNS {
 class ResourcePool;
 class LangSys;
 class DataManager;
+class EventManager;
 
 class GameManager // Singleton
 {
@@ -28,6 +29,7 @@ public:
 	std::shared_ptr<ResourcePool> getPool() { return pool; }
 	std::shared_ptr<LangSys> getLang() { return lang; }
 	std::shared_ptr<DataManager> getDataManager() { return dataMgr; }
+	std::shared_ptr<EventManager> getEventManager() { return evMgr; }
 
 
 	bool startGame() const; // start the scene
@@ -51,6 +53,7 @@ private:
 	std::shared_ptr<ResourcePool> pool;
 	std::shared_ptr<LangSys> lang;
 	std::shared_ptr<DataManager> dataMgr;
+	std::shared_ptr<EventManager> evMgr;
 
 	// Ctors
 
@@ -64,6 +67,6 @@ private:
 #define GM_POOL GameManager::getInstance()->getPool()
 #define GM_LOADER GameManager::getInstance()->getLoader()
 #define GM_DATA_MGR GameManager::getInstance()->getDataManager()
-
+#define GM_EV_MGR GameManager::getInstance()->getEventManager()
 
 #endif // __GAME_MANAGER_H__

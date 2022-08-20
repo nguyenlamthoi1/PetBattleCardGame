@@ -149,6 +149,10 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
     <ClCompile Include="..\Classes\common\DataManager.cpp" />
+    <ClCompile Include="..\Classes\common\event\EventHandler.cpp" />
+    <ClCompile Include="..\Classes\common\event\EventHandlerVec.cpp" />
+    <ClCompile Include="..\Classes\common\event\EventManager.cpp" />
+    <ClCompile Include="..\Classes\common\event\MEvent.cpp" />
     <ClCompile Include="..\Classes\common\LangSys.cpp" />
     <ClCompile Include="..\Classes\common\ResourceLoader.cpp" />
     <ClCompile Include="..\Classes\common\ResourcePool.cpp" />
@@ -185,6 +189,10 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\common\DataManager.h" />
+    <ClInclude Include="..\Classes\common\event\EventHandler.h" />
+    <ClInclude Include="..\Classes\common\event\EventHandlerVec.h" />
+    <ClInclude Include="..\Classes\common\event\EventManager.h" />
+    <ClInclude Include="..\Classes\common\event\MEvent.h" />
     <ClInclude Include="..\Classes\common\LangSys.h" />
     <ClInclude Include="..\Classes\common\MyMacros.h" />
     <ClInclude Include="..\Classes\common\ResourceLoader.h" />
