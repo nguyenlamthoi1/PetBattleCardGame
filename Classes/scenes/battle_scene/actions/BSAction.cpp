@@ -225,7 +225,7 @@ void SetupAction::start() {
 		playPetListener->retain();
 	}
 	else if (playerId == OPPONENT) {
-
+		
 	}
 	
 }

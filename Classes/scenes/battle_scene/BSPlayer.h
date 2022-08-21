@@ -48,8 +48,6 @@ class EnergyCard;
 //}
 
 
-
-
 class BSPlayer {
 public:
 	friend class BattleScene;

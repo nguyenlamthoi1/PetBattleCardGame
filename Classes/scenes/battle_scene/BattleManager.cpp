@@ -66,7 +66,8 @@ void BattleManager::changeState(GameState fromState, GameState toState) {
 					changeState(gameState, GameState::SET_UP);
 					}),
 				new WaitAction(1.0f),
-				new SetupAction(btlScn->getBattleManager(), PLAYER)
+				new SetupAction(btlScn->getBattleManager(), PLAYER),
+				new SetupAction(btlScn->getBattleManager(), OPPONENT)
 				//FlipCoinAction::createFlip1Coin(btlScn->getBattleManager(), PLAYER)
 				});
 			gameState = toState;
@@ -138,11 +139,14 @@ bool BattleManager::playerTryPlayPetCard(PlayerIdType id, PetCard *card, CardHol
 	bool suc = false;
 	if (gameState == GameState::SET_UP || gameState == GameState::PLAY) {
 		suc = true;
-		if (curTurnId != id) /// Chua den luot player
+		if (curTurnId != id) // Chua den luot player
 			suc = false;
 
-		if (!isBasic && /// Player play evolved card
-			(!board->hasActivePet() || !holder->canEvolveTo(card))) 
+		if (!board->hasActivePet() && !holder->isActiveSpot())
+			suc = false;
+
+		if (!isBasic && // Player play evolved card
+			(!board->hasActivePet() || !holder->canEvolveTo(card) )) 
 			suc = false;
 
 		if(suc) /// Player co thay play card

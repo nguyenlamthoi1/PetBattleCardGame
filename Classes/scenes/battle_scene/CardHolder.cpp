@@ -252,13 +252,15 @@ bool CardHolder::isActiveSpot() {
 }
 
 bool CardHolder::canEvolveTo(PetCard *card) {
+	if (!card || !hasPetCard()) // Kiem tra petCard == Null
+		return false;
+
 	auto toPetData = dynamic_pointer_cast<const PetCardData>(card->getData());
-	auto fromPetData = dynamic_pointer_cast<const PetCardData>(petCard->getData());
+	auto fromPetData = dynamic_pointer_cast<const PetCardData>(petCard->getData()); // Loi khi petCard == null
 
 	auto btlMgr = btlScn->getBattleManager();
 
-	return hasPetCard() && // Holder da co Pet Card
-		btlMgr->getCurTurn() > playedTurn && // Tai luot nay co the tien hoa
+	return  btlMgr->getCurTurn() > playedTurn && // Tai luot nay co the tien hoa
 		toPetData->evolveFrom == fromPetData->name; // Co the tien hoa len Pokemon duoc check
 }
 
