@@ -44,5 +44,6 @@ protected:
 	int priority;
 	void *target;
 	bool registered;
+	bool callOnce = false;
 };
 

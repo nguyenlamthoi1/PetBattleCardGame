@@ -30,8 +30,11 @@ public:
 	bool loadPlayerData();
 	bool loadOpponentsData();
 
-	std::shared_ptr<PlayerData> getPlayerData() { return player; }
+	std::shared_ptr<PlayerData> getPlayerData() const { return player; }
 	std::shared_ptr<PlayerData> getOpponentData(OpponentId id) { return opponents[id]; }
+	std::shared_ptr<PlayerData> getPlayerData(const std::string &id);
+
+	
 	std::shared_ptr<const CardData> getCardData(CardId id);
 private:
 	void clear();

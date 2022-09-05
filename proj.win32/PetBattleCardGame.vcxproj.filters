@@ -31,15 +31,6 @@
     <Filter Include="src\components">
       <UniqueIdentifier>{6e7c3a45-a6f6-4b1d-a506-3c3f27791012}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\scenes\battle_scene">
-      <UniqueIdentifier>{1c91784e-4124-4737-aa0a-6b38bac34ed4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\scenes\battle_scene\battle_manager">
-      <UniqueIdentifier>{9b7a02d1-bd68-47b7-818f-26d903ebf831}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\scenes\battle_scene\actions">
-      <UniqueIdentifier>{38d1e25c-74ec-4809-b7b1-105b07a20481}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\data">
       <UniqueIdentifier>{5ede0427-11ef-4341-9627-7b19210799de}</UniqueIdentifier>
     </Filter>
@@ -55,11 +46,38 @@
     <Filter Include="src\include\rapidjson\msinttypes">
       <UniqueIdentifier>{36a66609-59ce-4d70-b789-4b14262614f6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\scenes\battle_scene\prefabs">
-      <UniqueIdentifier>{7fc01801-63a9-48ad-8689-65d7a902ec3a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\common\event">
       <UniqueIdentifier>{8fd5af67-a4a2-411a-a6af-02bcfa7a8573}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\scenes\battle_scene">
+      <UniqueIdentifier>{3b48d436-170d-421b-8662-1ef8e99bc5b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\scenes\battle_scene\game">
+      <UniqueIdentifier>{e3e21d31-812a-4d4a-8194-a5692d778ef7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\scenes\battle_scene\game\game_state">
+      <UniqueIdentifier>{9e2ec8d3-2c8d-4e85-a37f-d530c501b7a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\scenes\battle_scene\game\game_state\card">
+      <UniqueIdentifier>{a6b80ef1-e44c-4c38-8bf2-a50d49555817}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\base_classes">
+      <UniqueIdentifier>{21bc435a-dd64-4860-97a9-bf25782428a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\base_classes\events_handler">
+      <UniqueIdentifier>{5334c57f-5b54-43c4-8360-d81b08151f47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\scenes\battle_scene\scene_actions">
+      <UniqueIdentifier>{81b3e4c9-b645-4e4c-9c90-1c1086800409}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\scenes\battle_scene\game\game_actions">
+      <UniqueIdentifier>{9533839f-9100-4a27-b8d1-5445692928e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\scenes\battle_scene\define">
+      <UniqueIdentifier>{22f4c4cb-211b-4fe1-8bed-d15fbe3d4d72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\scenes\battle_scene\game\player_actions">
+      <UniqueIdentifier>{3b13854c-9d82-46ef-9ef1-78af1565a29c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -102,29 +120,11 @@
     <ClCompile Include="..\Classes\components\WidgetTouchComponent.cpp">
       <Filter>src\components</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\scenes\battle_scene\BattleScene.cpp">
-      <Filter>src\scenes\battle_scene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\scenes\battle_scene\BMPlayer.cpp">
-      <Filter>src\scenes\battle_scene\battle_manager</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\scenes\battle_scene\BSHand.cpp">
-      <Filter>src\scenes\battle_scene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\scenes\battle_scene\BSCard.cpp">
-      <Filter>src\scenes\battle_scene</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\components\ChildMapComponent.cpp">
       <Filter>src\components</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\common\Utilize.cpp">
       <Filter>src\common</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\scenes\battle_scene\actions\BSAction.cpp">
-      <Filter>src\scenes\battle_scene\actions</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\scenes\battle_scene\BSDeck.cpp">
-      <Filter>src\scenes\battle_scene</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\data\PlayerData.cpp">
       <Filter>src\data</Filter>
@@ -135,35 +135,11 @@
     <ClCompile Include="..\Classes\data\CardData.cpp">
       <Filter>src\data</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\scenes\battle_scene\BSBoard.cpp">
-      <Filter>src\scenes\battle_scene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\scenes\battle_scene\CardHolder.cpp">
-      <Filter>src\scenes\battle_scene</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\components\SpriteAnimatorComponent.cpp">
       <Filter>src\components</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\scenes\battle_scene\BSPlayer.cpp">
-      <Filter>src\scenes\battle_scene</Filter>
-    </ClCompile>
     <ClCompile Include="..\Classes\data\MoveData.cpp">
       <Filter>src\data</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\scenes\battle_scene\prefabs\EnergyItem.cpp">
-      <Filter>src\scenes\battle_scene\prefabs</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\scenes\battle_scene\BattleManager.cpp">
-      <Filter>src\scenes\battle_scene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\scenes\battle_scene\BSCoinFlipper.cpp">
-      <Filter>src\scenes\battle_scene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\scenes\battle_scene\BSNotifier.cpp">
-      <Filter>src\scenes\battle_scene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Classes\scenes\battle_scene\BSDefine.cpp">
-      <Filter>src\scenes\battle_scene</Filter>
     </ClCompile>
     <ClCompile Include="..\Classes\common\event\EventManager.cpp">
       <Filter>src\common\event</Filter>
@@ -176,6 +152,75 @@
     </ClCompile>
     <ClCompile Include="..\Classes\common\event\MEvent.cpp">
       <Filter>src\common\event</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\game\game_state\Deck.cpp">
+      <Filter>src\scenes\battle_scene\game\game_state</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\game\game_state\GameState.cpp">
+      <Filter>src\scenes\battle_scene\game\game_state</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\game\game_state\Hand.cpp">
+      <Filter>src\scenes\battle_scene\game\game_state</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\game\game_state\card\Card.cpp">
+      <Filter>src\scenes\battle_scene\game\game_state\card</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\game\game_state\card\EnergyCard.cpp">
+      <Filter>src\scenes\battle_scene\game\game_state\card</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\game\game_state\card\PetCard.cpp">
+      <Filter>src\scenes\battle_scene\game\game_state\card</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\game\game_state\Board.cpp">
+      <Filter>src\scenes\battle_scene\game\game_state</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\game\game_state\Holder.cpp">
+      <Filter>src\scenes\battle_scene\game\game_state</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\BSDefine.cpp">
+      <Filter>src\scenes\battle_scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\game\BattleMaster.cpp">
+      <Filter>src\scenes\battle_scene\game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\game\GameDefine.cpp">
+      <Filter>src\scenes\battle_scene\game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\BattleScene.cpp">
+      <Filter>src\scenes\battle_scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\BSHand.cpp">
+      <Filter>src\scenes\battle_scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\scene_actions\BSAction.cpp">
+      <Filter>src\scenes\battle_scene\scene_actions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\base_classes\EventsHandler\IEventsHandler.cpp">
+      <Filter>src\base_classes\events_handler</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\BSCard.cpp">
+      <Filter>src\scenes\battle_scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\scene_actions\BSActor.cpp">
+      <Filter>src\scenes\battle_scene\scene_actions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\game\game_actions\GameAction.cpp">
+      <Filter>src\scenes\battle_scene\game\game_actions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\game\game_state\Player.cpp">
+      <Filter>src\scenes\battle_scene\game\game_state</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\define\ErrorDefine.cpp">
+      <Filter>src\scenes\battle_scene\define</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\game\player_actions\PlayerAction.cpp">
+      <Filter>src\scenes\battle_scene\game\player_actions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\BSDeck.cpp">
+      <Filter>src\scenes\battle_scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\BSResources.cpp">
+      <Filter>src\scenes\battle_scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -272,35 +317,14 @@
     <ClInclude Include="..\Classes\components\WidgetTouchComponent.h">
       <Filter>src\components</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\scenes\battle_scene\BattleScene.h">
-      <Filter>src\scenes\battle_scene</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\common\MyMacros.h">
       <Filter>src\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\scenes\battle_scene\BSDefine.h">
-      <Filter>src\scenes\battle_scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\scenes\battle_scene\BMPlayer.h">
-      <Filter>src\scenes\battle_scene\battle_manager</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\scenes\battle_scene\BSHand.h">
-      <Filter>src\scenes\battle_scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\scenes\battle_scene\BSCard.h">
-      <Filter>src\scenes\battle_scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\components\ChildMapComponent.h">
       <Filter>src\components</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\common\Utilize.h">
       <Filter>src\common</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\scenes\battle_scene\actions\BSAction.h">
-      <Filter>src\scenes\battle_scene\actions</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\scenes\battle_scene\BSDeck.h">
-      <Filter>src\scenes\battle_scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\data\PlayerData.h">
       <Filter>src\data</Filter>
@@ -311,17 +335,8 @@
     <ClInclude Include="..\Classes\data\CardData.h">
       <Filter>src\data</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\scenes\battle_scene\BSBoard.h">
-      <Filter>src\scenes\battle_scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\scenes\battle_scene\CardHolder.h">
-      <Filter>src\scenes\battle_scene</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\components\SpriteAnimatorComponent.h">
       <Filter>src\components</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\scenes\battle_scene\BSPlayer.h">
-      <Filter>src\scenes\battle_scene</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\include\rapidjson\allocators.h">
       <Filter>src\include\rapidjson</Filter>
@@ -389,18 +404,6 @@
     <ClInclude Include="..\Classes\data\MoveData.h">
       <Filter>src\data</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\scenes\battle_scene\prefabs\BSPrefabs.h">
-      <Filter>src\scenes\battle_scene\prefabs</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\scenes\battle_scene\BattleManager.h">
-      <Filter>src\scenes\battle_scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\scenes\battle_scene\BSCoinFlipper.h">
-      <Filter>src\scenes\battle_scene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Classes\scenes\battle_scene\BSNotifier.h">
-      <Filter>src\scenes\battle_scene</Filter>
-    </ClInclude>
     <ClInclude Include="..\Classes\common\event\EventManager.h">
       <Filter>src\common\event</Filter>
     </ClInclude>
@@ -412,6 +415,72 @@
     </ClInclude>
     <ClInclude Include="..\Classes\common\event\MEvent.h">
       <Filter>src\common\event</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\define\GameConfig.h">
+      <Filter>src\define</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\game\game_state\Deck.h">
+      <Filter>src\scenes\battle_scene\game\game_state</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\game\game_state\GameState.h">
+      <Filter>src\scenes\battle_scene\game\game_state</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\game\game_state\Hand.h">
+      <Filter>src\scenes\battle_scene\game\game_state</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\game\game_state\card\Card.h">
+      <Filter>src\scenes\battle_scene\game\game_state\card</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\game\game_state\Board.h">
+      <Filter>src\scenes\battle_scene\game\game_state</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\game\game_state\Holder.h">
+      <Filter>src\scenes\battle_scene\game\game_state</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\BSDefine.h">
+      <Filter>src\scenes\battle_scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\game\BattleMaster.h">
+      <Filter>src\scenes\battle_scene\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\game\GameDefine.h">
+      <Filter>src\scenes\battle_scene\game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\BattleScene.h">
+      <Filter>src\scenes\battle_scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\BSHand.h">
+      <Filter>src\scenes\battle_scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\scene_actions\BSAction.h">
+      <Filter>src\scenes\battle_scene\scene_actions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\base_classes\EventsHandler\IEventsHandler.h">
+      <Filter>src\base_classes\events_handler</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\BSCard.h">
+      <Filter>src\scenes\battle_scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\scene_actions\BSActor.h">
+      <Filter>src\scenes\battle_scene\scene_actions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\game\game_actions\GameAction.h">
+      <Filter>src\scenes\battle_scene\game\game_actions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\game\game_state\Player.h">
+      <Filter>src\scenes\battle_scene\game\game_state</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\define\ErrorDefine.h">
+      <Filter>src\scenes\battle_scene\define</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\game\player_actions\PlayerAction.h">
+      <Filter>src\scenes\battle_scene\game\player_actions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\BSDeck.h">
+      <Filter>src\scenes\battle_scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\BSResources.h">
+      <Filter>src\scenes\battle_scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

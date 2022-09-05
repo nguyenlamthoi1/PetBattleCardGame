@@ -69,6 +69,20 @@
             <EndColor A="255" R="255" G="255" B="255" />
             <ColorVector ScaleY="1.0000" />
           </AbstractNodeData>
+          <AbstractNodeData Name="Card_Back" ActionTag="752305728" VisibleForFrame="False" Tag="89" IconVisible="False" LeftMargin="-185.0000" RightMargin="-205.0000" TopMargin="-283.0000" BottomMargin="-284.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Enable="True" LeftEage="10" RightEage="10" TopEage="10" BottomEage="10" Scale9OriginX="10" Scale9OriginY="10" Scale9Width="370" Scale9Height="547" ctype="PanelObjectData">
+            <Size X="390.0000" Y="567.0000" />
+            <AnchorPoint />
+            <Position X="-185.0000" Y="-284.0000" />
+            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition />
+            <PreSize X="0.0000" Y="0.0000" />
+            <FileData Type="PlistSubImage" Path="pokemon_card_template_x3/card_back/card_back_0.png" Plist="ccstd_assets/pokemon_card_template_x3.plist" />
+            <SingleColor A="255" R="150" G="200" B="255" />
+            <FirstColor A="255" R="150" G="200" B="255" />
+            <EndColor A="255" R="255" G="255" B="255" />
+            <ColorVector ScaleY="1.0000" />
+          </AbstractNodeData>
           <AbstractNodeData Name="Touch_Detector" ActionTag="-933704921" VisibleForFrame="False" Tag="431" IconVisible="False" LeftMargin="-185.0000" RightMargin="-205.0000" TopMargin="-283.0000" BottomMargin="-284.0000" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
             <Size X="390.0000" Y="567.0000" />
             <AnchorPoint />

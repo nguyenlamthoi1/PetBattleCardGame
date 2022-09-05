@@ -1,5 +1,5 @@
 {
-  "P01":{
+  "P1":{
     "Type": "Fire",
     "Name": "Charmander",
     "Hp": 60,
@@ -31,7 +31,7 @@
       }
     ]
   },
-  "P02":{
+  "P2":{
     "Type": "Fire",
     "Name": "Charmeleon",
     "Hp": 90,
@@ -71,7 +71,7 @@
       }
     ]
   },
-  "P03":{
+  "P3":{
     "Type": "Fire",
     "Name": "Charizard",
     "Hp": 120,

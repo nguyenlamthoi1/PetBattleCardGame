@@ -1,9 +1,4 @@
 #include "GameManager.h"
-#include "common/ResourceLoader.h"
-#include "common/ResourcePool.h"
-#include "common/LangSys.h"
-#include "common/DataManager.h"
-#include "common/event/EventManager.h"
 #include "HelloWorldScene.h"
 #include "scenes/title_scene/TitleScene.h"
 

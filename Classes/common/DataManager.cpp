@@ -13,6 +13,7 @@
 //#endif
 
 using namespace rapidjson;
+using namespace std;
 USING_NS_CC;
 
 
@@ -183,7 +184,6 @@ bool DataManager::loadPlayerData() {
 	return true;
 }
 
-
 void DataManager::clear() {
 	cardMap.clear();
 }
@@ -267,4 +267,15 @@ bool DataManager::loadOpponentsData() {
 	return true;
 }
 
+///Getters and Setters///
+std::shared_ptr<PlayerData> DataManager::getPlayerData(const string &id) {
+	if (id == "Player")
+		return player;
+	else {
+		auto itr = opponents.find(id);
+		if (itr != opponents.end())
+			return itr->second;
+	}
+	return nullptr;
+}
 

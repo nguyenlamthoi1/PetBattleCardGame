@@ -33,6 +33,10 @@ public:
 	virtual void setNormalSize() = 0;
 	virtual void returnToPool(){}
 
+	// Getters and Setters
+	virtual bool isFlippedDown() const { return flippedDown; }
+	virtual void flip() = 0; // Flip card ap xuong khi card dang ngua, va nguoc lai
+
 	/*
 		Hint: Them cac callback de xu ly dragCard
 		- moi khi function duoc call se tu dong add 1 DragComponent, va override nhung callback truoc do
@@ -56,6 +60,8 @@ protected:
 	DragHandler dragEnd = nullptr;
 	DragHandler dragIn = nullptr;
 	DragHandler dragOut = nullptr;
+
+	bool flippedDown = false;
 };
 
 class PetCard : public BSCard {
@@ -84,8 +90,11 @@ public:
 	cocos2d::ui::Text *evFromText = nullptr;
 	cocos2d::ui::ImageView *evFromImg = nullptr;
 
+	/// Getters and Setters
 	bool isEmpty() const { return !data; }
 	bool isBasic() const;
+
+	virtual void flip() override;
 private:
 	static const std::string EMPTY_PET_IMG;
 };
@@ -107,6 +116,8 @@ public:
 	cocos2d::ui::ImageView *image = nullptr;
 	virtual std::shared_ptr<const CardData> getData() override;
 	virtual void setNormalSize() override;
+
+	virtual void flip() override;
 };
 
 BATTLE_SCENE_NS_END

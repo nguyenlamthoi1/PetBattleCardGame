@@ -1,10 +1,11 @@
 #include "BattleManager.h"
 #include "BattleScene.h"
-#include "BSPlayer.h"
 #include "BSNotifier.h"
 #include "BSCard.h"
 #include "BSBoard.h"
 #include "CardHolder.h"
+
+#include "players/BSPlayer.h"
 
 #include "data/CardData.h"
 #include "data/PlayerData.h"
@@ -32,8 +33,8 @@ BattleManager::~BattleManager() {
 }
 
 void BattleManager::startGame() {
-	players[PLAYER] = make_shared<BSPlayer>(PLAYER);
-	players[OPPONENT] = make_shared<BSPlayer>(OPPONENT);
+	players[PLAYER] = make_shared<BSGamer>(btlScn, PLAYER);
+	//players[OPPONENT] = make_shared<BSPlayer>(OPPONENT);
 
 	gameState = GameState::NONE;
 	changeState(gameState, GameState::START);

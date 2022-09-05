@@ -6,11 +6,12 @@
 #include "BattleScene.h"
 #include "BattleManager.h"
 
-#include "BSPlayer.h"
 #include "prefabs/BSPrefabs.h"
 #include "common/ResourcePool.h"
 #include "common/Utilize.h"
 #include <new>
+
+#include "players/BSPlayer.h"
 
 using namespace std;
 USING_NS_CC;
@@ -175,47 +176,47 @@ bool CardHolder::tryAddPetCard(PetCard *card) {
 }
 
 bool CardHolder::tryAddEnergyCard(EnergyCard *energyCard) {
-	if (!petCard)
-		return false;
-	
-	auto energyData = dynamic_pointer_cast<const EnergyCardData>(energyCard->getData());
-	auto player = btlScn->getPlayer(ownerId);
-	auto energyAttach = player->getActionData(BSPlayer::PlayerActionId::ATTACH_ENERGY);
-	
-	if (energyAttach->doneCount >= energyAttach->maxCount)
-		return false;
+	//if (!petCard)
+	//	return false;
+	//
+	//auto energyData = dynamic_pointer_cast<const EnergyCardData>(energyCard->getData());
+	//auto player = btlScn->getPlayer(ownerId);
+	//auto energyAttach = player->getActionData(BSPlayer::PlayerActionId::ATTACH_ENERGY);
+	//
+	//if (energyAttach->doneCount >= energyAttach->maxCount)
+	//	return false;
 
-	auto eType = energyData->eType;
-	auto foundIt = energyItemMap.find(eType);
-	if (foundIt == energyItemMap.cend()) {
-		auto &eItem = energyItemMap[eType] = EnergyItem::create(eType, 1);
-		eItem->retain();
-		eItem->stack(0);
-		energyPanel->addChild(eItem);
-		
-		// Them Energy Sprite
-		auto startPos = Vec2(0, 0);
-		auto insIdx = energyItemMap.size() - 1;
-		auto spaceX = -5.0f;
-		auto ewidth = eItem->getEnergySize().width;
-		auto xinc = (eItem->getEnergySize().width + spaceX) * insIdx;
-		eItem->setPosition(startPos + xinc * Vec2(1, 0));
-	}
-	else {
-		auto &eItem = foundIt->second;
-		eItem->stack(1);
-	}
-	// Them card
-	energyCardVec.push_back(energyCard);
-	energyCard->removeFromParent();
-	energyCardMarker->addChild(energyCard);
-	auto pos = Vec2(0, 0);
-	energyCard->setPosition(pos + Vec2(50, 0));
-	energyCard->runAction(MoveTo::create(0.5f, pos));
-	showFlyingText("Energy attached");
+	//auto eType = energyData->eType;
+	//auto foundIt = energyItemMap.find(eType);
+	//if (foundIt == energyItemMap.cend()) {
+	//	auto &eItem = energyItemMap[eType] = EnergyItem::create(eType, 1);
+	//	eItem->retain();
+	//	eItem->stack(0);
+	//	energyPanel->addChild(eItem);
+	//	
+	//	// Them Energy Sprite
+	//	auto startPos = Vec2(0, 0);
+	//	auto insIdx = energyItemMap.size() - 1;
+	//	auto spaceX = -5.0f;
+	//	auto ewidth = eItem->getEnergySize().width;
+	//	auto xinc = (eItem->getEnergySize().width + spaceX) * insIdx;
+	//	eItem->setPosition(startPos + xinc * Vec2(1, 0));
+	//}
+	//else {
+	//	auto &eItem = foundIt->second;
+	//	eItem->stack(1);
+	//}
+	//// Them card
+	//energyCardVec.push_back(energyCard);
+	//energyCard->removeFromParent();
+	//energyCardMarker->addChild(energyCard);
+	//auto pos = Vec2(0, 0);
+	//energyCard->setPosition(pos + Vec2(50, 0));
+	//energyCard->runAction(MoveTo::create(0.5f, pos));
+	//showFlyingText("Energy attached");
 
 
-	energyAttach->doneCount += 1;
+	//energyAttach->doneCount += 1;
 
 	return true;
 

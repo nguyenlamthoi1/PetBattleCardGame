@@ -152,7 +152,6 @@ void PetCard::returnToPool() {
 	}
 }
 
-
 bool PetCard::init() {
 	if (!BSCard::init())
 		return false;
@@ -237,7 +236,9 @@ bool PetCard::isBasic() const {
 	return data->evStage < 1;
 }
 
+void PetCard::flip() {
 
+}
 
 /*
 	Energy Card Class
@@ -316,7 +317,6 @@ bool EnergyCard::initWithData(const std::shared_ptr<const CardData> &dta) {
 
 }
 
-
 std::shared_ptr<const CardData> EnergyCard::getData() {
 	return data;
 }
@@ -324,6 +324,10 @@ std::shared_ptr<const CardData> EnergyCard::getData() {
 void EnergyCard::setNormalSize() {
 	this->setScale(1.0f);
 	cardNode->setScale(1.0f);
+}
+
+void EnergyCard::flip() {
+
 }
 
 BATTLE_SCENE_NS_END

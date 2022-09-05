@@ -1,41 +1,41 @@
 {
-    "E01":{
+    "E1":{
         "Type" : "Normal",
         "Num" : 1,
         "Image" : "energy_image_x3/normal_energy_img_x3_0.png",
         "Name" : "Energy"
     },
-    "E02":{
+    "E2":{
         "Type" : "Fire",
         "Num" : 1,
         "Image" : "energy_image_x3/fire_energy_img_x3_0.png",
         "Name" : "Energy"
     },
-    "E03":{
+    "E3":{
         "Type" : "Water",
         "Num" : 1,
         "Image" : "energy_image_x3/water_energy_img_x3_0.png",
         "Name" : "Energy"
     },
-    "E04":{
+    "E4":{
         "Type" : "Grass",
         "Num" : 1,
         "Image" : "energy_image_x3/grass_energy_img_x3_0.png",
         "Name" : "Energy"
     },
-    "E05":{
+    "E5":{
         "Type" : "Electric",
         "Num" : 1,
         "Image" : "energy_image_x3/electric_energy_img_x3_0.png",
         "Name" : "Energy"
     },
-    "E06":{
+    "E6":{
         "Type" : "Fighting",
         "Num" : 1,
         "Image" : "energy_image_x3/fighting_energy_img_x3_0.png",
         "Name" : "Energy"
     },
-    "E07":{
+    "E7":{
         "Type" : "Psychic",
         "Num" : 1,
         "Image" : "energy_image_x3/psychic_energy_img_x3_0.png",

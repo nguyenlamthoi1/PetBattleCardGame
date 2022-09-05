@@ -3,9 +3,11 @@
 #include "../BattleManager.h"
 #include "../BSHand.h"
 #include "../BSCoinFlipper.h"
-#include "../BSPlayer.h"
 #include "../BSNotifier.h"
 #include "../BSBoard.h"
+
+#include "../players/BSPlayer.h"
+
 
 #include <algorithm>
 
@@ -196,7 +198,7 @@ void SetupAction::start() {
 	if (playerId == PLAYER) {
 		auto notifier = btlScn->getNotifier();
 		notifier->showMsg("Drag a Pokemon to your Active Spot");
-		player->doSetup();
+		player->startSetup();
 
 		if (playPetListener)
 			playPetListener->release();

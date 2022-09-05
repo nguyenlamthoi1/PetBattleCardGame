@@ -1,6 +1,10 @@
 #ifndef __EVENT_MANAGER_H__
 #define __EVENT_MANAGER_H__
 
+#include "EventHandler.h"
+#include "EventHandlerVec.h"
+#include "MEvent.h"
+
 #include <string>
 #include <unordered_map>
 #include <vector>
@@ -32,7 +36,7 @@ public:
 	void addEventHandlerWithPriority(const std::shared_ptr<EventHandler> &handler, int p);
 
 	///Remove handlers///
-	void removeHandler(const std::shared_ptr<EventHandler> handler);
+	void removeHandler(const std::shared_ptr<EventHandler> &handler);
 	void removeHandlerForTarget(void *target);
 	void removeHandlersWithEventID(void *target, const EventID& customEventName);
 	void removeAllHandlers();
@@ -53,6 +57,7 @@ private:
 
 	void addHandler(const std::shared_ptr<EventHandler> &handler);
 	void forceAddHandler(const std::shared_ptr<EventHandler> &handler);
+	void sortHandlers(void *target, const EventID &evId);
 	void sortHandlersWithPriority(void *target, const EventID &evId);
 
 	std::unordered_map<TargetID, std::unordered_map<EventID, std::shared_ptr<EventHandlerVec>>> handlersMap;

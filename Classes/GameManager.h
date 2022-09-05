@@ -1,7 +1,14 @@
 #ifndef __GAME_MANAGER_H__
 #define __GAME_MANAGER_H__
 
+#include "common/ResourceLoader.h"
+#include "common/ResourcePool.h"
+#include "common/LangSys.h"
+#include "common/DataManager.h"
+#include "common/event/EventManager.h"
+
 #include "cocos2d.h"
+
 #include <memory>
 
 namespace ResourceLoaderNS {

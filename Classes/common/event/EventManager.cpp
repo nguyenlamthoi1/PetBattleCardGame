@@ -26,7 +26,7 @@ void EventManager::dispatchEvent(const shared_ptr<MEvent> &ev) {
 	auto target = ev->getTarget();
 	auto evId = ev->getEventId();
 	
-	sortHandlersWithPriority(target, evId);
+	sortHandlers(target, evId);
 
 	auto targetMap = handlersMap[target];
 	auto iter = targetMap.find(evId);
@@ -130,6 +130,26 @@ void EventManager::forceAddHandler(const shared_ptr<EventHandler> &handler) {
 	setDirty(target, evId, DirtyFlag::PRIORITY);
 }	
 
+void EventManager::sortHandlers(void *target, const EventID &evId) {
+	DirtyFlag dirtyFlag = DirtyFlag::NONE;
+
+	auto &targetMap = priorityDirtyFlagMap[target];
+	auto dirtyIter = targetMap.find(evId);
+	if (dirtyIter != targetMap.end())
+		dirtyFlag = dirtyIter->second;
+
+
+	if (dirtyFlag != DirtyFlag::NONE)
+	{
+		// Clear the dirty flag first
+		dirtyIter->second = DirtyFlag::NONE;
+
+		if ((int)dirtyFlag & (int)DirtyFlag::PRIORITY)
+			sortHandlersWithPriority(target, evId);
+		
+	}
+}
+
 void EventManager::sortHandlersWithPriority(void *target, const EventID &evId) {
 	auto handlersVec = handlersMap[target][evId];
 
@@ -154,7 +174,7 @@ void EventManager::sortHandlersWithPriority(void *target, const EventID &evId) {
 }
 
 ///Remove Handlers///
-void EventManager::removeHandler(const shared_ptr<EventHandler> handler) {
+void EventManager::removeHandler(const shared_ptr<EventHandler> &handler) {
 	if (!handler)
 		return;
 

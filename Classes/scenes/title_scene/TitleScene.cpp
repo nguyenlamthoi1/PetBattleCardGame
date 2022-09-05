@@ -5,7 +5,7 @@
 #include "common/LangSys.h"
 #include "components/WidgetTouchComponent.h"
 #include "define/CommonDefine.h"
-#include "scenes/battle_scene/BattleScene.h"
+#include "scenes/battle_scene_3/BattleScene.h"
 
 #include "ui/UIHelper.h"
 
@@ -14,7 +14,7 @@
 
 USING_NS_CC;
 WIDGET_TOUCH_USE_NS;
-BATTLE_SCENE_USE_NS;
+//BATTLE_SCENE_USE_NS;
 using namespace std;
 
 TitleScene* TitleScene::create() {
@@ -168,7 +168,7 @@ void TitleScene::showOptions(const vector<Option> &opVec) {
 void TitleScene::doPlayGame() {
 	CCLOG("TitleScene: start game");
 	auto gm = GameManager::getInstance();
-	gm->changeSceneFade(BattleScene::create());
+	gm->changeSceneFade(BattleSceneNS::BattleScene::create());
 }
 void TitleScene::doContinue() {
 	CCLOG("TitleScene: continue game");

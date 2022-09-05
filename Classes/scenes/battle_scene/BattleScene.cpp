@@ -4,12 +4,12 @@
 #include "BSHand.h"
 #include "BSDeck.h"
 #include "BSBoard.h"
-#include "BSPlayer.h"
 #include "BSCard.h"
 #include "BSCoinFlipper.h"
 #include "BSNotifier.h"
 
 #include "actions/BSAction.h"
+#include "players/BSPlayer.h"
 
 #include "GameManager.h"
 #include "common/ResourceLoader.h"
@@ -110,7 +110,7 @@ bool BattleScene::init() {
 	playerData[OPPONENT] = dataMgr->getOpponentData(oppId);
 
 	// Khoi tao du lieu player trong game
-	players[PLAYER] = make_shared<BSPlayer>(PLAYER);
+	//players[PLAYER] = make_shared<BSGamer>(PLAYER);
 	//players[OPPONENT] = make_shared<BSPlayer>(OPPONENT);
 
 	// Khoi tao Hand

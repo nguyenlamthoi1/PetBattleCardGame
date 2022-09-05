@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -148,6 +148,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
+    <ClCompile Include="..\Classes\base_classes\EventsHandler\IEventsHandler.cpp" />
     <ClCompile Include="..\Classes\common\DataManager.cpp" />
     <ClCompile Include="..\Classes\common\event\EventHandler.cpp" />
     <ClCompile Include="..\Classes\common\event\EventHandlerVec.cpp" />
@@ -168,26 +169,35 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\data\PlayerData.cpp" />
     <ClCompile Include="..\Classes\GameManager.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
-    <ClCompile Include="..\Classes\scenes\battle_scene\actions\BSAction.cpp" />
-    <ClCompile Include="..\Classes\scenes\battle_scene\BattleManager.cpp" />
-    <ClCompile Include="..\Classes\scenes\battle_scene\BattleScene.cpp" />
-    <ClCompile Include="..\Classes\scenes\battle_scene\BMPlayer.cpp" />
-    <ClCompile Include="..\Classes\scenes\battle_scene\BSBoard.cpp" />
-    <ClCompile Include="..\Classes\scenes\battle_scene\BSCard.cpp" />
-    <ClCompile Include="..\Classes\scenes\battle_scene\BSCoinFlipper.cpp" />
-    <ClCompile Include="..\Classes\scenes\battle_scene\BSDeck.cpp" />
-    <ClCompile Include="..\Classes\scenes\battle_scene\BSDefine.cpp" />
-    <ClCompile Include="..\Classes\scenes\battle_scene\BSHand.cpp" />
-    <ClCompile Include="..\Classes\scenes\battle_scene\BSNotifier.cpp" />
-    <ClCompile Include="..\Classes\scenes\battle_scene\BSPlayer.cpp" />
-    <ClCompile Include="..\Classes\scenes\battle_scene\CardHolder.cpp" />
-    <ClCompile Include="..\Classes\scenes\battle_scene\prefabs\EnergyItem.cpp" />
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\BattleScene.cpp" />
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\BSCard.cpp" />
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\BSDeck.cpp" />
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\BSDefine.cpp" />
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\BSHand.cpp" />
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\BSResources.cpp" />
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\define\ErrorDefine.cpp" />
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\game\BattleMaster.cpp" />
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\game\GameDefine.cpp" />
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\game\game_actions\GameAction.cpp" />
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\game\game_state\Board.cpp" />
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\game\game_state\card\Card.cpp" />
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\game\game_state\card\EnergyCard.cpp" />
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\game\game_state\card\PetCard.cpp" />
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\game\game_state\Deck.cpp" />
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\game\game_state\GameState.cpp" />
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\game\game_state\Hand.cpp" />
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\game\game_state\Holder.cpp" />
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\game\game_state\Player.cpp" />
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\game\player_actions\PlayerAction.cpp" />
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\scene_actions\BSAction.cpp" />
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\scene_actions\BSActor.cpp" />
     <ClCompile Include="..\Classes\scenes\loading_scene\LoadingScene.cpp" />
     <ClCompile Include="..\Classes\scenes\title_scene\TitleScene.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Classes\AppDelegate.h" />
+    <ClInclude Include="..\Classes\base_classes\EventsHandler\IEventsHandler.h" />
     <ClInclude Include="..\Classes\common\DataManager.h" />
     <ClInclude Include="..\Classes\common\event\EventHandler.h" />
     <ClInclude Include="..\Classes\common\event\EventHandlerVec.h" />
@@ -208,6 +218,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\data\MoveData.h" />
     <ClInclude Include="..\Classes\data\PlayerData.h" />
     <ClInclude Include="..\Classes\define\CommonDefine.h" />
+    <ClInclude Include="..\Classes\define\GameConfig.h" />
     <ClInclude Include="..\Classes\GameManager.h" />
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
     <ClInclude Include="..\Classes\include\rapidjson\allocators.h" />
@@ -248,20 +259,26 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\include\rapidjson\stringbuffer.h" />
     <ClInclude Include="..\Classes\include\rapidjson\uri.h" />
     <ClInclude Include="..\Classes\include\rapidjson\writer.h" />
-    <ClInclude Include="..\Classes\scenes\battle_scene\actions\BSAction.h" />
-    <ClInclude Include="..\Classes\scenes\battle_scene\BattleManager.h" />
-    <ClInclude Include="..\Classes\scenes\battle_scene\BattleScene.h" />
-    <ClInclude Include="..\Classes\scenes\battle_scene\BSBoard.h" />
-    <ClInclude Include="..\Classes\scenes\battle_scene\BSCard.h" />
-    <ClInclude Include="..\Classes\scenes\battle_scene\BSCoinFlipper.h" />
-    <ClInclude Include="..\Classes\scenes\battle_scene\BSDeck.h" />
-    <ClInclude Include="..\Classes\scenes\battle_scene\BSDefine.h" />
-    <ClInclude Include="..\Classes\scenes\battle_scene\BMPlayer.h" />
-    <ClInclude Include="..\Classes\scenes\battle_scene\BSHand.h" />
-    <ClInclude Include="..\Classes\scenes\battle_scene\BSNotifier.h" />
-    <ClInclude Include="..\Classes\scenes\battle_scene\BSPlayer.h" />
-    <ClInclude Include="..\Classes\scenes\battle_scene\CardHolder.h" />
-    <ClInclude Include="..\Classes\scenes\battle_scene\prefabs\BSPrefabs.h" />
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\BattleScene.h" />
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\BSCard.h" />
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\BSDeck.h" />
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\BSDefine.h" />
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\BSHand.h" />
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\BSResources.h" />
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\define\ErrorDefine.h" />
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\game\BattleMaster.h" />
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\game\GameDefine.h" />
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\game\game_actions\GameAction.h" />
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\game\game_state\Board.h" />
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\game\game_state\card\Card.h" />
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\game\game_state\Deck.h" />
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\game\game_state\GameState.h" />
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\game\game_state\Hand.h" />
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\game\game_state\Holder.h" />
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\game\game_state\Player.h" />
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\game\player_actions\PlayerAction.h" />
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\scene_actions\BSAction.h" />
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\scene_actions\BSActor.h" />
     <ClInclude Include="..\Classes\scenes\loading_scene\LoadingScene.h" />
     <ClInclude Include="..\Classes\scenes\title_scene\TitleScene.h" />
     <ClInclude Include="main.h" />
