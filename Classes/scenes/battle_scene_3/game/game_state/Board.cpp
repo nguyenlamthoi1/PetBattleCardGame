@@ -26,6 +26,11 @@ bool Board::init() {
 	return true;
 }
 
+Board::BoardPtr Board::clone() const {
+	//TODO
+	return nullptr;
+}
+
 
 
 NS_GAME_END

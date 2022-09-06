@@ -118,6 +118,7 @@ private:
 	PipelineState pipState = PipelineState::Wait;
 	using ActionPtr = std::shared_ptr<BSAction>;
 	std::list<ActionPtr> pipeline;
+	float waitTime = 0.0f; // Neu waitTime la thoi gian pipeline phai doi truoc khi tiep tuc xu ly pipeline
 
 public:
 	void updatePipeline(float dt);
@@ -126,7 +127,7 @@ public:
 	void clearPipeline();
 	void pushAction(const ActionPtr &ptr);
 	void pushActions(std::initializer_list<ActionPtr> list);
-
+	void setPipelineWait(float t) { waitTime = t; }
 	///--Action pipeline-end--
 
 	/// Utilize functions

@@ -17,44 +17,25 @@ USING_NS_CC;
 
 BATTLE_SCENE_NS_BEG
 
-BSAction::BSAction() : state(State::Wait), bs(nullptr) {}
+/*
+	BSAction Class
+*/
 
-BSAction::BSAction(shared_ptr<BattleManager> &bm) : state(State::Wait), bs(nullptr), btlMgr(bm) {}
+BSAction::BSAction() : state(State::Wait) {}
 
 BSAction::~BSAction() {}
 
-void BSAction::start() {
-	state = State::Processed;
-}
-
-void BSAction::end() {
-	state = State::Done;
-	pop();
-}
-
-void BSAction::pushedTo(BattleScene *battleScene){
-
-}
-
-void BSAction::pop() {
-
-}
+void BSAction::executeOn(BattleScene *btlScn) { state = State::Done; }
 
 /*
 	CustomAction Class
 */
 
-CustomAction::ActionPtr CustomAction::createShPtr(const CustomFunction &f) {
-	return make_shared<CustomAction>(f);
-}
+CustomAction::CustomAction(const std::function<void()> &f) : doFunc(f) {}
 
-CustomAction::CustomAction(const std::function<void()> &f) : doFunc(f) {
-}
+CustomAction::~CustomAction() {}
 
-CustomAction::~CustomAction() {
-}
-
-void CustomAction::start() {
+void CustomAction::executeOn(BattleScene *btlScn) {
 	if (state != State::Wait)
 		return;
 	state = State::Processed;
@@ -63,7 +44,31 @@ void CustomAction::start() {
 	state = State::Done;
 }
 
-void CustomAction::end() {}
+/*
+	SequenceAction Class
+*/
+
+std::shared_ptr<SequenceAction> SequenceAction::create(std::initializer_list<ActionPtr> list) {
+	auto ret = std::shared_ptr<SequenceAction>(new SequenceAction(list));
+	return ret;
+}
+
+SequenceAction::SequenceAction(initializer_list<ActionPtr> list) {
+	actions.insert(actions.cend(), list.begin(), list.end());
+}
+
+SequenceAction::~SequenceAction() {}
+
+void SequenceAction::executeOn(BattleScene *btlScn) {
+	if (state != State::Wait)
+		return;
+	state = State::Processed;
+	
+	for (const auto &action : actions)
+		btlScn->pushAction(action);
+
+	state = State::Done;
+}
 
 /*
 	WaitAction Class
@@ -71,13 +76,10 @@ void CustomAction::end() {}
 
 const string WaitAction::WAIT_ACTION_SCHEDULER = "WAIT_ACTION_SCHEDULER";
 
-WaitAction::ActionPtr WaitAction::createShPtr(float t) {
-	return make_shared<WaitAction>(t);
-}
 WaitAction::WaitAction(float t) : waitTime(t) {}
 WaitAction::~WaitAction() {}
 
-void WaitAction::start() {
+void WaitAction::executeOn(BattleScene *btlScn) {
 	if (state != State::Wait)
 		return;
 
@@ -86,16 +88,10 @@ void WaitAction::start() {
 		state = State::Done;
 		}, this, 0, 0, waitTime, false, WAIT_ACTION_SCHEDULER);
 }
-void WaitAction::end() {}
-
 
 /*
 	DrawCardAction Class
 */
-
-DrawCardAction::ActionPtr DrawCardAction::createShPtr(const PlayerIdType &id, size_t n, CardList list) {
-	return make_shared<DrawCardAction>(id, n, list);
-}
 
 DrawCardAction::DrawCardAction(const PlayerIdType &id, size_t n, CardList list) : pid(id), drawnNum(n) {
 	drawnCards.reserve(GConfig::CARD_NUM_IN_DECK_MAX);
@@ -122,23 +118,20 @@ void DrawCardAction::setDraw(size_t n, const vector<CardId> &list) {
 	drawnCards.insert(drawnCards.cend(), list.begin(), list.end());
 }
 
-void DrawCardAction::start() {
+void DrawCardAction::executeOn(BattleScene *btlScn) {
 	if (state != State::Wait)
 		return;
 
 	state = State::Processed;
-	auto btlScn = BattleScene::getScene();
 	auto hand = btlScn->getHand(pid);
 	bool isPlayerId = pid == PLAYER_ID;
-		hand->drawCards(drawnNum, drawnCards);
+	hand->drawCards(drawnNum, drawnCards, !isPlayerId);
 	onDrawnDone = hand->addEventHandler(BSHand::EV_DRAW_ACTION_DONE, [this, hand](const std::shared_ptr<MEvent>&) {
-		CCLOG("Action Drawn Done");
 		state = State::Done;
 		hand->removeHandler(onDrawnDone);
 		});
 }
 
-void DrawCardAction::end() {}
 
 /*
 	FlipCoinAction
@@ -256,5 +249,30 @@ void DrawCardAction::end() {}
 //
 //
 //void SetupAction::end(){}
+
+/*
+	GameOverAction Class
+*/
+
+GameOverAction::GameOverAction(const PlayerIdType &pid) : winnerId(pid) {}
+
+GameOverAction::~GameOverAction(){}
+
+void GameOverAction::executeOn(BattleScene *btlScn) {
+	if (state != State::Wait)
+		return;
+
+	state = State::Processed;
+
+	auto foundWinner = !winnerId.empty();
+	if (foundWinner) {
+		CCLOG("GameOver: %s won", winnerId.c_str());
+	}
+	else {
+		CCLOG("GameOver: no winner", winnerId.c_str());
+	}
+
+	state = State::Done;
+}
 
 BATTLE_SCENE_NS_END

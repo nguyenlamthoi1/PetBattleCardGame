@@ -51,8 +51,8 @@ bool BSDeck::init() {
 
 	auto playerData = btlScn->getPlayerData(pid);
 	auto deck = playerData->getCurDeck();
-	curNum = 0;
 	orgTotal = deck.size();
+	curNum = orgTotal;
 	setDeckText(orgTotal, orgTotal);
 }
 

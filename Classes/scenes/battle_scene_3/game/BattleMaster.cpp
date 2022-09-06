@@ -1,6 +1,7 @@
 #include "BattleMaster.h"
 #include "game_state/GameState.h"
 #include "game_actions/GameAction.h"
+#include "../BattleScene.h"
 
 #include "GameManager.h"
 #include "data/PlayerData.h"
@@ -62,11 +63,18 @@ void BattleMaster::endGame() {
 }
 
 void BattleMaster::gameLoop(float t) {
+	if (gstate->isGameOver())
+		return;
+
 	auto& actionQueue = gstate->actionQueue;
+	auto btlScn = BattleSceneNS::BattleScene::getScene();
+
 	if (!actionQueue.empty()) {
 		auto curAction = actionQueue.front();
-		if (curAction->state == GameAction::State::Wait)
-			curAction->start();
+		if (curAction->state == GameAction::State::Wait) {
+			curAction->executeOn(gstate); // Thuc thi tung action
+			btlScn->pushAction(curAction->getBSAction()); // Them animation cho scene thuc thi
+		}
 		else if (curAction->state == GameAction::State::Done)
 			actionQueue.pop_front();
 	}
@@ -74,6 +82,13 @@ void BattleMaster::gameLoop(float t) {
 
 std::shared_ptr<GameAction> BattleMaster::getCurrentAction() const {
 	return gstate->actionQueue.front();
+}
+
+void BattleMaster::onPlayerDoEndGame() {
+	//TODO
+}
+void BattleMaster::onPlayerDoRestartGame() {
+
 }
 
 ActionError BattleMaster::onPlayerChooseAction(const GameAction &acti) {

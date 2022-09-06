@@ -15,7 +15,6 @@ class EventHandler;
 BATTLE_SCENE_NS_BEG
 
 class BattleScene;
-class BattleManager;
 
 class BSAction {
 public:
@@ -23,7 +22,10 @@ public:
 
 	enum class ActionType{
 		None,
+
 		Custom,
+		Sequence,
+
 		Wait,
 		Draw_Card,
 		Setup
@@ -38,51 +40,51 @@ public:
 	using ActionPtr = std::shared_ptr<BSAction>;
 
 	BSAction();
-	BSAction(std::shared_ptr<BattleManager> &bm);
 	virtual ~BSAction();
 
-	virtual void start() = 0;
-	virtual void end() = 0;
+	virtual void executeOn(BattleScene *btlScn) = 0;
 	virtual ActionType getType() const = 0;
 
-	void pushedTo(BattleScene *bs); // * Khong virtual, tat ca subClass se deu su dung function nay
-	void pop();
-
 	State state = State::Wait;
-	int pipIdx = -1;
-protected:
-	BattleScene *bs;
-	std::shared_ptr<BattleManager> btlMgr;
 };
 
+
+class SequenceAction : public BSAction {
+public:
+	using ActionPtr = std::shared_ptr<BSAction>;
+
+	static std::shared_ptr<SequenceAction> create(std::initializer_list<ActionPtr> list);
+	
+	SequenceAction() = default;
+	SequenceAction(std::initializer_list<ActionPtr> list);
+	virtual ~SequenceAction();
+
+	virtual void executeOn(BattleScene *btlScn) override;
+	virtual ActionType getType() const override { return ActionType::Sequence; }
+protected:
+	std::list<std::shared_ptr<BSAction>> actions;
+};
 
 class CustomAction : public BSAction{
 public:
 	using CustomFunction = std::function<void()>;
-	using ActionPtr = std::shared_ptr<CustomAction>;
-	static ActionPtr createShPtr(const  CustomFunction&f);
 	CustomAction(const CustomFunction &f);
 	virtual ~CustomAction();
 
-	virtual void start() override;
-	virtual void end() override;
-	virtual ActionType getType() const override { return ActionType::Draw_Card; }
+	virtual void executeOn(BattleScene *btlScn) override;
+	virtual ActionType getType() const override { return ActionType::Custom; }
 protected:
 	std::function<void()> doFunc;
 };
 
-
 class WaitAction : public BSAction {
 public:
-	using ActionPtr = std::shared_ptr<WaitAction>;
 	static const std::string WAIT_ACTION_SCHEDULER;
-	static ActionPtr createShPtr(float t);
 	WaitAction(float t);
 	virtual ~WaitAction();
 
-	virtual void start() override;
-	virtual void end() override;
-	virtual ActionType getType() const override { return ActionType::Draw_Card; }
+	virtual void executeOn(BattleScene *btlScn) override;
+	virtual ActionType getType() const override { return ActionType::Wait; }
 protected:
 	float waitTime = 0.0f;
 };
@@ -91,9 +93,6 @@ class DrawCardAction : public BSAction {
 public:
 	using CardId = std::string;
 	using CardList = std::initializer_list<CardId>;
-	using ActionPtr = std::shared_ptr<DrawCardAction>;
-
-	static ActionPtr createShPtr(const PlayerIdType &id, size_t n, CardList list);
 
 	DrawCardAction() = default;
 	DrawCardAction(const PlayerIdType &id);
@@ -105,8 +104,7 @@ public:
 	virtual void setDraw(size_t, CardList list);
 	virtual void setDraw(size_t, const std::vector<CardId> &list);
 
-	virtual void start() override;
-	virtual void end() override;
+	virtual void executeOn(BattleScene *btlScn) override;
 	virtual ActionType getType() const override { return ActionType::Custom; }
 	
 protected:
@@ -163,5 +161,17 @@ protected:
 //	cocos2d::EventListenerCustom *playPetListener = nullptr;
 //	
 //};
+
+class GameOverAction : public BSAction {
+public:
+	
+	GameOverAction(const PlayerIdType &pid = "");
+	virtual ~GameOverAction();
+
+	virtual void executeOn(BattleScene *btlScn) override;
+	virtual ActionType getType() const override { return ActionType::Sequence; }
+protected:
+	PlayerIdType winnerId;
+};
 
 BATTLE_SCENE_NS_END

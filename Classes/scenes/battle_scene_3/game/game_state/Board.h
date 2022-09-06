@@ -18,6 +18,8 @@ public:
 	virtual ~Board();
 	virtual bool init();
 
+	BoardPtr clone() const;
+
 protected:
 	PlayerIdType pid = PlayerIdInvalid;
 

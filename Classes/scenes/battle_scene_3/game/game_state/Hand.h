@@ -25,6 +25,7 @@ public:
 	void pushCards(const CardVector &pushedCards);
 	void pushCard(const std::shared_ptr<Card> &pushedCard);
 
+	HandPtr clone() const;
 protected:
 	PlayerIdType pid = PlayerIdInvalid;
 	CardVector cardVec;

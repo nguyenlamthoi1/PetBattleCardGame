@@ -246,7 +246,7 @@ void PetCard::setFlip(bool flip, bool anim) {
 		//TODO
 	}
 	else {
-		cardBack->setVisible(!flip);
+		cardBack->setVisible(flip);
 	}
 }
 
@@ -346,7 +346,7 @@ void EnergyCard::setFlip(bool flip, bool anim ) {
 		//TODO
 	}
 	else {
-		cardBack->setVisible(!flip);
+		cardBack->setVisible(flip);
 	}
 }
 BATTLE_SCENE_NS_END

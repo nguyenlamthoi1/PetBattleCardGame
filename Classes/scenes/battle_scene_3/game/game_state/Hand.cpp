@@ -34,6 +34,10 @@ bool Hand::isEmpty() const {
 	return cardVec.empty();
 }
 
+Hand::HandPtr Hand::clone() const {
+	//TODO
+	return nullptr;
+}
 
 
 NS_GAME_END

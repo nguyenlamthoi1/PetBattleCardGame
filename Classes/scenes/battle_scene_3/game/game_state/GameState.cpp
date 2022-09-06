@@ -2,6 +2,7 @@
 #include "Deck.h"
 #include "Hand.h"
 #include "Board.h"
+#include "Player.h"
 #include "card/Card.h"
 #include "../game_actions/GameAction.h"
 
@@ -73,10 +74,18 @@ bool GameState::initBoard(const PlayerIdType &id) {
 	return true;
 }
 
+bool GameState::initPlayer(const PlayerIdType &id) {
+	players.insert({ id, Player::createShPtr(id) });
+	return true;
+}
+
+
 void GameState::startGame() {
 	actionQueue.insert(actionQueue.cend(), {
-		make_shared<DrawAction>(DrawAction::DrawType::FromTop, pids[0], GConfig::DRAW_NUM_ON_START),
-		make_shared<DrawAction>(DrawAction::DrawType::FromTop,  pids[1], GConfig::DRAW_NUM_ON_START),
+		//make_shared<DrawAction>(DrawAction::DrawType::FromTop, pids[0], GConfig::DRAW_NUM_ON_START),
+		//make_shared<DrawAction>(DrawAction::DrawType::FromTop,  pids[1], GConfig::DRAW_NUM_ON_START),
+		make_shared<FirstDrawAction>(pids[0], GConfig::DRAW_NUM_ON_START),
+		make_shared<FirstDrawAction>(pids[1], GConfig::DRAW_NUM_ON_START),
 		});
 }
 
@@ -85,6 +94,11 @@ void GameState::clearState() {
 	decks.clear();
 	hands.clear();
 	boards.clear();
+}
+
+void GameState::setGameOver(const PlayerIdType & wid) {
+	winnerId = wid;
+	gameOver = false;
 }
 
 /// Getter, Setter & Checkers
@@ -109,17 +123,73 @@ std::shared_ptr<Board> GameState::getBoard(const PlayerIdType &pid) const {
 	return nullptr;
 }
 
+std::shared_ptr<Player> GameState::getPlayer(const PlayerIdType &pid) const {
+	auto itr = players.find(pid);
+	if (itr != players.end())
+		return itr->second;
+	return nullptr;
+}
+
 bool GameState::empty() const {
 	return pids.empty();
 }
 
+bool GameState::isGameOver() const {
+	return gameOver;
+}
+
+PlayerIdType GameState::getWinnerId() const {
+	return winnerId;
+}
+
+PlayerIdType GameState::getOpponentOf(const PlayerIdType &pid) const {
+	return pid == pids[0] ? pids[1] : pids[0];
+}
+
 
 /// Actions to update Game State
+
+void GameState::pushAction(const std::shared_ptr<GameAction> &action) {
+	actionQueue.push_back(action);
+}
+void GameState::pushActions(std::initializer_list<std::shared_ptr<GameAction>> actions) {
+	for (const auto &action : actions) 
+		actionQueue.push_back(action);
+}
 
 ActionError GameState::onPlayerDrawCard(const PlayerIdType &pid, unsigned int num) {
 	//TODO
 	return ActionError::Succeeded;
 }
 
+std::shared_ptr<GameState> GameState::clone() const {
+	shared_ptr<GameState> cloneState;
+	
+	// Clone ActionQueue
+	auto &clActionQueue = cloneState->actionQueue;
+	for (const auto &action : actionQueue) 
+		clActionQueue.emplace_back(action->clone());
+
+	for (const auto &id : pids) {
+		// Clone Hand
+		auto handItr = hands.find(id);
+		if (handItr != hands.cend())
+			cloneState->hands.insert({ id, handItr->second->clone() });
+		// Clone Deck
+		auto deckItr = decks.find(id);
+		if (deckItr != decks.cend())
+			cloneState->decks.insert({ id, deckItr->second->clone() });
+		// Clone Board
+		auto boardItr = boards.find(id);
+		if (boardItr != boards.cend())
+			cloneState->boards.insert({ id, boardItr->second->clone() });
+		// Clone Player
+		auto playerItr = players.find(id);
+		if (playerItr != players.cend())
+			cloneState->players.insert({ id, playerItr->second->clone() });
+	}
+
+	return nullptr;
+}
 
 NS_GAME_END

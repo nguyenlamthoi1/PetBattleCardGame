@@ -252,11 +252,16 @@ std::shared_ptr<BSDeck> BattleScene::getDeck(const PlayerIdType &id) { return de
 const string BattleScene::PIPELINE_SCHEDULER = "PIPELINE_SCHEDULER";
 
 void BattleScene::updatePipeline(float dt) {
+	//if (waitTime > 0.0f) {
+	//	waitTime -= dt;
+	//	return;
+	//}
+
 	if (!pipeline.empty()) {
 		auto first = *(pipeline.begin());
 		if (first->state == BSAction::State::Wait) {
 			pipState = PipelineState::Process;
-			first->start();
+			first->executeOn(this);
 		}
 		else if (first->state == BSAction::State::Done) { // Action ket thuc
 			pipeline.pop_front();

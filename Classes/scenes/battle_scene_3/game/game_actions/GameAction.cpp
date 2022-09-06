@@ -16,6 +16,19 @@ using namespace BattleSceneNS;
 
 NS_GAME_BEGIN
 
+/*
+	GameAction Class
+*/
+
+std::shared_ptr<GameAction> GameAction::clone() const {
+	return nullptr;
+}
+
+std::shared_ptr<BSAction> GameAction::getBSAction() const {
+	return nullptr;
+}
+
+
 
 /*
 	CustomAction Class
@@ -35,62 +48,157 @@ NS_GAME_BEGIN
 /*
 	DrawAction Class
 */
-DrawAction::DrawAction(DrawType drType, const PlayerIdType &id, unsigned int num) : drawType(drType), pid(id), drawnNum(num) {
-	CCLOG("DrawAction::ctor called %d", this);
 
-}
+FirstDrawAction::FirstDrawAction(const PlayerIdType &id, unsigned int num) : pid(id), drawnNum(num) {}
 
-DrawAction::~DrawAction() {
-	CCLOG("DrawAction::dtor called %d", this);
-};
+FirstDrawAction::~FirstDrawAction() {};
 
-void DrawAction::start() {
+void FirstDrawAction::executeOn(const shared_ptr<GameState> &gstate) {
 	state = State::Process;
 
-	auto gstate = BattleMaster::get()->getGameState();
-	
 	auto deck = gstate->getDeck(pid);
 
-	if (drawType == DrawType::FromTop) {
-		Deck::CardVector cardsVec;
-		deck->popTop(drawnNum, cardsVec);
+	cardIdsVec.clear();
+	auto tempDrawnNum = drawnNum;
+	if (drawnNum > 0) {
+		vector<shared_ptr<Card>> cardObjVec;
 
-		// Push Animation
-		auto bs = BattleScene::getScn();
-		vector<string> cardIdsVec;
-		for (const auto &card : cardsVec) // *Tao vector chua card id
-			cardIdsVec.emplace_back(card->getId());
+		// Lay ra 1 la bai basic pet
+		deck->popTopWithABasicPet(1, cardObjVec);
+		tempDrawnNum -= cardObjVec.size();
 
-		bs->pushActions({ 
-			make_shared<BattleSceneNS::DrawCardAction>(pid, drawnNum, cardIdsVec),
-			make_shared<BattleSceneNS::WaitAction>(1.0f)
-			});
+		// Neu rut duoc 1 la bai basic pet
+		if (!cardObjVec.empty()) {
+			auto petCard = cardObjVec.back();
+			cardObjVec.clear();
+
+			// Rut them 6 la con lai
+			deck->popTop(tempDrawnNum, cardObjVec);
+
+			// Shuffle pet card vao 7 la nay
+			auto insertIdx = cocos2d::RandomHelper::random_int(0, (int)cardObjVec.size());
+			cardObjVec.insert(cardObjVec.cbegin() + insertIdx, petCard);
+
+			// Bo 7 la vao hand
+			auto hand = gstate->getHand(pid);
+			hand->pushCards(cardObjVec);
+
+			// Cap nhat result vector
+			for (const auto& cardObj : cardObjVec) 
+				cardIdsVec.emplace_back(cardObj->getId());
+		}
+		else {
+			// Khong co bai basic pet thi cho ket thuc game luon
+			gstate->pushAction(make_shared<GameOverAction>());
+		}
 	}
-	else if(drawType == DrawType::FromBottom){
-		Deck::CardVector cardsVec;
-		deck->popBottom(drawnNum, cardsVec);
 
-		// Push Animation
-		auto bs = BattleScene::getScn();
-		vector<string> cardIdsVec;
-		for (const auto &card : cardsVec) // *Tao vector chua card id
-			cardIdsVec.emplace_back(card->getId());
-
-		bs->pushActions({
-			make_shared<BattleSceneNS::DrawCardAction>(pid, drawnNum, cardIdsVec),
-			make_shared<BattleSceneNS::WaitAction>(1.0f)
-			});
-	}
-	
 	state = State::Done;
 }
 
-void DrawAction::startDrawFromBottom() {
-
+std::shared_ptr<BattleSceneNS::BSAction> FirstDrawAction::getBSAction() const {
+	return BattleSceneNS::SequenceAction::create({
+		make_shared<BattleSceneNS::DrawCardAction>(pid, drawnNum, cardIdsVec),
+		make_shared<BattleSceneNS::WaitAction>(1.0f)
+		});
 }
 
-void DrawAction::startDrawTop() {
+std::shared_ptr<GameAction> FirstDrawAction::clone() const {
+	return  make_shared<FirstDrawAction>(pid, drawnNum);
+}
 
+/*
+	DrawAction Class
+*/
+
+DrawAction::DrawAction(DrawType drType, const PlayerIdType &id, unsigned int num, bool checkOver) : drawType(drType), pid(id), drawnNum(num), checkGameOverOnDrawn(checkOver) {
+}
+
+DrawAction::~DrawAction() {
+};
+
+void DrawAction::executeOn(const shared_ptr<GameState> &gstate) {
+	state = State::Process;
+
+	auto deck = gstate->getDeck(pid);
+
+	vector<shared_ptr<Card>> cardObjVec;
+
+	if (drawType == DrawType::FromTop)
+		deck->popTop(drawnNum, cardObjVec); // Rut tu tu Top Deck
+	else if (drawType == DrawType::FromBottom)
+		deck->popBottom(drawnNum, cardObjVec); // Rut tu Bottom Deck
+
+	// Cap nhat Hand
+	auto hand = gstate->getHand(pid);
+	hand->pushCards(cardObjVec);
+
+	// Cap nhat result vector
+	for (const auto& cardObj : cardObjVec)
+		cardIdsVec.emplace_back(cardObj->getId());
+
+	// * Khi het bai dau moi turn phai check ket thuc game
+	if (checkGameOverOnDrawn && cardObjVec.size() < drawnNum) {
+		gstate->pushAction(make_shared<GameOverAction>(gstate->getOpponentOf(pid)));
+	}
+
+	state = State::Done;
+}
+
+std::shared_ptr<BattleSceneNS::BSAction> DrawAction::getBSAction() const {
+	return BattleSceneNS::SequenceAction::create({
+		make_shared<BattleSceneNS::DrawCardAction>(pid, drawnNum, cardIdsVec),
+		make_shared<BattleSceneNS::WaitAction>(1.0f)
+		});
+}
+
+std::shared_ptr<GameAction> DrawAction::clone() const {
+	return  make_shared<DrawAction>(drawType, pid, drawnNum, checkGameOverOnDrawn);
+}
+
+/*
+	SetupAction Class
+*/
+
+StartSetup::StartSetup(const PlayerIdType &id) {}
+StartSetup::~StartSetup() {}
+
+void StartSetup::executeOn(const shared_ptr<GameState> &gstate) {
+	state = State::Process;
+	//TODO
+	state = State::Done;
+}
+
+/*
+	GameOverAction Class
+*/
+
+GameOverAction::GameOverAction(const PlayerIdType &wid) : winnerId(wid) {}
+
+GameOverAction::~GameOverAction() {}
+
+void GameOverAction::executeOn(const shared_ptr<GameState> &gstate) {
+	state = State::Process;
+
+	gstate->setGameOver(winnerId);
+
+	state = State::Done;
+}
+
+bool GameOverAction::isWinnerFound() const {
+	return !winnerId.empty();
+}
+
+bool GameOverAction::isDrawnGame() const {
+	return winnerId.empty();
+}
+
+shared_ptr<GameAction> GameOverAction::clone() const {
+	return make_shared<GameOverAction>(winnerId);
+}
+
+shared_ptr<BattleSceneNS::BSAction> GameOverAction::getBSAction() const {
+	return make_shared<BattleSceneNS::GameOverAction>(winnerId);
 }
 
 NS_GAME_END

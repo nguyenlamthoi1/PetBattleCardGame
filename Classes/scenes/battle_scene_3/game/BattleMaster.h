@@ -66,6 +66,9 @@ private:
 	void gameLoop(float t);
 	
 	/// Nhung Action do nguoi choi thuc hien trong qua trinh choi ///
+	void onPlayerDoEndGame();
+	void onPlayerDoRestartGame();
+
 	ActionError onPlayerChooseAction(const GameAction &acti);
 };
 
