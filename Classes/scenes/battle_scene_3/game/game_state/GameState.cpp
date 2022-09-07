@@ -3,6 +3,9 @@
 #include "Hand.h"
 #include "Board.h"
 #include "Player.h"
+#include "DiscardPile.h"
+#include "PrizePile.h"
+
 #include "card/Card.h"
 #include "../game_actions/GameAction.h"
 
@@ -61,6 +64,8 @@ bool GameState::initDeck(const PlayerIdType &id) {
 			decks.at(id)->pushCard(card); // Them card vao deck
 	}
 
+	decks.at(id)->shuffleDeck();
+
 	return true;
 }
 
@@ -70,7 +75,7 @@ bool GameState::initHand(const PlayerIdType &id) {
 }
 
 bool GameState::initBoard(const PlayerIdType &id) {
-	boards.insert({ id, Board::createShPtr(id) });
+	boards.insert({ id, Board::createShPtr(this, id) });
 	return true;
 }
 
@@ -81,12 +86,20 @@ bool GameState::initPlayer(const PlayerIdType &id) {
 
 
 void GameState::startGame() {
+	turnCount = 0;
+	winnerId = "";
+	gameOver = false;
+	phase = Phase::Start;
+
 	actionQueue.insert(actionQueue.cend(), {
-		//make_shared<DrawAction>(DrawAction::DrawType::FromTop, pids[0], GConfig::DRAW_NUM_ON_START),
-		//make_shared<DrawAction>(DrawAction::DrawType::FromTop,  pids[1], GConfig::DRAW_NUM_ON_START),
 		make_shared<FirstDrawAction>(pids[0], GConfig::DRAW_NUM_ON_START),
 		make_shared<FirstDrawAction>(pids[1], GConfig::DRAW_NUM_ON_START),
+		make_shared<StartSetupAction>(),
 		});
+}
+
+void GameState::startSetup() {
+
 }
 
 void GameState::clearState() {
@@ -130,6 +143,20 @@ std::shared_ptr<Player> GameState::getPlayer(const PlayerIdType &pid) const {
 	return nullptr;
 }
 
+std::shared_ptr<DiscardPile> GameState::getDiscardPile(const PlayerIdType &pid) const {
+	auto itr = discardPiles.find(pid);
+	if (itr != discardPiles.end())
+		return itr->second;
+	return nullptr;
+}
+
+std::shared_ptr<PrizePile> GameState::getPrizePile(const PlayerIdType &pid) const {
+	auto itr = prizePiles.find(pid);
+	if (itr != prizePiles.end())
+		return itr->second;
+	return nullptr;
+}
+
 bool GameState::empty() const {
 	return pids.empty();
 }
@@ -152,6 +179,7 @@ PlayerIdType GameState::getOpponentOf(const PlayerIdType &pid) const {
 void GameState::pushAction(const std::shared_ptr<GameAction> &action) {
 	actionQueue.push_back(action);
 }
+
 void GameState::pushActions(std::initializer_list<std::shared_ptr<GameAction>> actions) {
 	for (const auto &action : actions) 
 		actionQueue.push_back(action);
@@ -163,8 +191,11 @@ ActionError GameState::onPlayerDrawCard(const PlayerIdType &pid, unsigned int nu
 }
 
 std::shared_ptr<GameState> GameState::clone() const {
-	shared_ptr<GameState> cloneState;
+	shared_ptr<GameState> cloneState = make_shared<GameState>();
 	
+	cloneState->curPlayer = curPlayer;
+	cloneState->pids = pids;
+
 	// Clone ActionQueue
 	auto &clActionQueue = cloneState->actionQueue;
 	for (const auto &action : actionQueue) 
@@ -187,7 +218,20 @@ std::shared_ptr<GameState> GameState::clone() const {
 		auto playerItr = players.find(id);
 		if (playerItr != players.cend())
 			cloneState->players.insert({ id, playerItr->second->clone() });
+		// Clone Discard Pile
+		auto discardItr = discardPiles.find(id);
+		if (discardItr != discardPiles.cend())
+			cloneState->discardPiles.insert({ id, discardItr->second->clone() });
+		// Clone Prize Pile
+		auto prizeItr = prizePiles.find(id);
+		if (prizeItr != prizePiles.cend())
+			cloneState->prizePiles.insert({ id, prizeItr->second->clone() });
 	}
+
+	cloneState->phase = phase;
+	cloneState->turnCount = turnCount;
+	cloneState->winnerId = winnerId;
+	cloneState->gameOver = gameOver;
 
 	return nullptr;
 }

@@ -30,15 +30,17 @@ public:
 	void popTop(unsigned int num, std::vector<std::string> &cidVec);
 	void popTopWithABasicPet(unsigned int num, std::vector<std::string> &cidVec);
 	void popTopWithABasicPet(unsigned int num, CardVector &cidVec);
-
+	
 	CardVector popBottom(unsigned int num); // * Rut 1 so la bai o bottom deck, back cua cardVec duoc xem la top
 	void popBottom(unsigned int num, CardVector &v); // * Rut 1 so la bai o top deck, back cua cardVec duoc xem la top
 	void popBottom(unsigned int num, std::vector<std::string> &cidVec);
 
+	void shuffleDeck();
+
 	void clear();
 	bool isEmpty();
 
-	DeckPtr clone() const ;
+	DeckPtr clone() const;
 private:
 
 	PlayerIdType pid = PlayerIdInvalid; // Id cua player so huu Deck

@@ -184,10 +184,12 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\scenes\battle_scene_3\game\game_state\card\EnergyCard.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene_3\game\game_state\card\PetCard.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene_3\game\game_state\Deck.cpp" />
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\game\game_state\DiscardPile.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene_3\game\game_state\GameState.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene_3\game\game_state\Hand.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene_3\game\game_state\Holder.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene_3\game\game_state\Player.cpp" />
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\game\game_state\PrizePile.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene_3\game\player_actions\PlayerAction.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene_3\scene_actions\BSAction.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene_3\scene_actions\BSActor.cpp" />
@@ -272,10 +274,12 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\scenes\battle_scene_3\game\game_state\Board.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene_3\game\game_state\card\Card.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene_3\game\game_state\Deck.h" />
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\game\game_state\DiscardPile.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene_3\game\game_state\GameState.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene_3\game\game_state\Hand.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene_3\game\game_state\Holder.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene_3\game\game_state\Player.h" />
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\game\game_state\PrizePile.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene_3\game\player_actions\PlayerAction.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene_3\scene_actions\BSAction.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene_3\scene_actions\BSActor.h" />

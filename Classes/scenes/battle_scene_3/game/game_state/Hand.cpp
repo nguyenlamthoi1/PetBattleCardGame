@@ -26,6 +26,23 @@ void Hand::pushCard(const std::shared_ptr<Card> &pushedCard) {
 	cardVec.push_back(pushedCard);
 }
 
+std::shared_ptr<Card> Hand::removeCard(unsigned int idx) {
+	if (idx < 0 || idx >= cardVec.size())
+		return nullptr;
+
+	auto ret = *(cardVec.cbegin() + idx);
+	cardVec.erase(cardVec.cbegin() + idx);
+	return ret;
+}
+
+std::shared_ptr<Card> Hand::getCardAt(unsigned int idx) const {
+	if (idx < 0 || idx >= cardVec.size())
+		return nullptr;
+
+	return cardVec[idx];
+}
+
+
 void Hand::clear() {
 	cardVec.clear();
 }
@@ -38,6 +55,14 @@ Hand::HandPtr Hand::clone() const {
 	//TODO
 	return nullptr;
 }
+
+bool Hand::checkPetCard(unsigned int idx) const {
+	if (idx < 0 || idx >= cardVec.size())
+		return false;
+	
+	return cardVec[idx]->isType(Card::Type::Pet);
+}
+
 
 
 NS_GAME_END

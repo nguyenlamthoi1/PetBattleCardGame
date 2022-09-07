@@ -17,9 +17,61 @@ public:
 	enum class Type {
 		None,
 		Custom,
-		DrawCard,
-		Setup,
+		
+		StartSetup,
+		StartSetupActive,
+		StartSetupBench,
+		SetupActive,
+		SetupBench,
 
+		TurnStart,
+
+		ChooseTurnAction,
+		PlayBasicPet,
+		EvolvePet,
+		RetreatPet,
+		AttackPet, // Quan trong
+		useAbility,
+		useItemCard, // Su dung giong nhu spter card hoac attach vao Pet
+		UseAttack,
+
+		// Action ho tro
+		branchAction, // Quan trong
+		healPet,
+		flipCoin,
+
+		FirstDrawCard,
+		DrawFromDeck,
+
+		SelectFromHand,
+		SelectFromDiscard,
+		SelectFromDeck,
+		SelectFromBoard,
+
+		GetSelectedFromDiscard,
+		GetSelectedFromPrize,
+		GetSelectedFromDeck,
+		GetSeletectedFromPet,
+		SwitchSelectedWithActive,
+		//TODO: More
+
+		DrawFromPet, // *
+
+		gainBuff, //*
+		removeBuff, //*
+
+		applySpecialCondition, // *
+		removeSpecialCondition, // *
+
+		
+
+		DiscardFromPet, // Discard Energy Card, ItemCard
+
+		SelectFromPrize,
+
+		DiscardFromHand, // Discard Card
+		DiscardFromDeck, //Discard
+			
 		GameOver
 	};
 
@@ -65,7 +117,7 @@ public:
 	virtual ~FirstDrawAction();
 
 	virtual void executeOn(const std::shared_ptr<GameState> &state) override;
-	virtual Type getType() const override { return Type::DrawCard; }
+	virtual Type getType() const override { return Type::FirstDrawCard; }
 	virtual std::shared_ptr<BattleSceneNS::BSAction> getBSAction() const override;
 	virtual std::shared_ptr<GameAction> clone() const override;
 
@@ -90,7 +142,7 @@ public:
 	virtual ~DrawAction();
 
 	virtual void executeOn(const std::shared_ptr<GameState> &state) override;
-	virtual Type getType() const override { return Type::DrawCard; }
+	virtual Type getType() const override { return Type::DrawFromDeck; }
 	virtual std::shared_ptr<BattleSceneNS::BSAction> getBSAction() const override;
 	virtual std::shared_ptr<GameAction> clone() const override;
 
@@ -104,17 +156,93 @@ protected:
 	std::vector<CardId> cardIdsVec;
 };
 
-class StartSetup : public GameAction {
-	StartSetup(const PlayerIdType &id);
-	virtual ~StartSetup();
 
-	PlayerIdType pid;
+class StartSetupAction: public GameAction {
+	StartSetupAction();
+	virtual ~StartSetupAction();
+
 	virtual void executeOn(const std::shared_ptr<GameState> &state) override;
-	virtual Type getType() const override { return Type::DrawCard; }
+	virtual Type getType() const override { return Type::StartSetup; }
+	virtual std::shared_ptr<BattleSceneNS::BSAction> getBSAction() const override;
+	virtual std::shared_ptr<GameAction> clone() const override;
 };
 
-class EndTurnAction : public GameAction {
+class StartSetupActivePet : public GameAction {
+public:
 
+	StartSetupActivePet(const PlayerIdType &id);
+	virtual ~StartSetupActivePet();
+
+	virtual void executeOn(const std::shared_ptr<GameState> &gameState) override;
+	virtual Type getType() const override { return Type::SetupActive; }
+	virtual std::shared_ptr<BattleSceneNS::BSAction> getBSAction() const override;
+	virtual std::shared_ptr<GameAction> clone() const override;
+
+	PlayerIdType pid;
+	unsigned int handIdx = 0;
+
+protected:
+};
+
+class StartSetupBenchPet : public GameAction {
+public:
+
+	StartSetupBenchPet(const PlayerIdType &id);
+	virtual ~StartSetupBenchPet();
+
+	virtual void executeOn(const std::shared_ptr<GameState> &gameState) override;
+	virtual Type getType() const override { return Type::SetupActive; }
+	virtual std::shared_ptr<BattleSceneNS::BSAction> getBSAction() const override;
+	virtual std::shared_ptr<GameAction> clone() const override;
+
+	PlayerIdType pid;
+	unsigned int handIdx = 0;
+
+protected:
+};
+
+class SetupActivePet : public GameAction {
+public:
+
+	SetupActivePet(const PlayerIdType &id, unsigned int idx);
+	virtual ~SetupActivePet();
+
+	virtual void executeOn(const std::shared_ptr<GameState> &gameState) override;
+	virtual Type getType() const override { return Type::SetupActive; }
+	virtual std::shared_ptr<BattleSceneNS::BSAction> getBSAction() const override;
+	virtual std::shared_ptr<GameAction> clone() const override;
+
+	PlayerIdType pid;
+	unsigned int handIdx = 0;
+
+protected:
+	// Result
+	std::shared_ptr<BattleSceneNS::BSAction> bsAction;
+};
+
+class SetupActiveBench : public GameAction {
+public:
+
+	SetupActiveBench(const PlayerIdType &id, unsigned int handIdx, unsigned int benchIdx);
+	virtual ~SetupActiveBench();
+
+	virtual void executeOn(const std::shared_ptr<GameState> &gameState) override;
+	virtual Type getType() const override { return Type::SetupActive; }
+	virtual std::shared_ptr<BattleSceneNS::BSAction> getBSAction() const override;
+	virtual std::shared_ptr<GameAction> clone() const override;
+
+	PlayerIdType pid;
+	unsigned int handIdx = 0;
+	unsigned int benchIdx = 0;
+
+protected:
+	// Result
+	std::shared_ptr<BattleSceneNS::BSAction> bsAction;
+};
+
+
+class EndTurnAction : public GameAction {
+	
 };
 
 class GameOverAction : public GameAction {

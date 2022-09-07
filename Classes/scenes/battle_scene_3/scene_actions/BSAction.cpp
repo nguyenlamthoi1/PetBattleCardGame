@@ -275,4 +275,92 @@ void GameOverAction::executeOn(BattleScene *btlScn) {
 	state = State::Done;
 }
 
+
+//-----------//
+//SET UP FLOW//
+//-----------//
+
+StartSetupAction::StartSetupAction() {}
+
+StartSetupAction::~StartSetupAction() {}
+
+void StartSetupAction::executeOn(BattleScene *btlScn) {
+	if (state != State::Wait)
+		return;
+
+	state = State::Processed;
+
+	//TODO
+
+	state = State::Done;
+}
+
+//---//
+
+StartSetupActive::StartSetupActive(const PlayerIdType &id) : pid(id) {}
+
+StartSetupActive::~StartSetupActive() {}
+
+void StartSetupActive::executeOn(BattleScene *btlScn) {
+	if (state != State::Wait)
+		return;
+
+	state = State::Processed;
+
+	//TODO
+
+	state = State::Done;
+}
+
+//---//
+
+StartSetupBench::StartSetupBench(const PlayerIdType &id) : pid(id) {}
+
+StartSetupBench::~StartSetupBench() {}
+
+void StartSetupBench::executeOn(BattleScene *btlScn) {
+	if (state != State::Wait)
+		return;
+
+	state = State::Processed;
+
+	//TODO
+
+	state = State::Done;
+}
+
+//---//
+
+DoSetupPetActive::DoSetupPetActive(const PlayerIdType &id, unsigned int hidx) : pid(id), handIdx(hidx){}
+
+DoSetupPetActive::~DoSetupPetActive() {}
+
+void DoSetupPetActive::executeOn(BattleScene *btlScn) {
+	if (state != State::Wait)
+		return;
+
+	state = State::Processed;
+
+	//TODO
+
+	state = State::Done;
+}
+
+DoSetupPetBench::DoSetupPetBench(const PlayerIdType &id, unsigned int handIdx, unsigned int bIdx) : pid(id), benchIdx(bIdx) {}
+
+DoSetupPetBench::~DoSetupPetBench() {}
+
+void DoSetupPetBench::executeOn(BattleScene *btlScn) {
+	if (state != State::Wait)
+		return;
+
+	state = State::Processed;
+
+	//TODO
+
+	state = State::Done;
+}
+
+
+
 BATTLE_SCENE_NS_END

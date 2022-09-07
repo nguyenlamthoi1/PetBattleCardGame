@@ -1,18 +1,23 @@
 #include "Board.h"
 #include "Holder.h"
+#include "card/Card.h"
+#include "data/CardData.h"
 
 using namespace std;
 
 NS_GAME_BEGIN
 
-Board::BoardPtr Board::createShPtr(const PlayerIdType &id) {
+Board::BoardPtr Board::createShPtr(GameState *gameState, const PlayerIdType &id) {
 	auto ret = make_shared<Board>(id);
-	if (!ret || !ret->init()) 
+	if (!ret) 
 		ret.reset(); // nullptr
+	ret->setGameState(gameState);
 	return ret;
 }
 
-Board::Board(const PlayerIdType &id) : pid(id) {}
+Board::Board(const PlayerIdType &id) : pid(id) {
+	init();
+}
 
 Board::~Board(){}
 
@@ -31,6 +36,31 @@ Board::BoardPtr Board::clone() const {
 	return nullptr;
 }
 
+void Board::setGameState(GameState* gameState) {
+	active->setGameState(gameState);
+	for (auto &holder : bench) 
+		holder->setGameState(gameState);
+}
 
+
+bool Board::addBasicPetCardToActive(const std::shared_ptr<PetCard> &petCard) {
+	return active->addBasicPetCard(petCard);
+}
+
+bool Board::evolvePetAtActive(const std::shared_ptr<PetCard> &petCard) {
+	//TODO
+	return false;
+}
+
+bool Board::addBasicPetCardToBench(const std::shared_ptr<PetCard> &petCard, unsigned int benchIdx) {
+	if (0 < benchIdx || benchIdx >= bench.size())
+		return false;
+
+	return bench[benchIdx]->addBasicPetCard(petCard);
+}
+bool Board::evolvePetAtBench(const std::shared_ptr<PetCard> &petCard, unsigned int benchIdx) {
+	//TODO
+	return false;
+}
 
 NS_GAME_END

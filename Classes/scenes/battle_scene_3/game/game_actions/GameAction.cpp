@@ -5,6 +5,9 @@
 #include "../game_state/Deck.h"
 #include "../game_state/Hand.h"
 #include "../game_state/Board.h"
+#include "../game_state/DiscardPile.h"
+#include "../game_state/PrizePile.h"
+
 #include "../game_state/card/Card.h"
 
 #include "../../BattleScene.h"
@@ -157,16 +160,78 @@ std::shared_ptr<GameAction> DrawAction::clone() const {
 }
 
 /*
+	SetupActivePet Class
+*/
+
+SetupActivePet::SetupActivePet(const PlayerIdType &id, unsigned int idx) : pid(id), handIdx(idx) {}
+SetupActivePet::~SetupActivePet(){}
+
+void SetupActivePet::executeOn(const std::shared_ptr<GameState> &gstate) {
+	state = State::Process;
+
+	auto hand = gstate->getHand(pid);
+	auto board = gstate->getBoard(pid);
+	
+	suc = false;
+	// Kiem tra handIdx co phai basic pet card
+	auto petCard = dynamic_pointer_cast<PetCard>(hand->getCardAt(handIdx));
+	suc = board->addBasicPetCardToActive(petCard);
+	if (suc)
+		hand->removeCard(handIdx);
+	
+	state = State::Done;
+}
+
+shared_ptr<BattleSceneNS::BSAction> SetupActivePet::getBSAction() const {
+	if(suc)
+		return BattleSceneNS::SequenceAction::create({}); //TODO
+}
+
+shared_ptr<GameAction> SetupActivePet::clone() const {
+	return make_shared<SetupActivePet>(pid, handIdx);
+}
+
+/*
 	SetupAction Class
 */
 
-StartSetup::StartSetup(const PlayerIdType &id) {}
-StartSetup::~StartSetup() {}
+StartSetupAction::StartSetupAction() {}
 
-void StartSetup::executeOn(const shared_ptr<GameState> &gstate) {
+StartSetupAction::~StartSetupAction() {}
+
+void StartSetupAction::executeOn(const shared_ptr<GameState> &gstate) {
 	state = State::Process;
-	//TODO
+	gstate->startSetup();
 	state = State::Done;
+}
+
+shared_ptr<BattleSceneNS::BSAction> StartSetupAction::getBSAction() const {
+	return nullptr;
+}
+
+shared_ptr<GameAction> StartSetupAction::clone() const {
+	return make_shared<StartSetupAction>();
+}
+
+/*
+	StartSetupActive Class
+*/
+
+StartSetupActivePet::StartSetupActivePet(const PlayerIdType &id) {}
+
+StartSetupActivePet::~StartSetupActivePet() {}
+
+void StartSetupAction::executeOn(const shared_ptr<GameState> &gstate) {
+	state = State::Process;
+	state = State::Done;
+}
+
+shared_ptr<BattleSceneNS::BSAction> StartSetupAction::getBSAction() const {
+	return nullptr;
+}
+
+shared_ptr<GameAction> StartSetupAction::clone() const {
+	return make_shared<StartSetupAction>();
 }
 
 /*

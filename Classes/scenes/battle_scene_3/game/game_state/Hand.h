@@ -20,10 +20,14 @@ public:
 	virtual ~Hand();
 	bool init();
 	
-	void clear();
 	bool isEmpty() const;
+	bool checkPetCard(unsigned int idx) const;
+
+	void clear();
 	void pushCards(const CardVector &pushedCards);
 	void pushCard(const std::shared_ptr<Card> &pushedCard);
+	std::shared_ptr<Card> removeCard(unsigned int idx);
+	std::shared_ptr<Card> getCardAt(unsigned int idx) const;
 
 	HandPtr clone() const;
 protected:

@@ -222,6 +222,12 @@
     <ClCompile Include="..\Classes\scenes\battle_scene_3\BSResources.cpp">
       <Filter>src\scenes\battle_scene</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\game\game_state\DiscardPile.cpp">
+      <Filter>src\scenes\battle_scene\game\game_state</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\game\game_state\PrizePile.cpp">
+      <Filter>src\scenes\battle_scene\game\game_state</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -481,6 +487,12 @@
     </ClInclude>
     <ClInclude Include="..\Classes\scenes\battle_scene_3\BSResources.h">
       <Filter>src\scenes\battle_scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\game\game_state\DiscardPile.h">
+      <Filter>src\scenes\battle_scene\game\game_state</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\game\game_state\PrizePile.h">
+      <Filter>src\scenes\battle_scene\game\game_state</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

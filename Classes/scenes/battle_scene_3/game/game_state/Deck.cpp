@@ -4,6 +4,12 @@
 #include "data/CardData.h"
 #include "card/Card.h"
 
+#include <algorithm>
+#include <random>
+#include <ctime>
+
+#include "cocos2d.h"
+
 using namespace std;
 
 NS_GAME_BEGIN
@@ -152,6 +158,12 @@ bool Deck::isEmpty() {
 Deck::DeckPtr Deck::clone() const {
 	//TODO
 	return nullptr;
+}
+
+void Deck::shuffleDeck() {
+	//default_random_engine dre(time(0));
+	default_random_engine dre;
+	std::shuffle(std::begin(cardVec), std::end(cardVec), dre);
 }
 
 

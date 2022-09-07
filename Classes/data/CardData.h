@@ -47,10 +47,18 @@ public:
 	std::map<EnergyType, int> resistanceMap;
 	std::vector<std::shared_ptr<MoveData>> moveVec;
 	
-	bool isEvolutionCard() const { return evStage < 1; }
+	bool isEvolutionCard() const { return evStage > 0; }
+	bool isBasicCard() const { return evStage < 1; }
+	
 	std::string evolveFrom;
+
+	using EVStage = unsigned int;
+	using PetName = unsigned int;
+	std::unordered_map<EVStage, PetName> evolutionLine;
+	
 	std::string preEvImg;
 	unsigned char evStage = 0;
+	unsigned int prizeNum = 1;
 };
 
 class EnergyCardData final : public CardData {

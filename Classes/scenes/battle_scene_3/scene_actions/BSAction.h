@@ -28,7 +28,12 @@ public:
 
 		Wait,
 		Draw_Card,
-		Setup
+		
+		StartSetup,
+		StartSetupActive,
+		SetupActive,
+		StartSetupBench,
+		SetupBench
 	};
 
 	enum class State{
@@ -146,21 +151,73 @@ protected:
 //	//static EndGameAction* createDrawMatch();
 //};
 //
-//class SetupAction : public BSAction {
-//public:
-//	SetupAction(std::shared_ptr<BattleManager> &btlMgr, PlayerIdType id);
-//	virtual ~SetupAction();
-//
-//	virtual void start() override;
-//	virtual void end() override;
-//	virtual ActionType getType() override { return ActionType::Setup; }
-//
-//protected:
-//	PlayerIdType playerId = PlayerIdInvalid;
-//	bool checkSetup();
-//	cocos2d::EventListenerCustom *playPetListener = nullptr;
-//	
-//};
+
+
+//-----------//
+//SET UP FLOW//
+//-----------//
+
+class StartSetupAction : public BSAction {
+public:
+	StartSetupAction();
+	virtual ~StartSetupAction();
+
+	virtual void executeOn(BattleScene *btlScn) override;
+	virtual ActionType getType() const override { return ActionType::StartSetup; }
+};
+
+class StartSetupActive : public BSAction {
+public:
+	StartSetupActive(const PlayerIdType &pid);
+	virtual ~StartSetupActive();
+
+	virtual void executeOn(BattleScene *btlScn) override;
+	virtual ActionType getType() const override { return ActionType::StartSetupActive; }
+protected:
+	PlayerIdType pid;
+};
+
+class StartSetupBench : public BSAction {
+public:
+	StartSetupBench(const PlayerIdType &pid);
+	virtual ~StartSetupBench();
+
+	virtual void executeOn(BattleScene *btlScn) override;
+	virtual ActionType getType() const override { return ActionType::StartSetupBench; }
+protected:
+	PlayerIdType pid;
+};
+
+class DoSetupPetActive : public BSAction {
+public:
+	DoSetupPetActive(const PlayerIdType &pid, unsigned int handIdx);
+	virtual ~DoSetupPetActive();
+
+	virtual void executeOn(BattleScene *btlScn) override;
+	virtual ActionType getType() const override { return ActionType::SetupActive; }
+protected:
+	PlayerIdType pid;
+	unsigned int handIdx;
+};
+
+class DoSetupPetBench : public BSAction {
+public:
+	DoSetupPetBench(const PlayerIdType &pid, unsigned int handIdx, unsigned int benchIdx);
+	virtual ~DoSetupPetBench();
+
+	virtual void executeOn(BattleScene *btlScn) override;
+	virtual ActionType getType() const override { return ActionType::SetupBench; }
+protected:
+	PlayerIdType pid;
+	unsigned int handIdx = 0;
+	unsigned int benchIdx = 0;
+};
+
+
+//-----------//
+//-----------//
+//-----------//
+
 
 class GameOverAction : public BSAction {
 public:
