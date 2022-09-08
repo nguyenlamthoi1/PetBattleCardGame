@@ -94,40 +94,20 @@ void BSHand::drawCards(size_t n, const vector<CardId> &idVec, bool hideCards) {
 		card->setPosition(startPos);
 		card->setFlip(hideCards);
 
-		//// Them hold touch
-		//WidgetTouchNS::setWidgetTouchHold(card, [card, this](WIDGET_TOUCH_HANDLER_PARAMS) {
-		//	btlScn->showCardDetails(card->getData());
-		//	}, 0.3f);
+		// Them hold touch
+		WidgetTouchNS::setWidgetTouchHold(card, [card, this, btlScn](WIDGET_TOUCH_HANDLER_PARAMS) {
+			auto data = card->getData();
+			btlScn->showCardDetail(data);
+			}, 0.3f);
 
-		//// Them end Touch
-		//WidgetTouchNS::setWidgetTouchEnded(card, [card, this](WIDGET_TOUCH_HANDLER_PARAMS) {
-		//	btlScn->hideCardDetails();
-		//	});
+		// Them end Touch
+		WidgetTouchNS::setWidgetTouchEnded(card, [card, this, btlScn](WIDGET_TOUCH_HANDLER_PARAMS) {
+			btlScn->hideCardDetail();
+			});
 
-		//// Them Drag component
-		//card->setDragHandler(destVec,
-		//	[this](Node * cardNode, Node *dest) { // Drag Begin Callback
-		//		btlScn->hideCardDetails();
-		//	},
-		//	[this](Node *cardNode, Node *dest) { // Drag End Callback
-		//		if (!dest) {
-		//			auto comp = DragComponent::getComp(cardNode);
-		//			auto card = dynamic_cast<BSCard*>(cardNode);
-		//			onDragBack(card);
-		//		}
-		//		else {
-		//			auto card = dynamic_cast<BSCard*>(cardNode);
-		//			bool suc = onDragEnd(card, dest);
-		//			if (!suc)
-		//				onDragBack(card);
-		//			else
-		//				onDragSucceeded();
-		//		}
-		//	}
-		//	);
-		//card->setTouchEnabled(true);
-		//card->setSwallowTouches(true);
-		//--
+		card->setTouchEnabled(true);
+		card->setDragEnabled(false);
+		card->setSwallowTouches(true);
 
 		if (index == drawnVec.size() - 1) {
 			auto action = Sequence::create(MoveTo::create(0.8f + index * 0.2f, Vec2(x + d * i, y)), CallFunc::create([this]() {
@@ -323,5 +303,39 @@ void BSHand::drawCards(size_t n, std::function<void()> onDrawDone) {
 //
 //}
 
+void BSHand::setEnableDragSetupActive(bool enabled) {
+	auto btlScn = BattleScene::getScene();
+	//auto baord = btlScn->getBoa
+	for (auto &card : cards) {
+		//auto board = 
+
+		//// Them Drag component
+		//card->setDragHandler(destVec,
+		//	[this](Node * cardNode, Node *dest) { // Drag Begin Callback
+		//		btlScn->hideCardDetails();
+		//	},
+		//	[this](Node *cardNode, Node *dest) { // Drag End Callback
+		//		if (!dest) {
+		//			auto comp = DragComponent::getComp(cardNode);
+		//			auto card = dynamic_cast<BSCard*>(cardNode);
+		//			onDragBack(card);
+		//		}
+		//		else {
+		//			auto card = dynamic_cast<BSCard*>(cardNode);
+		//			bool suc = onDragEnd(card, dest);
+		//			if (!suc)
+		//				onDragBack(card);
+		//			else
+		//				onDragSucceeded();
+		//		}
+		//	}
+		//	);
+	}
+	
+}
+
+void BSHand::disableDragAll() {
+
+}
 
 BATTLE_SCENE_NS_END

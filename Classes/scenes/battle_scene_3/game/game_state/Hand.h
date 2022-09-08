@@ -28,6 +28,8 @@ public:
 	void pushCard(const std::shared_ptr<Card> &pushedCard);
 	std::shared_ptr<Card> removeCard(unsigned int idx);
 	std::shared_ptr<Card> getCardAt(unsigned int idx) const;
+	
+	const CardVector& getAllCards() const { return cardVec; }
 
 	HandPtr clone() const;
 protected:

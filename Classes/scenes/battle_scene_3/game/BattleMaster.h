@@ -69,7 +69,7 @@ private:
 	void onPlayerDoEndGame();
 	void onPlayerDoRestartGame();
 
-	ActionError onPlayerChooseAction(const GameAction &acti);
+	ActionError onPlayerChooseAction(const GameAction &action);
 };
 
 struct BattleMaster::PlayerGameInfo {

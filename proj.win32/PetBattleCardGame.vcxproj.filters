@@ -79,6 +79,9 @@
     <Filter Include="src\scenes\battle_scene\game\player_actions">
       <UniqueIdentifier>{3b13854c-9d82-46ef-9ef1-78af1565a29c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\scenes\battle_scene\prefabs">
+      <UniqueIdentifier>{80000963-a18f-43da-91d5-48eae521bb46}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -230,6 +233,15 @@
     </ClCompile>
     <ClCompile Include="..\Classes\scenes\battle_scene_3\BSNotifier.cpp">
       <Filter>src\scenes\battle_scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\BSBoard.cpp">
+      <Filter>src\scenes\battle_scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\CardHolder.cpp">
+      <Filter>src\scenes\battle_scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\prefabs\EnergyItem.cpp">
+      <Filter>src\scenes\battle_scene\prefabs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -499,6 +511,15 @@
     </ClInclude>
     <ClInclude Include="..\Classes\scenes\battle_scene_3\BSNotifier.h">
       <Filter>src\scenes\battle_scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\BSBoard.h">
+      <Filter>src\scenes\battle_scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\CardHolder.h">
+      <Filter>src\scenes\battle_scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\prefabs\BSPrefabs.h">
+      <Filter>src\scenes\battle_scene\prefabs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

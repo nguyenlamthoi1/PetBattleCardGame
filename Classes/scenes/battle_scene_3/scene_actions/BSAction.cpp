@@ -321,6 +321,9 @@ void StartSetupActive::executeOn(BattleScene *btlScn) {
 	if (btlScn->getPlayerId() == pid) { // Player Action
 		auto notifier = btlScn->getNotifier();
 		notifier->showMsgAndHideAfter(lang->getString(PLAYER_SETUP_TXT), 1.5f);
+	
+		auto hand = btlScn->getHand(pid);
+		hand->setEnableDragSetupActive(true);
 	}
 	else { // Opponent Action
 		auto notifier = btlScn->getNotifier();

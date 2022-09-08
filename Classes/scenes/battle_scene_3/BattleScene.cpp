@@ -4,11 +4,16 @@
 #include "game/BattleMaster.h"
 
 #include "data/PlayerData.h"
+#include "data/CardData.h"
 #include "scene_actions/BSAction.h"
 
 #include "BSResources.h"
 #include "BSHand.h"
 #include "BSDeck.h"
+#include "BSCard.h"
+#include "BSBoard.h"
+
+
 #include "BSNotifier.h"
 
 #include <stdlib.h>
@@ -17,8 +22,6 @@
 //
 //#include "BSHand.h"
 //#include "BSDeck.h"
-//#include "BSBoard.h"
-//#include "BSCard.h"
 //#include "BSCoinFlipper.h"
 //
 //#include "actions/BSAction.h"
@@ -139,15 +142,14 @@ bool BattleScene::init() {
 	deckNode = opponentPanel->getChildByName("Deck");
 	decks[oid] = BSDeck::createShPtr(deckNode, oid);
 
+	// Khoi tao Board
+	boards[pid] = shared_ptr<BSBoard>(BSBoard::create(this, pid));
+	boards[oid] = shared_ptr<BSBoard>(BSBoard::create(this, oid));
+
 	// Khoi tao du lieu player trong game
 	//players[PLAYER] = make_shared<BSGamer>(PLAYER);
 	//players[OPPONENT] = make_shared<BSPlayer>(OPPONENT);
 	
-	
-
-	//// Khoi tao Board
-	//boards[PLAYER] = shared_ptr<BSBoard>(BSBoard::create(this, PLAYER));
-	////boards[OPPONENT] = BSBoard::create(this, OPPONENT);
 
 	//// Khoi tao Coin Flipper
 	//coinFlipper = shared_ptr<BSCoinFlipper>(BSCoinFlipper::create(this));
@@ -162,6 +164,9 @@ bool BattleScene::init() {
 	if (!topLayout)
 		return false;
 	initTopLayer();
+
+	// + Detailed Card
+	detailLayout = dynamic_cast<ui::Layout*>(root->getChildByName("Detail_Layout"));
 
 	// Khoi tao Loading Layout
 	loadingLayout = dynamic_cast<ui::Layout*>(root->getChildByName("Loading_Layout"));
@@ -249,6 +254,7 @@ std::shared_ptr<PlayerData> BattleScene::getPlayerData(const PlayerIdType &id) c
 std::shared_ptr<BSHand> BattleScene::getHand(const PlayerIdType &id) const { return hands.at(id); }
 std::shared_ptr<BSDeck> BattleScene::getDeck(const PlayerIdType &id) const { return decks.at(id); }
 std::shared_ptr<BSNotifier> BattleScene::getNotifier() const { return notifier; }
+std::shared_ptr<BSBoard> BattleScene::getBoard(const PlayerIdType &id) const { return boards.at(id); }
 
 
 ///----------------------///
@@ -317,6 +323,64 @@ void BattleScene::popFront() {
 
 void BattleScene::clearPipeline() {
 	pipeline.clear();
+}
+
+void BattleScene::showCardDetail(const shared_ptr<const CardData> &data) {
+	if (data->type == CardData::Type::Pet) {
+		showPetCardDetail(dynamic_pointer_cast<const PetCardData>(data));
+	}
+	else if (data->type == CardData::Type::Energy) {
+		showEnergyCardDetail(dynamic_pointer_cast<const EnergyCardData>(data));
+	}
+}
+
+void BattleScene::showPetCardDetail(const shared_ptr<const PetCardData> &data){
+	if (!detailedPetCard) {
+		detailedPetCard = bsres->getBSCard(data->id);
+		detailLayout->addChild(detailedPetCard);
+
+		auto dir = Director::getInstance();
+		auto vSize = dir->getVisibleSize();
+		detailedPetCard->setPosition(Vec2(vSize.width / 2, vSize.height / 2 + 20));
+	}
+	else {
+		auto dtmgr = GM_DATA_MGR;
+		auto cardData = dtmgr->getCardData(data->id);
+		detailedPetCard->initWithData(cardData);
+	}
+
+	detailedPetCard->setVisible(true);
+	detailedPetCard->setFlip(false);
+	detailedPetCard->setNormalSize();
+}
+void BattleScene::showEnergyCardDetail(const shared_ptr<const EnergyCardData> &data){
+	if (!detailedEnergyCard) {
+		detailedEnergyCard = bsres->getBSCard(data->id);
+		detailLayout->addChild(detailedEnergyCard);
+		
+		auto dir = Director::getInstance();
+		auto vSize = dir->getVisibleSize();
+		detailedEnergyCard->setPosition(Vec2(vSize.width / 2, vSize.height / 2 + 20));
+	}
+	else {
+		auto dtmgr = GM_DATA_MGR;
+		auto cardData = dtmgr->getCardData(data->id);
+		detailedEnergyCard->initWithData(cardData);
+	}
+
+	detailedEnergyCard->setFlip(false);
+	detailedEnergyCard->setOpacity(0);
+	detailedEnergyCard->setNormalSize();
+	
+}
+void BattleScene::showItemCardDetail(const shared_ptr<const CardData> &data){}
+void BattleScene::showSotCardDetail(const shared_ptr<const CardData> &data){}
+
+void BattleScene::hideCardDetail() {
+	if (detailedPetCard)
+		detailedPetCard->setVisible(false);
+	if (detailedEnergyCard)
+		detailedEnergyCard->setVisible(false);
 }
 
 BATTLE_SCENE_NS_END

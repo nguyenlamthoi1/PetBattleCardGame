@@ -15,8 +15,10 @@ BSResources::~BSResources(){
 
 void BSResources::clean() {
 	CCLOG("Erase &d BSCard", cardVec.size());
-	for (const auto card : cardVec) 
+	for (const auto card : cardVec) {
+		card->returnToPool();
 		card->release();
+	}
 	cardVec.clear();
 }
 

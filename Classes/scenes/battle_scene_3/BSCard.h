@@ -35,6 +35,7 @@ public:
 	virtual bool isFlippedDown() const { return flippedDown; }
 	virtual void setFlip(bool flip, bool anim = false) = 0; // Flip card ap xuong khi card dang ngua, va nguoc lai
 	virtual float getFliptime() const { return flipTime; }
+	//virtual void updateWithData(const std::shared_ptr<const CardData> &data);
 
 	/*
 		Hint: Them cac callback de xu ly dragCard
@@ -48,11 +49,15 @@ public:
 		const DragHandler &dragIn = nullptr,
 		const DragHandler &dragOut = nullptr);
 
+	void setDragEnabled(bool enabled);
+
+	virtual bool initWithData(const std::shared_ptr<const CardData> &data) = 0;
+
+	//virtual std::string getId() const = 0;
 protected:
 	BSCard();
 	virtual ~BSCard();
 	virtual bool init() override = 0;
-	virtual bool initWithData(const std::shared_ptr<const CardData> &data) = 0;
 	virtual bool onTouchHold();
 
 	DragHandler dragBeg = nullptr;

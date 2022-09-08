@@ -177,7 +177,7 @@ define_DragHandlerFunc_Type;
 
 void setDragComponent(cocos2d::ui::Widget* widget, DragComponent *comp);
 void removeDragComponent(cocos2d::ui::Widget* widget);
-void enableDragComponent(cocos2d::ui::Widget* widget);
+void setEnableDragComponent(cocos2d::ui::Widget* widget, bool enabled);
 
 WIDGET_TOUCH_NS_END
 

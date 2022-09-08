@@ -40,6 +40,9 @@ public:
 	BSHand(cocos2d::ui::Layout *layout, PlayerIdType ownerId);
 	~BSHand();
 
+	void setEnableDragSetupActive(bool enabled);
+	void disableDragAll();
+
 protected:
 	bool init();
 

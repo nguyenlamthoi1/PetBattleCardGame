@@ -33,5 +33,10 @@ bool PetCard::isValid() const {
 	return Card::isValid() && (petData && petData->id == id && petData->isValid());
 }
 
+bool PetCard::isBasicCard() const {
+	return petData->isBasicCard();
+}
+
+
 
 NS_GAME_END

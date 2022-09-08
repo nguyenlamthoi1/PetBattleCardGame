@@ -381,10 +381,10 @@ void removeDragComponent(ui::Widget* widget) {
 	removeComponent(widget, COMPONENT_KEY::DRAG);
 }
 
-void enableDragComponent(cocos2d::ui::Widget* widget) {
+void setEnableDragComponent(cocos2d::ui::Widget* widget, bool enabled) {
 	auto comp = getComponent<DragComponent>(widget, COMPONENT_KEY::DRAG);
 	if (comp) 
-		comp->setEnabled(true);
+		comp->setEnabled(enabled);
 }
 
 

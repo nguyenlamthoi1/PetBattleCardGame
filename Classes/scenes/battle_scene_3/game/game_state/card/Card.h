@@ -62,6 +62,7 @@ public:
 	virtual CPetDataPtr getPetData() const;
 
 	virtual bool isValid() const override;
+	virtual bool isBasicCard() const;
 
 protected:
 	CPetDataPtr petData;

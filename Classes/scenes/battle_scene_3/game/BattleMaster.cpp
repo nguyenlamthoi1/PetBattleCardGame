@@ -66,22 +66,27 @@ void BattleMaster::gameLoop(float t) {
 	if (gstate->isGameOver())
 		return;
 
-	auto& actionQueue = gstate->actionQueue;
+	//auto& actionQueue = gstate->actionQueue;
+	//auto btlScn = BattleSceneNS::BattleScene::getScene();
+
+	//if (!actionQueue.empty()) {
+	//	auto curAction = actionQueue.front();
+	//	if (curAction->state == GameAction::State::Wait) {
+	//		curAction->executeOn(gstate); // Thuc thi tung action
+
+	//		// Them animation cho scene thuc thi
+	//		auto bsAction = curAction->getBSAction();
+	//		if(bsAction)
+	//			btlScn->pushAction(bsAction);
+	//	}
+	//	else if (curAction->state == GameAction::State::Done)
+	//		actionQueue.pop_front();
+	//}
+
 	auto btlScn = BattleSceneNS::BattleScene::getScene();
-
-	if (!actionQueue.empty()) {
-		auto curAction = actionQueue.front();
-		if (curAction->state == GameAction::State::Wait) {
-			curAction->executeOn(gstate); // Thuc thi tung action
-
-			// Them animation cho scene thuc thi
-			auto bsAction = curAction->getBSAction();
-			if(bsAction)
-				btlScn->pushAction(bsAction);
-		}
-		else if (curAction->state == GameAction::State::Done)
-			actionQueue.pop_front();
-	}
+	auto bsAction = gstate->progressGame();
+	if (bsAction)
+		btlScn->pushAction(bsAction);
 }
 
 std::shared_ptr<GameAction> BattleMaster::getCurrentAction() const {

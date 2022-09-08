@@ -14,6 +14,9 @@
 #include <unordered_map>
 
 class PlayerData;
+class CardData;
+class PetCardData;
+class EnergyCardData;
 
 namespace MGame {
 	class BattleMaster;
@@ -23,10 +26,14 @@ BATTLE_SCENE_NS_BEG
 
 class BSResources;
 class BSDeck;
+
+class BSCard;
+class EnergyCard;
+class PetCard;
+class BSBoard;
+
 //class BSAction;
-//class BSBoard;
 //class BSPlayer;
-//class BSCard;
 //class BSCoinFlipper;
 class BSNotifier;
 class BSHand;
@@ -63,20 +70,17 @@ public:
 
 	cocos2d::Node* getScnRoot() const { return root; } // * Root node load tu file csb
 
-	//std::shared_ptr<BattleManager> getBattleManager() { return btlMgr; }
-
 	std::shared_ptr<PlayerData> getPlayerData(const PlayerIdType &id) const;
 	std::shared_ptr<BSHand> getHand(const PlayerIdType &id) const;
 	std::shared_ptr<BSDeck> getDeck(const PlayerIdType &id) const;
 	std::shared_ptr<BSNotifier> getNotifier() const;
+	std::shared_ptr<BSBoard> getBoard(const PlayerIdType &id) const;
+	
+	//std::shared_ptr<BSPlayer> getPlayer(PlayerIdType id) { return players[id]; }
+	//std::shared_ptr<BSCoinFlipper> getCoinFlipper() { return coinFlipper; }
 
 	PlayerIdType getPlayerId() const { return pid; }
 	PlayerIdType getOpponentId() const { return oid; }
-
-
-	//std::shared_ptr<BSPlayer> getPlayer(PlayerIdType id) { return players[id]; }
-	//std::shared_ptr<BSBoard> getBoard(PlayerIdType id) { return boards[id]; }
-	//std::shared_ptr<BSCoinFlipper> getCoinFlipper() { return coinFlipper; }
 
 private:
 	BattleScene();
@@ -91,7 +95,6 @@ private:
 	void startLoadingAndInit();
 	void initGame();
 	void startGame();
-	///Loading Layout functions
 
 private:
 	std::shared_ptr<BSResources> bsres; // Quan ly cac Asset duoc tao trong Scene nhu: Card,..
@@ -115,11 +118,10 @@ private:
 
 	std::unordered_map<PlayerIdType, std::shared_ptr<BSHand>> hands;
 	std::unordered_map<PlayerIdType, std::shared_ptr<BSDeck>> decks;
+	std::unordered_map<PlayerIdType, std::shared_ptr<BSBoard>> boards;
 
 	std::shared_ptr<BSNotifier> notifier;
 
-//	std::unordered_map<PlayerIdType, BSHand*> hands;
-//	std::unordered_map<PlayerIdType, std::shared_ptr<BSBoard>> boards;
 //
 //	std::shared_ptr<BSCoinFlipper> coinFlipper;
 //
@@ -152,6 +154,20 @@ public:
 	/// Utilize functions
 private:
 	void checkClean();
+
+public:
+	void showCardDetail(const std::shared_ptr<const CardData> &data);
+	void hideCardDetail();
+private:
+	void showPetCardDetail(const std::shared_ptr<const PetCardData> &data);
+	void showEnergyCardDetail(const std::shared_ptr<const EnergyCardData> &data);
+	void showItemCardDetail(const std::shared_ptr<const CardData> &data);
+	void showSotCardDetail(const std::shared_ptr<const CardData> &data);
+
+	cocos2d::Node *detailLayout = nullptr;
+	BSCard *detailedPetCard = nullptr;
+	BSCard *detailedEnergyCard = nullptr;
+
 };
 
 BATTLE_SCENE_NS_END

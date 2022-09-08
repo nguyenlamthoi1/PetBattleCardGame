@@ -13,15 +13,17 @@
 #include "../../BattleScene.h"
 #include "../../scene_actions/BSAction.h"
 
+#include "../player_actions/PlayerAction.h"
+
 using namespace std;
 USING_NS_CC;
 using namespace BattleSceneNS;
 
 NS_GAME_BEGIN
 
-/*
-	GameAction Class
-*/
+//---------------------//
+//GameAction Base Class//
+//---------------------//
 
 std::shared_ptr<GameAction> GameAction::clone() const {
 	return nullptr;
@@ -32,31 +34,25 @@ std::shared_ptr<BSAction> GameAction::getBSAction() const {
 }
 
 
+//--------------------------//
+//WaitInputAction Base Class//
+//--------------------------//
 
-/*
-	CustomAction Class
-*/
+vector<shared_ptr<PlayerAction>> WaitInputAction::getPossibleMoves(GameState *gameState) const {return {};}
 
-//CustomAction::CustomAction(const CustomFunction &f){}
-//
-//CustomAction::~CustomAction(){}
-//
-//void CustomAction::start() {
-//	state = State::Process;
-//	doFunc();
-//	state = State::Done;
-//}
+ActionError WaitInputAction::onReceiveInput(GameState *gameState, const std::shared_ptr<PlayerAction> &move) { 
+	return ActionError::Failed;
+}
 
-
-/*
-	DrawAction Class
-*/
+//---------------------//
+//FirstDrawAction Class//
+//---------------------//
 
 FirstDrawAction::FirstDrawAction(const PlayerIdType &id, unsigned int num) : pid(id), drawnNum(num) {}
 
 FirstDrawAction::~FirstDrawAction() {};
 
-void FirstDrawAction::executeOn(const shared_ptr<GameState> &gstate) {
+void FirstDrawAction::executeOn(GameState *gstate) {
 	state = State::Process;
 
 	auto deck = gstate->getDeck(pid);
@@ -110,9 +106,10 @@ std::shared_ptr<GameAction> FirstDrawAction::clone() const {
 	return  make_shared<FirstDrawAction>(pid, drawnNum);
 }
 
-/*
-	DrawAction Class
-*/
+
+//----------------//
+//DrawAction Class//
+//----------------//
 
 DrawAction::DrawAction(DrawType drType, const PlayerIdType &id, unsigned int num, bool checkOver) : drawType(drType), pid(id), drawnNum(num), checkGameOverOnDrawn(checkOver) {
 }
@@ -120,7 +117,7 @@ DrawAction::DrawAction(DrawType drType, const PlayerIdType &id, unsigned int num
 DrawAction::~DrawAction() {
 };
 
-void DrawAction::executeOn(const shared_ptr<GameState> &gstate) {
+void DrawAction::executeOn(GameState *gstate) {
 	state = State::Process;
 
 	auto deck = gstate->getDeck(pid);
@@ -159,16 +156,17 @@ std::shared_ptr<GameAction> DrawAction::clone() const {
 	return  make_shared<DrawAction>(drawType, pid, drawnNum, checkGameOverOnDrawn);
 }
 
+
 //----------//
 //SETUP FLOW//
 //----------//
 
-/*SetupActivePet Class*/
+	//SetupActivePet Class//
 
 SetupActivePet::SetupActivePet(const PlayerIdType &id, unsigned int idx) : pid(id), handIdx(idx) {}
 SetupActivePet::~SetupActivePet(){}
 
-void SetupActivePet::executeOn(const std::shared_ptr<GameState> &gstate) {
+void SetupActivePet::executeOn(GameState *gstate) {
 	state = State::Process;
 
 	auto hand = gstate->getHand(pid);
@@ -193,12 +191,12 @@ shared_ptr<GameAction> SetupActivePet::clone() const {
 	return make_shared<SetupActivePet>(pid, handIdx);
 }
 
-/*SetupBenchPet Class*/
+	//SetupBenchPet Class//
 
 SetupActiveBench::SetupActiveBench(const PlayerIdType &id, unsigned int hIdx, unsigned int bIdx) : pid(id), handIdx(hIdx), benchIdx(bIdx) {}
 SetupActiveBench::~SetupActiveBench() {}
 
-void SetupActiveBench::executeOn(const std::shared_ptr<GameState> &gstate) {
+void SetupActiveBench::executeOn(GameState *gstate) {
 	state = State::Process;
 
 	auto hand = gstate->getHand(pid);
@@ -223,13 +221,13 @@ shared_ptr<GameAction> SetupActiveBench::clone() const {
 	return make_shared<SetupActiveBench>(pid, handIdx, benchIdx);
 }
 
-/*StartSetupAction Class*/
+	//StartSetupAction Class//
 
 StartSetupAction::StartSetupAction() {}
 
 StartSetupAction::~StartSetupAction() {}
 
-void StartSetupAction::executeOn(const shared_ptr<GameState> &gstate) {
+void StartSetupAction::executeOn(GameState *gstate) {
 	state = State::Process;
 	gstate->startSetup();
 	state = State::Done;
@@ -244,15 +242,15 @@ shared_ptr<GameAction> StartSetupAction::clone() const {
 }
 
 
-/*StartSetupActive Class*/
+	//StartSetupActive Class//
 
 StartSetupActivePet::StartSetupActivePet(const PlayerIdType &id) {}
 
 StartSetupActivePet::~StartSetupActivePet() {}
 
-void StartSetupActivePet::executeOn(const shared_ptr<GameState> &gstate) {
+void StartSetupActivePet::executeOn(GameState *gstate) {
 	state = State::Process;
-	state = State::Done;
+	//state = State::Done;
 }
 
 shared_ptr<BattleSceneNS::BSAction> StartSetupActivePet::getBSAction() const {
@@ -263,13 +261,53 @@ shared_ptr<GameAction> StartSetupActivePet::clone() const {
 	return make_shared<StartSetupAction>();
 }
 
+vector<shared_ptr<PlayerAction>> StartSetupActivePet::getPossibleMoves(GameState *gstate) const {
+	vector<shared_ptr<PlayerAction>> ret;
+	auto hand = gstate->getHand(pid);
+	const auto &cards = hand->getAllCards();
+
+	unsigned int handIdx = 0;
+	for (const auto &card : cards) {
+		auto petCard = dynamic_pointer_cast<PetCard>(card);
+		auto data = petCard->getPetData();
+		if (petCard && data->isBasicCard()) 
+			ret.push_back(make_shared<PA_SetupActive>(handIdx));
+		++handIdx;
+	}
+	return ret;
+}
+
+ActionError StartSetupActivePet::onReceiveInput(GameState *gstate, const std::shared_ptr<PlayerAction> &move) {
+	if (state != State::Process)
+		return ActionError::Failed;
+
+	auto setupMove = dynamic_pointer_cast<PA_SetupActive>(move);
+	if (!setupMove || setupMove->pid != pid)
+		return ActionError::Failed;
+	
+	auto handIdx = setupMove->handIdx;
+	auto hand = gstate->getHand(pid);
+	auto card = hand->getCardAt(handIdx);
+	auto petCard = dynamic_pointer_cast<PetCard> (card);
+	
+	if (petCard && petCard->isBasicCard()) {
+		state = State::Done;
+		gstate->pushActionsAtFront({
+			make_shared<SetupActivePet>(pid, handIdx)
+			});
+		return ActionError::Succeeded;
+	}
+	
+	return ActionError::Failed;
+}
+
 /*StartSetupBenchPet Class*/
 
 StartSetupBenchPet::StartSetupBenchPet(const PlayerIdType &id) {}
 
 StartSetupBenchPet::~StartSetupBenchPet() {}
 
-void StartSetupBenchPet::executeOn(const shared_ptr<GameState> &gstate) {
+void StartSetupBenchPet::executeOn(GameState *gstate) {
 	state = State::Process;
 	state = State::Done;
 }
@@ -295,7 +333,7 @@ GameOverAction::GameOverAction(const PlayerIdType &wid) : winnerId(wid) {}
 
 GameOverAction::~GameOverAction() {}
 
-void GameOverAction::executeOn(const shared_ptr<GameState> &gstate) {
+void GameOverAction::executeOn(GameState *gstate) {
 	state = State::Process;
 
 	gstate->setGameOver(winnerId);

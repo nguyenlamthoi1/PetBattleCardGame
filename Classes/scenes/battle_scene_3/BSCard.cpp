@@ -42,7 +42,6 @@ BSCard* BSCard::createWithData(const std::shared_ptr<const CardData> &data) {
 	return ret;
 }
 
-
 BSCard::BSCard() {
 	CCLOG("BSCard::Ctor %p", this);
 }
@@ -86,6 +85,7 @@ void BSCard::setDragHandler(const std::vector<cocos2d::Node*> &destNodes,
 		comp = new DragComponent();
 		DragComponent::setComp(this, comp);
 	}
+
 	comp->destinations.clear();
 	comp->destinations.insert(comp->destinations.cend(), destNodes.begin(), destNodes.end());
 
@@ -114,6 +114,12 @@ void BSCard::setDragHandler(const std::vector<cocos2d::Node*> &destNodes,
 	this->setTouchEnabled(true);
 	this->setSwallowTouches(true);
 }
+
+void BSCard::setDragEnabled(bool enabled) {
+	WidgetTouchNS::setEnableDragComponent(this, enabled);
+}
+
+
 
 
 /*

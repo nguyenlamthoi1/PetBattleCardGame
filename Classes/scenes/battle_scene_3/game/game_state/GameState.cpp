@@ -99,8 +99,48 @@ void GameState::startGame() {
 		});
 }
 
-void GameState::startSetup() {
+void GameState::progressGameNoAnimation() {
+	// Lay ra 1 action de thuc thi
+	if (!isGameOver())
+		return;
 
+	shared_ptr<BattleSceneNS::BSAction> bsAction;
+
+	if (!actionQueue.empty()) {
+		auto curAction = actionQueue.front();
+		if (curAction->state == GameAction::State::Wait) {
+			curAction->executeOn(this); // Thuc thi tung action
+
+		}
+		if (curAction->state == GameAction::State::Done)
+			actionQueue.pop_front();
+	}
+}
+
+shared_ptr<BattleSceneNS::BSAction> GameState::progressGame() {
+	// Lay ra 1 action de thuc thi
+	if (isGameOver())
+		return nullptr;
+
+	shared_ptr<BattleSceneNS::BSAction> bsAction;
+
+	if (!actionQueue.empty()) {
+		auto curAction = actionQueue.front();
+		if (curAction->state == GameAction::State::Wait) {
+			curAction->executeOn(this); // Thuc thi tung action
+
+			bsAction = curAction->getBSAction(); // Them animation
+		}
+		if (curAction->state == GameAction::State::Done)
+			actionQueue.pop_front();
+	}
+	return bsAction;
+}
+
+void GameState::startSetup() {
+	phase = Phase::Setup;
+	curPlayer = 0;
+	turnCount = 0;
 }
 
 void GameState::clearState() {
@@ -174,16 +214,35 @@ PlayerIdType GameState::getOpponentOf(const PlayerIdType &pid) const {
 	return pid == pids[0] ? pids[1] : pids[0];
 }
 
+// Player Actions
 
-/// Actions to update Game State
+bool GameState::isWaitingInput() {
+	auto waitInputAction = dynamic_pointer_cast<WaitInputAction>(actionQueue.front());
+	return waitInputAction != nullptr && waitInputAction->state != GameAction::State::Done;
+}
+
+ActionError GameState::onPlayerTakeAction(const shared_ptr<PlayerAction> &pa) {
+	auto waitInputAction = dynamic_pointer_cast<WaitInputAction>(actionQueue.front());
+	if (waitInputAction && waitInputAction->state != GameAction::State::Done)
+		return waitInputAction->onReceiveInput(this, pa);
+
+	return ActionError::Failed;
+}
+
+
+// Actions to update Game State
 
 void GameState::pushAction(const std::shared_ptr<GameAction> &action) {
 	actionQueue.push_back(action);
 }
 
-void GameState::pushActions(std::initializer_list<std::shared_ptr<GameAction>> actions) {
+void GameState::pushActions(std::initializer_list<shared_ptr<GameAction>> actions) {
 	for (const auto &action : actions) 
 		actionQueue.push_back(action);
+}
+
+void GameState::pushActionsAtFront(initializer_list<shared_ptr<GameAction>> actions) {
+	actionQueue.insert(actionQueue.begin(), actions.begin(), actions.end());
 }
 
 ActionError GameState::onPlayerDrawCard(const PlayerIdType &pid, unsigned int num) {

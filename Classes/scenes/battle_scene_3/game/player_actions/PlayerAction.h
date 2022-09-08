@@ -26,9 +26,21 @@ public:
 	Type type = Type::None;
 };
 
+/*
+	- Class dac biec, khi player gui den BattleMaster object class nay, BattleMaster se tu dong thuc thi 1 Possible Move cho player
+*/
+class PA_DoForMe : public PlayerAction {
+public:
+	PA_DoForMe() = default;
+	virtual ~PA_DoForMe() = default;
+};
 
-class PA_Setup : public PlayerAction {
+class PA_SetupActive : public PlayerAction {
+public:
+	PA_SetupActive(unsigned int hIdx) : handIdx(hIdx) {};
+	virtual ~PA_SetupActive() = default;
 
+	unsigned int handIdx = 0;
 };
 
 class PA_PlayPetCardFromHand : public PlayerAction {
