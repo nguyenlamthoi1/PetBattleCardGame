@@ -1,10 +1,12 @@
 #include "BSAction.h"
 #include "../BattleScene.h"
 #include "../BSHand.h"
+#include "../BSNotifier.h"
+
+#include "GameManager.h"
 
 //#include "../BattleManager.h"
 //#include "../BSCoinFlipper.h"
-//#include "../BSNotifier.h"
 //#include "../BSBoard.h"
 
 //#include "../players/BSPlayer.h"
@@ -64,8 +66,8 @@ void SequenceAction::executeOn(BattleScene *btlScn) {
 		return;
 	state = State::Processed;
 	
-	for (const auto &action : actions)
-		btlScn->pushAction(action);
+	/*for (const auto &action : actions)
+		btlScn->pushAction(action);*/
 
 	state = State::Done;
 }
@@ -284,18 +286,25 @@ StartSetupAction::StartSetupAction() {}
 
 StartSetupAction::~StartSetupAction() {}
 
+const string StartSetupAction::START_SETUP_TXT = "TXT_BS_START_SET_UP";
+
 void StartSetupAction::executeOn(BattleScene *btlScn) {
 	if (state != State::Wait)
 		return;
 
 	state = State::Processed;
 
-	//TODO
+	auto lang = GM_LANG;
+	auto notifier = btlScn->getNotifier();
+	notifier->showMsgAndHideAfter(lang->getString(START_SETUP_TXT), 1.5f);
 
 	state = State::Done;
 }
 
 //---//
+
+const string StartSetupActive::PLAYER_SETUP_TXT = "TXT_BS_START_PLAYER_SET_UP";
+const string StartSetupActive::OPP_SETUP_TXT = "TXT_BS_START_OPPONENT_SET_UP";
 
 StartSetupActive::StartSetupActive(const PlayerIdType &id) : pid(id) {}
 
@@ -307,10 +316,22 @@ void StartSetupActive::executeOn(BattleScene *btlScn) {
 
 	state = State::Processed;
 
-	//TODO
+	auto lang = GM_LANG;
+
+	if (btlScn->getPlayerId() == pid) { // Player Action
+		auto notifier = btlScn->getNotifier();
+		notifier->showMsgAndHideAfter(lang->getString(PLAYER_SETUP_TXT), 1.5f);
+	}
+	else { // Opponent Action
+		auto notifier = btlScn->getNotifier();
+		notifier->showMsgAndHideAfter(lang->getString(OPP_SETUP_TXT), 1.5f);
+	
+		//TODO: AI_MAKE_DECISION
+	}
 
 	state = State::Done;
 }
+
 
 //---//
 

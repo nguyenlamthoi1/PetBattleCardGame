@@ -17,7 +17,7 @@ public:
 	enum class Type {
 		None,
 		Custom,
-		
+
 		StartSetup,
 		StartSetupActive,
 		StartSetupBench,
@@ -33,20 +33,28 @@ public:
 		AttackPet, // Quan trong
 		useAbility,
 		useItemCard, // Su dung giong nhu spter card hoac attach vao Pet
-		UseAttack,
+		
+		discard_item_card,
+		
+		UseAttack, 
 
 		// Action ho tro
 		branchAction, // Quan trong
-		healPet,
-		flipCoin,
+		healPet, // *
+		flipCoin, // *
 
 		FirstDrawCard,
 		DrawFromDeck,
 
-		SelectFromHand,
-		SelectFromDiscard,
-		SelectFromDeck,
-		SelectFromBoard,
+		SelectFromHand, // *
+		SelectFromDiscard, // *
+		SelectFromDeck, // *
+		SelectFromBoard, // *
+
+		SelectFromPet, // *
+		SelectEnergiesFromPet, //*
+
+		SelectEnergyCardFromPet, //*
 
 		GetSelectedFromDiscard,
 		GetSelectedFromPrize,
@@ -55,24 +63,20 @@ public:
 		SwitchSelectedWithActive,
 		//TODO: More
 
-		DrawFromPet, // *
-
 		gainBuff, //*
 		removeBuff, //*
 
 		applySpecialCondition, // *
 		removeSpecialCondition, // *
 
-		
+		DiscardSelectedCardFromHand, // *
+		DiscardSelectedEnergyCardFromPet, // *
+		DiscardAttachedItemFromPet,
+		PetDie, // *
 
-		DiscardFromPet, // Discard Energy Card, ItemCard
-
-		SelectFromPrize,
-
-		DiscardFromHand, // Discard Card
-		DiscardFromDeck, //Discard
-			
-		GameOver
+		UpdateBetweenTurn, // *
+		SwitchPlayerTurn, //*
+		GameOver //*
 	};
 
 	enum class State {
@@ -157,7 +161,10 @@ protected:
 };
 
 
+//--Setup Flow--//
+
 class StartSetupAction: public GameAction {
+public:
 	StartSetupAction();
 	virtual ~StartSetupAction();
 
@@ -174,7 +181,7 @@ public:
 	virtual ~StartSetupActivePet();
 
 	virtual void executeOn(const std::shared_ptr<GameState> &gameState) override;
-	virtual Type getType() const override { return Type::SetupActive; }
+	virtual Type getType() const override { return Type::StartSetupActive; }
 	virtual std::shared_ptr<BattleSceneNS::BSAction> getBSAction() const override;
 	virtual std::shared_ptr<GameAction> clone() const override;
 
@@ -191,13 +198,11 @@ public:
 	virtual ~StartSetupBenchPet();
 
 	virtual void executeOn(const std::shared_ptr<GameState> &gameState) override;
-	virtual Type getType() const override { return Type::SetupActive; }
+	virtual Type getType() const override { return Type::StartSetupBench; }
 	virtual std::shared_ptr<BattleSceneNS::BSAction> getBSAction() const override;
 	virtual std::shared_ptr<GameAction> clone() const override;
 
 	PlayerIdType pid;
-	unsigned int handIdx = 0;
-
 protected:
 };
 
@@ -239,6 +244,8 @@ protected:
 	// Result
 	std::shared_ptr<BattleSceneNS::BSAction> bsAction;
 };
+
+//--------------//
 
 
 class EndTurnAction : public GameAction {

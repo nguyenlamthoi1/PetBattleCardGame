@@ -73,7 +73,11 @@ void BattleMaster::gameLoop(float t) {
 		auto curAction = actionQueue.front();
 		if (curAction->state == GameAction::State::Wait) {
 			curAction->executeOn(gstate); // Thuc thi tung action
-			btlScn->pushAction(curAction->getBSAction()); // Them animation cho scene thuc thi
+
+			// Them animation cho scene thuc thi
+			auto bsAction = curAction->getBSAction();
+			if(bsAction)
+				btlScn->pushAction(bsAction);
 		}
 		else if (curAction->state == GameAction::State::Done)
 			actionQueue.pop_front();

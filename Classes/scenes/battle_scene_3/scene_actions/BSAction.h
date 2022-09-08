@@ -66,7 +66,7 @@ public:
 
 	virtual void executeOn(BattleScene *btlScn) override;
 	virtual ActionType getType() const override { return ActionType::Sequence; }
-protected:
+
 	std::list<std::shared_ptr<BSAction>> actions;
 };
 
@@ -159,6 +159,8 @@ protected:
 
 class StartSetupAction : public BSAction {
 public:
+	const static std::string START_SETUP_TXT;
+
 	StartSetupAction();
 	virtual ~StartSetupAction();
 
@@ -168,6 +170,9 @@ public:
 
 class StartSetupActive : public BSAction {
 public:
+	const static std::string PLAYER_SETUP_TXT;
+	const static std::string OPP_SETUP_TXT;
+
 	StartSetupActive(const PlayerIdType &pid);
 	virtual ~StartSetupActive();
 

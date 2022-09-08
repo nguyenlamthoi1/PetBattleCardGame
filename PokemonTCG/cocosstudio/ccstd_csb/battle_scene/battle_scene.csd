@@ -106,6 +106,158 @@
                 <PrePosition X="0.9500" Y="0.2600" />
                 <PreSize X="0.0000" Y="0.0000" />
               </AbstractNodeData>
+              <AbstractNodeData Name="Discard_Board" ActionTag="-1860097295" Tag="85" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="951.6283" RightMargin="221.3717" TopMargin="132.5320" BottomMargin="79.4680" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Enable="True" LeftEage="10" RightEage="10" TopEage="10" BottomEage="10" Scale9OriginX="10" Scale9OriginY="10" Scale9Width="256" Scale9Height="374" ctype="PanelObjectData">
+                <Size X="107.0000" Y="148.0000" />
+                <Children>
+                  <AbstractNodeData Name="Title" ActionTag="1845086585" Tag="86" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="-2.5000" RightMargin="-2.5000" TopMargin="31.0000" BottomMargin="31.0000" FontSize="36" LabelText="Discard&#xA;Pile" HorizontalAlignmentType="HT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                    <Size X="112.0000" Y="86.0000" />
+                    <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                    <Position X="53.5000" Y="74.0000" />
+                    <Scale ScaleX="0.6000" ScaleY="0.6000" />
+                    <CColor A="255" R="255" G="255" B="255" />
+                    <PrePosition X="0.5000" Y="0.5000" />
+                    <PreSize X="1.0467" Y="0.5811" />
+                    <FontResource Type="Normal" Path="ccstd_fonts/GillSans_ttf/Gill Sans.ttf" Plist="" />
+                    <OutlineColor A="255" R="255" G="0" B="0" />
+                    <ShadowColor A="255" R="110" G="110" B="110" />
+                  </AbstractNodeData>
+                  <AbstractNodeData Name="Card_Marker" ActionTag="-290445301" Tag="87" IconVisible="True" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="53.5000" RightMargin="53.5000" TopMargin="74.0000" BottomMargin="74.0000" ctype="SingleNodeObjectData">
+                    <Size X="0.0000" Y="0.0000" />
+                    <AnchorPoint />
+                    <Position X="53.5000" Y="74.0000" />
+                    <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                    <CColor A="255" R="255" G="255" B="255" />
+                    <PrePosition X="0.5000" Y="0.5000" />
+                    <PreSize X="0.0000" Y="0.0000" />
+                  </AbstractNodeData>
+                  <AbstractNodeData Name="Content" ActionTag="-713707401" Tag="88" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="15.5000" RightMargin="15.5000" TopMargin="115.3600" BottomMargin="-53.3600" FontSize="72" LabelText="30" HorizontalAlignmentType="HT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                    <Size X="76.0000" Y="86.0000" />
+                    <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                    <Position X="53.5000" Y="-10.3600" />
+                    <Scale ScaleX="0.6000" ScaleY="0.6000" />
+                    <CColor A="255" R="255" G="255" B="255" />
+                    <PrePosition X="0.5000" Y="-0.0700" />
+                    <PreSize X="0.7103" Y="0.5811" />
+                    <FontResource Type="Normal" Path="ccstd_fonts/GillSans_ttf/GillSans Condensed Bold.ttf" Plist="" />
+                    <OutlineColor A="255" R="255" G="0" B="0" />
+                    <ShadowColor A="255" R="110" G="110" B="110" />
+                  </AbstractNodeData>
+                </Children>
+                <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                <Position X="1005.1283" Y="153.4680" />
+                <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                <CColor A="255" R="255" G="255" B="255" />
+                <PrePosition X="0.7853" Y="0.4263" />
+                <PreSize X="0.0836" Y="0.4111" />
+                <FileData Type="PlistSubImage" Path="battle_scene/black_card_container.png" Plist="ccstd_assets/battle_scene.plist" />
+                <SingleColor A="255" R="150" G="200" B="255" />
+                <FirstColor A="255" R="150" G="200" B="255" />
+                <EndColor A="255" R="255" G="255" B="255" />
+                <ColorVector ScaleY="1.0000" />
+              </AbstractNodeData>
+              <AbstractNodeData Name="Prize_Board" ActionTag="684922297" Tag="89" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="234.5228" RightMargin="938.4772" TopMargin="131.2000" BottomMargin="80.8000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Enable="True" LeftEage="10" RightEage="10" TopEage="10" BottomEage="10" Scale9OriginX="10" Scale9OriginY="10" Scale9Width="256" Scale9Height="374" ctype="PanelObjectData">
+                <Size X="107.0000" Y="148.0000" />
+                <Children>
+                  <AbstractNodeData Name="Title" ActionTag="-1674957943" Tag="90" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="16.5000" RightMargin="16.5000" TopMargin="31.0000" BottomMargin="31.0000" FontSize="36" LabelText="Prize&#xA;Pile" HorizontalAlignmentType="HT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                    <Size X="74.0000" Y="86.0000" />
+                    <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                    <Position X="53.5000" Y="74.0000" />
+                    <Scale ScaleX="0.6000" ScaleY="0.6000" />
+                    <CColor A="255" R="255" G="255" B="255" />
+                    <PrePosition X="0.5000" Y="0.5000" />
+                    <PreSize X="0.6916" Y="0.5811" />
+                    <FontResource Type="Normal" Path="ccstd_fonts/GillSans_ttf/Gill Sans.ttf" Plist="" />
+                    <OutlineColor A="255" R="255" G="0" B="0" />
+                    <ShadowColor A="255" R="110" G="110" B="110" />
+                  </AbstractNodeData>
+                  <AbstractNodeData Name="Card_Marker" ActionTag="79620054" Tag="91" IconVisible="True" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="53.5000" RightMargin="53.5000" TopMargin="74.0000" BottomMargin="74.0000" ctype="SingleNodeObjectData">
+                    <Size X="0.0000" Y="0.0000" />
+                    <AnchorPoint />
+                    <Position X="53.5000" Y="74.0000" />
+                    <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                    <CColor A="255" R="255" G="255" B="255" />
+                    <PrePosition X="0.5000" Y="0.5000" />
+                    <PreSize X="0.0000" Y="0.0000" />
+                  </AbstractNodeData>
+                  <AbstractNodeData Name="Content" ActionTag="-682144461" Tag="92" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="34.0000" RightMargin="34.0000" TopMargin="115.3600" BottomMargin="-53.3600" FontSize="72" LabelText="6" HorizontalAlignmentType="HT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                    <Size X="39.0000" Y="86.0000" />
+                    <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                    <Position X="53.5000" Y="-10.3600" />
+                    <Scale ScaleX="0.6000" ScaleY="0.6000" />
+                    <CColor A="255" R="255" G="255" B="255" />
+                    <PrePosition X="0.5000" Y="-0.0700" />
+                    <PreSize X="0.3645" Y="0.5811" />
+                    <FontResource Type="Normal" Path="ccstd_fonts/GillSans_ttf/GillSans Condensed Bold.ttf" Plist="" />
+                    <OutlineColor A="255" R="255" G="0" B="0" />
+                    <ShadowColor A="255" R="110" G="110" B="110" />
+                  </AbstractNodeData>
+                </Children>
+                <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                <Position X="288.0228" Y="154.8000" />
+                <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                <CColor A="255" R="255" G="255" B="255" />
+                <PrePosition X="0.2250" Y="0.4300" />
+                <PreSize X="0.0836" Y="0.4111" />
+                <FileData Type="PlistSubImage" Path="battle_scene/black_card_container.png" Plist="ccstd_assets/battle_scene.plist" />
+                <SingleColor A="255" R="150" G="200" B="255" />
+                <FirstColor A="255" R="150" G="200" B="255" />
+                <EndColor A="255" R="255" G="255" B="255" />
+                <ColorVector ScaleY="1.0000" />
+              </AbstractNodeData>
+              <AbstractNodeData Name="Spt_Holder" ActionTag="-1317499555" Tag="93" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="448.0000" RightMargin="725.0000" TopMargin="194.0000" BottomMargin="18.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="126" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
+                <Size X="107.0000" Y="148.0000" />
+                <Children>
+                  <AbstractNodeData Name="Title" ActionTag="1109024204" Tag="94" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="-20.5000" RightMargin="-20.5000" TopMargin="52.5000" BottomMargin="52.5000" FontSize="36" LabelText="Supporter" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                    <Size X="148.0000" Y="43.0000" />
+                    <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                    <Position X="53.5000" Y="74.0000" />
+                    <Scale ScaleX="0.6000" ScaleY="0.6000" />
+                    <CColor A="255" R="255" G="255" B="255" />
+                    <PrePosition X="0.5000" Y="0.5000" />
+                    <PreSize X="1.3832" Y="0.2905" />
+                    <FontResource Type="Normal" Path="ccstd_fonts/GillSans_ttf/Gill Sans.ttf" Plist="" />
+                    <OutlineColor A="255" R="255" G="0" B="0" />
+                    <ShadowColor A="255" R="110" G="110" B="110" />
+                  </AbstractNodeData>
+                </Children>
+                <AnchorPoint />
+                <Position X="448.0000" Y="18.0000" />
+                <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                <CColor A="255" R="255" G="255" B="255" />
+                <PrePosition X="0.3500" Y="0.0500" />
+                <PreSize X="0.0836" Y="0.4111" />
+                <SingleColor A="255" R="150" G="200" B="255" />
+                <FirstColor A="255" R="150" G="200" B="255" />
+                <EndColor A="255" R="255" G="255" B="255" />
+                <ColorVector ScaleY="1.0000" />
+              </AbstractNodeData>
+              <AbstractNodeData Name="Item_Holder" ActionTag="226593993" Tag="95" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="723.2000" RightMargin="449.8000" TopMargin="194.0000" BottomMargin="18.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="126" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
+                <Size X="107.0000" Y="148.0000" />
+                <Children>
+                  <AbstractNodeData Name="Title" ActionTag="1234655702" Tag="96" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="20.5000" RightMargin="20.5000" TopMargin="52.5000" BottomMargin="52.5000" FontSize="36" LabelText="Item" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                    <Size X="66.0000" Y="43.0000" />
+                    <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                    <Position X="53.5000" Y="74.0000" />
+                    <Scale ScaleX="0.6000" ScaleY="0.6000" />
+                    <CColor A="255" R="255" G="255" B="255" />
+                    <PrePosition X="0.5000" Y="0.5000" />
+                    <PreSize X="0.6168" Y="0.2905" />
+                    <FontResource Type="Normal" Path="ccstd_fonts/GillSans_ttf/Gill Sans.ttf" Plist="" />
+                    <OutlineColor A="255" R="255" G="0" B="0" />
+                    <ShadowColor A="255" R="110" G="110" B="110" />
+                  </AbstractNodeData>
+                </Children>
+                <AnchorPoint />
+                <Position X="723.2000" Y="18.0000" />
+                <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                <CColor A="255" R="255" G="255" B="255" />
+                <PrePosition X="0.5650" Y="0.0500" />
+                <PreSize X="0.0836" Y="0.4111" />
+                <SingleColor A="255" R="150" G="200" B="255" />
+                <FirstColor A="255" R="150" G="200" B="255" />
+                <EndColor A="255" R="255" G="255" B="255" />
+                <ColorVector ScaleY="1.0000" />
+              </AbstractNodeData>
             </Children>
             <AnchorPoint />
             <Position Y="360.0000" />
@@ -144,6 +296,158 @@
                 <PrePosition X="0.5000" Y="0.4100" />
                 <PreSize X="0.3125" Y="0.2778" />
                 <FileData Type="PlistSubImage" Path="battle_scene/black_card_container.png" Plist="ccstd_assets/battle_scene.plist" />
+                <SingleColor A="255" R="150" G="200" B="255" />
+                <FirstColor A="255" R="150" G="200" B="255" />
+                <EndColor A="255" R="255" G="255" B="255" />
+                <ColorVector ScaleY="1.0000" />
+              </AbstractNodeData>
+              <AbstractNodeData Name="Discard_Board" ActionTag="2125078972" Tag="77" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="953.2200" RightMargin="219.7800" TopMargin="70.0000" BottomMargin="142.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Enable="True" LeftEage="10" RightEage="10" TopEage="10" BottomEage="10" Scale9OriginX="10" Scale9OriginY="10" Scale9Width="256" Scale9Height="374" ctype="PanelObjectData">
+                <Size X="107.0000" Y="148.0000" />
+                <Children>
+                  <AbstractNodeData Name="Title" ActionTag="-1161352492" Tag="79" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="-2.5000" RightMargin="-2.5000" TopMargin="31.0000" BottomMargin="31.0000" FontSize="36" LabelText="Discard&#xA;Pile" HorizontalAlignmentType="HT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                    <Size X="112.0000" Y="86.0000" />
+                    <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                    <Position X="53.5000" Y="74.0000" />
+                    <Scale ScaleX="0.6000" ScaleY="0.6000" />
+                    <CColor A="255" R="255" G="255" B="255" />
+                    <PrePosition X="0.5000" Y="0.5000" />
+                    <PreSize X="1.0467" Y="0.5811" />
+                    <FontResource Type="Normal" Path="ccstd_fonts/GillSans_ttf/Gill Sans.ttf" Plist="" />
+                    <OutlineColor A="255" R="255" G="0" B="0" />
+                    <ShadowColor A="255" R="110" G="110" B="110" />
+                  </AbstractNodeData>
+                  <AbstractNodeData Name="Card_Marker" ActionTag="955651032" Tag="83" IconVisible="True" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="53.5000" RightMargin="53.5000" TopMargin="74.0000" BottomMargin="74.0000" ctype="SingleNodeObjectData">
+                    <Size X="0.0000" Y="0.0000" />
+                    <AnchorPoint />
+                    <Position X="53.5000" Y="74.0000" />
+                    <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                    <CColor A="255" R="255" G="255" B="255" />
+                    <PrePosition X="0.5000" Y="0.5000" />
+                    <PreSize X="0.0000" Y="0.0000" />
+                  </AbstractNodeData>
+                  <AbstractNodeData Name="Content" ActionTag="-404643365" Tag="84" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="15.5000" RightMargin="15.5000" TopMargin="115.3600" BottomMargin="-53.3600" FontSize="72" LabelText="30" HorizontalAlignmentType="HT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                    <Size X="76.0000" Y="86.0000" />
+                    <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                    <Position X="53.5000" Y="-10.3600" />
+                    <Scale ScaleX="0.6000" ScaleY="0.6000" />
+                    <CColor A="255" R="255" G="255" B="255" />
+                    <PrePosition X="0.5000" Y="-0.0700" />
+                    <PreSize X="0.7103" Y="0.5811" />
+                    <FontResource Type="Normal" Path="ccstd_fonts/GillSans_ttf/GillSans Condensed Bold.ttf" Plist="" />
+                    <OutlineColor A="255" R="255" G="0" B="0" />
+                    <ShadowColor A="255" R="110" G="110" B="110" />
+                  </AbstractNodeData>
+                </Children>
+                <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                <Position X="1006.7200" Y="216.0000" />
+                <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                <CColor A="255" R="255" G="255" B="255" />
+                <PrePosition X="0.7865" Y="0.6000" />
+                <PreSize X="0.0836" Y="0.4111" />
+                <FileData Type="PlistSubImage" Path="battle_scene/black_card_container.png" Plist="ccstd_assets/battle_scene.plist" />
+                <SingleColor A="255" R="150" G="200" B="255" />
+                <FirstColor A="255" R="150" G="200" B="255" />
+                <EndColor A="255" R="255" G="255" B="255" />
+                <ColorVector ScaleY="1.0000" />
+              </AbstractNodeData>
+              <AbstractNodeData Name="Prize_Board" ActionTag="-1037517655" Tag="78" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="236.1147" RightMargin="936.8853" TopMargin="70.0000" BottomMargin="142.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Enable="True" LeftEage="10" RightEage="10" TopEage="10" BottomEage="10" Scale9OriginX="10" Scale9OriginY="10" Scale9Width="256" Scale9Height="374" ctype="PanelObjectData">
+                <Size X="107.0000" Y="148.0000" />
+                <Children>
+                  <AbstractNodeData Name="Title" ActionTag="110632776" Tag="80" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="16.5000" RightMargin="16.5000" TopMargin="31.0000" BottomMargin="31.0000" FontSize="36" LabelText="Prize&#xA;Pile" HorizontalAlignmentType="HT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                    <Size X="74.0000" Y="86.0000" />
+                    <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                    <Position X="53.5000" Y="74.0000" />
+                    <Scale ScaleX="0.6000" ScaleY="0.6000" />
+                    <CColor A="255" R="255" G="255" B="255" />
+                    <PrePosition X="0.5000" Y="0.5000" />
+                    <PreSize X="0.6916" Y="0.5811" />
+                    <FontResource Type="Normal" Path="ccstd_fonts/GillSans_ttf/Gill Sans.ttf" Plist="" />
+                    <OutlineColor A="255" R="255" G="0" B="0" />
+                    <ShadowColor A="255" R="110" G="110" B="110" />
+                  </AbstractNodeData>
+                  <AbstractNodeData Name="Card_Marker" ActionTag="-1126495563" Tag="82" IconVisible="True" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="53.5000" RightMargin="53.5000" TopMargin="74.0000" BottomMargin="74.0000" ctype="SingleNodeObjectData">
+                    <Size X="0.0000" Y="0.0000" />
+                    <AnchorPoint />
+                    <Position X="53.5000" Y="74.0000" />
+                    <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                    <CColor A="255" R="255" G="255" B="255" />
+                    <PrePosition X="0.5000" Y="0.5000" />
+                    <PreSize X="0.0000" Y="0.0000" />
+                  </AbstractNodeData>
+                  <AbstractNodeData Name="Content" ActionTag="-1762862987" Tag="81" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="34.0000" RightMargin="34.0000" TopMargin="115.3600" BottomMargin="-53.3600" FontSize="72" LabelText="6" HorizontalAlignmentType="HT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                    <Size X="39.0000" Y="86.0000" />
+                    <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                    <Position X="53.5000" Y="-10.3600" />
+                    <Scale ScaleX="0.6000" ScaleY="0.6000" />
+                    <CColor A="255" R="255" G="255" B="255" />
+                    <PrePosition X="0.5000" Y="-0.0700" />
+                    <PreSize X="0.3645" Y="0.5811" />
+                    <FontResource Type="Normal" Path="ccstd_fonts/GillSans_ttf/GillSans Condensed Bold.ttf" Plist="" />
+                    <OutlineColor A="255" R="255" G="0" B="0" />
+                    <ShadowColor A="255" R="110" G="110" B="110" />
+                  </AbstractNodeData>
+                </Children>
+                <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                <Position X="289.6147" Y="216.0000" />
+                <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                <CColor A="255" R="255" G="255" B="255" />
+                <PrePosition X="0.2263" Y="0.6000" />
+                <PreSize X="0.0836" Y="0.4111" />
+                <FileData Type="PlistSubImage" Path="battle_scene/black_card_container.png" Plist="ccstd_assets/battle_scene.plist" />
+                <SingleColor A="255" R="150" G="200" B="255" />
+                <FirstColor A="255" R="150" G="200" B="255" />
+                <EndColor A="255" R="255" G="255" B="255" />
+                <ColorVector ScaleY="1.0000" />
+              </AbstractNodeData>
+              <AbstractNodeData Name="Spt_Holder" ActionTag="885167132" Tag="71" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="448.0000" RightMargin="725.0000" TopMargin="6.8000" BottomMargin="205.2000" TouchEnable="True" ClipAble="False" BackColorAlpha="126" ComboBoxIndex="1" ColorAngle="90.0000" ctype="PanelObjectData">
+                <Size X="107.0000" Y="148.0000" />
+                <Children>
+                  <AbstractNodeData Name="Title" ActionTag="-1317092235" Tag="73" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="-20.5000" RightMargin="-20.5000" TopMargin="52.5000" BottomMargin="52.5000" FontSize="36" LabelText="Supporter" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                    <Size X="148.0000" Y="43.0000" />
+                    <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                    <Position X="53.5000" Y="74.0000" />
+                    <Scale ScaleX="0.6000" ScaleY="0.6000" />
+                    <CColor A="255" R="255" G="255" B="255" />
+                    <PrePosition X="0.5000" Y="0.5000" />
+                    <PreSize X="1.3832" Y="0.2905" />
+                    <FontResource Type="Normal" Path="ccstd_fonts/GillSans_ttf/Gill Sans.ttf" Plist="" />
+                    <OutlineColor A="255" R="255" G="0" B="0" />
+                    <ShadowColor A="255" R="110" G="110" B="110" />
+                  </AbstractNodeData>
+                </Children>
+                <AnchorPoint />
+                <Position X="448.0000" Y="205.2000" />
+                <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                <CColor A="255" R="255" G="255" B="255" />
+                <PrePosition X="0.3500" Y="0.5700" />
+                <PreSize X="0.0836" Y="0.4111" />
+                <SingleColor A="255" R="150" G="200" B="255" />
+                <FirstColor A="255" R="150" G="200" B="255" />
+                <EndColor A="255" R="255" G="255" B="255" />
+                <ColorVector ScaleY="1.0000" />
+              </AbstractNodeData>
+              <AbstractNodeData Name="Item_Holder" ActionTag="1264862209" Tag="74" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="723.2000" RightMargin="449.8000" TopMargin="6.8000" BottomMargin="205.2000" TouchEnable="True" ClipAble="False" BackColorAlpha="126" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
+                <Size X="107.0000" Y="148.0000" />
+                <Children>
+                  <AbstractNodeData Name="Title" ActionTag="-922632656" Tag="75" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="20.5000" RightMargin="20.5000" TopMargin="52.5000" BottomMargin="52.5000" FontSize="36" LabelText="Item" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                    <Size X="66.0000" Y="43.0000" />
+                    <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                    <Position X="53.5000" Y="74.0000" />
+                    <Scale ScaleX="0.6000" ScaleY="0.6000" />
+                    <CColor A="255" R="255" G="255" B="255" />
+                    <PrePosition X="0.5000" Y="0.5000" />
+                    <PreSize X="0.6168" Y="0.2905" />
+                    <FontResource Type="Normal" Path="ccstd_fonts/GillSans_ttf/Gill Sans.ttf" Plist="" />
+                    <OutlineColor A="255" R="255" G="0" B="0" />
+                    <ShadowColor A="255" R="110" G="110" B="110" />
+                  </AbstractNodeData>
+                </Children>
+                <AnchorPoint />
+                <Position X="723.2000" Y="205.2000" />
+                <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                <CColor A="255" R="255" G="255" B="255" />
+                <PrePosition X="0.5650" Y="0.5700" />
+                <PreSize X="0.0836" Y="0.4111" />
                 <SingleColor A="255" R="150" G="200" B="255" />
                 <FirstColor A="255" R="150" G="200" B="255" />
                 <EndColor A="255" R="255" G="255" B="255" />
@@ -226,7 +530,7 @@
             <EndColor A="255" R="255" G="255" B="255" />
             <ColorVector ScaleY="1.0000" />
           </AbstractNodeData>
-          <AbstractNodeData Name="P1_Hand_Panel" ActionTag="-288501886" Tag="99" IconVisible="False" PercentWidthEnable="True" PercentWidthEnabled="True" TopMargin="628.0000" BottomMargin="-50.0000" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" ctype="PanelObjectData">
+          <AbstractNodeData Name="P1_Hand_Panel" ActionTag="-288501886" Tag="99" IconVisible="False" PercentWidthEnable="True" PercentWidthEnabled="True" TopMargin="628.0000" BottomMargin="-50.0000" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
             <Size X="1280.0000" Y="142.0000" />
             <AnchorPoint />
             <Position Y="-50.0000" />

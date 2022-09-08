@@ -9,6 +9,7 @@
 #include "BSResources.h"
 #include "BSHand.h"
 #include "BSDeck.h"
+#include "BSNotifier.h"
 
 #include <stdlib.h>
 
@@ -19,7 +20,6 @@
 //#include "BSBoard.h"
 //#include "BSCard.h"
 //#include "BSCoinFlipper.h"
-//#include "BSNotifier.h"
 //
 //#include "actions/BSAction.h"
 //#include "players/BSPlayer.h"
@@ -153,9 +153,9 @@ bool BattleScene::init() {
 	//coinFlipper = shared_ptr<BSCoinFlipper>(BSCoinFlipper::create(this));
 	//coinFlipper->getNode()->setVisible(false);
 
-	//// Khoi tao Notifier
-	//notifier = shared_ptr<BSNotifier>(BSNotifier::create(this));
-	//notifier->getNode()->setVisible(true);
+	// Khoi tao Notifier
+	notifier = shared_ptr<BSNotifier>(BSNotifier::create(this));
+	notifier->getNode()->setVisible(true);
 
 	// Khoi tao Top Layer
 	topLayout = dynamic_cast<ui::Layout*>(root->getChildByName("Top_Layer"));
@@ -216,6 +216,13 @@ void BattleScene::startGame() {
 	startPipeline();
 
 	auto bm = MGame::BattleMaster::get();
+
+	pids.clear();
+	pids.push_back(pid);
+	pids.push_back(oid);
+	turnCount = 0;
+	phase = Phase::Start;
+
 	bm->initGame(PLAYER_ID, oid);
 	bm->startGame();
 }
@@ -238,11 +245,10 @@ void BattleScene::onExit() {
 ///Getters and Setters///
 ///------------------///
 
-std::shared_ptr<PlayerData> BattleScene::getPlayerData(const PlayerIdType &id) {
-	return playerData[id]; 
-}
-std::shared_ptr<BSHand> BattleScene::getHand(const PlayerIdType &id) { return hands[id]; }
-std::shared_ptr<BSDeck> BattleScene::getDeck(const PlayerIdType &id) { return decks[id]; }
+std::shared_ptr<PlayerData> BattleScene::getPlayerData(const PlayerIdType &id) const { return playerData.at(id); }
+std::shared_ptr<BSHand> BattleScene::getHand(const PlayerIdType &id) const { return hands.at(id); }
+std::shared_ptr<BSDeck> BattleScene::getDeck(const PlayerIdType &id) const { return decks.at(id); }
+std::shared_ptr<BSNotifier> BattleScene::getNotifier() const { return notifier; }
 
 
 ///----------------------///
@@ -256,18 +262,37 @@ void BattleScene::updatePipeline(float dt) {
 	//	waitTime -= dt;
 	//	return;
 	//}
-
 	if (!pipeline.empty()) {
 		auto first = *(pipeline.begin());
 		if (first->state == BSAction::State::Wait) {
-			pipState = PipelineState::Process;
-			first->executeOn(this);
+			auto sqAction = dynamic_pointer_cast<SequenceAction>(first);
+			if (sqAction) {
+				pipeline.pop_front();
+				pipeline.insert(pipeline.begin(), sqAction->actions.begin(), sqAction->actions.end());
+			}
+			else {
+				pipState = PipelineState::Process;
+				first->executeOn(this);
+			}
 		}
 		else if (first->state == BSAction::State::Done) { // Action ket thuc
 			pipeline.pop_front();
 		}
 	}
 }
+
+void BattleScene::insertBehindAction(const ActionPtr &atPtr, const std::vector<ActionPtr> &actionVec) {
+	auto insertItr = pipeline.begin();
+	while (insertItr != pipeline.cend())
+	{
+		if ((*insertItr) == atPtr)
+			break;
+		++insertItr;
+	}
+	if (insertItr != pipeline.cend())
+		pipeline.insert(insertItr, actionVec.begin(), actionVec.end());
+}
+
 
 void BattleScene::startPipeline() {
 	schedule(CC_SCHEDULE_SELECTOR(BattleScene::updatePipeline));
@@ -284,6 +309,10 @@ void BattleScene::pushAction(const ActionPtr &ptr) {
 void BattleScene::pushActions(initializer_list<ActionPtr> list) {
 	for (const auto &action : list)
 		pipeline.push_back(action);
+}
+
+void BattleScene::popFront() {
+	pipeline.pop_front();
 }
 
 void BattleScene::clearPipeline() {

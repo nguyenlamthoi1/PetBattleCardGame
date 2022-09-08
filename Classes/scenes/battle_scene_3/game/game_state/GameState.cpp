@@ -95,6 +95,7 @@ void GameState::startGame() {
 		make_shared<FirstDrawAction>(pids[0], GConfig::DRAW_NUM_ON_START),
 		make_shared<FirstDrawAction>(pids[1], GConfig::DRAW_NUM_ON_START),
 		make_shared<StartSetupAction>(),
+		make_shared<StartSetupActivePet>(pids[0]),
 		});
 }
 

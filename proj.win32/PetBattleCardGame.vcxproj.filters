@@ -228,6 +228,9 @@
     <ClCompile Include="..\Classes\scenes\battle_scene_3\game\game_state\PrizePile.cpp">
       <Filter>src\scenes\battle_scene\game\game_state</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\BSNotifier.cpp">
+      <Filter>src\scenes\battle_scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -493,6 +496,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\scenes\battle_scene_3\game\game_state\PrizePile.h">
       <Filter>src\scenes\battle_scene\game\game_state</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\BSNotifier.h">
+      <Filter>src\scenes\battle_scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
