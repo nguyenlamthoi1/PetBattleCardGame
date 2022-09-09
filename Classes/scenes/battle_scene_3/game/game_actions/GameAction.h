@@ -24,6 +24,7 @@ public:
 		StartSetupBench,
 		SetupActive,
 		SetupBench,
+		EndSetup,
 
 		TurnStart,
 
@@ -193,7 +194,7 @@ public:
 protected:
 };
 
-class StartSetupBenchPet : public GameAction {
+class StartSetupBenchPet : public WaitInputAction{
 public:
 
 	StartSetupBenchPet(const PlayerIdType &id);
@@ -203,6 +204,9 @@ public:
 	virtual Type getType() const override { return Type::StartSetupBench; }
 	virtual std::shared_ptr<BattleSceneNS::BSAction> getBSAction() const override;
 	virtual std::shared_ptr<GameAction> clone() const override;
+
+	virtual std::vector<std::shared_ptr<PlayerAction>> getPossibleMoves(GameState *gameState) const override;
+	virtual ActionError onReceiveInput(GameState *gameState, const std::shared_ptr<PlayerAction> &move);
 
 	PlayerIdType pid;
 protected:
@@ -247,16 +251,56 @@ protected:
 	std::shared_ptr<BattleSceneNS::BSAction> bsAction;
 };
 
+class EndSetup : public GameAction {
+public:
+
+	EndSetup() = default;
+	virtual ~EndSetup() = default;
+
+	virtual void executeOn(GameState *gameState) override;
+	virtual Type getType() const override { return Type::EndSetup; }
+	virtual std::shared_ptr<BattleSceneNS::BSAction> getBSAction() const override;
+	virtual std::shared_ptr<GameAction> clone() const override;
+protected:
+};
+
 //--------------//
 
+class FlipCoinGetFirst : public GameAction {
+public:
 
-class EndTurnAction : public GameAction {
-	
+	FlipCoinGetFirst() = default;
+	virtual ~FlipCoinGetFirst() = default;
+
+	virtual void executeOn(GameState *gameState) override;
+	virtual Type getType() const override { return Type::EndSetup; }
+	virtual std::shared_ptr<BattleSceneNS::BSAction> getBSAction() const override;
+	virtual std::shared_ptr<GameAction> clone() const override;
+
+protected:
+	//Result
+	PlayerIdType firstIdx;
 };
+
+class OnTurnStart : public GameAction {
+public:
+
+	OnTurnStart(const PlayerIdType &id) : pid(id) {};
+	virtual ~OnTurnStart() = default;
+
+	virtual void executeOn(GameState *gameState) override;
+	virtual Type getType() const override { return Type::EndSetup; }
+	virtual std::shared_ptr<BattleSceneNS::BSAction> getBSAction() const override;
+	virtual std::shared_ptr<GameAction> clone() const override;
+
+	PlayerIdType pid;
+protected:
+};
+
 
 class GameOverAction : public GameAction {
 public:
-	GameOverAction(const PlayerIdType &wid = "");
+	GameOverAction(const PlayerIdType &pid = "");
 	virtual ~GameOverAction();
 
 	virtual void executeOn(GameState *state) override;

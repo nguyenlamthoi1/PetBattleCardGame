@@ -83,6 +83,7 @@ public:
 	PlayerIdType getPlayerId() const { return pid; }
 	PlayerIdType getOpponentId() const { return oid; }
 
+	unsigned int getTurnCount() const { return turnCount; }
 private:
 	BattleScene();
 	virtual ~BattleScene();

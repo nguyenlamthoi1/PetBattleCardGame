@@ -45,7 +45,7 @@ public:
 	void setHolderSizeH(float h);
 	void setHolderSizeW(float w);
 	
-	bool tryAddPetCard(PetCard *card);
+	bool tryAddBasicPetCard(PetCard *card);
 	bool tryAddEnergyCard(EnergyCard *card);
 
 	void updateInfoPanel(bool show);

@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "DiscardPile.h"
 #include "PrizePile.h"
+#include "CoinFlipper.h"
 
 #include "card/Card.h"
 #include "../game_actions/GameAction.h"
@@ -42,6 +43,14 @@ bool GameState::initStateWith2Players(const PlayerIdType &p1, const PlayerIdType
 			return false;
 
 		initSuc = initBoard(pid);
+		if (!initSuc)
+			return false;
+
+		initSuc = initPlayer(pid);
+		if (!initSuc)
+			return false;
+
+		initSuc = initPlayer(pid);
 		if (!initSuc)
 			return false;
 	}
@@ -84,6 +93,20 @@ bool GameState::initPlayer(const PlayerIdType &id) {
 	return true;
 }
 
+bool  GameState::initDiscard(const PlayerIdType &id) {
+	discardPiles.insert({ id, DiscardPile::createShPtr(id) });
+	return true;
+}
+
+bool  GameState::initPrize(const PlayerIdType &id) {
+	prizePiles.insert({ id, PrizePile::createShPtr(id) });
+	return true;
+}
+
+bool  GameState::initFlipper(const PlayerIdType &id) {
+	flippers.insert({ id, CoinFlipper::createShPtr(id) });
+	return true;
+}
 
 void GameState::startGame() {
 	turnCount = 0;
@@ -156,44 +179,51 @@ void GameState::setGameOver(const PlayerIdType & wid) {
 }
 
 /// Getter, Setter & Checkers
-std::shared_ptr<Deck> GameState::getDeck(const PlayerIdType &pid) const {
+shared_ptr<Deck> GameState::getDeck(const PlayerIdType &pid) const {
 	auto itr = decks.find(pid);
 	if (itr != decks.end())
 		return itr->second;
 	return nullptr;
 }
 
-std::shared_ptr<Hand> GameState::getHand(const PlayerIdType &pid) const {
+shared_ptr<Hand> GameState::getHand(const PlayerIdType &pid) const {
 	auto itr = hands.find(pid);
 	if (itr != hands.end())
 		return itr->second;
 	return nullptr;
 }
 
-std::shared_ptr<Board> GameState::getBoard(const PlayerIdType &pid) const {
+shared_ptr<Board> GameState::getBoard(const PlayerIdType &pid) const {
 	auto itr = boards.find(pid);
 	if (itr != boards.end())
 		return itr->second;
 	return nullptr;
 }
 
-std::shared_ptr<Player> GameState::getPlayer(const PlayerIdType &pid) const {
+shared_ptr<Player> GameState::getPlayer(const PlayerIdType &pid) const {
 	auto itr = players.find(pid);
 	if (itr != players.end())
 		return itr->second;
 	return nullptr;
 }
 
-std::shared_ptr<DiscardPile> GameState::getDiscardPile(const PlayerIdType &pid) const {
+shared_ptr<DiscardPile> GameState::getDiscardPile(const PlayerIdType &pid) const {
 	auto itr = discardPiles.find(pid);
 	if (itr != discardPiles.end())
 		return itr->second;
 	return nullptr;
 }
 
-std::shared_ptr<PrizePile> GameState::getPrizePile(const PlayerIdType &pid) const {
+shared_ptr<PrizePile> GameState::getPrizePile(const PlayerIdType &pid) const {
 	auto itr = prizePiles.find(pid);
 	if (itr != prizePiles.end())
+		return itr->second;
+	return nullptr;
+}
+
+shared_ptr<CoinFlipper> GameState::getFlipper(const PlayerIdType &pid) const {
+	auto itr = flippers.find(pid);
+	if (itr != flippers.end())
 		return itr->second;
 	return nullptr;
 }

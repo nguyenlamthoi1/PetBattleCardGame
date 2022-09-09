@@ -15,7 +15,9 @@ class PlayerAction {
 public:
 	enum class Type {
 		None,
-		SetupActivePet
+		SetupActivePet,
+		SetupBenchPet,
+		EndTurn
 	};
 
 	PlayerAction(Type t, const PlayerIdType &id) : type(t), pid(id) {}
@@ -43,6 +45,23 @@ public:
 	virtual Type getType() const override { return Type::SetupActivePet; }
 	PlayerIdType pid;
 	unsigned int handIdx = 0;
+};
+
+class PA_SetupBench : public PlayerAction {
+public:
+	PA_SetupBench(const PlayerIdType &id, unsigned int hIdx) : pid(id), handIdx(hIdx) {};
+	virtual ~PA_SetupBench() = default;
+	virtual Type getType() const override { return Type::SetupBenchPet; }
+	PlayerIdType pid;
+	unsigned int handIdx = 0;
+};
+
+class PA_EndTurn : public PlayerAction {
+public:
+	PA_EndTurn(const PlayerIdType &id) : pid(id) {};
+	virtual ~PA_EndTurn() = default;
+	virtual Type getType() const override { return Type::EndTurn; }
+	PlayerIdType pid;
 };
 
 //class PA_PlayPetCardFromHand : public PlayerAction {

@@ -341,7 +341,10 @@ void StartSetupActive::executeOn(BattleScene *btlScn) {
 bool StartSetupActive::onReceivePlayerInput(const shared_ptr<MGame::BattleMaster> & bm, const shared_ptr<MGame::PlayerAction> &pAction) {
 	if (pAction->getType() == MGame::PlayerAction::Type::SetupActivePet) {
 		auto error =  bm->onPlayerChooseAction(pAction);
-		return error != ActionError::Failed;
+		bool suc = error != ActionError::Failed;
+		if (suc)
+			state = State::Done;
+		return suc;
 	}
 	return false;
 }
@@ -353,13 +356,30 @@ StartSetupBench::StartSetupBench(const PlayerIdType &id) : pid(id) {}
 
 StartSetupBench::~StartSetupBench() {}
 
+const string StartSetupBench::PLAYER_SETUP_TXT = "TXT_BS_START_PLAYER_SET_UP_BENCH";
+const string StartSetupBench::OPP_SETUP_TXT = "TXT_BS_START_OPPONENT_SET_UP_BENCH";
+
 void StartSetupBench::executeOn(BattleScene *btlScn) {
 	if (state != State::Wait)
 		return;
 
 	state = State::Processed;
 
-	//TODO
+	auto lang = GM_LANG;
+
+	if (btlScn->getPlayerId() == pid) { // Player Action
+		auto notifier = btlScn->getNotifier();
+		notifier->showMsgAndHideAfter(lang->getString(PLAYER_SETUP_TXT), 1.5f);
+
+		auto hand = btlScn->getHand(pid);
+		hand->setEnableDragSetupActive(true);
+	}
+	else { // Opponent Action
+		auto notifier = btlScn->getNotifier();
+		notifier->showMsgAndHideAfter(lang->getString(OPP_SETUP_TXT), 1.5f);
+
+		//TODO: AI_MAKE_DECISION
+	}
 
 	state = State::Done;
 }
@@ -370,15 +390,24 @@ DoSetupPetActive::DoSetupPetActive(const PlayerIdType &id, unsigned int hidx) : 
 
 DoSetupPetActive::~DoSetupPetActive() {}
 
+const string DoSetupPetActive::OPP_DO_SETUP_TXT = "TXT_BS_OPPONENT_DO_SET_UP";
+
 void DoSetupPetActive::executeOn(BattleScene *btlScn) {
 	if (state != State::Wait)
 		return;
 
 	state = State::Processed;
 
-	//TODO
+	auto lang = GM_LANG;
 
-	state = State::Done;
+	if (btlScn->getPlayerId() == pid) { // Player Action
+		//TODO
+		state = State::Done;
+	}
+	else { // Opponent Action
+		//TODO
+	}
+
 }
 
 DoSetupPetBench::DoSetupPetBench(const PlayerIdType &id, unsigned int handIdx, unsigned int bIdx) : pid(id), benchIdx(bIdx) {}
@@ -394,6 +423,19 @@ void DoSetupPetBench::executeOn(BattleScene *btlScn) {
 	//TODO
 
 	state = State::Done;
+}
+
+
+/*
+	FlipCoinGetFirstPlayer
+*/
+
+void FlipCoinGetFirstPlayer::executeOn(BattleScene *btlScn) {
+	if (state != State::Wait)
+		return;
+
+	state = State::Processed;
+
 }
 
 

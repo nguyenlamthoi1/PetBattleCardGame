@@ -123,55 +123,53 @@ void CardHolder::setHolderSizeW(float w) {
 }
 
 
-bool CardHolder::tryAddPetCard(PetCard *card) {
-	//auto btlMgr = btlScn->getBattleManager();
+bool CardHolder::tryAddBasicPetCard(PetCard *card) {
 
-	//auto petData = dynamic_pointer_cast<const PetCardData>(card->getData());
-	//bool isBasic = petData->evStage < 1;
-	//if (isBasic) {
-	//	if (petCard)
-	//		return false;
-	//	petCard = card;
-	//	card->removeFromParent();
-	//	cardMarker->addChild(card);
-	//	auto pos = Vec2(0, 0);
-	//	card->setPosition(pos + Vec2(0, 25));
-	//	card->runAction(MoveTo::create(0.5f, pos));
-	//	updateInfoPanel(true);
+	auto petData = dynamic_pointer_cast<const PetCardData>(card->getData());
+	bool isBasic = petData->evStage < 1;
+	if (isBasic) {
+		if (petCard)
+			return false;
+		petCard = card;
+		card->removeFromParent();
+		cardMarker->addChild(card);
+		auto pos = Vec2(0, 0);
+		card->setPosition(pos + Vec2(0, 25));
+		card->runAction(MoveTo::create(0.5f, pos));
+		updateInfoPanel(true);
 
-	//	// * Cap nhat thong tin holder
-	//	dmgCounter = 0;
-	//	playedTurn = btlMgr->getCurTurn();
+		// * Cap nhat thong tin holder
+		dmgCounter = 0;
+		playedTurn = btlScn->getTurnCount();
 
-	//	return true;
-	//}
-	//else { // Evolved card
-	//	if (!petCard)
-	//		return false;
-	//	
-	//	auto holderPetData = dynamic_pointer_cast<const PetCardData>(petCard->getData());
-	//	if (holderPetData->name != petData->evolveFrom)
-	//		return false;
+		return true;
+	}
+	else { // Evolved card
+		if (!petCard)
+			return false;
+		
+		auto holderPetData = dynamic_pointer_cast<const PetCardData>(petCard->getData());
+		if (holderPetData->name != petData->evolveFrom)
+			return false;
 
-	//	petCard->removeFromParent();
-	//	petCard->retain();
-	//	preEvCardVec.push_back(petCard);
+		petCard->removeFromParent();
+		petCard->retain();
+		preEvCardVec.push_back(petCard);
 
-	//	petCard = card;
-	//	card->removeFromParent();
-	//	cardMarker->addChild(card);
-	//	auto pos = Vec2(0, 0);
-	//	card->setPosition(pos + Vec2(0, 25));
-	//	card->runAction(MoveTo::create(0.5f, pos));
-	//	showFlyingText("Evolved");
-	//	updateInfoPanel(true);
+		petCard = card;
+		card->removeFromParent();
+		cardMarker->addChild(card);
+		auto pos = Vec2(0, 0);
+		card->setPosition(pos + Vec2(0, 25));
+		card->runAction(MoveTo::create(0.5f, pos));
+		showFlyingText("Evolved");
+		updateInfoPanel(true);
 
-	//	// * Cap nhat thong tin holder
-	//	playedTurn = btlMgr->getCurTurn();
+		// * Cap nhat thong tin holder
+		playedTurn = btlScn->getTurnCount();
 
-	//	return true;
-	//}
-	return false;
+		return true;
+	}
 }
 
 bool CardHolder::tryAddEnergyCard(EnergyCard *energyCard) {

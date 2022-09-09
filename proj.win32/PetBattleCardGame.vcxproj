@@ -186,6 +186,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\scenes\battle_scene_3\game\game_state\card\Card.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene_3\game\game_state\card\EnergyCard.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene_3\game\game_state\card\PetCard.cpp" />
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\game\game_state\CoinFlipper.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene_3\game\game_state\Deck.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene_3\game\game_state\DiscardPile.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene_3\game\game_state\GameState.cpp" />
@@ -280,6 +281,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\scenes\battle_scene_3\game\game_actions\GameAction.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene_3\game\game_state\Board.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene_3\game\game_state\card\Card.h" />
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\game\game_state\CoinFlipper.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene_3\game\game_state\Deck.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene_3\game\game_state\DiscardPile.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene_3\game\game_state\GameState.h" />

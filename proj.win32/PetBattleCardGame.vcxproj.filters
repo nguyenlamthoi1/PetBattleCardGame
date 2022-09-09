@@ -243,6 +243,9 @@
     <ClCompile Include="..\Classes\scenes\battle_scene_3\prefabs\EnergyItem.cpp">
       <Filter>src\scenes\battle_scene\prefabs</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\game\game_state\CoinFlipper.cpp">
+      <Filter>src\scenes\battle_scene\game\game_state</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -520,6 +523,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\scenes\battle_scene_3\prefabs\BSPrefabs.h">
       <Filter>src\scenes\battle_scene\prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\game\game_state\CoinFlipper.h">
+      <Filter>src\scenes\battle_scene\game\game_state</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

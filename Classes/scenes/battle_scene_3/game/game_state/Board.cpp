@@ -63,4 +63,8 @@ bool Board::evolvePetAtBench(const std::shared_ptr<PetCard> &petCard, unsigned i
 	return false;
 }
 
+bool Board::hasActivePet() const {
+	return active->hasPet();
+}
+
 NS_GAME_END

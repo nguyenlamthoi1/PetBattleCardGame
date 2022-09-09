@@ -130,8 +130,8 @@ void BSHand::onDragBack(BSCard *cardNode) {
 		auto wOldPos = comp->getOrgWorldPos();
 		auto orgParent = comp->getOrgParent();
 		cardWidget->removeFromParent();
-		orgParent->addChild(cardWidget);
-		auto lOldPos = orgParent->convertToNodeSpaceAR(wOldPos);
+		handLayout->addChild(cardWidget);
+		auto lOldPos = handLayout->convertToNodeSpaceAR(wOldPos);
 		cardWidget->setZOrder(comp->getOrgZ());
 		cardWidget->setTouchEnabled(false);
 		cardWidget->runAction(
@@ -249,10 +249,14 @@ void BSHand::setDragForPetCard(PetCard *petCard, unsigned int handIdx) {
 				onDragBack(petCard);
 			}
 			else {
+				bool dragOnActive = board->isActiveBoard(dest);
 				bool check = (!board->checkCanAddPetCard(petCard, dest)) ||
-					(btlScn->onPlayerPetCard(pid, handIdx, board->isActiveBoard(dest) ? BattleScene::PlaceType::Active : BattleScene::PlaceType::Bench));
+					(btlScn->onPlayerPetCard(pid, handIdx, dragOnActive ? BattleScene::PlaceType::Active : BattleScene::PlaceType::Bench));
 				if (!check)
 					onDragBack(petCard);
+				else {
+					board->addPetOnActive(petCard);
+				}
 			}
 			//onDragBack(petCard);
 		}

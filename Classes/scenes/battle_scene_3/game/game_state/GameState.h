@@ -21,6 +21,7 @@ class DiscardPile;
 class PrizePile;
 class GameAction;
 class PlayerAction;
+class CoinFlipper;
 
 #define GameState_TAG_CLONE // Clone
 
@@ -50,6 +51,7 @@ public:
 	unsigned int getTurnCount() const { return turnCount; }
 	PlayerIdType getCurrentId() const { return pids[curPlayer]; }
 	void setCurrentPlayerToNext() { curPlayer = (curPlayer + 1) % pids.size(); }
+	unsigned int getPlayerCount() const { return pids.size(); }
 
 	std::shared_ptr<Deck> getDeck(const PlayerIdType &pid) const;
 	std::shared_ptr<Hand> getHand(const PlayerIdType &pid) const;
@@ -57,6 +59,7 @@ public:
 	std::shared_ptr<Player> getPlayer(const PlayerIdType &pid) const;
 	std::shared_ptr<DiscardPile> getDiscardPile(const PlayerIdType &pid) const;
 	std::shared_ptr<PrizePile> getPrizePile(const PlayerIdType &pid) const;
+	std::shared_ptr<CoinFlipper> getFlipper(const PlayerIdType &pid) const;
 
 
 	std::shared_ptr<GameState> clone() const; // * Clone Game State moi, doc lap voi State duoc clone
@@ -81,7 +84,9 @@ protected:
 	bool initHand(const PlayerIdType &id);
 	bool initBoard(const PlayerIdType &id);
 	bool initPlayer(const PlayerIdType &id);
-
+	bool initDiscard(const PlayerIdType &id);
+	bool initPrize(const PlayerIdType &id);
+	bool initFlipper(const PlayerIdType &id);
 protected:
 	unsigned int curPlayer; GameState_TAG_CLONE // Actor hien tai dang thuc hien hanh dong 
 		std::vector<PlayerIdType> pids; GameState_TAG_CLONE // vector gom cac player id
@@ -91,6 +96,7 @@ protected:
 		std::unordered_map<PlayerIdType, std::shared_ptr<DiscardPile>> discardPiles; GameState_TAG_CLONE
 		std::unordered_map<PlayerIdType, std::shared_ptr<PrizePile>> prizePiles; GameState_TAG_CLONE
 		std::unordered_map<PlayerIdType, std::shared_ptr<Player>> players; GameState_TAG_CLONE
+		std::unordered_map<PlayerIdType, std::shared_ptr<CoinFlipper>> flippers; GameState_TAG_CLONE
 
 		std::list<std::shared_ptr<GameAction>> actionQueue; GameState_TAG_CLONE
 

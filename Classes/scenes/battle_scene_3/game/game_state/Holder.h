@@ -12,9 +12,11 @@ class Card;
 class PetCard;
 class EnergyCard;
 class GameState;
+class Board;
 
 class Holder {
 public:
+	friend class Board;
 	using PetCardPtr = std::shared_ptr<const PetCard>;
 	using EnergyCardPtr = std::shared_ptr<const EnergyCard>;
 	using HolderPtr = std::shared_ptr<Holder>;
@@ -26,6 +28,7 @@ public:
 	virtual bool init();
 	void setGameState(GameState *gameState) { gstate = gameState; }
 
+	bool hasPet() const { return petCard != nullptr; }
 	bool addBasicPetCard(const std::shared_ptr<PetCard> &petCard);
 	bool evolvePetCard(const std::shared_ptr<PetCard> &petCard);
 protected:

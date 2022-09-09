@@ -184,7 +184,7 @@ void SetupActivePet::executeOn(GameState *gstate) {
 
 shared_ptr<BattleSceneNS::BSAction> SetupActivePet::getBSAction() const {
 	if(suc)
-		return BattleSceneNS::SequenceAction::create({}); //TODO
+		return make_shared<BattleSceneNS::DoSetupPetActive>(pid, handIdx); //TODO
 }
 
 shared_ptr<GameAction> SetupActivePet::clone() const {
@@ -296,7 +296,8 @@ ActionError StartSetupActivePet::onReceiveInput(GameState *gstate, const std::sh
 	if (petCard && petCard->isBasicCard()) {
 		state = State::Done;
 		gstate->pushActionsAtFront({
-			make_shared<SetupActivePet>(pid, handIdx)
+			make_shared<SetupActivePet>(pid, handIdx),
+			make_shared<StartSetupBenchPet>(pid)
 			});
 		return ActionError::Succeeded;
 	}
@@ -316,17 +317,116 @@ void StartSetupBenchPet::executeOn(GameState *gstate) {
 }
 
 shared_ptr<BattleSceneNS::BSAction> StartSetupBenchPet::getBSAction() const {
-	return nullptr;
+	return BattleSceneNS::SequenceAction::create({
+		make_shared<BattleSceneNS::WaitAction>(0.7f),
+		make_shared<BattleSceneNS::StartSetupBench>(pid),
+		});
 }
 
 shared_ptr<GameAction> StartSetupBenchPet::clone() const {
 	return make_shared<StartSetupBenchPet>(pid);
 }
 
+vector<shared_ptr<PlayerAction>> StartSetupBenchPet::getPossibleMoves(GameState *gstate) const {
+	vector<shared_ptr<PlayerAction>> ret;
+	auto hand = gstate->getHand(pid);
+	const auto &cards = hand->getAllCards();
+
+	unsigned int handIdx = 0;
+	for (const auto &card : cards) {
+		auto petCard = dynamic_pointer_cast<PetCard>(card);
+		auto data = petCard->getPetData();
+		if (petCard && data->isBasicCard())
+			ret.push_back(make_shared<PA_SetupBench>(pid, handIdx));
+		++handIdx;
+	}
+	return ret;
+}
+
+ActionError StartSetupBenchPet::onReceiveInput(GameState *gstate, const std::shared_ptr<PlayerAction> &move) {
+	if (state != State::Process)
+		return ActionError::Failed;
+
+	// Xu ly Player Action thiet lap Bench Pet
+	if (move->getType() == PlayerAction::Type::SetupBenchPet) {
+		auto setupMove = dynamic_pointer_cast<PA_SetupBench>(move);
+		if (!setupMove || setupMove->pid != pid)
+			return ActionError::Failed;
+
+		auto handIdx = setupMove->handIdx;
+		auto hand = gstate->getHand(pid);
+		auto card = hand->getCardAt(handIdx);
+		auto petCard = dynamic_pointer_cast<PetCard> (card);
+
+		if (petCard && petCard->isBasicCard()) {
+			state = State::Done;
+			gstate->pushActionsAtFront({ make_shared<StartSetupBenchPet>(pid) });
+			return ActionError::Succeeded;
+		}
+		return ActionError::Failed;
+	}
+	else if (move->getType() == PlayerAction::Type::EndTurn) {
+		auto setupMove = dynamic_pointer_cast<PA_EndTurn>(move);
+		if (!setupMove || setupMove->pid != pid)
+			return ActionError::Failed;
+
+		auto otherId = gstate->getOpponentOf(pid);
+		auto board = gstate->getBoard(otherId);
+		if (!board->hasActivePet()){ // Doi thu chua co Active Pet
+			state = State::Done;
+			gstate->pushActionsAtFront({ make_shared<StartSetupActivePet>(pid) });
+			return ActionError::Succeeded;
+		}
+		else {
+			state = State::Done;
+			gstate->pushActionsAtFront({ make_shared<EndSetup>()});
+			return ActionError::Succeeded;
+		}
+
+	}
+
+	return ActionError::Failed;
+}
+	//EndSetup Class//
+void EndSetup::executeOn(GameState *gstate) {
+	if (state != State::Wait)
+		return;
+	state = State::Process;
+	gstate->pushActionsAtFront({make_shared<FlipCoinGetFirst>(),});
+	state = State::Done;
+}
+
+shared_ptr<BattleSceneNS::BSAction> EndSetup::getBSAction() const {
+	return nullptr;
+}
+
+shared_ptr<GameAction> EndSetup::clone() const {
+	return make_shared<EndSetup>();
+}
+
 //---///
 //---///
 //---///
 
+/*
+	FlipCoinGetFirst
+*/
+
+void FlipCoinGetFirst::executeOn(GameState *gstate) {
+	if (state != State::Wait)
+		return;
+	state = State::Process;
+	firstIdx = cocos2d::RandomHelper::random_int(0, (int)gstate->getPlayerCount());
+	state = State::Done;
+}
+
+shared_ptr<BattleSceneNS::BSAction> FlipCoinGetFirst::getBSAction() const {
+	return nullptr;
+}
+
+shared_ptr<GameAction> FlipCoinGetFirst::clone() const {
+	return make_shared<FlipCoinGetFirst>();
+}
 
 /*
 	GameOverAction Class

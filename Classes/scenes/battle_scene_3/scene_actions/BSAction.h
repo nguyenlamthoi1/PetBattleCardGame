@@ -38,7 +38,9 @@ public:
 		StartSetupActive,
 		SetupActive,
 		StartSetupBench,
-		SetupBench
+		SetupBench,
+
+		FirstPlayerFlip
 	};
 
 	enum class State{
@@ -198,6 +200,9 @@ protected:
 
 class StartSetupBench : public BSAction {
 public:
+	static const std::string PLAYER_SETUP_TXT;
+	static const std::string OPP_SETUP_TXT;
+
 	StartSetupBench(const PlayerIdType &pid);
 	virtual ~StartSetupBench();
 
@@ -209,6 +214,7 @@ protected:
 
 class DoSetupPetActive : public BSAction {
 public:
+	static const std::string OPP_DO_SETUP_TXT;
 	DoSetupPetActive(const PlayerIdType &pid, unsigned int handIdx);
 	virtual ~DoSetupPetActive();
 
@@ -230,6 +236,17 @@ protected:
 	PlayerIdType pid;
 	unsigned int handIdx = 0;
 	unsigned int benchIdx = 0;
+};
+
+class FlipCoinGetFirstPlayer : public BSAction {
+public:
+	FlipCoinGetFirstPlayer(const PlayerIdType &pid) : firstId(pid) {}
+	virtual ~FlipCoinGetFirstPlayer() = default;
+
+	virtual void executeOn(BattleScene *btlScn) override;
+	virtual ActionType getType() const override { return ActionType::FirstPlayerFlip; }
+protected:
+	PlayerIdType firstId;
 };
 
 

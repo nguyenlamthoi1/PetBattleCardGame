@@ -44,7 +44,6 @@ public:
 private:
 
 	PlayerIdType pid = PlayerIdInvalid; // Id cua player so huu Deck
-	
 	CardVector cardVec; // Vector cac la bai co trong Deck cua nguoi choi
 };
 
