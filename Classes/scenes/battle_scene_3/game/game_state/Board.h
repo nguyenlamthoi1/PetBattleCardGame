@@ -32,7 +32,7 @@ public:
 	bool hasActivePet() const;
 	bool addBasicPetCardToActive(const std::shared_ptr<PetCard> &petCard);
 	bool evolvePetAtActive(const std::shared_ptr<PetCard> &petCard);
-	bool addBasicPetCardToBench(const std::shared_ptr<PetCard> &petCard, unsigned int benchIdx);
+	bool addBasicPetCardToBench(const std::shared_ptr<PetCard> &petCard);
 	bool evolvePetAtBench(const std::shared_ptr<PetCard> &petCard, unsigned int benchIdx);
 protected:
 	GameState* gstate = nullptr; // weak pointer

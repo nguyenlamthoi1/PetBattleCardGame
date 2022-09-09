@@ -8,6 +8,7 @@
 #include "prefabs/BSPrefabs.h"
 #include "common/ResourcePool.h"
 #include "common/Utilize.h"
+#include "components/WidgetTouchComponent.h"
 #include <new>
 
 //#include "players/BSPlayer.h"
@@ -137,6 +138,8 @@ bool CardHolder::tryAddBasicPetCard(PetCard *card) {
 		card->setPosition(pos + Vec2(0, 25));
 		card->runAction(MoveTo::create(0.5f, pos));
 		updateInfoPanel(true);
+		
+		WidgetTouchNS::setEnableDragComponent(card, false);
 
 		// * Cap nhat thong tin holder
 		dmgCounter = 0;

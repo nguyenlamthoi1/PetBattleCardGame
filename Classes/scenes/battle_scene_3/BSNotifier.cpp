@@ -143,7 +143,9 @@ void BSNotifier::setMsg(const string &msg) {
 	msgBoard->setLayoutType(ui::Layout::Type::RELATIVE);
 	msgBoard->requestDoLayout();
 
-	msgBoard->setPosition(msgBoard->getPosition() + Vec2(0, 80));
+	auto boardParent = msgBoard->getParent();
+	auto parentSize = boardParent->getContentSize();
+	msgBoard->setPosition(Vec2(parentSize.width / 2.0f, parentSize.height / 2.0f) + Vec2(0, 80));
 }
 
 BATTLE_SCENE_NS_END

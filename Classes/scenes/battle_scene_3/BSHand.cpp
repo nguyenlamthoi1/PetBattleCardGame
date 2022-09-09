@@ -250,12 +250,19 @@ void BSHand::setDragForPetCard(PetCard *petCard, unsigned int handIdx) {
 			}
 			else {
 				bool dragOnActive = board->isActiveBoard(dest);
-				bool check = (!board->checkCanAddPetCard(petCard, dest)) ||
-					(btlScn->onPlayerPetCard(pid, handIdx, dragOnActive ? BattleScene::PlaceType::Active : BattleScene::PlaceType::Bench));
+				//bool check1 = board->checkCanAddPetCard(petCard, dest);
+				//bool check2 = btlScn->onPlayerPetCard(pid, handIdx, dragOnActive ? BattleScene::PlaceType::Active : BattleScene::PlaceType::Bench);
+				bool check = board->checkCanAddPetCard(petCard, dest) && 
+					btlScn->onPlayerPetCard(pid, handIdx, dragOnActive ? BattleScene::PlaceType::Active : BattleScene::PlaceType::Bench) 
+					&& true;
 				if (!check)
 					onDragBack(petCard);
 				else {
-					board->addPetOnActive(petCard);
+					/*if (dragOnActive)
+						board->addPetOnActive(petCard);
+					else
+						board->addPetOnBoard(petCard);*/
+					//updateCardPositions();
 				}
 			}
 			//onDragBack(petCard);
@@ -274,5 +281,49 @@ void BSHand::setDragForSupporterCard() {
 void BSHand::disableDragAll() {
 
 }
+
+bool BSHand::playPetCardFromHandToActive(unsigned int handIdx) {
+	auto card = cards.at(handIdx);
+	
+	bool suc = false;
+	if (card->getType() == BSCard::Type::Pet) {
+		auto btlScn = BattleScene::getScn();
+		auto board = btlScn->getBoard(pid);
+		auto petCard = dynamic_cast<PetCard*>(card);
+		suc = board->addPetOnActive(petCard);
+		if (suc) { // Add thanh cong petCard
+			removeCardAt(handIdx);
+			updateCardPositions();
+		}
+
+	}
+	return suc;
+}
+
+bool BSHand::playPetCardFromHandToBench(unsigned int handIdx) {
+	auto card = cards.at(handIdx);
+
+	bool suc = false;
+	if (card->getType() == BSCard::Type::Pet) {
+		auto btlScn = BattleScene::getScn();
+		auto board = btlScn->getBoard(pid);
+		auto petCard = dynamic_cast<PetCard*>(card);
+		suc = board->addPetOnBoard(petCard);
+		if (suc) { // Add thanh cong petCard
+			removeCardAt(handIdx);
+			updateCardPositions();
+		}
+	}
+	return suc;
+}
+
+void BSHand::removeCardAt(unsigned int handIdx) {
+	if (!checkIdxValid(handIdx))
+		return;
+
+	cards.erase(cards.cbegin() + handIdx);
+}
+
+
 
 BATTLE_SCENE_NS_END

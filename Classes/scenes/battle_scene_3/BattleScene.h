@@ -6,6 +6,7 @@
 #include "ui/UILayout.h"
 #include "ui/UIText.h"
 #include "ui/UIImageView.h"
+#include "ui/UIButton.h"
 
 #include <initializer_list>
 #include <functional>
@@ -84,6 +85,7 @@ public:
 	PlayerIdType getOpponentId() const { return oid; }
 
 	unsigned int getTurnCount() const { return turnCount; }
+
 private:
 	BattleScene();
 	virtual ~BattleScene();
@@ -98,7 +100,6 @@ private:
 	void initGame();
 	void startGame();
 
-private:
 	std::shared_ptr<BSResources> bsres; // Quan ly cac Asset duoc tao trong Scene nhu: Card,..
 
 	std::unordered_map<PlayerIdType, std::shared_ptr<PlayerData>> playerData; // * Thong tin data cua moi nguoi choi, bao gom: deck, card back, loai coin duoc dung, avatar,..
@@ -124,11 +125,9 @@ private:
 
 	std::shared_ptr<BSNotifier> notifier;
 
-//
+	cocos2d::ui::Button *endTurnBtn = nullptr;
+
 //	std::shared_ptr<BSCoinFlipper> coinFlipper;
-//
-//	std::unordered_map<PlayerIdType, std::shared_ptr<BSPlayer>> players;
-//
 
 	///Action pipline members///
 	const static std::string PIPELINE_SCHEDULER;
@@ -161,8 +160,11 @@ public:
 		Item
 	};
 	bool onPlayerPetCard(const PlayerIdType &playerId, unsigned int handIdx, PlaceType PlaceType);
+	bool onPlayerEndTurn(const PlayerIdType &playerId);
 
-	/// Utilize functions
+	void setEnableEndTurnButton(bool enabled);
+	using EndClickFunc = std::function<void(cocos2d::Ref*)>;
+	void setClickEndButton(const EndClickFunc &f);
 private:
 	void checkClean();
 
@@ -178,7 +180,6 @@ private:
 	cocos2d::Node *detailLayout = nullptr;
 	BSCard *detailedPetCard = nullptr;
 	BSCard *detailedEnergyCard = nullptr;
-
 };
 
 BATTLE_SCENE_NS_END

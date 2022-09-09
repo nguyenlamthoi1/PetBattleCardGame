@@ -193,10 +193,7 @@ shared_ptr<GameAction> SetupActivePet::clone() const {
 
 	//SetupBenchPet Class//
 
-SetupActiveBench::SetupActiveBench(const PlayerIdType &id, unsigned int hIdx, unsigned int bIdx) : pid(id), handIdx(hIdx), benchIdx(bIdx) {}
-SetupActiveBench::~SetupActiveBench() {}
-
-void SetupActiveBench::executeOn(GameState *gstate) {
+void SetupBenchPet::executeOn(GameState *gstate) {
 	state = State::Process;
 
 	auto hand = gstate->getHand(pid);
@@ -205,20 +202,20 @@ void SetupActiveBench::executeOn(GameState *gstate) {
 	suc = false;
 	// Kiem tra handIdx co phai basic pet card
 	auto petCard = dynamic_pointer_cast<PetCard>(hand->getCardAt(handIdx));
-	suc = board->addBasicPetCardToBench(petCard, benchIdx);
+	suc = board->addBasicPetCardToBench(petCard);
 	if (suc)
 		hand->removeCard(handIdx);
 
 	state = State::Done;
 }
 
-shared_ptr<BattleSceneNS::BSAction> SetupActiveBench::getBSAction() const {
+shared_ptr<BattleSceneNS::BSAction> SetupBenchPet::getBSAction() const {
 	if (suc)
-		return BattleSceneNS::SequenceAction::create({}); //TODO
+		return make_shared<BattleSceneNS::DoSetupPetBench>(pid, handIdx);
 }
 
-shared_ptr<GameAction> SetupActiveBench::clone() const {
-	return make_shared<SetupActiveBench>(pid, handIdx, benchIdx);
+shared_ptr<GameAction> SetupBenchPet::clone() const {
+	return make_shared<SetupBenchPet>(pid, handIdx);
 }
 
 	//StartSetupAction Class//
@@ -243,10 +240,6 @@ shared_ptr<GameAction> StartSetupAction::clone() const {
 
 
 	//StartSetupActive Class//
-
-StartSetupActivePet::StartSetupActivePet(const PlayerIdType &id) : pid(id){}
-
-StartSetupActivePet::~StartSetupActivePet() {}
 
 void StartSetupActivePet::executeOn(GameState *gstate) {
 	state = State::Process;
@@ -307,13 +300,9 @@ ActionError StartSetupActivePet::onReceiveInput(GameState *gstate, const std::sh
 
 /*StartSetupBenchPet Class*/
 
-StartSetupBenchPet::StartSetupBenchPet(const PlayerIdType &id) {}
-
-StartSetupBenchPet::~StartSetupBenchPet() {}
-
 void StartSetupBenchPet::executeOn(GameState *gstate) {
 	state = State::Process;
-	state = State::Done;
+	//state = State::Done;
 }
 
 shared_ptr<BattleSceneNS::BSAction> StartSetupBenchPet::getBSAction() const {
@@ -360,7 +349,11 @@ ActionError StartSetupBenchPet::onReceiveInput(GameState *gstate, const std::sha
 
 		if (petCard && petCard->isBasicCard()) {
 			state = State::Done;
-			gstate->pushActionsAtFront({ make_shared<StartSetupBenchPet>(pid) });
+			gstate->pushActionsAtFront({ 
+				make_shared<SetupBenchPet>(pid, handIdx),
+				make_shared<StartSetupBenchPet>(pid),
+				});
+			
 			return ActionError::Succeeded;
 		}
 		return ActionError::Failed;
@@ -374,7 +367,7 @@ ActionError StartSetupBenchPet::onReceiveInput(GameState *gstate, const std::sha
 		auto board = gstate->getBoard(otherId);
 		if (!board->hasActivePet()){ // Doi thu chua co Active Pet
 			state = State::Done;
-			gstate->pushActionsAtFront({ make_shared<StartSetupActivePet>(pid) });
+			gstate->pushActionsAtFront({ make_shared<StartSetupActivePet>(otherId) });
 			return ActionError::Succeeded;
 		}
 		else {

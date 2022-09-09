@@ -309,10 +309,6 @@ void StartSetupAction::executeOn(BattleScene *btlScn) {
 const string StartSetupActive::PLAYER_SETUP_TXT = "TXT_BS_START_PLAYER_SET_UP";
 const string StartSetupActive::OPP_SETUP_TXT = "TXT_BS_START_OPPONENT_SET_UP";
 
-StartSetupActive::StartSetupActive(const PlayerIdType &id) : pid(id) {}
-
-StartSetupActive::~StartSetupActive() {}
-
 void StartSetupActive::executeOn(BattleScene *btlScn) {
 	if (state != State::Wait)
 		return;
@@ -330,7 +326,7 @@ void StartSetupActive::executeOn(BattleScene *btlScn) {
 	}
 	else { // Opponent Action
 		auto notifier = btlScn->getNotifier();
-		notifier->showMsgAndHideAfter(lang->getString(OPP_SETUP_TXT), 1.5f);
+		notifier->showMsg(lang->getString(OPP_SETUP_TXT));
 	
 		//TODO: AI_MAKE_DECISION
 	}
@@ -369,26 +365,45 @@ void StartSetupBench::executeOn(BattleScene *btlScn) {
 
 	if (btlScn->getPlayerId() == pid) { // Player Action
 		auto notifier = btlScn->getNotifier();
-		notifier->showMsgAndHideAfter(lang->getString(PLAYER_SETUP_TXT), 1.5f);
+		//notifier->showMsgAndHideAfter(lang->getString(PLAYER_SETUP_TXT), 1.5f);
+		notifier->showMsg(lang->getString(PLAYER_SETUP_TXT));
+
 
 		auto hand = btlScn->getHand(pid);
 		hand->setEnableDragSetupActive(true);
+		btlScn->setEnableEndTurnButton(true);
+		btlScn->setClickEndButton([btlScn, this](Ref*) {
+			bool suc = btlScn->onPlayerEndTurn(pid);
+			if (suc)
+				btlScn->setEnableEndTurnButton(false);
+			});
 	}
 	else { // Opponent Action
 		auto notifier = btlScn->getNotifier();
-		notifier->showMsgAndHideAfter(lang->getString(OPP_SETUP_TXT), 1.5f);
+		//notifier->showMsgAndHideAfter(lang->getString(OPP_SETUP_TXT), 1.5f);
+		notifier->showMsg(lang->getString(OPP_SETUP_TXT));
 
 		//TODO: AI_MAKE_DECISION
 	}
 
-	state = State::Done;
+	//state = State::Done;
 }
 
+bool StartSetupBench::onReceivePlayerInput(const shared_ptr<MGame::BattleMaster> &bm, const shared_ptr<MGame::PlayerAction> &pAction) {
+	if (pAction->getType() == MGame::PlayerAction::Type::SetupBenchPet
+		|| pAction->getType() == MGame::PlayerAction::Type::EndTurn
+		) {
+		auto error = bm->onPlayerChooseAction(pAction);
+		bool suc = error != ActionError::Failed;
+		if (suc)
+			state = State::Done;
+		return suc;
+	}
+	return false;
+}
+
+
 //---//
-
-DoSetupPetActive::DoSetupPetActive(const PlayerIdType &id, unsigned int hidx) : pid(id), handIdx(hidx){}
-
-DoSetupPetActive::~DoSetupPetActive() {}
 
 const string DoSetupPetActive::OPP_DO_SETUP_TXT = "TXT_BS_OPPONENT_DO_SET_UP";
 
@@ -398,21 +413,19 @@ void DoSetupPetActive::executeOn(BattleScene *btlScn) {
 
 	state = State::Processed;
 
-	auto lang = GM_LANG;
-
 	if (btlScn->getPlayerId() == pid) { // Player Action
-		//TODO
+		auto hand = btlScn->getHand(pid);
+		hand->playPetCardFromHandToActive(handIdx);
 		state = State::Done;
 	}
 	else { // Opponent Action
 		//TODO
 	}
 
+	state = State::Done;
 }
 
-DoSetupPetBench::DoSetupPetBench(const PlayerIdType &id, unsigned int handIdx, unsigned int bIdx) : pid(id), benchIdx(bIdx) {}
-
-DoSetupPetBench::~DoSetupPetBench() {}
+//--
 
 void DoSetupPetBench::executeOn(BattleScene *btlScn) {
 	if (state != State::Wait)
@@ -420,7 +433,16 @@ void DoSetupPetBench::executeOn(BattleScene *btlScn) {
 
 	state = State::Processed;
 
-	//TODO
+	if (btlScn->getPlayerId() == pid) { // Player Action
+		auto hand = btlScn->getHand(pid);
+		hand->playPetCardFromHandToBench(handIdx);
+
+		btlScn->setEnableEndTurnButton(false);
+		btlScn->setClickEndButton(nullptr);
+	}
+	else { // Opponent Action
+		//TODO
+	}
 
 	state = State::Done;
 }

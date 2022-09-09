@@ -161,6 +161,10 @@ bool BattleScene::init() {
 	notifier = shared_ptr<BSNotifier>(BSNotifier::create(this));
 	notifier->getNode()->setVisible(true);
 
+	// Khoi tao endButton
+	endTurnBtn = dynamic_cast<ui::Button*>(playerPanel->getChildByName("EndTurnButton"));
+	endTurnBtn->setVisible(false);
+
 	// Khoi tao Top Layer
 	topLayout = dynamic_cast<ui::Layout*>(root->getChildByName("Top_Layer"));
 	if (!topLayout)
@@ -329,9 +333,28 @@ bool BattleScene::onPlayerPetCard(const PlayerIdType &playerId, unsigned int han
 
 		}*/
 	}
+	else {
+		if (curAction->getType() == BSAction::ActionType::StartSetupBench) {
+			playerMove = make_shared<MGame::PA_SetupBench>(playerId, handIdx);
+		}
+	}
 
 	if (!playerMove)
 		return false;
+
+	auto bm = MGame::BattleMaster::get();
+	return curAction->onReceivePlayerInput(bm, playerMove);
+}
+
+bool BattleScene::onPlayerEndTurn(const PlayerIdType &playerId) {
+	if (pipeline.empty())
+		return false;
+
+	auto curAction = dynamic_pointer_cast<WaitInputPlayer>(pipeline.front()); // Lay action hien tai cua BattleScene
+	if (!curAction)
+		return false;
+
+	shared_ptr<MGame::PlayerAction> playerMove = make_shared<MGame::PA_EndTurn>(playerId);
 
 	auto bm = MGame::BattleMaster::get();
 	return curAction->onReceivePlayerInput(bm, playerMove);
@@ -411,5 +434,15 @@ void BattleScene::hideCardDetail() {
 	if (detailedEnergyCard)
 		detailedEnergyCard->setVisible(false);
 }
+
+void BattleScene::setEnableEndTurnButton(bool e) {
+	endTurnBtn->setEnabled(e);
+	endTurnBtn->setVisible(e);
+}
+
+void BattleScene::setClickEndButton(const EndClickFunc &f) {
+	endTurnBtn->addClickEventListener(f);
+}
+
 
 BATTLE_SCENE_NS_END

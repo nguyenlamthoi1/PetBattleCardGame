@@ -48,6 +48,7 @@ bool BSBoard::init() {
 	while (benchHolders.size() < maxBenchCapacity) {
 		auto holder = CardHolder::createBench(btlScn, ownerId);
 		holder->setHolderSizeH(cardH);
+		holder->setName("BenchHolder_" + to_string(benchHolders.size()));
 		benchBoard->addChild(holder);
 		benchHolders.push_back(holder);
 	}
@@ -124,14 +125,16 @@ const vector<CardHolder*> BSBoard::getBenchHolders() const {
 const string BSBoard::ACTIVE_BOARD_NAME = "Active_Board";
 const string BSBoard::BENCH_BOARD_NAME = "Bench_Board";
 
-void BSBoard::addPetOnActive(PetCard *card) {
-	activeHolder->tryAddBasicPetCard(card);
+bool BSBoard::addPetOnActive(PetCard *card) {
+	return activeHolder->tryAddBasicPetCard(card);
 }
-void BSBoard::addPetOnBoard(PetCard *card) {
+bool BSBoard::addPetOnBoard(PetCard *card) {
 	for (const auto holder : benchHolders) {
-		if (!holder->hasPetCard())
-			holder->tryAddBasicPetCard(card);
+		if (!holder->hasPetCard()) {
+			return holder->tryAddBasicPetCard(card);
+		}
 	}
+	return false;
 }
 
 BATTLE_SCENE_NS_END

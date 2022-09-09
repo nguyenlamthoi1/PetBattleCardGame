@@ -177,8 +177,8 @@ public:
 class StartSetupActivePet : public WaitInputAction {
 public:
 
-	StartSetupActivePet(const PlayerIdType &id);
-	virtual ~StartSetupActivePet();
+	StartSetupActivePet(const PlayerIdType &id) : pid(id) {}
+	virtual ~StartSetupActivePet() = default;
 
 	virtual void executeOn(GameState *gameState) override;
 	virtual Type getType() const override { return Type::StartSetupActive; }
@@ -197,8 +197,8 @@ protected:
 class StartSetupBenchPet : public WaitInputAction{
 public:
 
-	StartSetupBenchPet(const PlayerIdType &id);
-	virtual ~StartSetupBenchPet();
+	StartSetupBenchPet(const PlayerIdType &id) : pid(id) {}
+	virtual ~StartSetupBenchPet() = default;
 
 	virtual void executeOn(GameState *gameState) override;
 	virtual Type getType() const override { return Type::StartSetupBench; }
@@ -231,11 +231,11 @@ protected:
 	std::shared_ptr<BattleSceneNS::BSAction> bsAction;
 };
 
-class SetupActiveBench : public GameAction {
+class SetupBenchPet : public GameAction {
 public:
 
-	SetupActiveBench(const PlayerIdType &id, unsigned int handIdx, unsigned int benchIdx);
-	virtual ~SetupActiveBench();
+	SetupBenchPet(const PlayerIdType &id, unsigned int hIdx) : pid(id), handIdx(hIdx) {}
+	virtual ~SetupBenchPet() = default;
 
 	virtual void executeOn(GameState *gameState) override;
 	virtual Type getType() const override { return Type::SetupActive; }
@@ -244,7 +244,6 @@ public:
 
 	PlayerIdType pid;
 	unsigned int handIdx = 0;
-	unsigned int benchIdx = 0;
 
 protected:
 	// Result

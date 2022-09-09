@@ -186,8 +186,8 @@ public:
 	const static std::string PLAYER_SETUP_TXT;
 	const static std::string OPP_SETUP_TXT;
 
-	StartSetupActive(const PlayerIdType &pid);
-	virtual ~StartSetupActive();
+	StartSetupActive(const PlayerIdType &id) : pid(id) {};
+	virtual ~StartSetupActive() = default;
 
 	virtual void executeOn(BattleScene *btlScn) override;
 	virtual ActionType getType() const override { 
@@ -198,7 +198,7 @@ protected:
 	PlayerIdType pid;
 };
 
-class StartSetupBench : public BSAction {
+class StartSetupBench : public WaitInputPlayer {
 public:
 	static const std::string PLAYER_SETUP_TXT;
 	static const std::string OPP_SETUP_TXT;
@@ -208,6 +208,8 @@ public:
 
 	virtual void executeOn(BattleScene *btlScn) override;
 	virtual ActionType getType() const override { return ActionType::StartSetupBench; }
+	virtual bool onReceivePlayerInput(const std::shared_ptr<MGame::BattleMaster> &bm, const std::shared_ptr<MGame::PlayerAction> &pAction) override;
+
 protected:
 	PlayerIdType pid;
 };
@@ -215,8 +217,8 @@ protected:
 class DoSetupPetActive : public BSAction {
 public:
 	static const std::string OPP_DO_SETUP_TXT;
-	DoSetupPetActive(const PlayerIdType &pid, unsigned int handIdx);
-	virtual ~DoSetupPetActive();
+	DoSetupPetActive(const PlayerIdType &id, unsigned int hIdx) : pid(id), handIdx(hIdx) {}
+	virtual ~DoSetupPetActive() = default;
 
 	virtual void executeOn(BattleScene *btlScn) override;
 	virtual ActionType getType() const override { return ActionType::SetupActive; }
@@ -227,15 +229,15 @@ protected:
 
 class DoSetupPetBench : public BSAction {
 public:
-	DoSetupPetBench(const PlayerIdType &pid, unsigned int handIdx, unsigned int benchIdx);
-	virtual ~DoSetupPetBench();
+	DoSetupPetBench(const PlayerIdType &id, unsigned int hIdx) : pid(id), handIdx(hIdx) {}
+	virtual ~DoSetupPetBench() = default;
 
 	virtual void executeOn(BattleScene *btlScn) override;
 	virtual ActionType getType() const override { return ActionType::SetupBench; }
+
 protected:
 	PlayerIdType pid;
 	unsigned int handIdx = 0;
-	unsigned int benchIdx = 0;
 };
 
 class FlipCoinGetFirstPlayer : public BSAction {

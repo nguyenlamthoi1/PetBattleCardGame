@@ -47,8 +47,11 @@ public:
 	void setEnableDragSetupActive(bool enabled);
 	void disableDragAll();
 
-	bool checkIdxValid(unsigned int idx) const { return 0 <= idx && idx < cards.size(); }
+	void removeCardAt(unsigned int handIdx);
 
+	bool checkIdxValid(unsigned int idx) const { return 0 <= idx && idx < cards.size(); }
+	bool playPetCardFromHandToActive(unsigned int handIdx);
+	bool playPetCardFromHandToBench(unsigned int handIdx);
 protected:
 	bool init();
 

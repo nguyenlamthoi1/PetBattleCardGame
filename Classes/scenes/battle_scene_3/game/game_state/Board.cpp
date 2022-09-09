@@ -47,16 +47,17 @@ bool Board::addBasicPetCardToActive(const std::shared_ptr<PetCard> &petCard) {
 	return active->addBasicPetCard(petCard);
 }
 
-bool Board::evolvePetAtActive(const std::shared_ptr<PetCard> &petCard) {
+bool Board::evolvePetAtActive(const shared_ptr<PetCard> &petCard) {
 	//TODO
 	return false;
 }
 
-bool Board::addBasicPetCardToBench(const std::shared_ptr<PetCard> &petCard, unsigned int benchIdx) {
-	if (0 < benchIdx || benchIdx >= bench.size())
-		return false;
-
-	return bench[benchIdx]->addBasicPetCard(petCard);
+bool Board::addBasicPetCardToBench(const shared_ptr<PetCard> &petCard) {
+	for (const auto &holder : bench) {
+		if (!holder->hasPet())
+			return holder->addBasicPetCard(petCard);
+	}
+	return false;
 }
 bool Board::evolvePetAtBench(const std::shared_ptr<PetCard> &petCard, unsigned int benchIdx) {
 	//TODO
