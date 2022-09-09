@@ -3,6 +3,9 @@
 #include "../BSHand.h"
 #include "../BSNotifier.h"
 
+#include "../game/BattleMaster.h"
+#include "../game/player_actions/PlayerAction.h"
+
 #include "GameManager.h"
 
 //#include "../BattleManager.h"
@@ -332,7 +335,15 @@ void StartSetupActive::executeOn(BattleScene *btlScn) {
 		//TODO: AI_MAKE_DECISION
 	}
 
-	state = State::Done;
+	//state = State::Done; // Doi den khi co Player Input
+}
+
+bool StartSetupActive::onReceivePlayerInput(const shared_ptr<MGame::BattleMaster> & bm, const shared_ptr<MGame::PlayerAction> &pAction) {
+	if (pAction->getType() == MGame::PlayerAction::Type::SetupActivePet) {
+		auto error =  bm->onPlayerChooseAction(pAction);
+		return error != ActionError::Failed;
+	}
+	return false;
 }
 
 

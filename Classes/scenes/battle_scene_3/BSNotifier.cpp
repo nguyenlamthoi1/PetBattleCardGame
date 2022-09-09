@@ -55,6 +55,7 @@ bool BSNotifier::isMsgBoardVisible() const {
 }
 
 void BSNotifier::showMsg(const string &msg) {
+	msgBoard->stopAllActions();
 	auto showFunc = [this, msg]() {
 		setMsg(msg);
 		msgBoard->setVisible(true);

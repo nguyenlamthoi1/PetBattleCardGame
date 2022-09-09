@@ -142,7 +142,7 @@ void WidgetTouchComponent::applyHandler() {
 						//auto rect = Rect(wP.x, wP.y, s.width, s.height);
 						//bool check = rect.containsPoint(wCheckPos);
 						// C2
-						auto lPos = dNode->convertToNodeSpaceAR(wCheckPos);
+						auto lPos = dNode->convertToNodeSpace(wCheckPos);
 						auto rect = Rect(0, 0, s.width, s.height);
 						bool check = rect.containsPoint(lPos);
 

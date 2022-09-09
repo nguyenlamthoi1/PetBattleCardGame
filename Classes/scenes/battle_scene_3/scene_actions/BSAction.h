@@ -1,7 +1,7 @@
 #pragma once
 
 #include "cocos2d.h"
-#include "scenes/battle_scene/BSDefine.h"
+#include "../BSDefine.h"
 
 #include <initializer_list>
 #include <functional>
@@ -11,6 +11,11 @@
 #include <memory>
 
 class EventHandler;
+
+namespace MGame {
+	class BattleMaster;
+	class PlayerAction;
+};
 
 BATTLE_SCENE_NS_BEG
 
@@ -153,6 +158,12 @@ protected:
 //
 
 
+
+class WaitInputPlayer : public BSAction {
+public:
+	virtual bool onReceivePlayerInput(const std::shared_ptr<MGame::BattleMaster> &bm, const std::shared_ptr<MGame::PlayerAction> &pAction) { return false; }
+};
+
 //-----------//
 //SET UP FLOW//
 //-----------//
@@ -168,7 +179,7 @@ public:
 	virtual ActionType getType() const override { return ActionType::StartSetup; }
 };
 
-class StartSetupActive : public BSAction {
+class StartSetupActive : public WaitInputPlayer {
 public:
 	const static std::string PLAYER_SETUP_TXT;
 	const static std::string OPP_SETUP_TXT;
@@ -177,7 +188,10 @@ public:
 	virtual ~StartSetupActive();
 
 	virtual void executeOn(BattleScene *btlScn) override;
-	virtual ActionType getType() const override { return ActionType::StartSetupActive; }
+	virtual ActionType getType() const override { 
+		return ActionType::StartSetupActive; 
+	}
+	virtual bool onReceivePlayerInput(const std::shared_ptr<MGame::BattleMaster> &bm, const std::shared_ptr<MGame::PlayerAction> &pAction) override;
 protected:
 	PlayerIdType pid;
 };

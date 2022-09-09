@@ -1,5 +1,5 @@
-#ifndef __BS_DEFINE_H__
-#define __BS_DEFINE_H__
+#ifndef __BS_DEFINE_2_H__
+#define __BS_DEFINE_2_H__
 
 #include "define/CommonDefine.h" // * common/define folder
 #include "define/ErrorDefine.h" // * battle_scene/define folder
@@ -58,4 +58,4 @@ constexpr unsigned int PER_TURN_DRAW_COUNT = 1;
 
 BATTLE_SCENE_NS_END
 
-#endif // __BS_DEFINE_H__
+#endif // __BS_DEFINE_2_H__

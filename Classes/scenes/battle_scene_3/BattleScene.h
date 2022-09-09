@@ -20,6 +20,7 @@ class EnergyCardData;
 
 namespace MGame {
 	class BattleMaster;
+	//class PlayerAction;
 }
 
 BATTLE_SCENE_NS_BEG
@@ -149,7 +150,16 @@ public:
 	void popFront();
 	void insertBehindAction(const ActionPtr &ptr, const std::vector<ActionPtr> &actionVec);
 	void setPipelineWait(float t) { waitTime = t; }
+	
 	///--Action pipeline-end--
+	enum class PlaceType{
+		None,
+		Active,
+		Bench,
+		Supporter,
+		Item
+	};
+	bool onPlayerPetCard(const PlayerIdType &playerId, unsigned int handIdx, PlaceType PlaceType);
 
 	/// Utilize functions
 private:

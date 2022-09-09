@@ -22,13 +22,9 @@ BSBoard* BSBoard::create(BattleScene *scn, PlayerIdType id) {
 	return board;
 }
 
-BSBoard::BSBoard(BattleScene *scn, PlayerIdType id) : btlScn(scn), ownerId(id){
+BSBoard::BSBoard(BattleScene *scn, PlayerIdType id) : btlScn(scn), ownerId(id){}
 
-}
-
-BSBoard::~BSBoard() {
-	CCLOG("BSBoard::dtor %d", ownerId);
-}
+BSBoard::~BSBoard() {}
 
 bool BSBoard::init() {
 	if (!btlScn)
@@ -57,6 +53,8 @@ bool BSBoard::init() {
 	}
 	alignHoldersOnBenchBoard(true); // Can chinh vi tri cac holder trong bench
 	
+	curBenchNum = 0;
+
 	return true;
 }
 
@@ -92,17 +90,38 @@ void BSBoard::alignHoldersOnBenchBoard(bool forceDoLayout) {
 		layout->requestDoLayout();
 }
 
-bool BSBoard::hasActivePet() {
+bool BSBoard::checkCanAddPetCard(PetCard *card, cocos2d::Node* dest) const {
+	return (activeBoard == dest && !hasActivePet()) || (benchBoard == dest && !isBenchFull());
+	
+}
+
+
+bool BSBoard::hasActivePet() const {
 	return activeHolder->hasPetCard();
 }
+
+bool BSBoard::isBenchFull() const {
+	return curBenchNum >= maxBenchCapacity;
+}
+
+
 
 /*
 	Getters
 */
 
-const std::vector<CardHolder*> BSBoard::getBenchHolders() const {
+const vector<Node*> BSBoard::getAllHolders() const {
+	vector<Node*> ret;
+	ret.push_back(activeHolder);
+	ret.insert(ret.cend(), benchHolders.begin(), benchHolders.end());
+	return ret;
+}
+
+const vector<CardHolder*> BSBoard::getBenchHolders() const {
 	return benchHolders;
 }
 
+const string BSBoard::ACTIVE_BOARD_NAME = "Active_Board";
+const string BSBoard::BENCH_BOARD_NAME = "Bench_Board";
 
 BATTLE_SCENE_NS_END

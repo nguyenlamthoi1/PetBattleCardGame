@@ -20,6 +20,14 @@ BATTLE_SCENE_NS_BEG
 
 class BSCard : public cocos2d::ui::Layout {
 public:
+	enum class Type {
+		None,
+		Pet,
+		Item,
+		Energy,
+		Supporter
+	};
+
 	using DragHandler = std::function<void(cocos2d::Node*, cocos2d::Node*)> ;
 
 	static const cocos2d::Size ORIGIN_CARD_SIZE;
@@ -27,11 +35,12 @@ public:
 	static cocos2d::Size CARD_SIZE;
 
 	static BSCard* createWithData(const std::shared_ptr<const CardData> &data);
-	virtual std::shared_ptr<const CardData> getData() = 0;
+	virtual std::shared_ptr<const CardData> getData() const = 0;
 	virtual void setNormalSize() = 0;
 	virtual void returnToPool(){}
 
 	// Getters and Setters
+	virtual Type getType() const = 0;
 	virtual bool isFlippedDown() const { return flippedDown; }
 	virtual void setFlip(bool flip, bool anim = false) = 0; // Flip card ap xuong khi card dang ngua, va nguoc lai
 	virtual float getFliptime() const { return flipTime; }
@@ -79,7 +88,7 @@ public:
 	virtual bool init() override;
 	virtual bool initWithData(const std::shared_ptr<const CardData> &data) override;
 	virtual void returnToPool();
-	virtual std::shared_ptr<const CardData> getData() override;
+	virtual std::shared_ptr<const CardData> getData() const override;
 	virtual void setNormalSize() override;
 
 	std::shared_ptr<const PetCardData> data;
@@ -99,6 +108,7 @@ public:
 	/// Getters and Setters
 	bool isEmpty() const { return !data; }
 	bool isBasic() const;
+	virtual Type getType() const { return Type::Pet; }
 
 	virtual void setFlip(bool flip, bool anim = false) override;
 private:
@@ -122,7 +132,9 @@ public:
 	cocos2d::ui::ImageView *image = nullptr;
 	cocos2d::ui::Layout *cardBack = nullptr;
 
-	virtual std::shared_ptr<const CardData> getData() override;
+	virtual std::shared_ptr<const CardData> getData() const override;
+	virtual Type getType() const { return Type::Energy; }
+
 	virtual void setNormalSize() override;
 
 	virtual void setFlip(bool flip, bool anim = false) override;

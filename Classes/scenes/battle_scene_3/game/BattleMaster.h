@@ -10,7 +10,7 @@ class PlayerData;
 NS_GAME_BEGIN
 
 class GameAction;
-
+class PlayerAction;
 class GameState;
 
 /*
@@ -66,10 +66,11 @@ private:
 	void gameLoop(float t);
 	
 	/// Nhung Action do nguoi choi thuc hien trong qua trinh choi ///
+
+public:
 	void onPlayerDoEndGame();
 	void onPlayerDoRestartGame();
-
-	ActionError onPlayerChooseAction(const GameAction &action);
+	ActionError onPlayerChooseAction(const std::shared_ptr<PlayerAction> &action);
 };
 
 struct BattleMaster::PlayerGameInfo {

@@ -1,8 +1,8 @@
 #include "BSHand.h"
 #include "BSCard.h"
 #include "BSDeck.h"
-//#include "BSBoard.h"
-//#include "CardHolder.h"
+#include "BSBoard.h"
+#include "CardHolder.h"
 #include "data/CardData.h"
 
 #include "BattleScene.h"
@@ -81,11 +81,6 @@ void BSHand::drawCards(size_t n, const vector<CardId> &idVec, bool hideCards) {
 		++i;
 	}
 
-	//auto board = btlScn->getBoard(pid);
-	//vector<Node*> destVec;
-	//destVec.push_back(board->activeHolder);
-	//destVec.insert(destVec.cend(), board->benchHolders.cbegin(), board->benchHolders.cend());
-
 	// * Duyet vong lap tren danh sach card duoc draw
 	auto startPos = Vec2(handSize.width + cardW + 30, handSize.height);
 	for (size_t index = 0; index < drawnVec.size(); ++index) { // * Nhung card nay chua duoc addChild
@@ -123,181 +118,88 @@ void BSHand::drawCards(size_t n, const vector<CardId> &idVec, bool hideCards) {
 		++i;
 	}
 	cards.insert(cards.cend(), drawnVec.cbegin(), drawnVec.cend());
+
 }
 
 const string BSHand::EV_DRAW_ACTION_DONE = "EV_DRAW_ACTION_DONE";
 
-
-void BSHand::drawCards(size_t n, std::function<void()> onDrawDone) {
-	
-	//auto &deck = btlScn->decks[ownerId];
-	//auto drawnVec = deck->drawTop(n);
-	//
-	//size_t total = cards.size() + drawnVec.size(); // Tong so card sau khi draw
-	//auto handSize.width = this->getContentSize().width; // Chieu dai cua hand
-	//auto handSize.height = this->getContentSize().height; // Chieu cao cua hand
-
-	//// *Anchor Point cua card: (0.5, 0.5)
-
-	//auto cardW = BSCard::CARD_SIZE.width;
-	//float cardSpace = 5.0f; // Khoang cach giua nhung la bai
-	//const float minCardSpace = -cardW / 2; // cardSpace >= -cardW / 2 (Neu cardSpace < 0 thi 2 card se dinh vao nhau)
-	//auto totalW = total * cardW + (total - 1) * cardSpace; // Tong width cua tat ca card tren hand
-	//
-	//if (totalW > handSize.width)  // Neu vuot qua hand width thi giam cardSpace
-	//{
-	//	totalW = handSize.width;
-	//	cardSpace = (totalW - total * cardW) / (total - 1);
-	//}
-	//
-	//auto x = (handSize.width - totalW) / 2.0 + cardW / 2.0;
-	//decltype(x) y = handSize.height / 2;
-
-	//size_t i = 0;
-	//double d = cardW + cardSpace;
-	//for (auto &card : cards) { // * Nhung card nay da duoc addChild
-	//	auto action = MoveTo::create(0.5f, Vec2(x + d * i, y));
-	//	card->runAction(action);
-	//	++i;
-	//}
-
-	//auto board = btlScn->boards[ownerId];
-	//vector<Node*> destVec;
-	//destVec.push_back(board->activeHolder);
-	//destVec.insert(destVec.cend(), board->benchHolders.cbegin(), board->benchHolders.cend());
-
-	//// * Duyet vong lap tren danh sach card duoc draw
-	//auto startPos = Vec2(handSize.width + cardW + 30, handSize.height);
-	//for (size_t index = 0; index < drawnVec.size(); ++index) { // * Nhung card nay chua duoc addChild
-	//	auto card = drawnVec[index];
-	//	this->addChild(card);
-	//	card->setPosition(startPos);
-
-	//	// Them hold touch
-	//	WidgetTouchNS::setWidgetTouchHold(card, [card, this](WIDGET_TOUCH_HANDLER_PARAMS) {
-	//		btlScn->showCardDetails(card->getData());
-	//		}, 0.3f);
-
-	//	// Them end Touch
-	//	WidgetTouchNS::setWidgetTouchEnded(card, [card, this](WIDGET_TOUCH_HANDLER_PARAMS) {
-	//		btlScn->hideCardDetails();
-	//		});
-
-	//	// Them Drag component
-	//	card->setDragHandler(destVec,
-	//		[this](Node * cardNode, Node *dest) { // Drag Begin Callback
-	//			btlScn->hideCardDetails();
-	//		},
-	//		[this](Node *cardNode, Node *dest) { // Drag End Callback
-	//			if (!dest) {
-	//				auto comp = DragComponent::getComp(cardNode);
-	//				auto card = dynamic_cast<BSCard*>(cardNode);
-	//				onDragBack(card);
-	//			}
-	//			else {
-	//				auto card = dynamic_cast<BSCard*>(cardNode);
-	//				bool suc = onDragEnd(card, dest);
-	//				if (!suc)
-	//					onDragBack(card);
-	//				else
-	//					onDragSucceeded();
-	//			}
-	//		}
-	//		);
-	//	card->setTouchEnabled(true);
-	//	card->setSwallowTouches(true);
-	//	//--
-
-	//	if (index == drawnVec.size() - 1) {
-	//		auto action = Sequence::create(MoveTo::create(0.8f + index * 0.2f, Vec2(x + d * i, y)), CallFunc::create(onDrawDone), nullptr);
-	//		card->runAction(action);
-	//	}
-	//	else {
-	//		auto action = MoveTo::create(0.8f + index * 0.2f, Vec2(x + d * i, y));
-	//		card->runAction(action);
-	//	}
-	//
-	//	++i;
-	//}
-	//cards.insert(cards.cend(), drawnVec.cbegin(), drawnVec.cend());
+void BSHand::onDragBack(BSCard *cardNode) {
+	auto comp = MyComponentNS::getComponent<DragComponent>(cardNode, COMPONENT_KEY::DRAG);
+	if (comp) {
+		auto cardWidget = dynamic_cast<ui::Widget*>(cardNode);
+		auto wOldPos = comp->getOrgWorldPos();
+		auto orgParent = comp->getOrgParent();
+		cardWidget->removeFromParent();
+		orgParent->addChild(cardWidget);
+		auto lOldPos = orgParent->convertToNodeSpaceAR(wOldPos);
+		cardWidget->setZOrder(comp->getOrgZ());
+		cardWidget->setTouchEnabled(false);
+		cardWidget->runAction(
+			Sequence::create(MoveTo::create(0.2f, lOldPos),
+				CallFunc::create([cardWidget]() {cardWidget->setTouchEnabled(true); }),
+				nullptr));
+	}
 }
 
-//void BSHand::onDragBack(BSCard *cardNode) {
-//	auto comp = MyComponentNS::getComponent<DragComponent>(cardNode, COMPONENT_KEY::DRAG);
-//	if (comp) {
-//		auto cardWidget = dynamic_cast<ui::Widget*>(cardNode);
-//		auto wOldPos = comp->getOrgWorldPos();
-//		auto orgParent = comp->getOrgParent();
-//		cardWidget->removeFromParent();
-//		orgParent->addChild(cardWidget);
-//		auto lOldPos = orgParent->convertToNodeSpaceAR(wOldPos);
-//		cardWidget->setZOrder(comp->getOrgZ());
-//		cardWidget->setTouchEnabled(false);
-//		cardWidget->runAction(
-//			Sequence::create(MoveTo::create(0.2f, lOldPos),
-//				CallFunc::create([cardWidget]() {cardWidget->setTouchEnabled(true); }),
-//				nullptr));
-//	}
-//}
+bool BSHand::onDragEnd(BSCard *card, cocos2d::Node *dest) {
+	return false;
+	auto holder = dynamic_cast<CardHolder*>(dest);
+	auto data = card->getData();
+	bool suc = false;
+	auto btlScn = BattleScene::getScene();
+	switch (data->type) {
+	case CardData::Type::Pet: 
+	{
+		auto petCard = dynamic_cast<PetCard*>(card);
+		//suc = btlScn->playerTryPlayPetCard(ownerId, petCard, holder);
+	}
+		break;
+	case CardData::Type::Energy:
+	{
+		auto energyCard = dynamic_cast<EnergyCard*>(card);
+		//bool suc = holder->tryAddEnergyCard(energyCard);
+		//suc = btlScn->getBattleManager()->playerTryPlayEnergyCard(ownerId, energyCard, holder);
+	}
+		break;
+	}
+
+	if (suc) {
+		Utilize::mvector::removeElement(cards, card);
+		updateCardPositions();
+	}
+
+	//return suc;
+	return true;
+}
 //
-//bool BSHand::onDragEnd(BSCard *card, cocos2d::Node *dest) {
-//	auto holder = dynamic_cast<CardHolder*>(dest);
-//	auto data = card->getData();
-//	bool suc = false;
-//	switch (data->type) {
-//	case CardData::Type::Pet: 
-//	{
-//		auto petCard = dynamic_cast<PetCard*>(card);
-//		//bool suc = holder->tryAddPetCard(petCard);
-//		suc = btlScn->getBattleManager()->playerTryPlayPetCard(ownerId, petCard, holder);
-//	}
-//		break;
-//	case CardData::Type::Energy:
-//	{
-//		auto energyCard = dynamic_cast<EnergyCard*>(card);
-//		//bool suc = holder->tryAddEnergyCard(energyCard);
-//		suc = btlScn->getBattleManager()->playerTryPlayEnergyCard(ownerId, energyCard, holder);
-//	}
-//		break;
-//	}
-//
-//	if (suc) {
-//		Utilize::mvector::removeElement(cards, card);
-//		updateCardPositions();
-//	}
-//
-//	return suc;
-//}
-//
-//void BSHand::updateCardPositions() {
-//	size_t total = cards.size(); // Tong so card hien tai
-//	auto handSize.width = this->getContentSize().width; // Chieu dai cua hand
-//	auto handSize.height = this->getContentSize().height; // Chieu cao cua hand
-//
-//	// *Anchor Point cua card: (0.5, 0.5)
-//
-//	auto cardW = BSCard::CARD_SIZE.width;
-//	float cardSpace = 5.0f; // Khoang cach giua nhung la bai
-//	const float minCardSpace = -cardW / 2; // cardSpace >= -cardW / 2 (Neu cardSpace < 0 thi 2 card se dinh vao nhau)
-//	auto totalW = total * cardW + (total - 1) * cardSpace; // Tong width cua tat ca card tren hand
-//
-//	if (totalW > handSize.width)  // Neu vuot qua hand width thi giam cardSpace
-//	{
-//		totalW = handSize.width;
-//		cardSpace = (totalW - total * cardW) / (total - 1);
-//	}
-//
-//	auto x = (handSize.width - totalW) / 2.0 + cardW / 2.0;
-//	decltype(x) y = handSize.height / 2;
-//
-//	size_t i = 0;
-//	double d = cardW + cardSpace;
-//	for (auto &card : cards) { // * Nhung card nay da duoc addChild
-//		auto action = MoveTo::create(0.3f, Vec2(x + d * i, y));
-//		card->runAction(action);
-//		++i;
-//	}
-//}
+void BSHand::updateCardPositions() {
+	size_t total = cards.size(); // Tong so card hien tai
+	auto handSize = handLayout->getContentSize();
+
+	// *Anchor Point cua card: (0.5, 0.5)
+
+	auto cardW = BSCard::CARD_SIZE.width;
+	float cardSpace = 5.0f; // Khoang cach giua nhung la bai
+	const float minCardSpace = -cardW / 2; // cardSpace >= -cardW / 2 (Neu cardSpace < 0 thi 2 card se dinh vao nhau)
+	auto totalW = total * cardW + (total - 1) * cardSpace; // Tong width cua tat ca card tren hand
+
+	if (totalW > handSize.width)  // Neu vuot qua hand width thi giam cardSpace
+	{
+		totalW = handSize.width;
+		cardSpace = (totalW - total * cardW) / (total - 1);
+	}
+
+	auto x = (handSize.width - totalW) / 2.0 + cardW / 2.0;
+	decltype(x) y = handSize.height / 2;
+
+	size_t i = 0;
+	double d = cardW + cardSpace;
+	for (auto &card : cards) { // * Nhung card nay da duoc addChild
+		auto action = MoveTo::create(0.3f, Vec2(x + d * i, y));
+		card->runAction(action);
+		++i;
+	}
+}
 //
 //void BSHand::onDragSucceeded() {
 //
@@ -305,33 +207,64 @@ void BSHand::drawCards(size_t n, std::function<void()> onDrawDone) {
 
 void BSHand::setEnableDragSetupActive(bool enabled) {
 	auto btlScn = BattleScene::getScene();
-	//auto baord = btlScn->getBoa
-	for (auto &card : cards) {
-		//auto board = 
 
-		//// Them Drag component
-		//card->setDragHandler(destVec,
-		//	[this](Node * cardNode, Node *dest) { // Drag Begin Callback
-		//		btlScn->hideCardDetails();
-		//	},
-		//	[this](Node *cardNode, Node *dest) { // Drag End Callback
-		//		if (!dest) {
-		//			auto comp = DragComponent::getComp(cardNode);
-		//			auto card = dynamic_cast<BSCard*>(cardNode);
-		//			onDragBack(card);
-		//		}
-		//		else {
-		//			auto card = dynamic_cast<BSCard*>(cardNode);
-		//			bool suc = onDragEnd(card, dest);
-		//			if (!suc)
-		//				onDragBack(card);
-		//			else
-		//				onDragSucceeded();
-		//		}
-		//	}
-		//	);
+	unsigned int handIdx = 0;
+	for (auto &card : cards) {
+		if (card->getType() == BSCard::Type::Pet)
+			setDragForPetCard(dynamic_cast<PetCard*>(card), handIdx);
+		++handIdx;
 	}
+}
+
+void BSHand::setDragForCard(BSCard* card, unsigned int handIdx) {
+	if (card->getType() == BSCard::Type::Pet)
+		setDragForPetCard(dynamic_cast<PetCard*>(card), handIdx);
+	else if(card->getType() == BSCard::Type::Energy)
+		setDragForEnergyCard(dynamic_cast<EnergyCard*>(card));
+}
+
+
+void BSHand::setDragForPetCard(PetCard *petCard, unsigned int handIdx) {
+	if (!petCard)
+		return;
 	
+	auto btlScn = BattleScene::getScene();
+	auto board = btlScn->getBoard(pid);
+
+	vector<Node*> dests;
+	dests.push_back(board->getActiveBoard());
+	dests.push_back(board->getBenchBoard());
+
+	// Them Drag component
+	petCard->setDragHandler(dests,
+		[this, btlScn](Node * cardNode, Node *dest) { // Drag Begin Callback
+			btlScn->hideCardDetail();
+			// TODO: Hien thi Selectable Dest
+		},
+		[this, board, btlScn, handIdx](Node *cardNode, Node *dest) { // Drag End Callback
+			auto petCard = dynamic_cast<PetCard*>(cardNode);
+			
+			if (!dest) {
+				auto comp = DragComponent::getComp(cardNode);
+				onDragBack(petCard);
+			}
+			else {
+				bool check = (!board->checkCanAddPetCard(petCard, dest)) ||
+					(btlScn->onPlayerPetCard(pid, handIdx, board->isActiveBoard(dest) ? BattleScene::PlaceType::Active : BattleScene::PlaceType::Bench));
+				if (!check)
+					onDragBack(petCard);
+			}
+			//onDragBack(petCard);
+		}
+		);
+}
+
+void BSHand::setDragForEnergyCard(EnergyCard *energyCard) {
+
+}
+
+void BSHand::setDragForSupporterCard() {
+
 }
 
 void BSHand::disableDragAll() {

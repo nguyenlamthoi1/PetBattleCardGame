@@ -100,8 +100,9 @@ void BattleMaster::onPlayerDoRestartGame() {
 
 }
 
-ActionError BattleMaster::onPlayerChooseAction(const GameAction &acti) {
-	return ActionError::Succeeded;
+ActionError BattleMaster::onPlayerChooseAction(const shared_ptr<PlayerAction> &action) {
+	return gstate->onPlayerTakeAction(action);
 }
+
 
 NS_GAME_END

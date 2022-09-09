@@ -244,7 +244,7 @@ shared_ptr<GameAction> StartSetupAction::clone() const {
 
 	//StartSetupActive Class//
 
-StartSetupActivePet::StartSetupActivePet(const PlayerIdType &id) {}
+StartSetupActivePet::StartSetupActivePet(const PlayerIdType &id) : pid(id){}
 
 StartSetupActivePet::~StartSetupActivePet() {}
 
@@ -254,7 +254,10 @@ void StartSetupActivePet::executeOn(GameState *gstate) {
 }
 
 shared_ptr<BattleSceneNS::BSAction> StartSetupActivePet::getBSAction() const {
-	return nullptr;
+	return BattleSceneNS::SequenceAction::create({
+		make_shared<BattleSceneNS::WaitAction>(0.7f),
+		make_shared<BattleSceneNS::StartSetupActive>(pid),
+		});
 }
 
 shared_ptr<GameAction> StartSetupActivePet::clone() const {
@@ -271,7 +274,7 @@ vector<shared_ptr<PlayerAction>> StartSetupActivePet::getPossibleMoves(GameState
 		auto petCard = dynamic_pointer_cast<PetCard>(card);
 		auto data = petCard->getPetData();
 		if (petCard && data->isBasicCard()) 
-			ret.push_back(make_shared<PA_SetupActive>(handIdx));
+			ret.push_back(make_shared<PA_SetupActive>(pid, handIdx));
 		++handIdx;
 	}
 	return ret;

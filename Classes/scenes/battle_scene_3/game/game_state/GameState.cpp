@@ -222,6 +222,9 @@ bool GameState::isWaitingInput() {
 }
 
 ActionError GameState::onPlayerTakeAction(const shared_ptr<PlayerAction> &pa) {
+	if (actionQueue.empty())
+		return ActionError::Failed;
+
 	auto waitInputAction = dynamic_pointer_cast<WaitInputAction>(actionQueue.front());
 	if (waitInputAction && waitInputAction->state != GameAction::State::Done)
 		return waitInputAction->onReceiveInput(this, pa);

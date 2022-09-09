@@ -232,7 +232,7 @@ bool PetCard::initWithData(const std::shared_ptr<const CardData> &dta) {
 	return true;
 }
 
-std::shared_ptr<const CardData> PetCard::getData() {
+std::shared_ptr<const CardData> PetCard::getData() const {
 	return data;
 }
 
@@ -336,7 +336,7 @@ bool EnergyCard::initWithData(const std::shared_ptr<const CardData> &dta) {
 
 }
 
-std::shared_ptr<const CardData> EnergyCard::getData() {
+std::shared_ptr<const CardData> EnergyCard::getData() const {
 	return data;
 }
 

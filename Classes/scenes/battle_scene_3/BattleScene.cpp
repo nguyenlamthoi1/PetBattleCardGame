@@ -1,7 +1,9 @@
 #include "BattleScene.h"
 
 #include "GameManager.h"
+
 #include "game/BattleMaster.h"
+#include "game/player_actions/PlayerAction.h"
 
 #include "data/PlayerData.h"
 #include "data/CardData.h"
@@ -299,13 +301,40 @@ void BattleScene::insertBehindAction(const ActionPtr &atPtr, const std::vector<A
 		pipeline.insert(insertItr, actionVec.begin(), actionVec.end());
 }
 
-
 void BattleScene::startPipeline() {
 	schedule(CC_SCHEDULE_SELECTOR(BattleScene::updatePipeline));
 }
 
 void BattleScene::stopPipeline() {
 	unschedule(CC_SCHEDULE_SELECTOR(BattleScene::updatePipeline));
+}
+
+bool BattleScene::onPlayerPetCard(const PlayerIdType &playerId, unsigned int handIdx, PlaceType place) {
+	auto &hand = hands.at(playerId);
+	if (!hand->checkIdxValid(handIdx))
+		return false;
+	if (pipeline.empty())
+		return false;
+
+	auto curAction = dynamic_pointer_cast<WaitInputPlayer>(pipeline.front()); // Lay action hien tai cua BattleScene
+	if (!curAction)
+		return false;
+
+	shared_ptr<MGame::PlayerAction> playerMove;
+	if (place == PlaceType::Active) {
+		if (curAction->getType() == BSAction::ActionType::StartSetupActive) {
+			playerMove = make_shared<MGame::PA_SetupActive>(playerId, handIdx);
+		}
+		/*else if (curAction->getType() == BSAction::ActionType::StartSetupBench) {
+
+		}*/
+	}
+
+	if (!playerMove)
+		return false;
+
+	auto bm = MGame::BattleMaster::get();
+	return curAction->onReceivePlayerInput(bm, playerMove);
 }
 
 void BattleScene::pushAction(const ActionPtr &ptr) {
