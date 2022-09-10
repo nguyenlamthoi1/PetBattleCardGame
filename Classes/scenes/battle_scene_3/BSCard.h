@@ -99,6 +99,8 @@ public:
 	cocos2d::ui::ImageView *petImg = nullptr;
 	cocos2d::ui::ImageView *outerImg = nullptr;
 	cocos2d::ui::Layout *cardBack = nullptr;
+	cocos2d::ui::Layout *cardLayout = nullptr;
+
 
 	cocos2d::ui::Text *evText = nullptr;
 	cocos2d::ui::ImageView *evArrow = nullptr;

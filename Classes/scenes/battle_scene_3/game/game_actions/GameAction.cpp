@@ -416,7 +416,7 @@ void EndSetup::executeOn(GameState *gstate) {
 }
 
 shared_ptr<BattleSceneNS::BSAction> EndSetup::getBSAction() const {
-	return nullptr;
+	return make_shared<BattleSceneNS::DoEndSetup>();
 }
 
 shared_ptr<GameAction> EndSetup::clone() const {

@@ -3,6 +3,8 @@
 #include "../BSHand.h"
 #include "../BSNotifier.h"
 #include "../BSCoinFlipper.h"
+#include "../BSBoard.h"
+#include "../CardHolder.h"
 
 #include "../game/BattleMaster.h"
 #include "../game/player_actions/PlayerAction.h"
@@ -476,6 +478,21 @@ void FlipCoinGetFirstPlayer::executeOn(BattleScene *btlScn) {
 
 }
 
+void DoEndSetup::executeOn(BattleScene *btlScn) {
+	if (state != State::Wait)
+		return;
 
+	state = State::Processed;
+
+	auto oppId = btlScn->getOpponentId();
+	auto board = btlScn->getBoard(oppId);
+	auto activeHolder = board->getActiveHolder();
+	activeHolder->setFlipPetCard(true);
+	const auto benchHolders = board->getBenchHolders();
+	for(auto holder : benchHolders)
+		holder->setFlipPetCard(true);
+
+	state = State::Done;
+}
 
 BATTLE_SCENE_NS_END

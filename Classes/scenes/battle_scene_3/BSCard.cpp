@@ -173,7 +173,7 @@ bool PetCard::init() {
 	cardNode->setScale(CARD_SCALE_DOWN); // *TODO: Nen tinh toan ra gia tri scale, sao cho kich thuong card bang dung voi CARD_SIZE
 	cardNode->setPosition(layoutSize.width / 2, layoutSize.height / 2);
 
-	auto cardLayout = cardNode->getChildByName("Card_Layout");
+	cardLayout = dynamic_cast<ui::Layout*>(cardNode->getChildByName("Card_Layout"));
 	petImg = dynamic_cast<ui::ImageView*>(cardLayout->getChildByName("Pokemon_Image"));
 	outerImg = dynamic_cast<ui::ImageView*>(cardLayout->getChildByName("Outer_Background"));
 
@@ -246,12 +246,43 @@ bool PetCard::isBasic() const {
 }
 
 void PetCard::setFlip(bool flip, bool anim) {
+	auto prevFlipped = flippedDown;
 	flippedDown = flip;
 	flipTime = 0.5f;
 	if (anim) {
-		//TODO
+		if (prevFlipped && flip) {
+			cardBack->setVisible(true);
+			cardLayout->setVisible(false);
+
+			auto orgScale = cardNode->getScale();
+			cardNode->setScale(orgScale * 0.7f);
+			cardNode->runAction(Sequence::create(
+				ScaleTo::create(0.5f, 0.0f, orgScale),
+				CallFunc::create([this](){
+					cardBack->setVisible(false);
+					cardLayout->setVisible(true);
+					}),
+				ScaleTo::create(0.5f, orgScale),
+				nullptr));
+		}
+		else if (!prevFlipped && !flip) {
+			cardBack->setVisible(false);
+			cardLayout->setVisible(true);
+
+			auto orgScale = cardNode->getScale();
+			cardNode->setScale(orgScale * 0.7f);
+			cardNode->runAction(Sequence::create(
+				ScaleTo::create(0.5f, 0.0f, orgScale),
+				CallFunc::create([this]() {
+					cardBack->setVisible(true);
+					cardLayout->setVisible(false);
+					}),
+				ScaleTo::create(0.5f, orgScale),
+						nullptr));
+		}
 	}
 	else {
+	
 		cardBack->setVisible(flip);
 	}
 }

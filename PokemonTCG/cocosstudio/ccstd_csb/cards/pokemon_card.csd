@@ -335,8 +335,8 @@
                 <ColorVector ScaleY="1.0000" />
               </AbstractNodeData>
             </Children>
-            <AnchorPoint />
-            <Position X="-185.0000" Y="-284.0000" />
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position X="10.0000" Y="-0.5000" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />
@@ -348,8 +348,8 @@
           </AbstractNodeData>
           <AbstractNodeData Name="Card_Back" ActionTag="1528974376" VisibleForFrame="False" Tag="79" IconVisible="False" LeftMargin="-185.0000" RightMargin="-205.0000" TopMargin="-283.0000" BottomMargin="-284.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Enable="True" LeftEage="10" RightEage="10" TopEage="10" BottomEage="10" Scale9OriginX="10" Scale9OriginY="10" Scale9Width="370" Scale9Height="547" ctype="PanelObjectData">
             <Size X="390.0000" Y="567.0000" />
-            <AnchorPoint />
-            <Position X="-185.0000" Y="-284.0000" />
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position X="10.0000" Y="-0.5000" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />

@@ -282,5 +282,11 @@ bool CardHolder::canEvolveTo(PetCard *card) {
 	return false;
 }
 
+void CardHolder::setFlipPetCard(bool flip) {
+	if (petCard) {
+		petCard->setFlip(flip, true);
+	}
+}
+
 
 BATTLE_SCENE_NS_END

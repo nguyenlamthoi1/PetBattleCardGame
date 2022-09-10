@@ -39,8 +39,8 @@ public:
 		SetupActive,
 		StartSetupBench,
 		SetupBench,
-
-		FirstPlayerFlip
+		FirstPlayerFlip,
+		EndSetup,
 	};
 
 	enum class State{
@@ -254,6 +254,16 @@ protected:
 	PlayerIdType firstId;
 	bool resSide;
 	std::shared_ptr<EventHandler> onFlipDone;
+};
+
+class DoEndSetup : public BSAction {
+public:
+	static const std::string OPP_DO_SETUP_TXT;
+	DoEndSetup() = default;
+	virtual ~DoEndSetup() = default;
+
+	virtual void executeOn(BattleScene *btlScn) override;
+	virtual ActionType getType() const override { return ActionType::EndSetup; }
 };
 
 

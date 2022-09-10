@@ -48,6 +48,8 @@ public:
 	bool tryAddBasicPetCard(PetCard *card, const std::function<void()> &onDone = nullptr);
 	bool tryAddEnergyCard(EnergyCard *card, const std::function<void()> &onDone = nullptr);
 
+	void setFlipPetCard(bool flip);
+
 	void updateInfoPanel(bool show);
 
 	// Checker

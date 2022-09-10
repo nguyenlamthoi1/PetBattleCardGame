@@ -118,9 +118,14 @@ const vector<Node*> BSBoard::getAllHolders() const {
 	return ret;
 }
 
-const vector<CardHolder*> BSBoard::getBenchHolders() const {
+const vector<CardHolder*>& BSBoard::getBenchHolders() const {
 	return benchHolders;
 }
+
+CardHolder* BSBoard::getActiveHolder() const {
+	return activeHolder;
+}
+
 
 const string BSBoard::ACTIVE_BOARD_NAME = "Active_Board";
 const string BSBoard::BENCH_BOARD_NAME = "Bench_Board";

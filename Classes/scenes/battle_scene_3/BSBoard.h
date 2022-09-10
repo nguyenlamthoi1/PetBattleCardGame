@@ -46,7 +46,8 @@ public:
 	CardHolder *activeHolder = nullptr;
 
 	// Getters
-	const std::vector<CardHolder*> getBenchHolders() const;
+	CardHolder* getActiveHolder() const;
+	const std::vector<CardHolder*>& getBenchHolders() const;
 	const std::vector<cocos2d::Node*> getAllHolders() const;
 
 	static const std::string BENCH_BOARD_NAME;
