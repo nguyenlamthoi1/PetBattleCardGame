@@ -505,10 +505,10 @@
                 <PrePosition />
                 <PreSize X="0.0000" Y="0.0000" />
               </AbstractNodeData>
-              <AbstractNodeData Name="EndTurnButton" ActionTag="-2078122449" Tag="75" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="981.7999" RightMargin="252.2001" TopMargin="18.0000" BottomMargin="306.0000" TouchEnable="True" FontSize="20" ButtonText="End" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="16" Scale9Height="14" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
+              <AbstractNodeData Name="EndTurnButton" ActionTag="-2078122449" Tag="75" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="981.8000" RightMargin="252.2000" TopMargin="18.0000" BottomMargin="306.0000" TouchEnable="True" FontSize="20" ButtonText="End" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="16" Scale9Height="14" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
                 <Size X="46.0000" Y="36.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                <Position X="1004.7999" Y="324.0000" />
+                <Position X="1004.8000" Y="324.0000" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="144" G="238" B="144" />
                 <PrePosition X="0.7850" Y="0.9000" />

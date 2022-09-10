@@ -33,13 +33,11 @@ class BSCard;
 class EnergyCard;
 class PetCard;
 class BSBoard;
-
-//class BSAction;
-//class BSPlayer;
-//class BSCoinFlipper;
+class BSCoinFlipper;
 class BSNotifier;
 class BSHand;
 class BSAction;
+//class BSPlayer;
 
 namespace BATTLE_SCENE_Z {
 	const float DETAILED_CARD = 1000;
@@ -67,14 +65,15 @@ public:
 
 	cocos2d::Node* getScnRoot() const { return root; } // * Root node load tu file csb
 
+	const std::vector<PlayerIdType>& getPids() const;
 	std::shared_ptr<PlayerData> getPlayerData(const PlayerIdType &id) const;
 	std::shared_ptr<BSHand> getHand(const PlayerIdType &id) const;
 	std::shared_ptr<BSDeck> getDeck(const PlayerIdType &id) const;
 	std::shared_ptr<BSNotifier> getNotifier() const;
 	std::shared_ptr<BSBoard> getBoard(const PlayerIdType &id) const;
-	
+	std::shared_ptr<BSCoinFlipper> getCoinFlipper() const;
+
 	//std::shared_ptr<BSPlayer> getPlayer(PlayerIdType id) { return players[id]; }
-	//std::shared_ptr<BSCoinFlipper> getCoinFlipper() { return coinFlipper; }
 
 	PlayerIdType getPlayerId() const { return pid; }
 	PlayerIdType getOpponentId() const { return oid; }
@@ -119,6 +118,7 @@ private:
 	std::unordered_map<PlayerIdType, std::shared_ptr<BSBoard>> boards;
 
 	std::shared_ptr<BSNotifier> notifier;
+	std::shared_ptr<BSCoinFlipper> coinFlipper;
 
 	cocos2d::ui::Button *endTurnBtn = nullptr;
 

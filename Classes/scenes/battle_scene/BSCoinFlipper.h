@@ -1,5 +1,4 @@
-#ifndef __BS_COIN_FLIPPER_H__
-#define __BS_COIN_FLIPPER_H__
+#pragma once
 
 #include "BSDefine.h"
 #include "cocos2d.h"
@@ -18,8 +17,6 @@ class BattleScene;
 
 class BSCoinFlipper final {
 public:
-	friend class BattleScene;
-
 	using OnFlipEnded = std::function<void()>;
 
 	enum class FlipType {
@@ -99,5 +96,3 @@ private:
 };
 
 BATTLE_SCENE_NS_END
-
-#endif // __BS_COIN_FLIPPER_H__

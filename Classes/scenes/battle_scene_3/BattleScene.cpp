@@ -14,9 +14,8 @@
 #include "BSDeck.h"
 #include "BSCard.h"
 #include "BSBoard.h"
-
-
 #include "BSNotifier.h"
+#include "BSCoinFlipper.h"
 
 #include <stdlib.h>
 
@@ -148,14 +147,16 @@ bool BattleScene::init() {
 	boards[pid] = shared_ptr<BSBoard>(BSBoard::create(this, pid));
 	boards[oid] = shared_ptr<BSBoard>(BSBoard::create(this, oid));
 
+	// Khoi tao Coin Flipper
+	coinFlipper = shared_ptr<BSCoinFlipper>(BSCoinFlipper::create(this));
+	coinFlipper->getRoot()->setVisible(false);
+
 	// Khoi tao du lieu player trong game
 	//players[PLAYER] = make_shared<BSGamer>(PLAYER);
 	//players[OPPONENT] = make_shared<BSPlayer>(OPPONENT);
 	
 
-	//// Khoi tao Coin Flipper
-	//coinFlipper = shared_ptr<BSCoinFlipper>(BSCoinFlipper::create(this));
-	//coinFlipper->getNode()->setVisible(false);
+
 
 	// Khoi tao Notifier
 	notifier = shared_ptr<BSNotifier>(BSNotifier::create(this));
@@ -256,11 +257,13 @@ void BattleScene::onExit() {
 ///Getters and Setters///
 ///------------------///
 
-std::shared_ptr<PlayerData> BattleScene::getPlayerData(const PlayerIdType &id) const { return playerData.at(id); }
-std::shared_ptr<BSHand> BattleScene::getHand(const PlayerIdType &id) const { return hands.at(id); }
-std::shared_ptr<BSDeck> BattleScene::getDeck(const PlayerIdType &id) const { return decks.at(id); }
-std::shared_ptr<BSNotifier> BattleScene::getNotifier() const { return notifier; }
-std::shared_ptr<BSBoard> BattleScene::getBoard(const PlayerIdType &id) const { return boards.at(id); }
+shared_ptr<PlayerData> BattleScene::getPlayerData(const PlayerIdType &id) const { return playerData.at(id); }
+shared_ptr<BSHand> BattleScene::getHand(const PlayerIdType &id) const { return hands.at(id); }
+shared_ptr<BSDeck> BattleScene::getDeck(const PlayerIdType &id) const { return decks.at(id); }
+shared_ptr<BSNotifier> BattleScene::getNotifier() const { return notifier; }
+shared_ptr<BSBoard> BattleScene::getBoard(const PlayerIdType &id) const { return boards.at(id); }
+shared_ptr<BSCoinFlipper> BattleScene::getCoinFlipper() const { return coinFlipper; }
+const vector<PlayerIdType>& BattleScene::getPids() const { return pids; }
 
 
 ///----------------------///

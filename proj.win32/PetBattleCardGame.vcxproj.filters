@@ -246,6 +246,9 @@
     <ClCompile Include="..\Classes\scenes\battle_scene_3\game\game_state\CoinFlipper.cpp">
       <Filter>src\scenes\battle_scene\game\game_state</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\BSCoinFlipper.cpp">
+      <Filter>src\scenes\battle_scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -526,6 +529,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\scenes\battle_scene_3\game\game_state\CoinFlipper.h">
       <Filter>src\scenes\battle_scene\game\game_state</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\BSCoinFlipper.h">
+      <Filter>src\scenes\battle_scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
