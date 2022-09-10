@@ -174,8 +174,8 @@ class StartSetupAction : public BSAction {
 public:
 	const static std::string START_SETUP_TXT;
 
-	StartSetupAction();
-	virtual ~StartSetupAction();
+	StartSetupAction() = default;
+	virtual ~StartSetupAction() = default;
 
 	virtual void executeOn(BattleScene *btlScn) override;
 	virtual ActionType getType() const override { return ActionType::StartSetup; }
@@ -203,8 +203,8 @@ public:
 	static const std::string PLAYER_SETUP_TXT;
 	static const std::string OPP_SETUP_TXT;
 
-	StartSetupBench(const PlayerIdType &pid);
-	virtual ~StartSetupBench();
+	StartSetupBench(const PlayerIdType &id) : pid(id) {}
+	virtual ~StartSetupBench() = default;
 
 	virtual void executeOn(BattleScene *btlScn) override;
 	virtual ActionType getType() const override { return ActionType::StartSetupBench; }

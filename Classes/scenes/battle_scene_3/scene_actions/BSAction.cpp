@@ -285,10 +285,6 @@ void GameOverAction::executeOn(BattleScene *btlScn) {
 //SET UP FLOW//
 //-----------//
 
-StartSetupAction::StartSetupAction() {}
-
-StartSetupAction::~StartSetupAction() {}
-
 const string StartSetupAction::START_SETUP_TXT = "TXT_BS_START_SET_UP";
 
 void StartSetupAction::executeOn(BattleScene *btlScn) {
@@ -327,7 +323,8 @@ void StartSetupActive::executeOn(BattleScene *btlScn) {
 	else { // Opponent Action
 		auto notifier = btlScn->getNotifier();
 		notifier->showMsg(lang->getString(OPP_SETUP_TXT));
-	
+		btlScn->onPlayerDoAction(make_shared<MGame::PA_DoForMe>(pid));
+		
 		//TODO: AI_MAKE_DECISION
 	}
 
@@ -335,7 +332,9 @@ void StartSetupActive::executeOn(BattleScene *btlScn) {
 }
 
 bool StartSetupActive::onReceivePlayerInput(const shared_ptr<MGame::BattleMaster> & bm, const shared_ptr<MGame::PlayerAction> &pAction) {
-	if (pAction->getType() == MGame::PlayerAction::Type::SetupActivePet) {
+	if (pAction->getType() == MGame::PlayerAction::Type::SetupActivePet
+		|| pAction->getType() == MGame::PlayerAction::Type::DoForMe
+		) {
 		auto error =  bm->onPlayerChooseAction(pAction);
 		bool suc = error != ActionError::Failed;
 		if (suc)
@@ -347,10 +346,6 @@ bool StartSetupActive::onReceivePlayerInput(const shared_ptr<MGame::BattleMaster
 
 
 //---//
-
-StartSetupBench::StartSetupBench(const PlayerIdType &id) : pid(id) {}
-
-StartSetupBench::~StartSetupBench() {}
 
 const string StartSetupBench::PLAYER_SETUP_TXT = "TXT_BS_START_PLAYER_SET_UP_BENCH";
 const string StartSetupBench::OPP_SETUP_TXT = "TXT_BS_START_OPPONENT_SET_UP_BENCH";
@@ -380,18 +375,17 @@ void StartSetupBench::executeOn(BattleScene *btlScn) {
 	}
 	else { // Opponent Action
 		auto notifier = btlScn->getNotifier();
-		//notifier->showMsgAndHideAfter(lang->getString(OPP_SETUP_TXT), 1.5f);
 		notifier->showMsg(lang->getString(OPP_SETUP_TXT));
-
+		btlScn->onPlayerDoAction(make_shared<MGame::PA_DoForMe>(pid));
 		//TODO: AI_MAKE_DECISION
 	}
-
 	//state = State::Done;
 }
 
 bool StartSetupBench::onReceivePlayerInput(const shared_ptr<MGame::BattleMaster> &bm, const shared_ptr<MGame::PlayerAction> &pAction) {
 	if (pAction->getType() == MGame::PlayerAction::Type::SetupBenchPet
 		|| pAction->getType() == MGame::PlayerAction::Type::EndTurn
+		|| pAction->getType() == MGame::PlayerAction::Type::DoForMe
 		) {
 		auto error = bm->onPlayerChooseAction(pAction);
 		bool suc = error != ActionError::Failed;
@@ -419,7 +413,9 @@ void DoSetupPetActive::executeOn(BattleScene *btlScn) {
 		state = State::Done;
 	}
 	else { // Opponent Action
-		//TODO
+		auto hand = btlScn->getHand(pid);
+		hand->playPetCardFromHandToActive(handIdx);
+		state = State::Done;
 	}
 
 	state = State::Done;
@@ -437,11 +433,12 @@ void DoSetupPetBench::executeOn(BattleScene *btlScn) {
 		auto hand = btlScn->getHand(pid);
 		hand->playPetCardFromHandToBench(handIdx);
 
-		btlScn->setEnableEndTurnButton(false);
-		btlScn->setClickEndButton(nullptr);
+		//btlScn->setEnableEndTurnButton(false);
+		//btlScn->setClickEndButton(nullptr);
 	}
 	else { // Opponent Action
-		//TODO
+		auto hand = btlScn->getHand(pid);
+		hand->playPetCardFromHandToBench(handIdx);
 	}
 
 	state = State::Done;

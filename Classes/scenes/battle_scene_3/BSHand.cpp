@@ -290,6 +290,7 @@ bool BSHand::playPetCardFromHandToActive(unsigned int handIdx) {
 		auto btlScn = BattleScene::getScn();
 		auto board = btlScn->getBoard(pid);
 		auto petCard = dynamic_cast<PetCard*>(card);
+
 		suc = board->addPetOnActive(petCard);
 		if (suc) { // Add thanh cong petCard
 			removeCardAt(handIdx);

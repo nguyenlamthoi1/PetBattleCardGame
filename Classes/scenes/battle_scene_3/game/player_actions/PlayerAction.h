@@ -15,6 +15,7 @@ class PlayerAction {
 public:
 	enum class Type {
 		None,
+		DoForMe,
 		SetupActivePet,
 		SetupBenchPet,
 		EndTurn
@@ -34,8 +35,10 @@ public:
 */
 class PA_DoForMe : public PlayerAction {
 public:
-	PA_DoForMe() = default;
+	PA_DoForMe(const PlayerIdType &id) : pid(id) {}
 	virtual ~PA_DoForMe() = default;
+	virtual Type getType() const override { return Type::DoForMe; }
+	PlayerIdType pid;
 };
 
 class PA_SetupActive : public PlayerAction {

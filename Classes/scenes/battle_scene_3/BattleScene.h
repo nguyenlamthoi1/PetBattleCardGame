@@ -21,7 +21,7 @@ class EnergyCardData;
 
 namespace MGame {
 	class BattleMaster;
-	//class PlayerAction;
+	class PlayerAction;
 }
 
 BATTLE_SCENE_NS_BEG
@@ -40,11 +40,6 @@ class BSBoard;
 class BSNotifier;
 class BSHand;
 class BSAction;
-
-//namespace MGame {
-//	class BattleManager;
-//}
-
 
 namespace BATTLE_SCENE_Z {
 	const float DETAILED_CARD = 1000;
@@ -161,6 +156,7 @@ public:
 	};
 	bool onPlayerPetCard(const PlayerIdType &playerId, unsigned int handIdx, PlaceType PlaceType);
 	bool onPlayerEndTurn(const PlayerIdType &playerId);
+	bool onPlayerDoAction(const std::shared_ptr<MGame::PlayerAction> &pAction);
 
 	void setEnableEndTurnButton(bool enabled);
 	using EndClickFunc = std::function<void(cocos2d::Ref*)>;

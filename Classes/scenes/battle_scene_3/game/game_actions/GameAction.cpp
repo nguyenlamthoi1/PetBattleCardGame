@@ -75,7 +75,7 @@ void FirstDrawAction::executeOn(GameState *gstate) {
 			deck->popTop(tempDrawnNum, cardObjVec);
 
 			// Shuffle pet card vao 7 la nay
-			auto insertIdx = cocos2d::RandomHelper::random_int(0, (int)cardObjVec.size());
+			auto insertIdx = cocos2d::RandomHelper::random_int(0, (int)cardObjVec.size() - 1);
 			cardObjVec.insert(cardObjVec.cbegin() + insertIdx, petCard);
 
 			// Bo 7 la vao hand
@@ -220,10 +220,6 @@ shared_ptr<GameAction> SetupBenchPet::clone() const {
 
 	//StartSetupAction Class//
 
-StartSetupAction::StartSetupAction() {}
-
-StartSetupAction::~StartSetupAction() {}
-
 void StartSetupAction::executeOn(GameState *gstate) {
 	state = State::Process;
 	gstate->startSetup();
@@ -264,10 +260,12 @@ vector<shared_ptr<PlayerAction>> StartSetupActivePet::getPossibleMoves(GameState
 
 	unsigned int handIdx = 0;
 	for (const auto &card : cards) {
-		auto petCard = dynamic_pointer_cast<PetCard>(card);
-		auto data = petCard->getPetData();
-		if (petCard && data->isBasicCard()) 
-			ret.push_back(make_shared<PA_SetupActive>(pid, handIdx));
+		if (card->getType() == Card::Type::Pet) {
+			auto petCard = dynamic_pointer_cast<PetCard>(card);
+			auto data = petCard->getPetData();
+			if (petCard && data->isBasicCard())
+				ret.push_back(make_shared<PA_SetupActive>(pid, handIdx));
+		}
 		++handIdx;
 	}
 	return ret;
@@ -277,22 +275,33 @@ ActionError StartSetupActivePet::onReceiveInput(GameState *gstate, const std::sh
 	if (state != State::Process)
 		return ActionError::Failed;
 
-	auto setupMove = dynamic_pointer_cast<PA_SetupActive>(move);
-	if (!setupMove || setupMove->pid != pid)
-		return ActionError::Failed;
-	
-	auto handIdx = setupMove->handIdx;
-	auto hand = gstate->getHand(pid);
-	auto card = hand->getCardAt(handIdx);
-	auto petCard = dynamic_pointer_cast<PetCard> (card);
-	
-	if (petCard && petCard->isBasicCard()) {
-		state = State::Done;
-		gstate->pushActionsAtFront({
-			make_shared<SetupActivePet>(pid, handIdx),
-			make_shared<StartSetupBenchPet>(pid)
-			});
-		return ActionError::Succeeded;
+	if (move->getType() == PlayerAction::Type::SetupActivePet) {
+		auto setupMove = dynamic_pointer_cast<PA_SetupActive>(move);
+
+		if (!setupMove || setupMove->pid != pid)
+			return ActionError::Failed;
+
+		auto handIdx = setupMove->handIdx;
+		auto hand = gstate->getHand(pid);
+		auto card = hand->getCardAt(handIdx);
+		auto petCard = dynamic_pointer_cast<PetCard> (card);
+
+		if (petCard && petCard->isBasicCard()) {
+			state = State::Done;
+			gstate->pushActionsAtFront({
+				make_shared<SetupActivePet>(pid, handIdx),
+				make_shared<StartSetupBenchPet>(pid)
+				});
+			return ActionError::Succeeded;
+		}
+	}
+	else if (move->getType() == PlayerAction::Type::DoForMe) {
+		auto pMoves = getPossibleMoves(gstate);
+		if (!pMoves.empty()) {
+			auto randIdx = cocos2d::RandomHelper::random_int(0, (int) pMoves.size() - 1);
+			auto chosenMove = pMoves[randIdx];
+			return onReceiveInput(gstate, chosenMove);
+		}
 	}
 	
 	return ActionError::Failed;
@@ -323,12 +332,18 @@ vector<shared_ptr<PlayerAction>> StartSetupBenchPet::getPossibleMoves(GameState 
 
 	unsigned int handIdx = 0;
 	for (const auto &card : cards) {
-		auto petCard = dynamic_pointer_cast<PetCard>(card);
-		auto data = petCard->getPetData();
-		if (petCard && data->isBasicCard())
-			ret.push_back(make_shared<PA_SetupBench>(pid, handIdx));
+		if (card->getType() == Card::Type::Pet) {
+			auto petCard = dynamic_pointer_cast<PetCard>(card);
+			auto data = petCard->getPetData();
+			if (petCard && data->isBasicCard())
+				ret.push_back(make_shared<PA_SetupBench>(pid, handIdx));
+		}
+
 		++handIdx;
 	}
+
+	ret.push_back(make_shared<PA_EndTurn>(pid));
+
 	return ret;
 }
 
@@ -377,6 +392,13 @@ ActionError StartSetupBenchPet::onReceiveInput(GameState *gstate, const std::sha
 		}
 
 	}
+	else if (move->getType() == PlayerAction::Type::DoForMe) {
+		auto pMoves = getPossibleMoves(gstate);
+		if (!pMoves.empty()) {
+			auto randIdx = cocos2d::RandomHelper::random_int(0, (int)pMoves.size() - 1);
+			return onReceiveInput(gstate, pMoves[randIdx]);
+		}
+	}
 
 	return ActionError::Failed;
 }
@@ -409,7 +431,7 @@ void FlipCoinGetFirst::executeOn(GameState *gstate) {
 	if (state != State::Wait)
 		return;
 	state = State::Process;
-	firstIdx = cocos2d::RandomHelper::random_int(0, (int)gstate->getPlayerCount());
+	firstIdx = cocos2d::RandomHelper::random_int(0, (int)gstate->getPlayerCount() - 1);
 	state = State::Done;
 }
 

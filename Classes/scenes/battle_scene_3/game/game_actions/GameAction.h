@@ -165,8 +165,8 @@ protected:
 
 class StartSetupAction: public GameAction {
 public:
-	StartSetupAction();
-	virtual ~StartSetupAction();
+	StartSetupAction() = default;
+	virtual ~StartSetupAction() = default;
 
 	virtual void executeOn(GameState *state) override;
 	virtual Type getType() const override { return Type::StartSetup; }

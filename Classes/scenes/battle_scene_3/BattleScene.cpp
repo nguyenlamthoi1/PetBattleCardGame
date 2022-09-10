@@ -360,6 +360,15 @@ bool BattleScene::onPlayerEndTurn(const PlayerIdType &playerId) {
 	return curAction->onReceivePlayerInput(bm, playerMove);
 }
 
+bool BattleScene::onPlayerDoAction(const shared_ptr<MGame::PlayerAction> &pAction) {
+	auto curAction = dynamic_pointer_cast<WaitInputPlayer>(pipeline.front()); // Lay action hien tai cua BattleScene
+	if (!curAction)
+		return false;
+	auto bm = MGame::BattleMaster::get();
+	return curAction->onReceivePlayerInput(bm, pAction);
+}
+
+
 void BattleScene::pushAction(const ActionPtr &ptr) {
 	pipeline.push_back(ptr);
 }

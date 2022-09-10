@@ -125,6 +125,7 @@ void CardHolder::setHolderSizeW(float w) {
 
 
 bool CardHolder::tryAddBasicPetCard(PetCard *card) {
+	constexpr float CardMoveSpeed = 400.0f;
 
 	auto petData = dynamic_pointer_cast<const PetCardData>(card->getData());
 	bool isBasic = petData->evStage < 1;
@@ -132,12 +133,19 @@ bool CardHolder::tryAddBasicPetCard(PetCard *card) {
 		if (petCard)
 			return false;
 		petCard = card;
+
+		auto startPosition = Utilize::mnode::getLocalPos(card, cardMarker);
 		card->removeFromParent();
 		cardMarker->addChild(card);
-		auto pos = Vec2(0, 0);
-		card->setPosition(pos + Vec2(0, 25));
-		card->runAction(MoveTo::create(0.5f, pos));
-		updateInfoPanel(true);
+
+		auto destPosition = Vec2(0, 0);
+		auto dist = destPosition.distance(startPosition);
+		card->setPosition(startPosition);
+
+		card->runAction(MoveTo::create(dist / CardMoveSpeed, destPosition));
+		
+		if(!card->isFlippedDown())
+			updateInfoPanel(true);
 		
 		WidgetTouchNS::setEnableDragComponent(card, false);
 
