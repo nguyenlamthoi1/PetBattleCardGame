@@ -387,7 +387,11 @@ ActionError StartSetupBenchPet::onReceiveInput(GameState *gstate, const std::sha
 		}
 		else {
 			state = State::Done;
-			gstate->pushActionsAtFront({ make_shared<EndSetup>()});
+			gstate->pushActionsAtFront({ 
+				make_shared<FlipCoinGetFirst>(),
+				make_shared<EndSetup>()
+				});
+			//gstate->pushActionsAtFront({ make_shared<EndSetup>()});
 			return ActionError::Succeeded;
 		}
 
@@ -407,7 +411,7 @@ void EndSetup::executeOn(GameState *gstate) {
 	if (state != State::Wait)
 		return;
 	state = State::Process;
-	gstate->pushActionsAtFront({make_shared<FlipCoinGetFirst>(),});
+	//gstate->pushActionsAtFront({make_shared<FlipCoinGetFirst>(),});
 	state = State::Done;
 }
 
@@ -428,15 +432,19 @@ shared_ptr<GameAction> EndSetup::clone() const {
 */
 
 void FlipCoinGetFirst::executeOn(GameState *gstate) {
+	static constexpr bool Heads = true;
+	static constexpr bool Tails = true;
+
 	if (state != State::Wait)
 		return;
 	state = State::Process;
-	firstIdx = cocos2d::RandomHelper::random_int(0, (int)gstate->getPlayerCount() - 1);
+	auto firstIdx = cocos2d::RandomHelper::random_int(0, (int)gstate->getPlayerCount() - 1);
+	firstId = gstate->getPids()[firstIdx];
 	state = State::Done;
 }
 
 shared_ptr<BattleSceneNS::BSAction> FlipCoinGetFirst::getBSAction() const {
-	return nullptr;
+	return make_shared<BattleSceneNS::FlipCoinGetFirstPlayer>(firstId);
 }
 
 shared_ptr<GameAction> FlipCoinGetFirst::clone() const {

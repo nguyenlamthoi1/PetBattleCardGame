@@ -2,6 +2,7 @@
 #include "../BattleScene.h"
 #include "../BSHand.h"
 #include "../BSNotifier.h"
+#include "../BSCoinFlipper.h"
 
 #include "../game/BattleMaster.h"
 #include "../game/player_actions/PlayerAction.h"
@@ -409,16 +410,16 @@ void DoSetupPetActive::executeOn(BattleScene *btlScn) {
 
 	if (btlScn->getPlayerId() == pid) { // Player Action
 		auto hand = btlScn->getHand(pid);
-		hand->playPetCardFromHandToActive(handIdx);
-		state = State::Done;
+		hand->playPetCardFromHandToActive(handIdx, [this]() {
+			state = State::Done;
+			});
 	}
 	else { // Opponent Action
 		auto hand = btlScn->getHand(pid);
-		hand->playPetCardFromHandToActive(handIdx);
-		state = State::Done;
+		hand->playPetCardFromHandToActive(handIdx, [this]() {
+			state = State::Done;
+			});
 	}
-
-	state = State::Done;
 }
 
 //--
@@ -431,17 +432,19 @@ void DoSetupPetBench::executeOn(BattleScene *btlScn) {
 
 	if (btlScn->getPlayerId() == pid) { // Player Action
 		auto hand = btlScn->getHand(pid);
-		hand->playPetCardFromHandToBench(handIdx);
+		hand->playPetCardFromHandToBench(handIdx, [this]() {
+			state = State::Done;
+			});
 
 		//btlScn->setEnableEndTurnButton(false);
 		//btlScn->setClickEndButton(nullptr);
 	}
 	else { // Opponent Action
 		auto hand = btlScn->getHand(pid);
-		hand->playPetCardFromHandToBench(handIdx);
+		hand->playPetCardFromHandToBench(handIdx, [this]() {
+			state = State::Done;
+			});
 	}
-
-	state = State::Done;
 }
 
 
@@ -449,9 +452,25 @@ void DoSetupPetBench::executeOn(BattleScene *btlScn) {
 	FlipCoinGetFirstPlayer
 */
 
+const string FlipCoinGetFirstPlayer::YOU_GO_FIRST_TXT = "TXT_BS_YOU_GO_FIRST";
+const string FlipCoinGetFirstPlayer::YOU_GO_SECOND_TXT = "TXT_BS_YOU_GO_SECOND";
+
 void FlipCoinGetFirstPlayer::executeOn(BattleScene *btlScn) {
 	if (state != State::Wait)
 		return;
+
+	auto coinFlipper = btlScn->getCoinFlipper();
+	auto notifier = btlScn->getNotifier();
+	notifier->hideMsg();
+	resSide = btlScn->getPlayerId() == firstId ? BSCoinFlipper::HEADS : BSCoinFlipper::TAILS;
+	coinFlipper->startFlip1Coin(firstId, resSide);
+	coinFlipper->addEventHandler(BSCoinFlipper::EV_FLIP_DONE, [this, coinFlipper, notifier](const std::shared_ptr<MEvent>&) {
+		coinFlipper->removeHandler(onFlipDone);
+		auto lang = GM_LANG;
+		notifier->showMsgAndHideAfter(lang->getString(resSide == BSCoinFlipper::HEADS ? YOU_GO_FIRST_TXT : YOU_GO_SECOND_TXT), 1.0f);
+		state = State::Done;
+		coinFlipper->hideFlip1(1.0f);
+		});
 
 	state = State::Processed;
 

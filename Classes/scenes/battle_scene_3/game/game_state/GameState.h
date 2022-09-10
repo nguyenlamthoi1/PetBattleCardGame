@@ -52,7 +52,8 @@ public:
 	PlayerIdType getCurrentId() const { return pids[curPlayer]; }
 	void setCurrentPlayerToNext() { curPlayer = (curPlayer + 1) % pids.size(); }
 	unsigned int getPlayerCount() const { return pids.size(); }
-
+	const std::vector<PlayerIdType>& getPids() const { return pids; }
+	PlayerIdType getPlayerIdAt(unsigned int idx) { return pids[idx]; }
 	std::shared_ptr<Deck> getDeck(const PlayerIdType &pid) const;
 	std::shared_ptr<Hand> getHand(const PlayerIdType &pid) const;
 	std::shared_ptr<Board> getBoard(const PlayerIdType &pid) const;

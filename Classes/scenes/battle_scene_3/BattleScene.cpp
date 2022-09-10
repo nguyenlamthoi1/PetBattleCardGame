@@ -108,6 +108,9 @@ bool BattleScene::init() {
 
 	pid = "Player";
 	oid = "OPP_0";
+	pids.clear();
+	pids.push_back(pid);
+	pids.push_back(oid);
 
 	auto pool = GM_POOL;
 	root = pool->tryGetNodeCsb("ccstd_csb/battle_scene/battle_scene.csb");
@@ -229,9 +232,7 @@ void BattleScene::startGame() {
 
 	auto bm = MGame::BattleMaster::get();
 
-	pids.clear();
-	pids.push_back(pid);
-	pids.push_back(oid);
+
 	turnCount = 0;
 	phase = Phase::Start;
 

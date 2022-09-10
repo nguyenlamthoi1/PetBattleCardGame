@@ -1,5 +1,7 @@
 #pragma once
 
+#include "base_classes/EventsHandler/IEventsHandler.h"
+
 #include "BSDefine.h"
 #include "cocos2d.h"
 #include "ui/UILayout.h"
@@ -15,8 +17,20 @@ BATTLE_SCENE_NS_BEG
 
 class BattleScene;
 
-class BSCoinFlipper final {
+class BSCoinFlipper final : public IEventsHandler {
 public:
+	enum class FlipType {
+		None,
+		Flip_1,
+		Flip_Mul
+	};
+
+	/// All Events ///
+	static const std::string EV_FLIP_DONE;
+	struct EV_FlipDoneData {
+		FlipType type = FlipType::None;
+	};
+
 	using OnFlipEnded = std::function<void()>;
 	class FlipperData;
 
@@ -24,18 +38,13 @@ public:
 	const static SideType HEADS = true;
 	const static SideType TAILS = false;
 
-	enum class FlipType {
-		None,
-		Flip_1,
-		Flip_Mul
-	};
-
 	static BSCoinFlipper* create(BattleScene *scn);
 	BSCoinFlipper(BattleScene *scn);
 	~BSCoinFlipper();
 
 	void startFlip1Coin(const PlayerIdType &whoFlip, SideType resSide);
 	void startFlipMulCoins(PlayerIdType whoFlip, unsigned int n);
+	void hideFlip1(float afterDt = 0.0f) const;
 
 	cocos2d::Node* getRoot() const { return root; }
 

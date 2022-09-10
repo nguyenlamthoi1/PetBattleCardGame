@@ -50,8 +50,8 @@ public:
 	void removeCardAt(unsigned int handIdx);
 
 	bool checkIdxValid(unsigned int idx) const { return 0 <= idx && idx < cards.size(); }
-	bool playPetCardFromHandToActive(unsigned int handIdx);
-	bool playPetCardFromHandToBench(unsigned int handIdx);
+	bool playPetCardFromHandToActive(unsigned int handIdx, const std::function<void()> &onDone = nullptr);
+	bool playPetCardFromHandToBench(unsigned int handIdx, const std::function<void()> &onDone = nullptr);
 protected:
 	bool init();
 

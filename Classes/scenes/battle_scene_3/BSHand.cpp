@@ -282,7 +282,7 @@ void BSHand::disableDragAll() {
 
 }
 
-bool BSHand::playPetCardFromHandToActive(unsigned int handIdx) {
+bool BSHand::playPetCardFromHandToActive(unsigned int handIdx, const function<void()> &onDone) {
 	auto card = cards.at(handIdx);
 	
 	bool suc = false;
@@ -291,7 +291,7 @@ bool BSHand::playPetCardFromHandToActive(unsigned int handIdx) {
 		auto board = btlScn->getBoard(pid);
 		auto petCard = dynamic_cast<PetCard*>(card);
 
-		suc = board->addPetOnActive(petCard);
+		suc = board->addPetOnActive(petCard, onDone);
 		if (suc) { // Add thanh cong petCard
 			removeCardAt(handIdx);
 			updateCardPositions();
@@ -301,7 +301,7 @@ bool BSHand::playPetCardFromHandToActive(unsigned int handIdx) {
 	return suc;
 }
 
-bool BSHand::playPetCardFromHandToBench(unsigned int handIdx) {
+bool BSHand::playPetCardFromHandToBench(unsigned int handIdx, const function<void()> &onDone) {
 	auto card = cards.at(handIdx);
 
 	bool suc = false;
@@ -309,7 +309,7 @@ bool BSHand::playPetCardFromHandToBench(unsigned int handIdx) {
 		auto btlScn = BattleScene::getScn();
 		auto board = btlScn->getBoard(pid);
 		auto petCard = dynamic_cast<PetCard*>(card);
-		suc = board->addPetOnBoard(petCard);
+		suc = board->addPetOnBoard(petCard, onDone);
 		if (suc) { // Add thanh cong petCard
 			removeCardAt(handIdx);
 			updateCardPositions();

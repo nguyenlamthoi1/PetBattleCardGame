@@ -242,13 +242,18 @@ protected:
 
 class FlipCoinGetFirstPlayer : public BSAction {
 public:
-	FlipCoinGetFirstPlayer(const PlayerIdType &pid) : firstId(pid) {}
+	static const std::string YOU_GO_FIRST_TXT;
+	static const std::string YOU_GO_SECOND_TXT;
+
+	FlipCoinGetFirstPlayer(const PlayerIdType &pid) : firstId(pid){}
 	virtual ~FlipCoinGetFirstPlayer() = default;
 
 	virtual void executeOn(BattleScene *btlScn) override;
 	virtual ActionType getType() const override { return ActionType::FirstPlayerFlip; }
 protected:
 	PlayerIdType firstId;
+	bool resSide;
+	std::shared_ptr<EventHandler> onFlipDone;
 };
 
 

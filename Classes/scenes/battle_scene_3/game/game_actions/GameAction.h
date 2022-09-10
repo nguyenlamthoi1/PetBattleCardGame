@@ -267,7 +267,7 @@ protected:
 
 class FlipCoinGetFirst : public GameAction {
 public:
-
+	
 	FlipCoinGetFirst() = default;
 	virtual ~FlipCoinGetFirst() = default;
 
@@ -278,7 +278,8 @@ public:
 
 protected:
 	//Result
-	PlayerIdType firstIdx;
+	//unsigned int firstIdx;
+	PlayerIdType firstId;
 };
 
 class OnTurnStart : public GameAction {

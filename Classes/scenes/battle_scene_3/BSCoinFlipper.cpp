@@ -136,6 +136,7 @@ void BSCoinFlipper::startFlip1Coin(const PlayerIdType &whoFlip, SideType resSide
 	flip1Panel->setScale(0.75f);
 	flip1Panel->setVisible(true);
 	flip1Panel->setOpacity(0);
+
 	flip1Panel->runAction(Sequence::create(
 		Spawn::create(
 			FadeIn::create(0.3f),
@@ -144,6 +145,11 @@ void BSCoinFlipper::startFlip1Coin(const PlayerIdType &whoFlip, SideType resSide
 		DelayTime::create(0.5f),
 		CallFunc::create([this, whoFlip, resSide]() { doFlip1Coin_Flip1Type(whoFlip, resSide); }),
 		nullptr));
+
+	coinSprite->setVisible(true);
+	coinSprite->setOpacity(0);
+	coinSprite->runAction(FadeIn::create(0.3f));
+
 }
 
 void BSCoinFlipper::doFlip1Coin_Flip1Type(const PlayerIdType &whoFlip, SideType flippedSide) {
@@ -298,14 +304,18 @@ void BSCoinFlipper::doFlip1Coin_FlipMulType(PlayerIdType whoFlip) {
 //////////////////////////
 //////////////////////////
 
+const string BSCoinFlipper::EV_FLIP_DONE = "EV_FLIP_DONE";
 
 void BSCoinFlipper::onFlipActionDone() {
 	// * Khong can reset, vi de get data cua FlipAction vua moi duoc thuc hien
 	//currentFlipper = ""; 
 	//curFlipType = FlipType::Flip_1;
 	//--
-	CCLOG("Flip 1 done");
-	notifyEvent(EventType::Flip_Action_Ended);
+	//CCLOG("Flip 1 done");
+	//notifyEvent(EventType::Flip_Action_Ended);
+
+	auto evData = EV_FlipDoneData({ curFlipType });
+	dispatchEvent(EV_FLIP_DONE, &evData);
 }
 
 void BSCoinFlipper::notifyEvent(EventType ev) {
@@ -328,6 +338,28 @@ void BSCoinFlipper::callDelayFunc(const DelayFunc &f, float t) {
 	Director::getInstance()->getScheduler()->schedule(f, this, 0, 0, t, 0, DELAY_SCHEDULER);
 }
 
+void BSCoinFlipper::hideFlip1(float afterDt) const {
+	coinSprite->runAction(
+		Sequence::create(
+			DelayTime::create(afterDt),
+			FadeOut::create(0.3f),
+			CallFunc::create([this]() {
+				coinSprite->setVisible(false);
+				coinSprite->setOpacity(255);
+				}),
+			nullptr
+					));
+	flip1Panel->runAction(
+		Sequence::create(
+			DelayTime::create(afterDt),
+			FadeOut::create(0.3f),
+			CallFunc::create([this]() {
+				flip1Panel->setVisible(false);
+				flip1Panel->setOpacity(255);
+				}),
+			nullptr
+		));
+}
 
 //-----------------//
 //FlipperData Class//

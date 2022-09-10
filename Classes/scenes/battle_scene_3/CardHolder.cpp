@@ -124,7 +124,7 @@ void CardHolder::setHolderSizeW(float w) {
 }
 
 
-bool CardHolder::tryAddBasicPetCard(PetCard *card) {
+bool CardHolder::tryAddBasicPetCard(PetCard *card, const function<void()> &onDone) {
 	constexpr float CardMoveSpeed = 400.0f;
 
 	auto petData = dynamic_pointer_cast<const PetCardData>(card->getData());
@@ -142,7 +142,15 @@ bool CardHolder::tryAddBasicPetCard(PetCard *card) {
 		auto dist = destPosition.distance(startPosition);
 		card->setPosition(startPosition);
 
-		card->runAction(MoveTo::create(dist / CardMoveSpeed, destPosition));
+		card->runAction(
+			Sequence::create(
+				MoveTo::create(dist / CardMoveSpeed, destPosition),
+				CallFunc::create([onDone]() {
+					if (onDone)
+						onDone();
+					}),
+				nullptr
+				));
 		
 		if(!card->isFlippedDown())
 			updateInfoPanel(true);
@@ -183,7 +191,7 @@ bool CardHolder::tryAddBasicPetCard(PetCard *card) {
 	}
 }
 
-bool CardHolder::tryAddEnergyCard(EnergyCard *energyCard) {
+bool CardHolder::tryAddEnergyCard(EnergyCard *energyCard, const function<void()> &onDone) {
 	//if (!petCard)
 	//	return false;
 	//

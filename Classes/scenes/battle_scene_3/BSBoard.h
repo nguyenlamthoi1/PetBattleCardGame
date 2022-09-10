@@ -59,8 +59,8 @@ public:
 	bool hasActivePet() const;
 	bool isBenchFull() const;
 
-	bool addPetOnActive(PetCard *card);
-	bool addPetOnBoard(PetCard *card);
+	bool addPetOnActive(PetCard *card, const std::function<void()> &onDone = nullptr);
+	bool addPetOnBoard(PetCard *card, const std::function<void()> &onDone = nullptr);
 
 	// Utilize functions
 	void alignHoldersOnBenchBoard(bool forceDoLayout);

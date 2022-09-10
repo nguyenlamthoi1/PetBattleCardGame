@@ -45,8 +45,8 @@ public:
 	void setHolderSizeH(float h);
 	void setHolderSizeW(float w);
 	
-	bool tryAddBasicPetCard(PetCard *card);
-	bool tryAddEnergyCard(EnergyCard *card);
+	bool tryAddBasicPetCard(PetCard *card, const std::function<void()> &onDone = nullptr);
+	bool tryAddEnergyCard(EnergyCard *card, const std::function<void()> &onDone = nullptr);
 
 	void updateInfoPanel(bool show);
 

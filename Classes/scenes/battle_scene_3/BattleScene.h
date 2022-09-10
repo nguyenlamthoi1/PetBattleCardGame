@@ -122,8 +122,6 @@ private:
 
 	cocos2d::ui::Button *endTurnBtn = nullptr;
 
-//	std::shared_ptr<BSCoinFlipper> coinFlipper;
-
 	///Action pipline members///
 	const static std::string PIPELINE_SCHEDULER;
 	enum class PipelineState{
