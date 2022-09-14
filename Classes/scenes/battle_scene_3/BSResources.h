@@ -23,7 +23,7 @@ public:
 	BSResources();
 	virtual ~BSResources();
 
-	BSCard* getBSCard(const CardId &cid);
+	BSCard* getBSCard(const CardId &cid = "");
 
 private:
 	std::vector<BSCard*> cardVec;

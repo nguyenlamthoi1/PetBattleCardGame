@@ -33,6 +33,7 @@ public:
 
 		Wait,
 		Draw_Card,
+		Draw_Pize_Cards,
 		
 		StartSetup,
 		StartSetupActive,
@@ -125,6 +126,27 @@ protected:
 	std::vector<CardId> drawnCards;
 	std::shared_ptr<EventHandler> onDrawnDone;
 };
+
+class DrawPrizeCards : public BSAction {
+public:
+	using CardId = std::string;
+	using CardList = std::initializer_list<CardId>;
+
+	DrawPrizeCards(const PlayerIdType &id) : pid(id) {};
+	DrawPrizeCards(const PlayerIdType &id, const std::vector<CardId> &list);
+	DrawPrizeCards(const PlayerIdType &id, CardList list);
+	virtual ~DrawPrizeCards() = default;
+
+	virtual void executeOn(BattleScene *btlScn) override;
+	virtual ActionType getType() const override { return ActionType::Draw_Pize_Cards; }
+
+protected:
+	PlayerIdType pid = PlayerIdInvalid;
+	std::vector<CardId> drawnCards;
+	std::shared_ptr<EventHandler> onDrawnDone;
+
+};
+
 
 //class FlipCoinAction : public BSAction {
 //public:

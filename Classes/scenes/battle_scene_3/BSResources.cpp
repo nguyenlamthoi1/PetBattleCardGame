@@ -33,4 +33,6 @@ BSCard* BSResources::getBSCard(const CardId &cid) {
 }
 
 
+
+
 BATTLE_SCENE_NS_END

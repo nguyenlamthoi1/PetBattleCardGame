@@ -127,8 +127,6 @@ void GameState::progressGameNoAnimation() {
 	if (!isGameOver())
 		return;
 
-	shared_ptr<BattleSceneNS::BSAction> bsAction;
-
 	if (!actionQueue.empty()) {
 		auto curAction = actionQueue.front();
 		if (curAction->state == GameAction::State::Wait) {

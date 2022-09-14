@@ -16,6 +16,8 @@
 #include "BSBoard.h"
 #include "BSNotifier.h"
 #include "BSCoinFlipper.h"
+#include "BSPrizePile.h"
+#include "prize_selector/BSPrizeSelector.h"
 
 #include <stdlib.h>
 
@@ -150,6 +152,10 @@ bool BattleScene::init() {
 	boards[pid] = shared_ptr<BSBoard>(BSBoard::create(this, pid));
 	boards[oid] = shared_ptr<BSBoard>(BSBoard::create(this, oid));
 
+	// Khoi tao PrizePile
+	prizePiles[pid] = BSPrizePile::create(this, pid);
+	prizePiles[oid] = BSPrizePile::create(this, oid);
+
 	// Khoi tao Coin Flipper
 	coinFlipper = shared_ptr<BSCoinFlipper>(BSCoinFlipper::create(this));
 	coinFlipper->getRoot()->setVisible(false);
@@ -158,8 +164,6 @@ bool BattleScene::init() {
 	//players[PLAYER] = make_shared<BSGamer>(PLAYER);
 	//players[OPPONENT] = make_shared<BSPlayer>(OPPONENT);
 	
-
-
 
 	// Khoi tao Notifier
 	notifier = shared_ptr<BSNotifier>(BSNotifier::create(this));
@@ -174,6 +178,10 @@ bool BattleScene::init() {
 	if (!topLayout)
 		return false;
 	initTopLayer();
+
+	// Khoi tao PrizeSelector
+	prizeSelector = BSPrizeSelector::create(this);
+	prizeSelector->getRoot()->setVisible(true);
 
 	// + Detailed Card
 	detailLayout = dynamic_cast<ui::Layout*>(root->getChildByName("Detail_Layout"));
@@ -218,15 +226,11 @@ void BattleScene::initGame() {
 }
 
 void BattleScene::startGame() {
-	//bm->startGame();
 
-	/*pushActions({
-		CustomAction::createShPtr([]() {
-			CCLOG("Clear Screen");
-			}),
-		WaitAction::createShPtr(1.0f),
-		DrawCardAction::createShPtr(pid, 7, {"P1", "P1", "P2", "P2", "P3", "E1", "E2", "E2", "E3"})
-		});*/
+	pushActions({
+		shared_ptr<DrawPrizeCards>(new DrawPrizeCards(pid, {"P1", "E1", "P2", "E2", "P3"})),
+		shared_ptr<DrawPrizeCards>(new DrawPrizeCards(oid, {"P1", "E1", "P2", "E2", "P3"})),
+		});
 
 	startPipeline();
 
@@ -236,8 +240,8 @@ void BattleScene::startGame() {
 	turnCount = 0;
 	phase = Phase::Start;
 
-	bm->initGame(PLAYER_ID, oid);
-	bm->startGame();
+	//bm->initGame(PLAYER_ID, oid);
+	//bm->startGame();
 }
 
 void BattleScene::initTopLayer() {
@@ -265,6 +269,8 @@ shared_ptr<BSNotifier> BattleScene::getNotifier() const { return notifier; }
 shared_ptr<BSBoard> BattleScene::getBoard(const PlayerIdType &id) const { return boards.at(id); }
 shared_ptr<BSCoinFlipper> BattleScene::getCoinFlipper() const { return coinFlipper; }
 const vector<PlayerIdType>& BattleScene::getPids() const { return pids; }
+shared_ptr<BSPrizePile> BattleScene::getPrizePile(const PlayerIdType &id) const { return prizePiles.at(id); }
+shared_ptr<BSPrizeSelector> BattleScene::getPrizeSelector() const { return prizeSelector; }
 
 
 ///----------------------///
@@ -456,6 +462,7 @@ void BattleScene::setEnableEndTurnButton(bool e) {
 void BattleScene::setClickEndButton(const EndClickFunc &f) {
 	endTurnBtn->addClickEventListener(f);
 }
+
 
 
 BATTLE_SCENE_NS_END

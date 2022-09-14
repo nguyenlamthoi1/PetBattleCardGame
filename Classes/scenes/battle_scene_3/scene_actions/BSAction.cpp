@@ -5,6 +5,7 @@
 #include "../BSCoinFlipper.h"
 #include "../BSBoard.h"
 #include "../CardHolder.h"
+#include "../BSPrizePile.h"
 
 #include "../game/BattleMaster.h"
 #include "../game/player_actions/PlayerAction.h"
@@ -493,6 +494,30 @@ void DoEndSetup::executeOn(BattleScene *btlScn) {
 		holder->setFlipPetCard(true);
 
 	state = State::Done;
+}
+
+
+/*DrawPrizeCards Class*/
+
+DrawPrizeCards::DrawPrizeCards(const PlayerIdType &id, const std::vector<CardId> &list) : pid(id){
+	drawnCards.assign(list.begin(), list.end());
+}
+
+DrawPrizeCards::DrawPrizeCards(const PlayerIdType &id, CardList list) : pid(id) {
+	drawnCards.assign(list.begin(), list.end());
+}
+
+void DrawPrizeCards::executeOn(BattleScene *btlScn) {
+	if (state != State::Wait)
+		return;
+
+	state = State::Processed;
+	auto prizePile = btlScn->getPrizePile(pid);
+	prizePile->drawFromDeck(drawnCards);
+	onDrawnDone = prizePile->addEventHandler(BSPrizePile::EV_DRAW_ACTION_DONE, [this, prizePile](const std::shared_ptr<MEvent>&) {
+		state = State::Done;
+		prizePile->removeHandler(onDrawnDone);
+		});
 }
 
 BATTLE_SCENE_NS_END

@@ -46,6 +46,33 @@
             <Children>
               <AbstractNodeData Name="Bench_Board" ActionTag="-228296783" Tag="721" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="440.0000" RightMargin="440.0000" TopMargin="86.8000" BottomMargin="173.2000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Enable="True" LeftEage="6" RightEage="6" TopEage="6" BottomEage="6" Scale9OriginX="6" Scale9OriginY="6" Scale9Width="264" Scale9Height="382" ctype="PanelObjectData">
                 <Size X="400.0000" Y="100.0000" />
+                <Children>
+                  <AbstractNodeData Name="Name" ActionTag="1736953411" Tag="130" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="155.5000" RightMargin="155.5000" TopMargin="28.5000" BottomMargin="28.5000" FontSize="36" LabelText="Bench" HorizontalAlignmentType="HT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                    <Size X="89.0000" Y="43.0000" />
+                    <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                    <Position X="200.0000" Y="50.0000" />
+                    <Scale ScaleX="0.6000" ScaleY="0.6000" />
+                    <CColor A="255" R="255" G="255" B="255" />
+                    <PrePosition X="0.5000" Y="0.5000" />
+                    <PreSize X="0.2225" Y="0.4300" />
+                    <FontResource Type="Normal" Path="ccstd_fonts/GillSans_ttf/Gill Sans.ttf" Plist="" />
+                    <OutlineColor A="255" R="255" G="0" B="0" />
+                    <ShadowColor A="255" R="110" G="110" B="110" />
+                  </AbstractNodeData>
+                  <AbstractNodeData Name="Container" ActionTag="1833669280" Tag="922" IconVisible="False" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
+                    <Size X="400.0000" Y="100.0000" />
+                    <AnchorPoint />
+                    <Position />
+                    <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                    <CColor A="255" R="255" G="255" B="255" />
+                    <PrePosition />
+                    <PreSize X="1.0000" Y="1.0000" />
+                    <SingleColor A="255" R="150" G="200" B="255" />
+                    <FirstColor A="255" R="150" G="200" B="255" />
+                    <EndColor A="255" R="255" G="255" B="255" />
+                    <ColorVector ScaleY="1.0000" />
+                  </AbstractNodeData>
+                </Children>
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="640.0000" Y="223.2000" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
@@ -60,6 +87,20 @@
               </AbstractNodeData>
               <AbstractNodeData Name="Active_Board" ActionTag="-1634641482" Tag="720" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="586.5000" RightMargin="586.5000" TopMargin="196.0000" BottomMargin="16.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Enable="True" LeftEage="10" RightEage="10" TopEage="10" BottomEage="10" Scale9OriginX="10" Scale9OriginY="10" Scale9Width="256" Scale9Height="374" ctype="PanelObjectData">
                 <Size X="107.0000" Y="148.0000" />
+                <Children>
+                  <AbstractNodeData Name="title_0" ActionTag="-1527115504" Tag="131" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="9.6750" RightMargin="4.3250" TopMargin="67.3000" BottomMargin="37.7000" FontSize="36" LabelText="Active" HorizontalAlignmentType="HT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                    <Size X="93.0000" Y="43.0000" />
+                    <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                    <Position X="56.1750" Y="59.2000" />
+                    <Scale ScaleX="0.6000" ScaleY="0.6000" />
+                    <CColor A="255" R="255" G="255" B="255" />
+                    <PrePosition X="0.5250" Y="0.4000" />
+                    <PreSize X="0.8692" Y="0.2905" />
+                    <FontResource Type="Normal" Path="ccstd_fonts/GillSans_ttf/Gill Sans.ttf" Plist="" />
+                    <OutlineColor A="255" R="255" G="0" B="0" />
+                    <ShadowColor A="255" R="110" G="110" B="110" />
+                  </AbstractNodeData>
+                </Children>
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="640.0000" Y="90.0000" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
@@ -109,7 +150,7 @@
               <AbstractNodeData Name="Discard_Board" ActionTag="-1860097295" Tag="85" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="951.6840" RightMargin="221.3159" TopMargin="132.5320" BottomMargin="79.4680" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Enable="True" LeftEage="10" RightEage="10" TopEage="10" BottomEage="10" Scale9OriginX="10" Scale9OriginY="10" Scale9Width="256" Scale9Height="374" ctype="PanelObjectData">
                 <Size X="107.0000" Y="148.0000" />
                 <Children>
-                  <AbstractNodeData Name="Title" ActionTag="1845086585" Tag="86" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="-2.5000" RightMargin="-2.5000" TopMargin="31.0000" BottomMargin="31.0000" FontSize="36" LabelText="Discard&#xA;Pile" HorizontalAlignmentType="HT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                  <AbstractNodeData Name="Title" ActionTag="1845086585" Tag="86" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="-2.5000" RightMargin="-2.5000" TopMargin="31.0000" BottomMargin="31.0000" FontSize="36" LabelText="Discard&#xA;Cards" HorizontalAlignmentType="HT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
                     <Size X="112.0000" Y="86.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="53.5000" Y="74.0000" />
@@ -130,14 +171,14 @@
                     <PrePosition X="0.5000" Y="0.5000" />
                     <PreSize X="0.0000" Y="0.0000" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="Content" ActionTag="-713707401" Tag="88" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="15.5000" RightMargin="15.5000" TopMargin="115.3600" BottomMargin="-53.3600" FontSize="72" LabelText="30" HorizontalAlignmentType="HT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
-                    <Size X="76.0000" Y="86.0000" />
+                  <AbstractNodeData Name="Content" ActionTag="-713707401" Tag="88" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="53.5000" RightMargin="53.5000" TopMargin="158.3600" BottomMargin="-10.3600" FontSize="72" LabelText="" HorizontalAlignmentType="HT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                    <Size X="0.0000" Y="0.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="53.5000" Y="-10.3600" />
                     <Scale ScaleX="0.6000" ScaleY="0.6000" />
                     <CColor A="255" R="255" G="255" B="255" />
                     <PrePosition X="0.5000" Y="-0.0700" />
-                    <PreSize X="0.7103" Y="0.5811" />
+                    <PreSize X="0.0000" Y="0.0000" />
                     <FontResource Type="Normal" Path="ccstd_fonts/GillSans_ttf/GillSans Condensed Bold.ttf" Plist="" />
                     <OutlineColor A="255" R="255" G="0" B="0" />
                     <ShadowColor A="255" R="110" G="110" B="110" />
@@ -158,14 +199,14 @@
               <AbstractNodeData Name="Prize_Board" ActionTag="684922297" Tag="89" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="234.5000" RightMargin="938.5000" TopMargin="131.2000" BottomMargin="80.8000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Enable="True" LeftEage="10" RightEage="10" TopEage="10" BottomEage="10" Scale9OriginX="10" Scale9OriginY="10" Scale9Width="256" Scale9Height="374" ctype="PanelObjectData">
                 <Size X="107.0000" Y="148.0000" />
                 <Children>
-                  <AbstractNodeData Name="Title" ActionTag="-1674957943" Tag="90" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="16.5000" RightMargin="16.5000" TopMargin="31.0000" BottomMargin="31.0000" FontSize="36" LabelText="Prize&#xA;Pile" HorizontalAlignmentType="HT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
-                    <Size X="74.0000" Y="86.0000" />
+                  <AbstractNodeData Name="Title" ActionTag="-1674957943" Tag="90" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="9.5000" RightMargin="9.5000" TopMargin="31.0000" BottomMargin="31.0000" FontSize="36" LabelText="Prize&#xA;Cards" HorizontalAlignmentType="HT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                    <Size X="88.0000" Y="86.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="53.5000" Y="74.0000" />
                     <Scale ScaleX="0.6000" ScaleY="0.6000" />
                     <CColor A="255" R="255" G="255" B="255" />
                     <PrePosition X="0.5000" Y="0.5000" />
-                    <PreSize X="0.6916" Y="0.5811" />
+                    <PreSize X="0.8224" Y="0.5811" />
                     <FontResource Type="Normal" Path="ccstd_fonts/GillSans_ttf/Gill Sans.ttf" Plist="" />
                     <OutlineColor A="255" R="255" G="0" B="0" />
                     <ShadowColor A="255" R="110" G="110" B="110" />
@@ -179,14 +220,14 @@
                     <PrePosition X="0.5000" Y="0.5000" />
                     <PreSize X="0.0000" Y="0.0000" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="Content" ActionTag="-682144461" Tag="92" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="34.0000" RightMargin="34.0000" TopMargin="115.3600" BottomMargin="-53.3600" FontSize="72" LabelText="6" HorizontalAlignmentType="HT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
-                    <Size X="39.0000" Y="86.0000" />
+                  <AbstractNodeData Name="Content" ActionTag="-682144461" Tag="92" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="53.5000" RightMargin="53.5000" TopMargin="158.3600" BottomMargin="-10.3600" FontSize="72" LabelText="" HorizontalAlignmentType="HT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                    <Size X="0.0000" Y="0.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="53.5000" Y="-10.3600" />
                     <Scale ScaleX="0.6000" ScaleY="0.6000" />
                     <CColor A="255" R="255" G="255" B="255" />
                     <PrePosition X="0.5000" Y="-0.0700" />
-                    <PreSize X="0.3645" Y="0.5811" />
+                    <PreSize X="0.0000" Y="0.0000" />
                     <FontResource Type="Normal" Path="ccstd_fonts/GillSans_ttf/GillSans Condensed Bold.ttf" Plist="" />
                     <OutlineColor A="255" R="255" G="0" B="0" />
                     <ShadowColor A="255" R="110" G="110" B="110" />
@@ -204,7 +245,7 @@
                 <EndColor A="255" R="255" G="255" B="255" />
                 <ColorVector ScaleY="1.0000" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Spt_Holder" ActionTag="-1317499555" Tag="93" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="448.0000" RightMargin="725.0000" TopMargin="194.0000" BottomMargin="18.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="126" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
+              <AbstractNodeData Name="Spt_Holder" ActionTag="-1317499555" VisibleForFrame="False" Tag="93" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="448.0000" RightMargin="725.0000" TopMargin="194.0000" BottomMargin="18.0000" ClipAble="False" BackColorAlpha="126" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
                 <Size X="107.0000" Y="148.0000" />
                 <Children>
                   <AbstractNodeData Name="Title" ActionTag="1109024204" Tag="94" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="-20.5000" RightMargin="-20.5000" TopMargin="52.5000" BottomMargin="52.5000" FontSize="36" LabelText="Supporter" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
@@ -231,7 +272,7 @@
                 <EndColor A="255" R="255" G="255" B="255" />
                 <ColorVector ScaleY="1.0000" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Item_Holder" ActionTag="226593993" Tag="95" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="723.2000" RightMargin="449.8000" TopMargin="194.0000" BottomMargin="18.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="126" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
+              <AbstractNodeData Name="Item_Holder" ActionTag="226593993" VisibleForFrame="False" Tag="95" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="723.2000" RightMargin="449.8000" TopMargin="194.0000" BottomMargin="18.0000" ClipAble="False" BackColorAlpha="126" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
                 <Size X="107.0000" Y="148.0000" />
                 <Children>
                   <AbstractNodeData Name="Title" ActionTag="1234655702" Tag="96" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="20.5000" RightMargin="20.5000" TopMargin="52.5000" BottomMargin="52.5000" FontSize="36" LabelText="Item" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
@@ -275,6 +316,20 @@
             <Children>
               <AbstractNodeData Name="Active_Board" ActionTag="-1576135437" Tag="483" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="586.5000" RightMargin="586.5000" TopMargin="5.2000" BottomMargin="206.8000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Enable="True" LeftEage="10" RightEage="10" TopEage="10" BottomEage="10" Scale9OriginX="10" Scale9OriginY="10" Scale9Width="256" Scale9Height="374" ctype="PanelObjectData">
                 <Size X="107.0000" Y="148.0000" />
+                <Children>
+                  <AbstractNodeData Name="Name" ActionTag="-794813910" Tag="128" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="7.0000" RightMargin="7.0000" TopMargin="52.5000" BottomMargin="52.5000" FontSize="36" LabelText="Active" HorizontalAlignmentType="HT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                    <Size X="93.0000" Y="43.0000" />
+                    <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                    <Position X="53.5000" Y="74.0000" />
+                    <Scale ScaleX="0.6000" ScaleY="0.6000" />
+                    <CColor A="255" R="255" G="255" B="255" />
+                    <PrePosition X="0.5000" Y="0.5000" />
+                    <PreSize X="0.8692" Y="0.2905" />
+                    <FontResource Type="Normal" Path="ccstd_fonts/GillSans_ttf/Gill Sans.ttf" Plist="" />
+                    <OutlineColor A="255" R="255" G="0" B="0" />
+                    <ShadowColor A="255" R="110" G="110" B="110" />
+                  </AbstractNodeData>
+                </Children>
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="640.0000" Y="280.8000" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
@@ -289,6 +344,33 @@
               </AbstractNodeData>
               <AbstractNodeData Name="Bench_Board" ActionTag="-1247109314" Tag="481" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="440.0000" RightMargin="440.0000" TopMargin="162.4000" BottomMargin="97.6000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Enable="True" LeftEage="6" RightEage="6" TopEage="6" BottomEage="6" Scale9OriginX="6" Scale9OriginY="6" Scale9Width="264" Scale9Height="382" ctype="PanelObjectData">
                 <Size X="400.0000" Y="100.0000" />
+                <Children>
+                  <AbstractNodeData Name="Name" ActionTag="-1066993553" Tag="129" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="155.5000" RightMargin="155.5000" TopMargin="28.5000" BottomMargin="28.5000" FontSize="36" LabelText="Bench" HorizontalAlignmentType="HT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                    <Size X="89.0000" Y="43.0000" />
+                    <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                    <Position X="200.0000" Y="50.0000" />
+                    <Scale ScaleX="0.6000" ScaleY="0.6000" />
+                    <CColor A="255" R="255" G="255" B="255" />
+                    <PrePosition X="0.5000" Y="0.5000" />
+                    <PreSize X="0.2225" Y="0.4300" />
+                    <FontResource Type="Normal" Path="ccstd_fonts/GillSans_ttf/Gill Sans.ttf" Plist="" />
+                    <OutlineColor A="255" R="255" G="0" B="0" />
+                    <ShadowColor A="255" R="110" G="110" B="110" />
+                  </AbstractNodeData>
+                  <AbstractNodeData Name="Container" ActionTag="1473242532" Tag="921" IconVisible="False" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" ctype="PanelObjectData">
+                    <Size X="400.0000" Y="100.0000" />
+                    <AnchorPoint />
+                    <Position />
+                    <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                    <CColor A="255" R="255" G="255" B="255" />
+                    <PrePosition />
+                    <PreSize X="1.0000" Y="1.0000" />
+                    <SingleColor A="255" R="150" G="200" B="255" />
+                    <FirstColor A="255" R="150" G="200" B="255" />
+                    <EndColor A="255" R="255" G="255" B="255" />
+                    <ColorVector ScaleY="1.0000" />
+                  </AbstractNodeData>
+                </Children>
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="640.0000" Y="147.6000" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
@@ -304,7 +386,7 @@
               <AbstractNodeData Name="Discard_Board" ActionTag="2125078972" Tag="77" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="953.2200" RightMargin="219.7800" TopMargin="70.0000" BottomMargin="142.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Enable="True" LeftEage="10" RightEage="10" TopEage="10" BottomEage="10" Scale9OriginX="10" Scale9OriginY="10" Scale9Width="256" Scale9Height="374" ctype="PanelObjectData">
                 <Size X="107.0000" Y="148.0000" />
                 <Children>
-                  <AbstractNodeData Name="Title" ActionTag="-1161352492" Tag="79" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="-2.5000" RightMargin="-2.5000" TopMargin="31.0000" BottomMargin="31.0000" FontSize="36" LabelText="Discard&#xA;Pile" HorizontalAlignmentType="HT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                  <AbstractNodeData Name="Title" ActionTag="-1161352492" Tag="79" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="-2.5000" RightMargin="-2.5000" TopMargin="31.0000" BottomMargin="31.0000" FontSize="36" LabelText="Discard&#xA;Cards" HorizontalAlignmentType="HT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
                     <Size X="112.0000" Y="86.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="53.5000" Y="74.0000" />
@@ -325,14 +407,14 @@
                     <PrePosition X="0.5000" Y="0.5000" />
                     <PreSize X="0.0000" Y="0.0000" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="Content" ActionTag="-404643365" Tag="84" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="15.5000" RightMargin="15.5000" TopMargin="115.3600" BottomMargin="-53.3600" FontSize="72" LabelText="30" HorizontalAlignmentType="HT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
-                    <Size X="76.0000" Y="86.0000" />
+                  <AbstractNodeData Name="Content" ActionTag="-404643365" Tag="84" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="53.5000" RightMargin="53.5000" TopMargin="158.3600" BottomMargin="-10.3600" FontSize="72" LabelText="" HorizontalAlignmentType="HT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                    <Size X="0.0000" Y="0.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="53.5000" Y="-10.3600" />
                     <Scale ScaleX="0.6000" ScaleY="0.6000" />
                     <CColor A="255" R="255" G="255" B="255" />
                     <PrePosition X="0.5000" Y="-0.0700" />
-                    <PreSize X="0.7103" Y="0.5811" />
+                    <PreSize X="0.0000" Y="0.0000" />
                     <FontResource Type="Normal" Path="ccstd_fonts/GillSans_ttf/GillSans Condensed Bold.ttf" Plist="" />
                     <OutlineColor A="255" R="255" G="0" B="0" />
                     <ShadowColor A="255" R="110" G="110" B="110" />
@@ -350,17 +432,17 @@
                 <EndColor A="255" R="255" G="255" B="255" />
                 <ColorVector ScaleY="1.0000" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Prize_Board" ActionTag="-1037517655" Tag="78" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="236.1640" RightMargin="936.8360" TopMargin="70.0000" BottomMargin="142.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Enable="True" LeftEage="10" RightEage="10" TopEage="10" BottomEage="10" Scale9OriginX="10" Scale9OriginY="10" Scale9Width="256" Scale9Height="374" ctype="PanelObjectData">
+              <AbstractNodeData Name="Prize_Board" ActionTag="-1037517655" Tag="78" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="236.1640" RightMargin="936.8361" TopMargin="70.0000" BottomMargin="142.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Enable="True" LeftEage="10" RightEage="10" TopEage="10" BottomEage="10" Scale9OriginX="10" Scale9OriginY="10" Scale9Width="256" Scale9Height="374" ctype="PanelObjectData">
                 <Size X="107.0000" Y="148.0000" />
                 <Children>
-                  <AbstractNodeData Name="Title" ActionTag="110632776" Tag="80" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="16.5000" RightMargin="16.5000" TopMargin="31.0000" BottomMargin="31.0000" FontSize="36" LabelText="Prize&#xA;Pile" HorizontalAlignmentType="HT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
-                    <Size X="74.0000" Y="86.0000" />
+                  <AbstractNodeData Name="Title" ActionTag="110632776" Tag="80" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="9.5000" RightMargin="9.5000" TopMargin="31.0000" BottomMargin="31.0000" FontSize="36" LabelText="Prize&#xA;Cards" HorizontalAlignmentType="HT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                    <Size X="88.0000" Y="86.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="53.5000" Y="74.0000" />
                     <Scale ScaleX="0.6000" ScaleY="0.6000" />
                     <CColor A="255" R="255" G="255" B="255" />
                     <PrePosition X="0.5000" Y="0.5000" />
-                    <PreSize X="0.6916" Y="0.5811" />
+                    <PreSize X="0.8224" Y="0.5811" />
                     <FontResource Type="Normal" Path="ccstd_fonts/GillSans_ttf/Gill Sans.ttf" Plist="" />
                     <OutlineColor A="255" R="255" G="0" B="0" />
                     <ShadowColor A="255" R="110" G="110" B="110" />
@@ -374,14 +456,14 @@
                     <PrePosition X="0.5000" Y="0.5000" />
                     <PreSize X="0.0000" Y="0.0000" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="Content" ActionTag="-1762862987" Tag="81" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="34.0000" RightMargin="34.0000" TopMargin="115.3600" BottomMargin="-53.3600" FontSize="72" LabelText="6" HorizontalAlignmentType="HT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
-                    <Size X="39.0000" Y="86.0000" />
+                  <AbstractNodeData Name="Content" ActionTag="-1762862987" Tag="81" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="53.5000" RightMargin="53.5000" TopMargin="158.3600" BottomMargin="-10.3600" FontSize="72" LabelText="" HorizontalAlignmentType="HT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                    <Size X="0.0000" Y="0.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="53.5000" Y="-10.3600" />
                     <Scale ScaleX="0.6000" ScaleY="0.6000" />
                     <CColor A="255" R="255" G="255" B="255" />
                     <PrePosition X="0.5000" Y="-0.0700" />
-                    <PreSize X="0.3645" Y="0.5811" />
+                    <PreSize X="0.0000" Y="0.0000" />
                     <FontResource Type="Normal" Path="ccstd_fonts/GillSans_ttf/GillSans Condensed Bold.ttf" Plist="" />
                     <OutlineColor A="255" R="255" G="0" B="0" />
                     <ShadowColor A="255" R="110" G="110" B="110" />
@@ -399,7 +481,7 @@
                 <EndColor A="255" R="255" G="255" B="255" />
                 <ColorVector ScaleY="1.0000" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Spt_Holder" ActionTag="885167132" Tag="71" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="448.0000" RightMargin="725.0000" TopMargin="6.8000" BottomMargin="205.2000" TouchEnable="True" ClipAble="False" BackColorAlpha="126" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
+              <AbstractNodeData Name="Spt_Holder" ActionTag="885167132" VisibleForFrame="False" Tag="71" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="448.0000" RightMargin="725.0000" TopMargin="6.8000" BottomMargin="205.2000" TouchEnable="True" ClipAble="False" BackColorAlpha="126" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
                 <Size X="107.0000" Y="148.0000" />
                 <Children>
                   <AbstractNodeData Name="Title" ActionTag="-1317092235" Tag="73" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="-20.5000" RightMargin="-20.5000" TopMargin="52.5000" BottomMargin="52.5000" FontSize="36" LabelText="Supporter" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
@@ -426,7 +508,7 @@
                 <EndColor A="255" R="255" G="255" B="255" />
                 <ColorVector ScaleY="1.0000" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Item_Holder" ActionTag="1264862209" Tag="74" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="723.2000" RightMargin="449.8000" TopMargin="6.8000" BottomMargin="205.2000" TouchEnable="True" ClipAble="False" BackColorAlpha="126" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
+              <AbstractNodeData Name="Item_Holder" ActionTag="1264862209" VisibleForFrame="False" Tag="74" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="723.2000" RightMargin="449.8000" TopMargin="6.8000" BottomMargin="205.2000" TouchEnable="True" ClipAble="False" BackColorAlpha="126" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
                 <Size X="107.0000" Y="148.0000" />
                 <Children>
                   <AbstractNodeData Name="Title" ActionTag="-922632656" Tag="75" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="20.5000" RightMargin="20.5000" TopMargin="52.5000" BottomMargin="52.5000" FontSize="36" LabelText="Item" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
@@ -505,7 +587,7 @@
                 <PrePosition />
                 <PreSize X="0.0000" Y="0.0000" />
               </AbstractNodeData>
-              <AbstractNodeData Name="EndTurnButton" ActionTag="-2078122449" Tag="75" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="981.8000" RightMargin="252.2000" TopMargin="18.0000" BottomMargin="306.0000" TouchEnable="True" FontSize="20" ButtonText="End" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="16" Scale9Height="14" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
+              <AbstractNodeData Name="EndTurnButton" ActionTag="-2078122449" VisibleForFrame="False" Tag="75" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="981.8000" RightMargin="252.2000" TopMargin="18.0000" BottomMargin="306.0000" TouchEnable="True" FontSize="20" ButtonText="End" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="16" Scale9Height="14" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
                 <Size X="46.0000" Y="36.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="1004.8000" Y="324.0000" />
@@ -674,6 +756,16 @@
             <FirstColor A="255" R="150" G="200" B="255" />
             <EndColor A="255" R="255" G="255" B="255" />
             <ColorVector ScaleY="1.0000" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="Prize_Selector" ActionTag="1426465094" VisibleForFrame="False" Tag="1837" IconVisible="True" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" StretchWidthEnable="False" StretchHeightEnable="False" InnerActionSpeed="1.0000" CustomSizeEnabled="False" ctype="ProjectNodeObjectData">
+            <Size X="1280.0000" Y="720.0000" />
+            <AnchorPoint />
+            <Position />
+            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition />
+            <PreSize X="1.0000" Y="1.0000" />
+            <FileData Type="Normal" Path="ccstd_csb/battle_scene/select_prize_layout.csd" Plist="" />
           </AbstractNodeData>
           <AbstractNodeData Name="Loading_Layout" ActionTag="757579315" VisibleForFrame="False" Tag="107" IconVisible="False" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" TouchEnable="True" ClipAble="False" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
             <Size X="1280.0000" Y="720.0000" />

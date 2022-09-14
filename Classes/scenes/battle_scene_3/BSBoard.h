@@ -39,7 +39,10 @@ public:
 	size_t curBenchNum = 0;
 
 	float holderScale = 1.0f;
+	cocos2d::ui::Layout *pPanel = nullptr;
+
 	cocos2d::ui::Layout *benchBoard = nullptr;
+	cocos2d::ui::Layout *benchContainer = nullptr;
 	std::vector<CardHolder*> benchHolders;
 
 	cocos2d::ui::Layout *activeBoard = nullptr;

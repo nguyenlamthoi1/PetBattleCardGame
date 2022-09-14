@@ -2,6 +2,7 @@
 #include "GameManager.h"
 
 #include "HelloWorldScene.h"
+#include "scenes/test_scene/TestScene.h"
 #include "scenes/loading_scene/LoadingScene.h"
 
 USING_NS_CC;
@@ -92,6 +93,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	// Chay Loading Scene
 	auto scene = LoadingScene::create();
 	gm->changeScene(scene);
+
     return true;
 }
 

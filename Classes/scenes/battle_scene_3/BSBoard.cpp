@@ -31,25 +31,27 @@ bool BSBoard::init() {
 		return false;
 	auto ui = btlScn->getScnRoot();
 	string prefix = ownerId == PLAYER ? "P1" : "P2";
-	boardPanel = dynamic_cast<ui::Layout*>(ui->getChildByName(prefix + "_Panel")); // P1_Panel or P2_Panel
-	if (!boardPanel)
+	pPanel = dynamic_cast<ui::Layout*>(ui->getChildByName(prefix + "_Panel")); // P1_Panel or P2_Panel
+	if (!pPanel)
 		return false;
 
-	activeBoard = dynamic_cast<ui::Layout*>(boardPanel->getChildByName("Active_Board"));
+	activeBoard = dynamic_cast<ui::Layout*>(pPanel->getChildByName("Active_Board"));
 	// Them holder vao active board
 	activeHolder = CardHolder::createActive(btlScn, ownerId);
 	activeBoard->addChild(activeHolder);
 	activeHolder->setPosition(Vec2(6, 6));
 
-	benchBoard = dynamic_cast<ui::Layout*>(boardPanel->getChildByName("Bench_Board"));
-	auto benchSize = benchBoard->getContentSize();
+	benchBoard = dynamic_cast<ui::Layout*>(pPanel->getChildByName("Bench_Board"));
+	benchContainer = dynamic_cast<ui::Layout*>(benchBoard->getChildByName("Container"));
+
+	auto benchSize = benchContainer->getContentSize();
 	auto cardH = benchSize.height - 12;
 	
 	while (benchHolders.size() < maxBenchCapacity) {
 		auto holder = CardHolder::createBench(btlScn, ownerId);
 		holder->setHolderSizeH(cardH);
 		holder->setName("BenchHolder_" + to_string(benchHolders.size()));
-		benchBoard->addChild(holder);
+		benchContainer->addChild(holder);
 		benchHolders.push_back(holder);
 	}
 	alignHoldersOnBenchBoard(true); // Can chinh vi tri cac holder trong bench
@@ -60,8 +62,8 @@ bool BSBoard::init() {
 }
 
 void BSBoard::alignHoldersOnBenchBoard(bool forceDoLayout) {
-	auto layoutType = benchBoard->getLayoutType();
-	auto &layout = benchBoard;
+	auto layoutType = benchContainer->getLayoutType();
+	auto &layout = benchContainer;
 	if (layoutType != cocos2d::ui::Layout::Type::HORIZONTAL)
 		layout->setLayoutType(cocos2d::ui::Layout::Type::HORIZONTAL);
 
@@ -93,7 +95,6 @@ void BSBoard::alignHoldersOnBenchBoard(bool forceDoLayout) {
 
 bool BSBoard::checkCanAddPetCard(PetCard *card, cocos2d::Node* dest) const {
 	return (activeBoard == dest && !hasActivePet()) || (benchBoard == dest && !isBenchFull());
-	
 }
 
 

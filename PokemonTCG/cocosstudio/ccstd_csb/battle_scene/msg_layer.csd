@@ -6,7 +6,7 @@
       <ObjectData Name="Layer" Tag="49" ctype="GameLayerObjectData">
         <Size X="1280.0000" Y="720.0000" />
         <Children>
-          <AbstractNodeData Name="Msg_Board" ActionTag="-725505938" Tag="50" IconVisible="False" PositionPercentXEnabled="True" LeftMargin="315.0000" RightMargin="315.0000" TopMargin="384.9700" BottomMargin="275.0300" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Enable="True" LeftEage="6" RightEage="6" TopEage="6" BottomEage="6" Scale9OriginX="6" Scale9OriginY="6" Scale9Width="42" Scale9Height="42" ctype="PanelObjectData">
+          <AbstractNodeData Name="Msg_Board" ActionTag="-725505938" Tag="50" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="315.0000" RightMargin="315.0000" TopMargin="222.0000" BottomMargin="438.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Enable="True" LeftEage="6" RightEage="6" TopEage="6" BottomEage="6" Scale9OriginX="6" Scale9OriginY="6" Scale9Width="42" Scale9Height="42" ctype="PanelObjectData">
             <Size X="650.0000" Y="60.0000" />
             <Children>
               <AbstractNodeData Name="Msg_Text" ActionTag="-241105142" Tag="51" IconVisible="False" HorizontalEdge="RightEdge" VerticalEdge="TopEdge" LeftMargin="35.5000" RightMargin="85.5000" TopMargin="22.0000" BottomMargin="14.0000" FontSize="20" LabelText="Tap ready button if you are ready to play the game and having fun" HorizontalAlignmentType="HT_Center" VerticalAlignmentType="VT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
@@ -23,10 +23,10 @@
               </AbstractNodeData>
             </Children>
             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-            <Position X="640.0000" Y="305.0300" />
+            <Position X="640.0000" Y="468.0000" />
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
-            <PrePosition X="0.5000" Y="0.4237" />
+            <PrePosition X="0.5000" Y="0.6500" />
             <PreSize X="0.5078" Y="0.0833" />
             <FileData Type="PlistSubImage" Path="battle_scene/white_square.png" Plist="ccstd_assets/battle_scene.plist" />
             <SingleColor A="255" R="150" G="200" B="255" />
@@ -71,6 +71,62 @@
             <Scale ScaleX="1.0000" ScaleY="1.0000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition X="0.5000" Y="0.1798" />
+            <PreSize X="0.5078" Y="0.0833" />
+            <FileData Type="PlistSubImage" Path="battle_scene/white_square.png" Plist="ccstd_assets/battle_scene.plist" />
+            <SingleColor A="255" R="150" G="200" B="255" />
+            <FirstColor A="255" R="150" G="200" B="255" />
+            <EndColor A="255" R="255" G="255" B="255" />
+            <ColorVector ScaleY="1.0000" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="Opp_Msg_Board" ActionTag="-1194573679" VisibleForFrame="False" Tag="485" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="315.0000" RightMargin="315.0000" TopMargin="6.0000" BottomMargin="654.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Enable="True" LeftEage="6" RightEage="6" TopEage="6" BottomEage="6" Scale9OriginX="6" Scale9OriginY="6" Scale9Width="42" Scale9Height="42" ctype="PanelObjectData">
+            <Size X="650.0000" Y="60.0000" />
+            <Children>
+              <AbstractNodeData Name="Msg_Text" ActionTag="1658801051" Tag="486" IconVisible="False" HorizontalEdge="RightEdge" VerticalEdge="TopEdge" LeftMargin="35.5000" RightMargin="85.5000" TopMargin="22.0000" BottomMargin="14.0000" FontSize="20" LabelText="Tap ready button if you are ready to play the game and having fun" HorizontalAlignmentType="HT_Center" VerticalAlignmentType="VT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                <Size X="529.0000" Y="24.0000" />
+                <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                <Position X="300.0000" Y="26.0000" />
+                <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                <CColor A="255" R="26" G="26" B="26" />
+                <PrePosition X="0.4615" Y="0.4333" />
+                <PreSize X="0.8138" Y="0.4000" />
+                <FontResource Type="Normal" Path="ccstd_fonts/GillSans_ttf/Gill Sans.ttf" Plist="" />
+                <OutlineColor A="255" R="255" G="0" B="0" />
+                <ShadowColor A="255" R="110" G="110" B="110" />
+              </AbstractNodeData>
+            </Children>
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position X="640.0000" Y="684.0000" />
+            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.5000" Y="0.9500" />
+            <PreSize X="0.5078" Y="0.0833" />
+            <FileData Type="PlistSubImage" Path="battle_scene/white_square.png" Plist="ccstd_assets/battle_scene.plist" />
+            <SingleColor A="255" R="150" G="200" B="255" />
+            <FirstColor A="255" R="150" G="200" B="255" />
+            <EndColor A="255" R="255" G="255" B="255" />
+            <ColorVector ScaleY="1.0000" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="Player_Msg_Board" ActionTag="639499103" VisibleForFrame="False" Tag="487" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="315.0000" RightMargin="315.0000" TopMargin="474.0000" BottomMargin="186.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Enable="True" LeftEage="6" RightEage="6" TopEage="6" BottomEage="6" Scale9OriginX="6" Scale9OriginY="6" Scale9Width="42" Scale9Height="42" ctype="PanelObjectData">
+            <Size X="650.0000" Y="60.0000" />
+            <Children>
+              <AbstractNodeData Name="Msg_Text" ActionTag="1834893324" Tag="488" IconVisible="False" HorizontalEdge="RightEdge" VerticalEdge="TopEdge" LeftMargin="35.5000" RightMargin="85.5000" TopMargin="22.0000" BottomMargin="14.0000" FontSize="20" LabelText="Tap ready button if you are ready to play the game and having fun" HorizontalAlignmentType="HT_Center" VerticalAlignmentType="VT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                <Size X="529.0000" Y="24.0000" />
+                <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                <Position X="300.0000" Y="26.0000" />
+                <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                <CColor A="255" R="26" G="26" B="26" />
+                <PrePosition X="0.4615" Y="0.4333" />
+                <PreSize X="0.8138" Y="0.4000" />
+                <FontResource Type="Normal" Path="ccstd_fonts/GillSans_ttf/Gill Sans.ttf" Plist="" />
+                <OutlineColor A="255" R="255" G="0" B="0" />
+                <ShadowColor A="255" R="110" G="110" B="110" />
+              </AbstractNodeData>
+            </Children>
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position X="640.0000" Y="216.0000" />
+            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.5000" Y="0.3000" />
             <PreSize X="0.5078" Y="0.0833" />
             <FileData Type="PlistSubImage" Path="battle_scene/white_square.png" Plist="ccstd_assets/battle_scene.plist" />
             <SingleColor A="255" R="150" G="200" B="255" />
