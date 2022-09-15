@@ -18,6 +18,7 @@ public:
 	friend class GetPrizeCards;
 
 	using CardVector = std::array<std::shared_ptr<Card>, GConfig::PRIZE_CARDS_NUM_PER_PLAYER>;
+	using CardArray = std::array<std::shared_ptr<Card>, GConfig::PRIZE_CARDS_NUM_PER_PLAYER>;
 
 	using PrizeIdx = unsigned int;
 	using PrizePtr = std::shared_ptr<PrizePile>;
@@ -28,6 +29,8 @@ public:
 	virtual ~PrizePile();
 	bool init();
 
+	std::vector<unsigned int> getFirstSelectables(unsigned int num) const;
+
 	bool canGetCardsAt(const std::vector<unsigned int> &idxVec) const;
 	void saveSelectedCardsAt(const std::vector<unsigned int> &idxVec);
 
@@ -36,6 +39,7 @@ public:
 
 	void popCards(const std::vector<PrizeIdx> &idxVec, const std::vector<std::shared_ptr<Card>> &retVec);
 	std::vector<std::shared_ptr<Card>> popCards(const std::vector<PrizeIdx> &idxVec);
+
 	
 	void popSelectedCards(std::vector<std::shared_ptr<Card>> &retVec);
 	std::vector<std::shared_ptr<Card>> popSelectedCards();
@@ -44,6 +48,7 @@ public:
 	bool empty() const;
 
 	PrizePtr clone() const;
+	
 protected:
 	PlayerIdType pid;
 	CardVector cardVec = { nullptr, nullptr, nullptr, nullptr, nullptr, nullptr };

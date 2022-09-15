@@ -318,8 +318,8 @@ public:
 
 class SelectPrizeAction : public WaitInputPlayer {
 public:
-	const static std::string PLAYER_SETUP_TXT;
-	const static std::string OPP_SETUP_TXT;
+	//const static std::string PLAYER_DO_ACTION;
+	//const static std::string OPP_DO_ACTION;
 
 	SelectPrizeAction(const PlayerIdType &id, unsigned int selectNum) : pid(id), num(selectNum) {};
 	virtual ~SelectPrizeAction() = default;

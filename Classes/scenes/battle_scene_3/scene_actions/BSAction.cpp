@@ -536,8 +536,10 @@ void SelectPrizeAction::executeOn(BattleScene *btlScn) {
 		prizeSelector->showPrizeCardsToSelect(pid, num);
 	}
 	else { // Opponent Action
-		
-		//TODO: AI_MAKE_DECISION
+		auto lang = GM_LANG;
+		auto notifier = btlScn->getNotifier();
+		notifier->showMsg(lang->getString("Opponent is Selecting"));
+		btlScn->onPlayerDoAction(make_shared<MGame::PA_DoForMe>(pid));
 	}
 }
 
@@ -575,6 +577,8 @@ void GetPrizeCards::executeOn(BattleScene *btlScn) {
 		hand->removeHandler(onGetDone);
 		});
 	
+	auto notifier = btlScn->getNotifier();
+	notifier->hideMsg();
 }
 
 

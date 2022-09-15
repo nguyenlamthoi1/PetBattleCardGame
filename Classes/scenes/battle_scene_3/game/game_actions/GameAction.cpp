@@ -533,18 +533,13 @@ shared_ptr<GameAction> SelectPrizeCards::clone() const {
 
 vector<shared_ptr<PlayerAction>> SelectPrizeCards::getPossibleMoves(GameState *gstate) const {
 	vector<shared_ptr<PlayerAction>> ret;
-	//auto hand = gstate->getPrizePile(pid);
+	
+	auto prizePile = gstate->getPrizePile(pid);
+	auto retVec = prizePile->getFirstSelectables(num);
+	ret.push_back(make_shared<PA_SelectPrizeCards>(pid, retVec));
 
-	//unsigned int handIdx = 0;
-	//for (const auto &card : cards) {
-	//	if (card->getType() == Card::Type::Pet) {
-	//		auto petCard = dynamic_pointer_cast<PetCard>(card);
-	//		auto data = petCard->getPetData();
-	//		if (petCard && data->isBasicCard())
-	//			ret.push_back(make_shared<PA_SetupActive>(pid, handIdx));
-	//	}
-	//	++handIdx;
-	//}
+	// TODO
+
 	return ret;
 }
 
@@ -570,12 +565,10 @@ ActionError SelectPrizeCards::onReceiveInput(GameState *gstate, const std::share
 		return ActionError::Failed;
 	}
 	else if (move->getType() == PlayerAction::Type::DoForMe) {
-		auto pMoves = getPossibleMoves(gstate);
-		if (!pMoves.empty()) {
-			auto randIdx = cocos2d::RandomHelper::random_int(0, (int)pMoves.size() - 1);
-			auto chosenMove = pMoves[randIdx];
-			return onReceiveInput(gstate, chosenMove);
-		}
+		auto prizePile = gstate->getPrizePile(pid);
+		auto selectedVec = prizePile->getFirstSelectables(num);
+		auto pMove = make_shared<PA_SelectPrizeCards>(pid, selectedVec);
+		return onReceiveInput(gstate, pMove);
 	}
 
 	return ActionError::Failed;

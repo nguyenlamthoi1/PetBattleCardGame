@@ -61,6 +61,20 @@ bool PrizePile::canGetCardsAt(const vector<unsigned int> &idxVec) const {
 	return true;
 }
 
+vector<unsigned int> PrizePile::getFirstSelectables(unsigned int num) const {
+	vector<unsigned int> ret;
+	unsigned int selectedNum = 0;
+	for (unsigned int i = 0; i < cardVec.size(); ++i) {
+		if (cardVec[i]) {
+			ret.push_back(i);
+			++selectedNum;
+			if (selectedNum >= num)
+				break;
+		}
+	}
+	return ret;
+}
+
 void PrizePile::saveSelectedCardsAt(const vector<unsigned int> &idxVec) {
 	selected.clear();
 	for (const auto &idx : idxVec) {
