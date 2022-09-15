@@ -14,6 +14,7 @@
 #include <utility>
 #include <vector>
 #include <unordered_map>
+#include <array>
 
 BATTLE_SCENE_NS_BEG
 
@@ -39,7 +40,7 @@ public:
 
 	void drawFromDeck(const std::vector<CardId> &idvec);
 	void drawFromSelected();
-	void drawFromSelected(std::initializer_list<unsigned int> idxList);
+	std::vector<BSCard*> draw(const std::vector<unsigned int> &v);
 	void showSelectPanel();
 protected:
 
@@ -55,8 +56,7 @@ protected:
 	cocos2d::Node *cardMarker = nullptr;
 	cocos2d::ui::Text *numLabel = nullptr;
 
-	//std::vector<BSCard*> cardVec;
-	std::map<unsigned int, BSCard*> cardMap;
+	std::array<BSCard*, GConfig::PRIZE_CARDS_NUM_PER_PLAYER> cardVec;
 	unsigned int capacity = 0;
 	unsigned int curCount = 0;
 };

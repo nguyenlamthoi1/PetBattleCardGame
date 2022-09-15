@@ -124,7 +124,90 @@ void BSHand::drawCards(size_t n, const vector<CardId> &idVec, bool hideCards) {
 
 }
 
+void BSHand::putToHand(const vector<BSCard*> &drawnVec, DrawFromType fromPlace, bool hideCards) {
+	auto btlScn = BattleScene::getScn();
+
+	size_t total = cards.size() + drawnVec.size(); // Tong so card sau khi draw
+	auto handSize = handLayout->getContentSize();
+
+	/// *Anchor Point cua card: (0.5, 0.5)
+
+	auto cardW = BSCard::CARD_SIZE.width;
+	float cardSpace = 5.0f; // Khoang cach giua nhung la bai
+	const float minCardSpace = -cardW / 2; // cardSpace >= -cardW / 2 (Neu cardSpace < 0 thi 2 card se dinh vao nhau)
+	auto totalW = total * cardW + (total - 1) * cardSpace; // Tong width cua tat ca card tren hand
+
+	if (totalW > handSize.width)  // Neu vuot qua hand width thi giam cardSpace
+	{
+		totalW = handSize.width;
+		cardSpace = (totalW - total * cardW) / (total - 1);
+	}
+
+	auto x = (handSize.width - totalW) / 2.0 + cardW / 2.0;
+	decltype(x) y = handSize.height / 2;
+
+	// * Sap xep nhung card da co tren tay truoc
+	size_t i = 0;
+	double d = cardW + cardSpace;
+	for (auto &card : cards) { // * Nhung card nay da duoc addChild
+		auto action = MoveTo::create(0.5f, Vec2(x + d * i, y));
+		card->runAction(action);
+		++i;
+	}
+
+	// * Duyet vong lap tren danh sach card duoc draw
+	auto startPos = Vec2(handSize.width + cardW + 30, handSize.height);
+	switch (fromPlace) {
+	case DrawFromType::Prize:
+		auto fromNode = btlScn->getPrizePileNode(pid);
+		startPos = Utilize::mnode::getLocalPos(fromNode, handLayout);
+		break;
+	}
+
+	for (size_t index = 0; index < drawnVec.size(); ++index) { // * Nhung card nay chua duoc addChild
+		auto card = drawnVec[index];
+		handLayout->addChild(card);
+
+		card->setPosition(startPos); // *Giu vi tri cu
+		card->setFlip(hideCards);
+		card->setScale(CardScale);
+
+		// Them hold touch
+		WidgetTouchNS::setWidgetTouchHold(card, [card, this, btlScn](WIDGET_TOUCH_HANDLER_PARAMS) {
+			auto data = card->getData();
+			btlScn->showCardDetail(data);
+			}, 0.3f);
+
+		// Them end Touch
+		WidgetTouchNS::setWidgetTouchEnded(card, [card, this, btlScn](WIDGET_TOUCH_HANDLER_PARAMS) {
+			btlScn->hideCardDetail();
+			});
+
+		card->setTouchEnabled(true);
+		card->setDragEnabled(false);
+		card->setSwallowTouches(true);
+
+		if (index == drawnVec.size() - 1) {
+			auto action = Sequence::create(MoveTo::create(0.8f + index * 0.2f, Vec2(x + d * i, y)), CallFunc::create([this]() {
+				dispatchEvent(EV_PUT_TO_HAND);
+				}), nullptr);
+			card->runAction(action);
+		}
+		else {
+			auto action = MoveTo::create(0.8f + index * 0.2f, Vec2(x + d * i, y));
+			card->runAction(action);
+		}
+
+		++i;
+	}
+	cards.insert(cards.cend(), drawnVec.cbegin(), drawnVec.cend());
+
+}
+
+
 const string BSHand::EV_DRAW_ACTION_DONE = "EV_DRAW_ACTION_DONE";
+const string BSHand::EV_PUT_TO_HAND = "EV_PUT_TO_HAND";
+
 
 void BSHand::onDragBack(BSCard *cardNode) {
 	auto comp = MyComponentNS::getComponent<DragComponent>(cardNode, COMPONENT_KEY::DRAG);

@@ -339,7 +339,7 @@ public:
 class SelectPrizeCards : public WaitInputAction {
 public:
 
-	SelectPrizeCards(const PlayerIdType &id) : pid(id) {}
+	SelectPrizeCards(const PlayerIdType &id, unsigned int selectNum) : pid(id), num(selectNum) {}
 	virtual ~SelectPrizeCards() = default;
 
 	virtual void executeOn(GameState *gameState) override;
@@ -351,19 +351,20 @@ public:
 	virtual ActionError onReceiveInput(GameState *gameState, const std::shared_ptr<PlayerAction> &move);
 
 	PlayerIdType pid;
+	unsigned int num = 0;
 protected:
 };
 
 class GetPrizeCards : public GameAction {
 public:
 
-	GetPrizeCards(const PlayerIdType &id, const std::vector<unsigned int> &vec) : pid(id), idxVec(vec.begin(), vec.end()) {}
-	GetPrizeCards(const PlayerIdType &id, const std::initializer_list<unsigned int> vec) : pid(id), idxVec(vec.begin(), vec.end()) {}
-	
+	GetPrizeCards(const PlayerIdType &id) : pid(id) {}
+	//GetPrizeCards(const PlayerIdType &id, const std::vector<unsigned int> &vec) : pid(id), idxVec(vec.begin(), vec.end()) {}
+
 	virtual ~GetPrizeCards() = default;
 
 	virtual void executeOn(GameState *gameState) override;
-	virtual Type getType() const override { return Type::SelectPrizeCards; }
+	virtual Type getType() const override { return Type::GetPrizeCards; }
 	virtual std::shared_ptr<BattleSceneNS::BSAction> getBSAction() const override;
 	virtual std::shared_ptr<GameAction> clone() const override;
 

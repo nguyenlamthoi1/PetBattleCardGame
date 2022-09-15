@@ -33,6 +33,7 @@ class BSHand : public IEventsHandler{
 public:
 	/// All Events ///
 	static const std::string EV_DRAW_ACTION_DONE; // Event Data is Null
+	static const std::string EV_PUT_TO_HAND; // Event Data is Null
 
 	static const float CardScale;
 
@@ -41,6 +42,13 @@ public:
 
 	//void drawCards(size_t n, std::function<void()> f = nullptr);
 	void drawCards(size_t n, const std::vector<CardId> &v, bool hideCards = false);
+	
+	enum class DrawFromType {
+		None,
+		Prize
+	};
+	void putToHand(const std::vector<BSCard*> &v, DrawFromType type, bool hideCards = false);
+
 
 	static HandPtr createShPtr(cocos2d::ui::Layout *layout, const PlayerIdType &id);
 	BSHand(cocos2d::ui::Layout *layout, PlayerIdType ownerId);

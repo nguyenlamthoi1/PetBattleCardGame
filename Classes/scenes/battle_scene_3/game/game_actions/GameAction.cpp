@@ -516,17 +516,19 @@ shared_ptr<GameAction> DrawFirstPrizeCards::clone() const {
 	SelectPrizeCards Class
 */
 
-void SelectPrizeCards::executeOn(GameState *gameState) { state = State::Process; }
+void SelectPrizeCards::executeOn(GameState *gameState) { 
+	state = State::Process; 
+}
 
 shared_ptr<BattleSceneNS::BSAction> SelectPrizeCards::getBSAction() const {
 	return BattleSceneNS::SequenceAction::create({
 		make_shared<BattleSceneNS::WaitAction>(0.7f),
-		make_shared<BattleSceneNS::SelectPrizeAction>(pid),
+		make_shared<BattleSceneNS::SelectPrizeAction>(pid, num),
 		});
 }
 
 shared_ptr<GameAction> SelectPrizeCards::clone() const {
-	return make_shared<SelectPrizeCards>(pid);
+	return make_shared<SelectPrizeCards>(pid, num);
 }
 
 vector<shared_ptr<PlayerAction>> SelectPrizeCards::getPossibleMoves(GameState *gstate) const {
@@ -553,7 +555,7 @@ ActionError SelectPrizeCards::onReceiveInput(GameState *gstate, const std::share
 	if (move->getType() == PlayerAction::Type::Select_Prize_Cards) {
 		auto selectMove = dynamic_pointer_cast<PA_SelectPrizeCards>(move);
 
-		if (!selectMove || selectMove->pid != pid)
+		if (!selectMove || selectMove->pid != pid || selectMove->idxVec.size() != num)
 			return ActionError::Failed;
 
 		auto &idxVec = selectMove->idxVec;
@@ -584,19 +586,30 @@ void GetPrizeCards::executeOn(GameState *gstate) {
 	state = State::Process;
 
 	auto prizePile = gstate->getPrizePile(pid);
-	auto cardVec = prizePile->popSelectedCards();
+	auto &selected = prizePile->selected;
+	auto &cardVec = prizePile->cardVec;
+
+	vector<shared_ptr<Card>> drawnVec;
+	for (const auto &idx : selected) {
+		if (0 <= idx && idx < cardVec.size() && cardVec[idx]) {
+			drawnVec.push_back(cardVec[idx]);
+			idxVec.push_back(idx);
+			cardVec[idx].reset(); // reset to nullptr
+		}
+	}
+
 	auto hand = gstate->getHand(pid);
-	hand->pushCards(cardVec);
+	hand->pushCards(drawnVec);
 
 	state = State::Done;
 }
 
 shared_ptr<GameAction> GetPrizeCards::clone() const {
-	return make_shared<GetPrizeCards>(pid, idxVec);
+	return make_shared<GetPrizeCards>(pid);
 }
 
 shared_ptr<BattleSceneNS::BSAction> GetPrizeCards::getBSAction() const {
-	return nullptr;
+	return make_shared<BattleSceneNS::GetPrizeCards>(pid, idxVec);
 }
 
 

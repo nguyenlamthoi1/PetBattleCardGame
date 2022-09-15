@@ -321,7 +321,7 @@ public:
 	const static std::string PLAYER_SETUP_TXT;
 	const static std::string OPP_SETUP_TXT;
 
-	SelectPrizeAction(const PlayerIdType &id) : pid(id) {};
+	SelectPrizeAction(const PlayerIdType &id, unsigned int selectNum) : pid(id), num(selectNum) {};
 	virtual ~SelectPrizeAction() = default;
 
 	virtual void executeOn(BattleScene *btlScn) override;
@@ -329,6 +329,8 @@ public:
 	virtual bool onReceivePlayerInput(const std::shared_ptr<MGame::BattleMaster> &bm, const std::shared_ptr<MGame::PlayerAction> &pAction) override;
 protected:
 	PlayerIdType pid;
+	unsigned int num = 0;
+
 };
 
 //-------------------//

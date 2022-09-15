@@ -29,9 +29,7 @@ shared_ptr<BSPrizeHolder> BSPrizeHolder::create(Node * rootnode) {
 	return nullptr;
 }
 BSPrizeHolder::BSPrizeHolder(cocos2d::Node *rootnode) : root(rootnode) {}
-BSPrizeHolder::~BSPrizeHolder() {
-
-}
+BSPrizeHolder::~BSPrizeHolder() {}
 
 bool BSPrizeHolder::init() {
 	if (!root)
@@ -46,12 +44,11 @@ bool BSPrizeHolder::init() {
 	auto func = [this](Ref *sender, ui::Widget::TouchEventType eventType)->void {
 		switch (eventType) {
 		case ui::Widget::TouchEventType::ENDED:
-			selected = !selected;
-			selectBorder->setVisible(selected);
+			if (onTouched)
+				onTouched(this);
 			break;
 		}
 	};
-
 	
 	touchPanel = dynamic_cast<ui::Layout*>(container->getChildByName("Touch_Panel"));
 	touchPanel->addTouchEventListener(func);
@@ -78,6 +75,18 @@ BSCard* BSPrizeHolder::removeCard() {
 	}
 	return ret;
 }
+
+void BSPrizeHolder::setSelectable(bool e) {
+	selectable = e;
+	if(!selectable)
+		selectBorder->setVisible(false);
+}
+
+void BSPrizeHolder::setSelected(bool s) {
+	selected = s;
+	selectBorder->setVisible(selected);
+}
+
 
 
 //---------------------//
@@ -133,7 +142,7 @@ void BSPrizeSelector::showPrizeCards(const PlayerIdType &pid) {
 	root->setVisible(true);
 	curPid = pid;
 	auto prizePile = btlScn->getPrizePile(curPid);
-	auto &prizeCards = prizePile->cardMap;
+	auto &prizeCards = prizePile->cardVec;
 
 	for (unsigned int idx = 0; idx < prizeCards.size(); ++idx) {
 		auto card = prizeCards[idx];
@@ -142,9 +151,33 @@ void BSPrizeSelector::showPrizeCards(const PlayerIdType &pid) {
 
 		auto holder = holderVec[idx];
 		holder->addCard(card);
+		holder->setSelectable(false);
+		holder->setOnTouched(nullptr);
 		prizeCards[idx] = nullptr; // Clear vector trong prizePile
 	}
 
+	doneBtn->setVisible(false);
+}
+
+void BSPrizeSelector::showPrizeCardsToSelect(const PlayerIdType &pid, unsigned int num) {
+	root->setVisible(true);
+	curPid = pid;
+	auto prizePile = btlScn->getPrizePile(curPid);
+	auto &prizeCards = prizePile->cardVec;
+
+	for (unsigned int idx = 0; idx < prizeCards.size(); ++idx) {
+		auto card = prizeCards[idx];
+		if (!card) // card == nullptr
+			continue;
+
+		auto holder = holderVec[idx];
+		holder->addCard(card);
+		holder->setOnTouched(bind(&BSPrizeSelector::onHolderTouched, this, placeholders::_1));
+		holder->setSelectable(true);
+		prizeCards[idx] = nullptr; // Clear vector trong prizePile
+	}
+	selectNum = num;
+	selectedNum = 0;
 	doneBtn->setVisible(true);
 }
 
@@ -174,6 +207,9 @@ void BSPrizeSelector::onDoneBtnTouched(cocos2d::Ref* sender) {
 				idxVec.push_back(idx);
 	}
 
+	if (idxVec.size() != selectNum)
+		return;
+
 	// Kiem tra ket qua lua chon
 	auto pAction = make_shared<MGame::PA_SelectPrizeCards>(curPid, idxVec);
 	bool checkAction = btlScn->onPlayerDoAction(pAction);
@@ -185,6 +221,24 @@ void BSPrizeSelector::onDoneBtnTouched(cocos2d::Ref* sender) {
 		dispatchEvent(ON_DONE_SELECT);
 	}
 }
+
+void BSPrizeSelector::onHolderTouched(BSPrizeHolder *holder) {
+	bool isSelected = holder->isSelected();
+	if (isSelected) {
+		holder->setSelected(!isSelected);
+		
+		if(selectedNum > 0)
+			selectedNum -= 1;
+	}
+	else { // Chua duoc chon
+		if (selectedNum < selectNum) {
+			holder->setSelected(!isSelected);
+			selectedNum += 1;
+		}
+	}
+	
+}
+
 void BSPrizeSelector::onShowMatchBtnTouched(cocos2d::Ref* sender) {
 	CCLOG("Show match touched");
 

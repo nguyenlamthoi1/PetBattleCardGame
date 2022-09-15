@@ -77,6 +77,8 @@ public:
 	std::shared_ptr<BSCoinFlipper> getCoinFlipper() const;
 	std::shared_ptr<BSPrizeSelector> getPrizeSelector() const;
 
+	cocos2d::Node* getPrizePileNode(const PlayerIdType &id) const;
+
 	//std::shared_ptr<BSPlayer> getPlayer(PlayerIdType id) { return players[id]; }
 
 	PlayerIdType getPlayerId() const { return pid; }

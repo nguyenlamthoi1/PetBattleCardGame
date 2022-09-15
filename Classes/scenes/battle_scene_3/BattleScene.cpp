@@ -276,6 +276,15 @@ shared_ptr<BSPrizePile> BattleScene::getPrizePile(const PlayerIdType &id) const 
 shared_ptr<BSPrizeSelector> BattleScene::getPrizeSelector() const { return prizeSelector; }
 
 
+Node* BattleScene::getPrizePileNode(const PlayerIdType &id) const {
+	string prefix = id == PLAYER ? "P1" : "P2";
+	auto pPanel = root->getChildByName(prefix + "_Panel"); // P1_Panel or P2_Panel
+	if (!pPanel)
+		return nullptr;
+	return pPanel->getChildByName("Prize_Board");
+}
+
+
 ///----------------------///
 ///Action pipline members///
 ///----------------------///

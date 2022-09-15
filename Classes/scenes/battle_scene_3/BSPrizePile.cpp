@@ -27,10 +27,7 @@ shared_ptr<BSPrizePile> BSPrizePile::create(BattleScene *scn, const PlayerIdType
 }
 
 BSPrizePile::BSPrizePile(BattleScene *scn, const PlayerIdType &id) : btlScn(scn), pid(id) {
-	//cardVec.reserve(PRIZE_CARDS_NUM_PER_PLAYER);
 	capacity = GConfig::PRIZE_CARDS_NUM_PER_PLAYER;
-	for (unsigned int index = 0; index < capacity; ++index)
-		cardMap[index] = nullptr;
 }
 
 BSPrizePile::~BSPrizePile(){}
@@ -71,7 +68,7 @@ void BSPrizePile::drawFromDeck(const std::vector<CardId> &idvec) {
 	auto destPos = Vec2(0, 0);
 	auto startPos = destPos +  Vec2(0, 120);
 
-	for (size_t index = 0; index < cardMap.size(); ++index) { // * Nhung card nay chua duoc addChild
+	for (size_t index = 0; index < cardVec.size(); ++index) { // * Nhung card nay chua duoc addChild
 		if (index >= drawnVec.size())
 			continue;
 
@@ -98,12 +95,33 @@ void BSPrizePile::drawFromDeck(const std::vector<CardId> &idvec) {
 			auto action = MoveTo::create(0.5f + index * 0.2f, destPos);
 			card->runAction(action);
 		}
-		cardMap[index] = card;
+		cardVec[index] = card;
 		++curCount;
 	}
 	//cardVec.insert(cardVec.cend(), drawnVec.cbegin(), drawnVec.cend());
 	numLabel->setString(to_string(curCount));
 	numLabel->setVisible(curCount > 0);
+}
+
+vector<BSCard*> BSPrizePile::draw(const vector<unsigned int> &idxVec) {
+	vector<BSCard*> ret;
+
+	for (const auto &idx : idxVec) {
+		if (0 <= idx && idx < cardVec.size() && cardVec[idx]) {
+			ret.push_back(cardVec[idx]);
+
+			cardVec[idx]->stopAllActions();
+			cardVec[idx]->removeFromParent();
+			cardVec[idx] = nullptr;
+			
+			if (curCount > 0)
+				curCount -= 1;
+		}
+	}
+
+	numLabel->setString(to_string(curCount));
+	numLabel->setVisible(curCount > 0);
+	return ret;
 }
 
 void BSPrizePile::showSelectPanel() {
@@ -126,7 +144,7 @@ void BSPrizePile::addCard(BSCard *card, unsigned int idx, float delay) {
 		card->removeFromParent();
 
 	cardMarker->addChild(card);
-	cardMap[idx] = card;
+	cardVec[idx] = card;
 	
 }
 

@@ -25,6 +25,8 @@ class BSPrizeHolder {
 public:
 	friend class BSPrizeSelector;
 
+	using OnHolderTouched = std::function<void(BSPrizeHolder *)>;
+
 	static std::shared_ptr<BSPrizeHolder> create(cocos2d::Node *rootnode);
 	BSPrizeHolder(cocos2d::Node *rootnode);
 	virtual ~BSPrizeHolder();
@@ -39,16 +41,22 @@ public:
 	cocos2d::Node *cardMarker = nullptr;
 	cocos2d::ui::ImageView *selectBorder = nullptr;
 	cocos2d::ui::Layout *touchPanel = nullptr;
-	
+
 	BSCard *bsCard = nullptr;
 	bool selected = false;
+	bool selectable = false;
+	OnHolderTouched onTouched;
 
 	void addCard(BSCard *card);
 	BSCard* removeCard();
 
+	void setSelectable(bool e);
+	void setSelected(bool s);
+	void setOnTouched(const OnHolderTouched f) { onTouched = f; }
 	BSCard* getCard() const { return bsCard; }
 	bool hasCard() const { return bsCard != nullptr; }
-	bool isSelected() const { return selected; }
+	bool isSelected() const { return selectable && selected; }
+	bool isSelectable() const { return selectable; }
 };
 
 class BSPrizeSelector : public IEventsHandler
@@ -65,6 +73,7 @@ public:
 	cocos2d::Node* getRoot() const { return root; }
 
 	void showPrizeCards(const PlayerIdType &pid);
+	void showPrizeCardsToSelect(const PlayerIdType &pid, unsigned int num);
 	void hidePrizeCard();
 
 protected:
@@ -81,7 +90,10 @@ protected:
 	std::vector<std::shared_ptr<BSPrizeHolder>> holderVec;
 	
 	std::vector<unsigned int> idxVec; // Luu index cua cac holder duoc chon
+	unsigned int selectNum = 0;
+	unsigned int selectedNum = 0;
 
+	void onHolderTouched(BSPrizeHolder *holder);
 	void onDoneBtnTouched(cocos2d::Ref*);
 	void onShowMatchBtnTouched(cocos2d::Ref*);
 };

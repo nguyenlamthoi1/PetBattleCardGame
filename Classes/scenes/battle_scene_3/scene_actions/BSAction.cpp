@@ -533,7 +533,7 @@ void SelectPrizeAction::executeOn(BattleScene *btlScn) {
 
 	if (btlScn->getPlayerId() == pid) { // Player Action
 		auto prizeSelector = btlScn->getPrizeSelector();
-		prizeSelector->showPrizeCards(pid);
+		prizeSelector->showPrizeCardsToSelect(pid, num);
 	}
 	else { // Opponent Action
 		
@@ -542,9 +542,18 @@ void SelectPrizeAction::executeOn(BattleScene *btlScn) {
 }
 
 bool SelectPrizeAction::onReceivePlayerInput(const shared_ptr<MGame::BattleMaster> &bm, const shared_ptr<MGame::PlayerAction> &pAction) {
+	if (pAction->getType() == MGame::PlayerAction::Type::Select_Prize_Cards
+		|| pAction->getType() == MGame::PlayerAction::Type::DoForMe
+		) {
+		auto error = bm->onPlayerChooseAction(pAction);
+		bool suc = error != ActionError::Failed;
+		if (suc)
+			state = State::Done;
+		return suc;
+	}
 	return false;
 }
-
+	
 /*
 	GetPrizeCards Class
 */
@@ -554,14 +563,18 @@ void GetPrizeCards::executeOn(BattleScene *btlScn) {
 		return;
 
 	state = State::Processed;
+	
+	auto prizePile = btlScn->getPrizePile(pid);
+	auto hand = btlScn->getHand(pid);
+	bool isPlayerId = pid == PLAYER_ID;
 
-	if (btlScn->getPlayerId() == pid) { // Player Action
-		CCLOG("Start Get Prize");
-	}
-	else { // Opponent Action
-
-		//TODO: AI_MAKE_DECISION
-	}
+	auto drawnCards = prizePile->draw(idxVec);
+	hand->putToHand(drawnCards, BSHand::DrawFromType::Prize ,!isPlayerId);
+	onGetDone = hand->addEventHandler(BSHand::EV_PUT_TO_HAND, [this, hand](const std::shared_ptr<MEvent>&) {
+		state = State::Done;
+		hand->removeHandler(onGetDone);
+		});
+	
 }
 
 

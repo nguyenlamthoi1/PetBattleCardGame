@@ -121,10 +121,14 @@ void GameState::startGame() {
 	actionQueue.insert(actionQueue.cend(), {
 		make_shared<FirstDrawAction>(pids[0], GConfig::DRAW_NUM_ON_START),
 		make_shared<DrawFirstPrizeCards>(pids[0], GConfig::PRIZE_CARDS_NUM_PER_PLAYER),
+		make_shared<SelectPrizeCards>(pids[0], 1),
+		make_shared<GetPrizeCards>(pids[0]),
+		/*
 		make_shared<FirstDrawAction>(pids[1], GConfig::DRAW_NUM_ON_START),
 		make_shared<DrawFirstPrizeCards>(pids[1], GConfig::PRIZE_CARDS_NUM_PER_PLAYER),
 		make_shared<StartSetupAction>(),
 		make_shared<StartSetupActivePet>(pids[0]),
+		*/
 		});
 }
 
