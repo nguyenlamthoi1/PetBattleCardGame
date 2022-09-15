@@ -81,6 +81,38 @@
             <EndColor A="255" R="255" G="255" B="255" />
             <ColorVector ScaleY="1.0000" />
           </AbstractNodeData>
+          <AbstractNodeData Name="ShowMatchBtn" ActionTag="-1307810904" Tag="2044" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="948.9999" RightMargin="181.0000" TopMargin="262.2749" BottomMargin="417.7251" TouchEnable="True" FontSize="22" ButtonText="Show Playmat" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="16" Scale9Height="14" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
+            <Size X="150.0000" Y="40.0000" />
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position X="1023.9999" Y="437.7251" />
+            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <CColor A="255" R="144" G="238" B="144" />
+            <PrePosition X="0.8000" Y="0.6080" />
+            <PreSize X="0.1172" Y="0.0556" />
+            <FontResource Type="Normal" Path="ccstd_fonts/GillSans_ttf/Gill Sans.ttf" Plist="" />
+            <TextColor A="255" R="0" G="0" B="0" />
+            <DisabledFileData Type="Default" Path="Default/Button_Disable.png" Plist="" />
+            <PressedFileData Type="Default" Path="Default/Button_Press.png" Plist="" />
+            <NormalFileData Type="Default" Path="Default/Button_Normal.png" Plist="" />
+            <OutlineColor A="255" R="255" G="0" B="0" />
+            <ShadowColor A="255" R="110" G="110" B="110" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="DoneButton" ActionTag="929724319" Tag="2169" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="948.9999" RightMargin="181.0000" TopMargin="316.2471" BottomMargin="363.7529" TouchEnable="True" FontSize="22" ButtonText="Done" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="16" Scale9Height="14" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
+            <Size X="150.0000" Y="40.0000" />
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position X="1023.9999" Y="383.7529" />
+            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <CColor A="255" R="144" G="238" B="144" />
+            <PrePosition X="0.8000" Y="0.5330" />
+            <PreSize X="0.1172" Y="0.0556" />
+            <FontResource Type="Normal" Path="ccstd_fonts/GillSans_ttf/Gill Sans.ttf" Plist="" />
+            <TextColor A="255" R="0" G="0" B="0" />
+            <DisabledFileData Type="Default" Path="Default/Button_Disable.png" Plist="" />
+            <PressedFileData Type="Default" Path="Default/Button_Press.png" Plist="" />
+            <NormalFileData Type="Default" Path="Default/Button_Normal.png" Plist="" />
+            <OutlineColor A="255" R="255" G="0" B="0" />
+            <ShadowColor A="255" R="110" G="110" B="110" />
+          </AbstractNodeData>
         </Children>
       </ObjectData>
     </Content>

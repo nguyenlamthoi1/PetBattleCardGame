@@ -17,6 +17,8 @@ using namespace std;
 
 BATTLE_SCENE_NS_BEG
 
+const float BSPrizePile::CardScale = 0.25;
+
 shared_ptr<BSPrizePile> BSPrizePile::create(BattleScene *scn, const PlayerIdType &id) {
 	auto ret = make_shared<BSPrizePile>(scn, id);
 	if (ret && ret->init())
@@ -25,8 +27,10 @@ shared_ptr<BSPrizePile> BSPrizePile::create(BattleScene *scn, const PlayerIdType
 }
 
 BSPrizePile::BSPrizePile(BattleScene *scn, const PlayerIdType &id) : btlScn(scn), pid(id) {
-	cardVec.reserve(PRIZE_CARDS_NUM_PER_PLAYER);
-	capacity = PRIZE_CARDS_NUM_PER_PLAYER;
+	//cardVec.reserve(PRIZE_CARDS_NUM_PER_PLAYER);
+	capacity = GConfig::PRIZE_CARDS_NUM_PER_PLAYER;
+	for (unsigned int index = 0; index < capacity; ++index)
+		cardMap[index] = nullptr;
 }
 
 BSPrizePile::~BSPrizePile(){}
@@ -50,6 +54,7 @@ bool BSPrizePile::init() {
 
 	cardMarker = prizeBoard->getChildByName("Card_Marker");
 	cardMarker->setPosition(cardMarker->getPosition() + Vec2(-3, 0));
+	cardMarker->setScale(CardScale);
 
 	numLabel = dynamic_cast<ui::Text*>(prizeBoard->getChildByName("Content"));
 	
@@ -63,11 +68,13 @@ void BSPrizePile::drawFromDeck(const std::vector<CardId> &idvec) {
 	auto btlScn = BattleScene::getScn();
 	auto drawnVec = deck->drawTop(idvec);
 
-	auto winSize = Director::getInstance()->getVisibleSize();
 	auto destPos = Vec2(0, 0);
-	auto startPos = destPos +  Vec2(0, 100);
+	auto startPos = destPos +  Vec2(0, 120);
 
-	for (size_t index = 0; index < drawnVec.size(); ++index) { // * Nhung card nay chua duoc addChild
+	for (size_t index = 0; index < cardMap.size(); ++index) { // * Nhung card nay chua duoc addChild
+		if (index >= drawnVec.size())
+			continue;
+
 		auto card = drawnVec[index];
 		cardMarker->addChild(card);
 
@@ -91,13 +98,36 @@ void BSPrizePile::drawFromDeck(const std::vector<CardId> &idvec) {
 			auto action = MoveTo::create(0.5f + index * 0.2f, destPos);
 			card->runAction(action);
 		}
+		cardMap[index] = card;
+		++curCount;
 	}
-	cardVec.insert(cardVec.cend(), drawnVec.cbegin(), drawnVec.cend());
-	numLabel->setString(to_string(cardVec.size()));
+	//cardVec.insert(cardVec.cend(), drawnVec.cbegin(), drawnVec.cend());
+	numLabel->setString(to_string(curCount));
+	numLabel->setVisible(curCount > 0);
 }
 
 void BSPrizePile::showSelectPanel() {
 
+}
+
+
+void BSPrizePile::addCard(BSCard *card, unsigned int idx, float delay) {
+	if (idx < 0 || idx >= capacity)
+		return;
+
+	// Tra ve pile
+	auto destPos = Vec2(0, 0);
+	auto startPos = destPos + Vec2(0, 100);
+	card->setPosition(startPos);
+	auto action = MoveTo::create(delay, destPos);
+	card->runAction(action);
+
+	if(card->getParent())
+		card->removeFromParent();
+
+	cardMarker->addChild(card);
+	cardMap[idx] = card;
+	
 }
 
 BATTLE_SCENE_NS_END

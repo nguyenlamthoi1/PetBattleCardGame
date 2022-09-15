@@ -181,7 +181,7 @@ bool BattleScene::init() {
 
 	// Khoi tao PrizeSelector
 	prizeSelector = BSPrizeSelector::create(this);
-	prizeSelector->getRoot()->setVisible(true);
+	prizeSelector->getRoot()->setVisible(false);
 
 	// + Detailed Card
 	detailLayout = dynamic_cast<ui::Layout*>(root->getChildByName("Detail_Layout"));
@@ -227,10 +227,13 @@ void BattleScene::initGame() {
 
 void BattleScene::startGame() {
 
-	pushActions({
-		shared_ptr<DrawPrizeCards>(new DrawPrizeCards(pid, {"P1", "E1", "P2", "E2", "P3"})),
-		shared_ptr<DrawPrizeCards>(new DrawPrizeCards(oid, {"P1", "E1", "P2", "E2", "P3"})),
-		});
+	//pushActions({
+	//	shared_ptr<DrawPrizeCards>(new DrawPrizeCards(pid, {"P1", "E1", "P2", "E2", "P3", "E3"})),
+	//	//shared_ptr<DrawPrizeCards>(new DrawPrizeCards(oid, {"P1", "E1", "P2", "E2", "P3"})),
+	//	make_shared<WaitAction>(1.0f),
+	//	make_shared<SelectPrizeAction>(pid)
+	//	
+	//	});
 
 	startPipeline();
 
@@ -240,8 +243,8 @@ void BattleScene::startGame() {
 	turnCount = 0;
 	phase = Phase::Start;
 
-	//bm->initGame(PLAYER_ID, oid);
-	//bm->startGame();
+	bm->initGame(pid, oid);
+	bm->startGame();
 }
 
 void BattleScene::initTopLayer() {

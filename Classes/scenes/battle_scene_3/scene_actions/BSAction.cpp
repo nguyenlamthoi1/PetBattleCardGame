@@ -6,6 +6,7 @@
 #include "../BSBoard.h"
 #include "../CardHolder.h"
 #include "../BSPrizePile.h"
+#include "../prize_selector/BSPrizeSelector.h"
 
 #include "../game/BattleMaster.h"
 #include "../game/player_actions/PlayerAction.h"
@@ -519,5 +520,49 @@ void DrawPrizeCards::executeOn(BattleScene *btlScn) {
 		prizePile->removeHandler(onDrawnDone);
 		});
 }
+
+/*
+	SelectPrizeAction Class
+*/
+
+void SelectPrizeAction::executeOn(BattleScene *btlScn) {
+	if (state != State::Wait)
+		return;
+
+	state = State::Processed;
+
+	if (btlScn->getPlayerId() == pid) { // Player Action
+		auto prizeSelector = btlScn->getPrizeSelector();
+		prizeSelector->showPrizeCards(pid);
+	}
+	else { // Opponent Action
+		
+		//TODO: AI_MAKE_DECISION
+	}
+}
+
+bool SelectPrizeAction::onReceivePlayerInput(const shared_ptr<MGame::BattleMaster> &bm, const shared_ptr<MGame::PlayerAction> &pAction) {
+	return false;
+}
+
+/*
+	GetPrizeCards Class
+*/
+
+void GetPrizeCards::executeOn(BattleScene *btlScn) {
+	if (state != State::Wait)
+		return;
+
+	state = State::Processed;
+
+	if (btlScn->getPlayerId() == pid) { // Player Action
+		CCLOG("Start Get Prize");
+	}
+	else { // Opponent Action
+
+		//TODO: AI_MAKE_DECISION
+	}
+}
+
 
 BATTLE_SCENE_NS_END

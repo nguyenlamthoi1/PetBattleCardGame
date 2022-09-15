@@ -23,13 +23,19 @@ class BSCard;
 class BSPrizePile : public IEventsHandler
 {
 public:
+	friend class BSPrizeSelector;
+
 	/// All Events ///
 	static const std::string EV_DRAW_ACTION_DONE; // Event Data is Null
+
+	static const float CardScale;
 
 	using CardId = std::string;
 	static std::shared_ptr<BSPrizePile> create(BattleScene *scn, const PlayerIdType &id);
 	BSPrizePile(BattleScene *scn, const PlayerIdType &id);
 	virtual ~BSPrizePile();
+
+	void addCard(BSCard *card, unsigned int idx = 0, float delay = 0.0f);
 
 	void drawFromDeck(const std::vector<CardId> &idvec);
 	void drawFromSelected();
@@ -49,8 +55,10 @@ protected:
 	cocos2d::Node *cardMarker = nullptr;
 	cocos2d::ui::Text *numLabel = nullptr;
 
-	std::vector<BSCard*> cardVec;
+	//std::vector<BSCard*> cardVec;
+	std::map<unsigned int, BSCard*> cardMap;
 	unsigned int capacity = 0;
+	unsigned int curCount = 0;
 };
 
 BATTLE_SCENE_NS_END

@@ -34,6 +34,8 @@ public:
 	/// All Events ///
 	static const std::string EV_DRAW_ACTION_DONE; // Event Data is Null
 
+	static const float CardScale;
+
 	using CardId = std::string;
 	using HandPtr = std::shared_ptr<BSHand>;
 

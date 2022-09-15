@@ -483,4 +483,121 @@ shared_ptr<BattleSceneNS::BSAction> GameOverAction::getBSAction() const {
 	return make_shared<BattleSceneNS::GameOverAction>(winnerId);
 }
 
+/*
+	DrawFirstPrizeCards
+*/
+
+void DrawFirstPrizeCards::executeOn(GameState *gstate) {
+	state = State::Process;
+
+	auto deck = gstate->getDeck(pid);
+	auto drawnVec = deck->popTop(drawnNum);
+	auto prizePile = gstate->getPrizePile(pid);
+	prizePile->pushCards(drawnVec);
+
+	for (const auto & card : drawnVec) {
+		cidVec.push_back(card->getId());
+	}
+
+	state = State::Done;
+}
+shared_ptr<BattleSceneNS::BSAction> DrawFirstPrizeCards::getBSAction() const {
+	return BattleSceneNS::SequenceAction::create({
+	make_shared<BattleSceneNS::WaitAction>(0.7f),
+	make_shared<BattleSceneNS::DrawPrizeCards>(pid, cidVec)
+	});
+}
+shared_ptr<GameAction> DrawFirstPrizeCards::clone() const {
+	return make_shared<DrawFirstPrizeCards>(pid, drawnNum);
+}
+
+
+/*
+	SelectPrizeCards Class
+*/
+
+void SelectPrizeCards::executeOn(GameState *gameState) { state = State::Process; }
+
+shared_ptr<BattleSceneNS::BSAction> SelectPrizeCards::getBSAction() const {
+	return BattleSceneNS::SequenceAction::create({
+		make_shared<BattleSceneNS::WaitAction>(0.7f),
+		make_shared<BattleSceneNS::SelectPrizeAction>(pid),
+		});
+}
+
+shared_ptr<GameAction> SelectPrizeCards::clone() const {
+	return make_shared<SelectPrizeCards>(pid);
+}
+
+vector<shared_ptr<PlayerAction>> SelectPrizeCards::getPossibleMoves(GameState *gstate) const {
+	vector<shared_ptr<PlayerAction>> ret;
+	//auto hand = gstate->getPrizePile(pid);
+
+	//unsigned int handIdx = 0;
+	//for (const auto &card : cards) {
+	//	if (card->getType() == Card::Type::Pet) {
+	//		auto petCard = dynamic_pointer_cast<PetCard>(card);
+	//		auto data = petCard->getPetData();
+	//		if (petCard && data->isBasicCard())
+	//			ret.push_back(make_shared<PA_SetupActive>(pid, handIdx));
+	//	}
+	//	++handIdx;
+	//}
+	return ret;
+}
+
+ActionError SelectPrizeCards::onReceiveInput(GameState *gstate, const std::shared_ptr<PlayerAction> &move) {
+	if (state != State::Process)
+		return ActionError::Failed;
+
+	if (move->getType() == PlayerAction::Type::Select_Prize_Cards) {
+		auto selectMove = dynamic_pointer_cast<PA_SelectPrizeCards>(move);
+
+		if (!selectMove || selectMove->pid != pid)
+			return ActionError::Failed;
+
+		auto &idxVec = selectMove->idxVec;
+		auto prizePile = gstate->getPrizePile(pid);
+		auto check = prizePile->canGetCardsAt(idxVec);
+		if (check) {
+			prizePile->saveSelectedCardsAt(idxVec); // Luu lai thong tin lua chon
+			state = State::Done;
+			return ActionError::Succeeded;
+		}
+
+		return ActionError::Failed;
+	}
+	else if (move->getType() == PlayerAction::Type::DoForMe) {
+		auto pMoves = getPossibleMoves(gstate);
+		if (!pMoves.empty()) {
+			auto randIdx = cocos2d::RandomHelper::random_int(0, (int)pMoves.size() - 1);
+			auto chosenMove = pMoves[randIdx];
+			return onReceiveInput(gstate, chosenMove);
+		}
+	}
+
+	return ActionError::Failed;
+}
+
+
+void GetPrizeCards::executeOn(GameState *gstate) {
+	state = State::Process;
+
+	auto prizePile = gstate->getPrizePile(pid);
+	auto cardVec = prizePile->popSelectedCards();
+	auto hand = gstate->getHand(pid);
+	hand->pushCards(cardVec);
+
+	state = State::Done;
+}
+
+shared_ptr<GameAction> GetPrizeCards::clone() const {
+	return make_shared<GetPrizeCards>(pid, idxVec);
+}
+
+shared_ptr<BattleSceneNS::BSAction> GetPrizeCards::getBSAction() const {
+	return nullptr;
+}
+
+
 NS_GAME_END

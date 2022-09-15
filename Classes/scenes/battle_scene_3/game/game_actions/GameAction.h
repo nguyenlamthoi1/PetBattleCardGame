@@ -19,6 +19,8 @@ public:
 		None,
 		Custom,
 
+		DrawFirstPrizeCards,
+
 		StartSetup,
 		StartSetupActive,
 		StartSetupBench,
@@ -78,7 +80,10 @@ public:
 
 		UpdateBetweenTurn, // *
 		SwitchPlayerTurn, //*
-		GameOver //*
+		GameOver, //*
+
+		SelectPrizeCards,
+		GetPrizeCards
 	};
 
 	enum class State {
@@ -312,6 +317,58 @@ public:
 	bool isDrawnGame() const;
 
 	const PlayerIdType winnerId;
+};
+
+class DrawFirstPrizeCards : public GameAction {
+public:
+	using CardId = std::string;
+	DrawFirstPrizeCards(const PlayerIdType &id, unsigned int num) : pid(id), drawnNum(num) {}
+	virtual ~DrawFirstPrizeCards() = default;
+
+	virtual void executeOn(GameState *state) override;
+	virtual std::shared_ptr<BattleSceneNS::BSAction> getBSAction() const override;
+	virtual std::shared_ptr<GameAction> clone() const override;
+
+	virtual Type getType() const override { return Type::DrawFirstPrizeCards; }
+
+	const PlayerIdType pid;
+	unsigned int drawnNum;
+	std::vector<CardId> cidVec;
+};
+
+class SelectPrizeCards : public WaitInputAction {
+public:
+
+	SelectPrizeCards(const PlayerIdType &id) : pid(id) {}
+	virtual ~SelectPrizeCards() = default;
+
+	virtual void executeOn(GameState *gameState) override;
+	virtual Type getType() const override { return Type::SelectPrizeCards; }
+	virtual std::shared_ptr<BattleSceneNS::BSAction> getBSAction() const override;
+	virtual std::shared_ptr<GameAction> clone() const override;
+
+	virtual std::vector<std::shared_ptr<PlayerAction>> getPossibleMoves(GameState *gameState) const override;
+	virtual ActionError onReceiveInput(GameState *gameState, const std::shared_ptr<PlayerAction> &move);
+
+	PlayerIdType pid;
+protected:
+};
+
+class GetPrizeCards : public GameAction {
+public:
+
+	GetPrizeCards(const PlayerIdType &id, const std::vector<unsigned int> &vec) : pid(id), idxVec(vec.begin(), vec.end()) {}
+	GetPrizeCards(const PlayerIdType &id, const std::initializer_list<unsigned int> vec) : pid(id), idxVec(vec.begin(), vec.end()) {}
+	
+	virtual ~GetPrizeCards() = default;
+
+	virtual void executeOn(GameState *gameState) override;
+	virtual Type getType() const override { return Type::SelectPrizeCards; }
+	virtual std::shared_ptr<BattleSceneNS::BSAction> getBSAction() const override;
+	virtual std::shared_ptr<GameAction> clone() const override;
+
+	PlayerIdType pid;
+	std::vector<unsigned int> idxVec;
 };
 
 

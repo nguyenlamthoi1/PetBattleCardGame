@@ -42,6 +42,9 @@ public:
 		SetupBench,
 		FirstPlayerFlip,
 		EndSetup,
+
+		Select_Prize,
+		Get_Prize_Cards
 	};
 
 	enum class State{
@@ -145,6 +148,23 @@ protected:
 	std::vector<CardId> drawnCards;
 	std::shared_ptr<EventHandler> onDrawnDone;
 
+};
+
+class GetPrizeCards : public BSAction {
+public:
+	using CardId = std::string;
+
+	GetPrizeCards(const PlayerIdType &id, const const std::vector<unsigned int> &vec) : pid(id), idxVec(vec.begin(), vec.end()) {};
+	GetPrizeCards(const PlayerIdType &id, std::initializer_list<unsigned int> vec) : pid(id), idxVec(vec.begin(), vec.end()) {}
+	virtual ~GetPrizeCards() = default;
+
+	virtual void executeOn(BattleScene *btlScn) override;
+	virtual ActionType getType() const override { return ActionType::Get_Prize_Cards; }
+
+protected:
+	PlayerIdType pid = PlayerIdInvalid;
+	std::vector<unsigned int> idxVec;
+	std::shared_ptr<EventHandler> onGetDone;
 };
 
 
@@ -292,6 +312,27 @@ public:
 //-----------//
 //-----------//
 //-----------//
+
+
+// Selection Classes //
+
+class SelectPrizeAction : public WaitInputPlayer {
+public:
+	const static std::string PLAYER_SETUP_TXT;
+	const static std::string OPP_SETUP_TXT;
+
+	SelectPrizeAction(const PlayerIdType &id) : pid(id) {};
+	virtual ~SelectPrizeAction() = default;
+
+	virtual void executeOn(BattleScene *btlScn) override;
+	virtual ActionType getType() const override { return ActionType::Select_Prize;}
+	virtual bool onReceivePlayerInput(const std::shared_ptr<MGame::BattleMaster> &bm, const std::shared_ptr<MGame::PlayerAction> &pAction) override;
+protected:
+	PlayerIdType pid;
+};
+
+//-------------------//
+
 
 
 class GameOverAction : public BSAction {

@@ -21,7 +21,7 @@
     "fileName": "pack-result",
     "savePath": "D:\\Cocos2d-x\\LVTN\\PetBattleCardGame\\texture_packer\\export",
     "width": 2048,
-    "height": 1024,
+    "height": 2048,
     "fixedSize": false,
     "powerOfTwo": true,
     "padding": 1,

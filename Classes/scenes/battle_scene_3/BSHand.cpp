@@ -17,6 +17,8 @@ using namespace std;
 USING_NS_CC;
 BATTLE_SCENE_NS_BEG
 
+const float BSHand::CardScale = 0.25f;
+
 BSHand::HandPtr BSHand::createShPtr(ui::Layout *layout, const PlayerIdType &id) {
 	auto ret = make_shared<BSHand>(layout, id);
 	if (ret && ret->init())
@@ -88,6 +90,7 @@ void BSHand::drawCards(size_t n, const vector<CardId> &idVec, bool hideCards) {
 		handLayout->addChild(card);
 		card->setPosition(startPos);
 		card->setFlip(hideCards);
+		card->setScale(CardScale);
 
 		// Them hold touch
 		WidgetTouchNS::setWidgetTouchHold(card, [card, this, btlScn](WIDGET_TOUCH_HANDLER_PARAMS) {

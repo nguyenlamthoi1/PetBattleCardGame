@@ -23,6 +23,8 @@ class BSCard;
 
 class BSPrizeHolder {
 public:
+	friend class BSPrizeSelector;
+
 	static std::shared_ptr<BSPrizeHolder> create(cocos2d::Node *rootnode);
 	BSPrizeHolder(cocos2d::Node *rootnode);
 	virtual ~BSPrizeHolder();
@@ -30,17 +32,30 @@ public:
 
 	cocos2d::Node* getRoot() const { return root; }
 
+	unsigned int idx = 0;
+
 	cocos2d::Node *root = nullptr;
 	cocos2d::ui::Layout *container = nullptr;
 	cocos2d::Node *cardMarker = nullptr;
 	cocos2d::ui::ImageView *selectBorder = nullptr;
+	cocos2d::ui::Layout *touchPanel = nullptr;
+	
+	BSCard *bsCard = nullptr;
+	bool selected = false;
+
+	void addCard(BSCard *card);
+	BSCard* removeCard();
+
+	BSCard* getCard() const { return bsCard; }
+	bool hasCard() const { return bsCard != nullptr; }
+	bool isSelected() const { return selected; }
 };
 
 class BSPrizeSelector : public IEventsHandler
 {
 public:
 	/// All Events ///
-	static const std::string EV_DRAW_ACTION_DONE; // Event Data is Null
+	static const std::string ON_DONE_SELECT; // Event Data is Null
 
 	using CardId = std::string;
 	static std::shared_ptr<BSPrizeSelector> create(BattleScene *scn);
@@ -48,6 +63,10 @@ public:
 	virtual ~BSPrizeSelector();
 
 	cocos2d::Node* getRoot() const { return root; }
+
+	void showPrizeCards(const PlayerIdType &pid);
+	void hidePrizeCard();
+
 protected:
 
 	virtual bool init();
@@ -55,8 +74,16 @@ protected:
 	BattleScene *btlScn = nullptr;
 	cocos2d::Node *root = nullptr;
 	cocos2d::ui::Layout *container = nullptr;
+	cocos2d::ui::Button *doneBtn = nullptr;
+	cocos2d::ui::Button *showMatchBtn = nullptr;
 
+	PlayerIdType curPid;
 	std::vector<std::shared_ptr<BSPrizeHolder>> holderVec;
+	
+	std::vector<unsigned int> idxVec; // Luu index cua cac holder duoc chon
+
+	void onDoneBtnTouched(cocos2d::Ref*);
+	void onShowMatchBtnTouched(cocos2d::Ref*);
 };
 
 BATTLE_SCENE_NS_END

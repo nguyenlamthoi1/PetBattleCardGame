@@ -9,7 +9,7 @@
           <AbstractNodeData Name="Container" ActionTag="-196506364" Tag="1341" IconVisible="False" LeftMargin="-195.0000" RightMargin="-195.0000" TopMargin="-283.5000" BottomMargin="-283.5000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Enable="True" LeftEage="10" RightEage="10" TopEage="10" BottomEage="10" Scale9OriginX="10" Scale9OriginY="10" Scale9Width="370" Scale9Height="547" ctype="PanelObjectData">
             <Size X="390.0000" Y="567.0000" />
             <Children>
-              <AbstractNodeData Name="Card_Marker" ActionTag="-354126701" VisibleForFrame="False" Tag="1342" IconVisible="True" LeftMargin="185.0000" RightMargin="205.0000" TopMargin="283.5000" BottomMargin="283.5000" ctype="SingleNodeObjectData">
+              <AbstractNodeData Name="Card_Marker" ActionTag="-354126701" Tag="1342" IconVisible="True" LeftMargin="185.0000" RightMargin="205.0000" TopMargin="283.5000" BottomMargin="283.5000" ctype="SingleNodeObjectData">
                 <Size X="0.0000" Y="0.0000" />
                 <AnchorPoint />
                 <Position X="185.0000" Y="283.5000" />

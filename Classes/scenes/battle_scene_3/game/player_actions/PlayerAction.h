@@ -18,7 +18,9 @@ public:
 		DoForMe,
 		SetupActivePet,
 		SetupBenchPet,
-		EndTurn
+		EndTurn,
+
+		Select_Prize_Cards
 	};
 
 	PlayerAction(Type t, const PlayerIdType &id) : type(t), pid(id) {}
@@ -66,6 +68,26 @@ public:
 	virtual Type getType() const override { return Type::EndTurn; }
 	PlayerIdType pid;
 };
+
+/*
+	Player lua chon
+*/
+
+class PA_SelectPrizeCards : public PlayerAction {
+public:
+
+	PA_SelectPrizeCards(const PlayerIdType &id, std::initializer_list<unsigned int> idxVec);
+	PA_SelectPrizeCards(const PlayerIdType &id, const std::vector<unsigned int> &idxVec);
+
+	virtual ~PA_SelectPrizeCards() = default;
+	virtual Type getType() const override { return Type::Select_Prize_Cards; }
+
+	PlayerIdType pid;
+	std::vector<unsigned int> idxVec;
+};
+
+
+
 
 //class PA_PlayPetCardFromHand : public PlayerAction {
 //

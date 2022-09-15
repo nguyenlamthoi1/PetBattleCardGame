@@ -55,7 +55,7 @@ bool BSCard::init() {
 		return false;
 
 	setAnchorPoint(Vec2(0.5, 0.5));
-	setContentSize(CARD_SIZE);
+	setContentSize(ORIGIN_CARD_SIZE);
 	setBackGroundColorType(ui::Layout::BackGroundColorType::SOLID);
 	setBackGroundColorOpacity(50);
 	setBackGroundColor(Color3B::RED);
@@ -170,7 +170,7 @@ bool PetCard::init() {
 		return false;
 	this->addChild(cardNode);
 	auto layoutSize = this->getContentSize();
-	cardNode->setScale(CARD_SCALE_DOWN); // *TODO: Nen tinh toan ra gia tri scale, sao cho kich thuong card bang dung voi CARD_SIZE
+	cardNode->setScale(1.0f); // *TODO: Nen tinh toan ra gia tri scale, sao cho kich thuong card bang dung voi CARD_SIZE
 	cardNode->setPosition(layoutSize.width / 2, layoutSize.height / 2);
 
 	cardLayout = dynamic_cast<ui::Layout*>(cardNode->getChildByName("Card_Layout"));
@@ -334,7 +334,7 @@ bool EnergyCard::init() {
 	this->addChild(cardNode);
 	auto layoutSize = this->getContentSize();
 
-	cardNode->setScale(CARD_SCALE_DOWN); // *TODO: Nen tinh toan ra gia tri scale, sao cho kich thuong card bang dung voi CARD_SIZE
+	cardNode->setScale(1.0f); // *TODO: Nen tinh toan ra gia tri scale, sao cho kich thuong card bang dung voi CARD_SIZE
 	cardNode->setPosition(layoutSize.width / 2, layoutSize.height / 2);
 
 	image = static_cast<ui::ImageView*>(Utilize::getChildByName(cardNode, "Energy_Image"));
