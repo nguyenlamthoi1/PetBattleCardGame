@@ -126,6 +126,10 @@ void BSCard::setDragEnabled(bool enabled) {
 	PetCard Class
 */
 
+PetCard::~PetCard() {
+	//returnToPool();
+}
+
 const std::string PetCard::EMPTY_PET_IMG = "pet_collection_1/000.png";
 
 PetCard* PetCard::createWithData(const std::shared_ptr<const CardData> &data) {
@@ -290,6 +294,11 @@ void PetCard::setFlip(bool flip, bool anim) {
 /*
 	Energy Card Class
 */
+
+EnergyCard::~EnergyCard() {
+	//returnToPool();
+}
+
 
 EnergyCard* EnergyCard::createWithData(const std::shared_ptr<const CardData> &data) {
 	auto card = new (nothrow) EnergyCard();

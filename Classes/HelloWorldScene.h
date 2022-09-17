@@ -36,6 +36,26 @@ protected:
 	unsigned int stackedNum = 0;
 };
 
+class SelectedCardHolder : public cocos2d::ui::Layout {
+public:
+	using CardId = std::string;
+	static SelectedCardHolder* create();
+	SelectedCardHolder();
+	virtual ~SelectedCardHolder();
+
+	cocos2d::Node* getRoot() const { return root; }
+protected:
+	virtual bool init() override;
+
+	cocos2d::Node *root = nullptr;
+	cocos2d::ui::Layout *container = nullptr;
+	cocos2d::ui::ImageView *numPanel = nullptr;
+	cocos2d::ui::Text *numLabel = nullptr;
+
+	CardId cid;
+	unsigned int stackedNum = 0;
+};
+
 class CardSelector : public IEventsHandler
 {
 public:
@@ -67,6 +87,7 @@ protected:
 
 	virtual bool init();
 	bool initUnselListView();
+	bool initSelListView();
 
 	cocos2d::Node *root = nullptr;
 
@@ -75,7 +96,13 @@ protected:
 	cocos2d::ui::ListView* unselectedListView = nullptr;
 	cocos2d::ui::Button *unselectedPrevBtn = nullptr;
 	cocos2d::ui::Button *unselectedNextBtn = nullptr;
-	std::vector<UnselectedCardHolder*> holderVec;
+	std::vector<UnselectedCardHolder*> unSelHolderVec;
+
+	cocos2d::ui::Layout *selectedPanel = nullptr;
+	cocos2d::ui::ListView* selectedListView = nullptr;
+	cocos2d::ui::Button *selectedPrevBtn = nullptr;
+	cocos2d::ui::Button *selectedNextBtn = nullptr;
+	std::vector<SelectedCardHolder*> selHolderVec;
 };
 
 

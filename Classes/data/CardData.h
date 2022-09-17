@@ -7,11 +7,14 @@
 #include <map>
 #include <set>
 #include <vector>
+#include <memory>
 
 class MoveData;
 
 class CardData{
 public:
+	static bool checkSelectType(GConfig::SelectType type, const std::shared_ptr<const CardData> &data);
+	
 	using CardId = std::string;
 	enum class Type {
 		None,

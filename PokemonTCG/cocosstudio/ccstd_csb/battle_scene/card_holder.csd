@@ -27,16 +27,6 @@
                 <PrePosition X="0.4737" Y="0.4818" />
                 <PreSize X="0.0000" Y="0.0000" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Ex(delete)" Visible="False" ActionTag="2023373604" VisibleForFrame="False" Tag="186" IconVisible="True" LeftMargin="45.0000" RightMargin="50.0000" TopMargin="71.0000" BottomMargin="66.0000" StretchWidthEnable="False" StretchHeightEnable="False" InnerActionSpeed="1.0000" CustomSizeEnabled="False" ctype="ProjectNodeObjectData">
-                <Size X="0.0000" Y="0.0000" />
-                <AnchorPoint />
-                <Position X="45.0000" Y="66.0000" />
-                <Scale ScaleX="0.6000" ScaleY="0.6000" />
-                <CColor A="255" R="255" G="255" B="255" />
-                <PrePosition X="0.4737" Y="0.4818" />
-                <PreSize X="0.0000" Y="0.0000" />
-                <FileData Type="Normal" Path="ccstd_csb/cards/pokemon_card_2.csd" Plist="" />
-              </AbstractNodeData>
               <AbstractNodeData Name="Hd_HpPanel" ActionTag="962443006" VisibleForFrame="False" Tag="277" IconVisible="False" LeftMargin="35.0000" RightMargin="1.0000" TopMargin="-9.7100" BottomMargin="121.7100" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Enable="True" LeftEage="6" RightEage="6" TopEage="6" BottomEage="6" Scale9OriginX="6" Scale9OriginY="6" Scale9Width="97" Scale9Height="38" ctype="PanelObjectData">
                 <Size X="59.0000" Y="25.0000" />
                 <Children>
@@ -112,6 +102,19 @@
                 <FontResource Type="Normal" Path="ccstd_fonts/GillSans_ttf/Gill Sans.ttf" Plist="" />
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
+              </AbstractNodeData>
+              <AbstractNodeData Name="Select_Panel" ActionTag="-578307366" Tag="2841" IconVisible="False" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" ctype="PanelObjectData">
+                <Size X="95.0000" Y="137.0000" />
+                <AnchorPoint />
+                <Position />
+                <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                <CColor A="255" R="255" G="255" B="255" />
+                <PrePosition />
+                <PreSize X="1.0000" Y="1.0000" />
+                <SingleColor A="255" R="150" G="200" B="255" />
+                <FirstColor A="255" R="150" G="200" B="255" />
+                <EndColor A="255" R="255" G="255" B="255" />
+                <ColorVector ScaleY="1.0000" />
               </AbstractNodeData>
             </Children>
             <AnchorPoint />

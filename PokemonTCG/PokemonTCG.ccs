@@ -256,9 +256,10 @@
             <Folder Name="prefabs">
               <Project Name="energy_item.csd" Type="Node" />
               <Project Name="Prize_Holder.csd" Type="Node" />
-              <Project Name="selected_card_holder.csd.csd" Type="Node" />
-              <Project Name="unselected_card_holder_2.csd" Type="Node" />
-              <Project Name="unselected_card_holder_1.csd" Type="Layer" />
+              <Project Name="selected_card_holder.csd" Type="Node" />
+              <Project Name="selected_card_holder_2.csd" Type="Node" />
+              <Project Name="unselected_card_holder.csd" Type="Layer" />
+              <Project Name="selected_card_holder_1.csd" Type="Layer" />
             </Folder>
             <Project Name="battle_scene.csd" Type="Scene" />
             <Project Name="card_holder.csd" Type="Node" />

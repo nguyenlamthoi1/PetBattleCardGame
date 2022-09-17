@@ -80,7 +80,7 @@ protected:
 
 class PetCard : public BSCard {
 public:
-
+	virtual ~PetCard();
 	static PetCard* createWithData(const std::shared_ptr<const CardData> &data);
 	//static PetCard* create(const PetCardData *data);
 	static PetCard* create();
@@ -122,6 +122,8 @@ public:
 	static EnergyCard* createWithData(const std::shared_ptr<const CardData> &data);
 	//static EnergyCard* create(const PetCardData *data);
 	static EnergyCard* create();
+
+	virtual ~EnergyCard();
 
 	virtual bool init() override;
 	virtual bool initWithData(const std::shared_ptr<const CardData> &data) override;

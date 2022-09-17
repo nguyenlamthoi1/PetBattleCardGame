@@ -92,8 +92,13 @@ Scene* HelloWorld::createScene()
     return true;
 }*/
 
-UnselectedCardHolder* UnselectedCardHolder::create() {
-	auto ret = new UnselectedCardHolder();
+
+
+
+////////////////////////
+
+SelectedCardHolder* SelectedCardHolder::create() {
+	auto ret = new SelectedCardHolder();
 	if (ret && ret->init()) {
 		ret->autorelease();
 		return ret;
@@ -106,21 +111,21 @@ UnselectedCardHolder* UnselectedCardHolder::create() {
 	return ret;
 }
 
-UnselectedCardHolder::UnselectedCardHolder() {}
+SelectedCardHolder::SelectedCardHolder() {}
 
-UnselectedCardHolder::~UnselectedCardHolder() {
+SelectedCardHolder::~SelectedCardHolder() {
 	if (root) {
 		root->removeFromParent();
 		ResourcePool::returnNode(root);
 	}
 }
 
-bool UnselectedCardHolder::init() {
+bool SelectedCardHolder::init() {
 	if (!ui::Layout::init())
 		return false;
 
 	auto pool = GM_POOL;
-	root = pool->tryGetNodeCsb("ccstd_csb/battle_scene/prefabs/unselected_card_holder_1.csb");
+	root = pool->tryGetNodeCsb("ccstd_csb/battle_scene/prefabs/selected_card_holder_1.csb");
 	if (!root)
 		return false;
 	this->addChild(root);
@@ -134,14 +139,7 @@ bool UnselectedCardHolder::init() {
 	return true;
 }
 
-void UnselectedCardHolder::renderWith(const CardId &id, unsigned int num) {
-	cid = id;
-	stackedNum = num;
-
-	numPanel->setVisible(stackedNum > 1);
-	numLabel->setString(to_string(stackedNum));
-}
-
+////////////////////////
 
 /*
 	BSCardSelector Class
@@ -170,15 +168,15 @@ bool CardSelector::init() {
 	unselectedPanel = dynamic_cast<ui::Layout*>(root->getChildByName("Unselected_Panel"));
 	unselectedPrevBtn = dynamic_cast<ui::Button*>(unselectedPanel->getChildByName("Unsel_Prev_Button"));
 	unselectedNextBtn = dynamic_cast<ui::Button*>(unselectedPanel->getChildByName("Unsel_Next_Button"));
-	//unselectedPrevBtn->setVisible(false);
-	//unselectedNextBtn->setVisible(false);
 	unselectedListView = dynamic_cast<ui::ListView*>(unselectedPanel->getChildByName("UnSel_ListView"));
 	initUnselListView();
-	//doBtn = dynamic_cast<ui::Button*>(root->getChildByName("DoBtn"));
-	//doBtn->addClickEventListener([this](Ref *sender) {
-	//	doFunc();
-	//	});
 
+
+	selectedPanel = dynamic_cast<ui::Layout*>(root->getChildByName("Selected_Panel"));
+	selectedPrevBtn = dynamic_cast<ui::Button*>(selectedPanel->getChildByName("Prev_Button"));
+	selectedNextBtn = dynamic_cast<ui::Button*>(selectedPanel->getChildByName("Next_Button"));
+	selectedListView = dynamic_cast<ui::ListView*>(selectedPanel->getChildByName("ListView"));
+	initSelListView();
 
 	return true;
 }
@@ -186,22 +184,37 @@ bool CardSelector::init() {
 void CardSelector::update(float t) {
 	if (!root->isVisible())
 		return;
-	if (unselectedListView && !holderVec.empty()) {
+	if (unselectedListView && !unSelHolderVec.empty()) {
 		auto last = unselectedListView->getRightmostItemInCurrentView();
 		auto first = unselectedListView->getLeftmostItemInCurrentView();
-		if (last == holderVec[holderVec.size() - 1]) {
+		if (last == unSelHolderVec[unSelHolderVec.size() - 1]) {
 			unselectedNextBtn->setVisible(false);
 		}
 		else
 			unselectedNextBtn->setVisible(true);
 
-		if (first == holderVec[0]) {
+		if (first == unSelHolderVec[0]) {
 			unselectedPrevBtn->setVisible(false);
 		}
 		else
 			unselectedPrevBtn->setVisible(true);
 	}
 
+	if (selectedListView && !selHolderVec.empty()) {
+		auto last = selectedListView->getRightmostItemInCurrentView();
+		auto first = selectedListView->getLeftmostItemInCurrentView();
+		if (last == selHolderVec[selHolderVec.size() - 1]) {
+			selectedNextBtn->setVisible(false);
+		}
+		else
+			selectedNextBtn->setVisible(true);
+
+		if (first == selHolderVec[0]) {
+			selectedPrevBtn->setVisible(false);
+		}
+		else
+			selectedPrevBtn->setVisible(true);
+	}
 }
 
 
@@ -220,6 +233,7 @@ bool CardSelector::initUnselListView() {
 	listView->setClippingEnabled(true);
 	listView->setItemsMargin(Margin);
 	listView->setPositionX(vSize.width / 2.0);
+	listView->setScrollBarEnabled(false);
 	
 	auto lvLeftPos = listView->getLeftBoundary();
 	auto lvRightPos = listView->getRightBoundary();
@@ -242,46 +256,91 @@ bool CardSelector::initUnselListView() {
 	return true;
 }
 
+bool CardSelector::initSelListView() {
+	if (!selectedListView)
+		return false;
+	auto &listView = selectedListView;
+
+	auto vSize = Director::getInstance()->getVisibleSize();
+	constexpr float Margin = 20.0f;
+	constexpr unsigned int MaxPerRow = 4;
+	constexpr float ItemWidth = 195;
+	auto listViewSize = listView->getContentSize();
+	auto newlistViewSize = Size(ItemWidth * MaxPerRow + Margin * (MaxPerRow - 1), listViewSize.height);
+	listView->setContentSize(newlistViewSize);
+	listView->setClippingEnabled(true);
+	listView->setItemsMargin(Margin);
+	listView->setPositionX(vSize.width / 2.0);
+	listView->setScrollBarEnabled(false);
+
+	auto lvLeftPos = listView->getLeftBoundary();
+	auto lvRightPos = listView->getRightBoundary();
+	selectedPrevBtn->setPosition(Vec2(lvLeftPos - 50.0f, listView->getPositionY()));
+	selectedNextBtn->setPosition(Vec2(lvRightPos + 50.0f, listView->getPositionY()));
+
+	return true;
+}
+
+
 void CardSelector::clearUI() {
-	if (unselectedListView) {
-		holderVec.clear();
+	if (unselectedListView) 
 		unselectedListView->removeAllItems();
-	}
+	unSelHolderVec.clear();
+
+	if (selectedListView) 
+		selectedListView->removeAllItems();
+	selHolderVec.clear();
+
 	Director::getInstance()->getScheduler()->unschedule(UPDATE_SCHEDULER, this);
 }
 
 void CardSelector::showToSelect(const vector<CardId> &cidVec, const SelectMap &selMap) {
-	clearUI();
-	root->setVisible(true);
-	
-	map<CardId, unsigned int> stackedMap;
-	for (const auto &cid : cidVec) {
-		stackedMap[cid] += 1;
-	}
+	//clearUI();
+	//root->setVisible(true);
+	//
+	//map<CardId, unsigned int> stackedMap;
+	//for (const auto &cid : cidVec) {
+	//	stackedMap[cid] += 1;
+	//}
 
-	unsigned int i = 0;
-	for (const auto &itr : stackedMap) {
-		const auto &cid = itr.first;
-		const auto &num = itr.second;
+	//unsigned int i = 0;
+	//for (const auto &itr : stackedMap) {
+	//	const auto &cid = itr.first;
+	//	const auto &num = itr.second;
 
-		auto holder = UnselectedCardHolder::create();
-		holder->renderWith(cid, num);
-		unselectedListView->addChild(holder);
-		holderVec.push_back(holder);
-		++i;
-	}
+	//	auto holder = UnselectedCardHolder::create();
+	//	holder->renderWith(cid, num);
+	//	unselectedListView->addChild(holder);
+	//	unSelHolderVec.push_back(holder);
+	//	++i;
+	//}
 
-	unselectedNextBtn->addClickEventListener([this](Ref *sender) {
-		unselectedListView->jumpToRight();
-		});
+	//unselectedNextBtn->addClickEventListener([this](Ref *sender) {
+	//	unselectedListView->jumpToRight();
+	//	});
 
-	unselectedPrevBtn->addClickEventListener([this](Ref *sender) {
-		unselectedListView->jumpToLeft();
-		});
+	//unselectedPrevBtn->addClickEventListener([this](Ref *sender) {
+	//	unselectedListView->jumpToLeft();
+	//	});
 
-	unselectedListView->requestDoLayout();
-	
-	Director::getInstance()->getScheduler()->schedule(std::bind(&CardSelector::update, this, placeholders::_1), this, 0, CC_REPEAT_FOREVER, 0, false, UPDATE_SCHEDULER);
+	//unselectedListView->requestDoLayout();
+	//
+
+	////------------//
+
+	//for (const auto &itr : selMap) {
+	//	auto selectType = itr.first;
+	//	auto num = itr.second;
+
+	//	for (unsigned int i = 0; i < num; ++i) {
+	//		auto holder = SelectedCardHolder::create();
+	//		selectedListView->addChild(holder);
+	//		selHolderVec.push_back(holder);
+	//	}
+	//}
+	//selectedListView->requestDoLayout();
+	////-------------//
+	//Director::getInstance()->getScheduler()->schedule(std::bind(&CardSelector::update, this, placeholders::_1), this, 0, CC_REPEAT_FOREVER, 0, false, UPDATE_SCHEDULER);
 
 }
 
@@ -343,8 +402,8 @@ bool HelloWorld::init() {
 
 void HelloWorld::doFunc1() {
 	CCLOG("Show Selector");
-	vector<string> cids = { "E1", "P1", "P2", "P1", "E1", "P2", "P3", "E2",  "1", "2", "3", "4"};
-	//vector<string> cids = { "E1", "P1", "P2"};
+	//vector<string> cids = { "E1", "P1", "P2", "P1", "E1", "P2", "P3", "E2",  "1", "2", "3", "4"};
+	vector<string> cids = { "E1", "P1", "P2"};
 
 	CardSelector::SelectMap selmap = {
 		{GConfig::SelectType::Basic_Energy_Fire, 2},

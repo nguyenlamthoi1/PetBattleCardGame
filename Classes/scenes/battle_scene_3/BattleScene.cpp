@@ -87,6 +87,7 @@ bsres(make_shared<BSResources>())
 
 BattleScene::~BattleScene(){
 	curBtlScn = nullptr;
+	removeAllChildren();
 	//clearPipeline();
 	//detailedCard = nullptr;
 
@@ -186,7 +187,7 @@ bool BattleScene::init() {
 
 	// Khoi tao CardSelector
 	cardSelector = BSCardSelector::create(this);
-	cardSelector->getRoot()->setVisible(true);
+	cardSelector->getRoot()->setVisible(false);
 
 	// + Detailed Card
 	detailLayout = dynamic_cast<ui::Layout*>(root->getChildByName("Detail_Layout"));
@@ -240,12 +241,13 @@ void BattleScene::startGame() {
 	//	
 	//	});
 
-	vector<string> cids = { "E1", "P1", "P2", "P1", "E1", "P2", "P3", "E2" };
+	/*vector<string> cids = { "E1", "P1", "P2", "P1", "E1", "P2", "P3", "E2" };
 	BSCardSelector::SelectMap selmap = {
-		{GConfig::SelectType::Basic_Energy_Fire, 2},
+		{GConfig::SelectType::Basic_Energy_Any, 2},
+		{GConfig::SelectType::Pet_Any, 2},
 	};
 
-	cardSelector->showToSelect(cids, selmap);
+	cardSelector->showToSelect(cids, selmap, true);*/
 
 	startPipeline();
 

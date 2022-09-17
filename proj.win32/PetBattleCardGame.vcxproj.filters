@@ -267,6 +267,12 @@
     <ClCompile Include="..\Classes\scenes\battle_scene_3\card_selector\BSCardSelector.cpp">
       <Filter>src\scenes\battle_scene\card_selector</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\card_selector\SelectedCardHolder.cpp">
+      <Filter>src\scenes\battle_scene\card_selector</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\card_selector\UnSelectedCardHolder.cpp">
+      <Filter>src\scenes\battle_scene\card_selector</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -558,6 +564,12 @@
       <Filter>src\scenes\battle_scene\prize_selector</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\scenes\battle_scene_3\card_selector\BSCardSelector.h">
+      <Filter>src\scenes\battle_scene\card_selector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\card_selector\SelectedCardHolder.h">
+      <Filter>src\scenes\battle_scene\card_selector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\card_selector\UnSelectedCardHolder.h">
       <Filter>src\scenes\battle_scene\card_selector</Filter>
     </ClInclude>
   </ItemGroup>

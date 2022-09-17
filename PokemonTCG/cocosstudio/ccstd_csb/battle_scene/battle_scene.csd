@@ -59,7 +59,7 @@
                     <OutlineColor A="255" R="255" G="0" B="0" />
                     <ShadowColor A="255" R="110" G="110" B="110" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="Container" ActionTag="1833669280" Tag="922" IconVisible="False" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
+                  <AbstractNodeData Name="Container" ActionTag="1833669280" Tag="922" IconVisible="False" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
                     <Size X="400.0000" Y="100.0000" />
                     <AnchorPoint />
                     <Position />
@@ -88,7 +88,7 @@
               <AbstractNodeData Name="Active_Board" ActionTag="-1634641482" Tag="720" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="586.5000" RightMargin="586.5000" TopMargin="196.0000" BottomMargin="16.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Enable="True" LeftEage="10" RightEage="10" TopEage="10" BottomEage="10" Scale9OriginX="10" Scale9OriginY="10" Scale9Width="256" Scale9Height="374" ctype="PanelObjectData">
                 <Size X="107.0000" Y="148.0000" />
                 <Children>
-                  <AbstractNodeData Name="title_0" ActionTag="-1527115504" Tag="131" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="9.6750" RightMargin="4.3250" TopMargin="67.3000" BottomMargin="37.7000" FontSize="36" LabelText="Active" HorizontalAlignmentType="HT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                  <AbstractNodeData Name="Name" ActionTag="-1527115504" Tag="131" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="9.6750" RightMargin="4.3250" TopMargin="67.3000" BottomMargin="37.7000" FontSize="36" LabelText="Active" HorizontalAlignmentType="HT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
                     <Size X="93.0000" Y="43.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="56.1750" Y="59.2000" />
@@ -342,7 +342,7 @@
                 <EndColor A="255" R="255" G="255" B="255" />
                 <ColorVector ScaleY="1.0000" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Bench_Board" ActionTag="-1247109314" Tag="481" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="440.0000" RightMargin="440.0000" TopMargin="162.4000" BottomMargin="97.6000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Enable="True" LeftEage="6" RightEage="6" TopEage="6" BottomEage="6" Scale9OriginX="6" Scale9OriginY="6" Scale9Width="264" Scale9Height="382" ctype="PanelObjectData">
+              <AbstractNodeData Name="Bench_Board" ActionTag="-1247109314" Tag="481" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="440.0000" RightMargin="440.0000" TopMargin="162.4000" BottomMargin="97.6000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Enable="True" LeftEage="6" RightEage="6" TopEage="6" BottomEage="6" Scale9OriginX="6" Scale9OriginY="6" Scale9Width="264" Scale9Height="382" ctype="PanelObjectData">
                 <Size X="400.0000" Y="100.0000" />
                 <Children>
                   <AbstractNodeData Name="Name" ActionTag="-1066993553" Tag="129" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="155.5000" RightMargin="155.5000" TopMargin="28.5000" BottomMargin="28.5000" FontSize="36" LabelText="Bench" HorizontalAlignmentType="HT_Center" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
@@ -357,7 +357,7 @@
                     <OutlineColor A="255" R="255" G="0" B="0" />
                     <ShadowColor A="255" R="110" G="110" B="110" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="Container" ActionTag="1473242532" Tag="921" IconVisible="False" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
+                  <AbstractNodeData Name="Container" ActionTag="1473242532" Tag="921" IconVisible="False" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
                     <Size X="400.0000" Y="100.0000" />
                     <AnchorPoint />
                     <Position />
@@ -767,7 +767,7 @@
             <PreSize X="1.0000" Y="1.0000" />
             <FileData Type="Normal" Path="ccstd_csb/battle_scene/select_prize_layout.csd" Plist="" />
           </AbstractNodeData>
-          <AbstractNodeData Name="Card_Selector" ActionTag="1369410982" Tag="995" IconVisible="True" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" LeftMargin="0.0001" RightMargin="-0.0001" StretchWidthEnable="False" StretchHeightEnable="False" InnerActionSpeed="1.0000" CustomSizeEnabled="False" ctype="ProjectNodeObjectData">
+          <AbstractNodeData Name="Card_Selector" ActionTag="1369410982" VisibleForFrame="False" Tag="995" IconVisible="True" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" LeftMargin="0.0001" RightMargin="-0.0001" StretchWidthEnable="False" StretchHeightEnable="False" InnerActionSpeed="1.0000" CustomSizeEnabled="False" ctype="ProjectNodeObjectData">
             <Size X="1280.0000" Y="720.0000" />
             <AnchorPoint />
             <Position X="0.0001" />

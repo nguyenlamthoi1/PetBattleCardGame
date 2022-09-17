@@ -1,15 +1,15 @@
 <GameFile>
-  <PropertyGroup Name="TestLayout" Type="Layer" ID="fa3ef4b8-2e41-4ba4-97a9-9b2a041e2591" Version="3.10.0.0" />
+  <PropertyGroup Name="unselected_card_holder_2" Type="Node" ID="d629dcc7-8ac8-4139-b6eb-1ac3cee59e35" Version="3.10.0.0" />
   <Content ctype="GameProjectContent">
     <Content>
       <Animation Duration="0" Speed="1.0000" />
-      <ObjectData Name="TestRoot" Tag="488" ctype="GameLayerObjectData">
-        <Size X="195.0000" Y="283.5000" />
+      <ObjectData Name="Root" Tag="227" ctype="GameNodeObjectData">
+        <Size X="0.0000" Y="0.0000" />
         <Children>
-          <AbstractNodeData Name="Container" ActionTag="-619649043" Tag="525" IconVisible="False" RightMargin="-195.0000" TopMargin="-283.5000" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Enable="True" LeftEage="6" RightEage="6" TopEage="6" BottomEage="6" Scale9OriginX="6" Scale9OriginY="6" Scale9Width="390" Scale9Height="567" ctype="PanelObjectData">
+          <AbstractNodeData Name="Container" ActionTag="-573985708" Tag="2218" IconVisible="False" RightMargin="-390.0000" TopMargin="-567.0000" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Enable="True" LeftEage="6" RightEage="6" TopEage="6" BottomEage="6" Scale9OriginX="6" Scale9OriginY="6" Scale9Width="390" Scale9Height="567" ctype="PanelObjectData">
             <Size X="390.0000" Y="567.0000" />
             <Children>
-              <AbstractNodeData Name="Card_Marker" ActionTag="-2098850276" Tag="526" IconVisible="True" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="185.0160" RightMargin="204.9840" TopMargin="283.5000" BottomMargin="283.5000" ctype="SingleNodeObjectData">
+              <AbstractNodeData Name="Card_Marker" ActionTag="2015210520" Tag="2219" IconVisible="True" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="185.0160" RightMargin="204.9840" TopMargin="283.5000" BottomMargin="283.5000" ctype="SingleNodeObjectData">
                 <Size X="0.0000" Y="0.0000" />
                 <AnchorPoint />
                 <Position X="185.0160" Y="283.5000" />
@@ -18,7 +18,7 @@
                 <PrePosition X="0.4744" Y="0.5000" />
                 <PreSize X="0.0000" Y="0.0000" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Select_Border" ActionTag="1423968610" Tag="559" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" LeftMargin="-7.3228" RightMargin="-4.6772" TopMargin="-5.7228" BottomMargin="-6.2771" LeftEage="15" RightEage="15" TopEage="15" BottomEage="15" Scale9OriginX="15" Scale9OriginY="15" Scale9Width="372" Scale9Height="549" ctype="ImageViewObjectData">
+              <AbstractNodeData Name="Select_Border" ActionTag="1564857924" Tag="2220" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" LeftMargin="-7.3228" RightMargin="-4.6772" TopMargin="-5.7228" BottomMargin="-6.2771" LeftEage="15" RightEage="15" TopEage="15" BottomEage="15" Scale9OriginX="15" Scale9OriginY="15" Scale9Width="372" Scale9Height="549" ctype="ImageViewObjectData">
                 <Size X="402.0000" Y="579.0000" />
                 <AnchorPoint />
                 <Position X="-7.3228" Y="-6.2771" />
@@ -28,10 +28,10 @@
                 <PreSize X="1.0308" Y="1.0212" />
                 <FileData Type="PlistSubImage" Path="bs_ui/selected_border_green.png" Plist="ccstd_assets/bs_ui.plist" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Num_Panel" ActionTag="-1262016619" Tag="560" IconVisible="False" PositionPercentXEnabled="True" VerticalEdge="BottomEdge" LeftMargin="163.5000" RightMargin="163.5000" TopMargin="514.0000" BottomMargin="-10.0000" LeftEage="20" RightEage="20" TopEage="20" BottomEage="20" Scale9OriginX="20" Scale9OriginY="20" Scale9Width="23" Scale9Height="23" ctype="ImageViewObjectData">
+              <AbstractNodeData Name="Num_Panel" ActionTag="-1398806022" Tag="2221" IconVisible="False" PositionPercentXEnabled="True" VerticalEdge="BottomEdge" LeftMargin="163.5000" RightMargin="163.5000" TopMargin="514.0000" BottomMargin="-10.0000" LeftEage="20" RightEage="20" TopEage="20" BottomEage="20" Scale9OriginX="20" Scale9OriginY="20" Scale9Width="23" Scale9Height="23" ctype="ImageViewObjectData">
                 <Size X="63.0000" Y="63.0000" />
                 <Children>
-                  <AbstractNodeData Name="Num_Label" ActionTag="-1536560447" Tag="561" IconVisible="False" PositionPercentXEnabled="True" LeftMargin="20.5000" RightMargin="20.5000" TopMargin="22.0000" BottomMargin="-2.0000" FontSize="36" LabelText="4" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                  <AbstractNodeData Name="Num_Label" ActionTag="1485563396" Tag="2222" IconVisible="False" PositionPercentXEnabled="True" LeftMargin="20.5000" RightMargin="20.5000" TopMargin="22.0000" BottomMargin="-2.0000" FontSize="36" LabelText="4" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
                     <Size X="22.0000" Y="43.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="31.5000" Y="19.5000" />
@@ -58,7 +58,7 @@
             <Scale ScaleX="0.5000" ScaleY="0.5000" />
             <CColor A="255" R="255" G="255" B="255" />
             <PrePosition />
-            <PreSize X="2.0000" Y="2.0000" />
+            <PreSize X="0.0000" Y="0.0000" />
             <FileData Type="PlistSubImage" Path="bs_ui/selected_border_blue.png" Plist="ccstd_assets/bs_ui.plist" />
             <SingleColor A="255" R="150" G="200" B="255" />
             <FirstColor A="255" R="150" G="200" B="255" />
