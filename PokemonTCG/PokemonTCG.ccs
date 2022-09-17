@@ -27,18 +27,18 @@
             <PlistImageFile Name="battle_scene_white_square.png" Key="battle_scene/white_square.png" />
           </PlistImageFolder>
           <PlistImageFolder Image="bs_ui.png" PListFile="bs_ui.plist" Name=".bs_ui_PList.Dir">
-            <PlistImageFile Name="bs_ui_selected_border_yellow.png" Key="bs_ui/selected_border_yellow.png" />
-            <PlistImageFile Name="bs_ui_selected_border_blue.png" Key="bs_ui/selected_border_blue.png" />
-            <PlistImageFile Name="bs_ui_selected_border_green.png" Key="bs_ui/selected_border_green.png" />
-            <PlistImageFile Name="bs_ui_prize_border_0.png" Key="bs_ui/prize_border_0.png" />
-            <PlistImageFile Name="bs_ui_prize_border_1.png" Key="bs_ui/prize_border_1.png" />
-            <PlistImageFile Name="bs_ui_selected_card_blue.png" Key="bs_ui/selected_card_blue.png" />
-            <PlistImageFile Name="bs_ui_trainer_frame.png" Key="bs_ui/trainer_frame.png" />
             <PlistImageFile Name="bs_ui_green_button_1.png" Key="bs_ui/green_button_1.png" />
             <PlistImageFile Name="bs_ui_green_button_2.png" Key="bs_ui/green_button_2.png" />
+            <PlistImageFile Name="bs_ui_prize_border_0.png" Key="bs_ui/prize_border_0.png" />
+            <PlistImageFile Name="bs_ui_prize_border_1.png" Key="bs_ui/prize_border_1.png" />
+            <PlistImageFile Name="bs_ui_selected_border_blue.png" Key="bs_ui/selected_border_blue.png" />
+            <PlistImageFile Name="bs_ui_selected_border_green.png" Key="bs_ui/selected_border_green.png" />
+            <PlistImageFile Name="bs_ui_selected_border_yellow.png" Key="bs_ui/selected_border_yellow.png" />
+            <PlistImageFile Name="bs_ui_selected_card_blue.png" Key="bs_ui/selected_card_blue.png" />
+            <PlistImageFile Name="bs_ui_selected_num.png" Key="bs_ui/selected_num.png" />
             <PlistImageFile Name="bs_ui_setting_btn_0.png" Key="bs_ui/setting_btn_0.png" />
             <PlistImageFile Name="bs_ui_setting_btn_1.png" Key="bs_ui/setting_btn_1.png" />
-            <PlistImageFile Name="bs_ui_selected_num.png" Key="bs_ui/selected_num.png" />
+            <PlistImageFile Name="bs_ui_trainer_frame.png" Key="bs_ui/trainer_frame.png" />
             <PlistImageFile Name="bs_ui_white_square.png" Key="bs_ui/white_square.png" />
           </PlistImageFolder>
           <PlistImageFolder Image="character_portraits_x3.png" PListFile="character_portraits_x3.plist" Name=".character_portraits_x3_PList.Dir">
@@ -255,17 +255,18 @@
           <Folder Name="battle_scene">
             <Folder Name="prefabs">
               <Project Name="energy_item.csd" Type="Node" />
-              <Project Name="unselected_card_holder.csd" Type="Node" />
-              <Project Name="selected_card_holder.csd.csd" Type="Node" />
               <Project Name="Prize_Holder.csd" Type="Node" />
+              <Project Name="selected_card_holder.csd.csd" Type="Node" />
+              <Project Name="unselected_card_holder_2.csd" Type="Node" />
+              <Project Name="unselected_card_holder_1.csd" Type="Layer" />
             </Folder>
             <Project Name="battle_scene.csd" Type="Scene" />
             <Project Name="card_holder.csd" Type="Node" />
             <Project Name="flip_coin_layer.csd" Type="Layer" />
             <Project Name="msg_layer.csd" Type="Layer" />
-            <Project Name="select_card_layer.csd" Type="Layer" />
-            <Project Name="select_card_scene.csd" Type="Scene" />
+            <Project Name="select_card_layout.csd" Type="Layer" />
             <Project Name="select_prize_layout.csd" Type="Layer" />
+            <Project Name="TestCard.csd" Type="Layer" />
           </Folder>
           <Folder Name="cards">
             <Project Name="energy_card.csd" Type="Node" />

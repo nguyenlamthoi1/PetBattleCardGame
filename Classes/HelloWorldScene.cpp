@@ -15,6 +15,7 @@
 
 USING_NS_CC;
 UTILIZE_USE_NS;
+using namespace std;
 
 Scene* HelloWorld::createScene()
 {
@@ -91,6 +92,204 @@ Scene* HelloWorld::createScene()
     return true;
 }*/
 
+UnselectedCardHolder* UnselectedCardHolder::create() {
+	auto ret = new UnselectedCardHolder();
+	if (ret && ret->init()) {
+		ret->autorelease();
+		return ret;
+	}
+	else {
+		delete ret;
+		ret = nullptr;
+	}
+
+	return ret;
+}
+
+UnselectedCardHolder::UnselectedCardHolder() {}
+
+UnselectedCardHolder::~UnselectedCardHolder() {
+	if (root) {
+		root->removeFromParent();
+		ResourcePool::returnNode(root);
+	}
+}
+
+bool UnselectedCardHolder::init() {
+	if (!ui::Layout::init())
+		return false;
+
+	auto pool = GM_POOL;
+	root = pool->tryGetNodeCsb("ccstd_csb/battle_scene/prefabs/unselected_card_holder_1.csb");
+	if (!root)
+		return false;
+	this->addChild(root);
+
+	container = dynamic_cast<ui::Layout*>(root->getChildByName("Container"));
+	numPanel = dynamic_cast<ui::ImageView*>(container->getChildByName("Num_Panel"));
+	numLabel = dynamic_cast<ui::Text*>(numPanel->getChildByName("Num_Label"));
+
+	this->setContentSize(root->getContentSize());
+
+	return true;
+}
+
+void UnselectedCardHolder::renderWith(const CardId &id, unsigned int num) {
+	cid = id;
+	stackedNum = num;
+
+	numPanel->setVisible(stackedNum > 1);
+	numLabel->setString(to_string(stackedNum));
+}
+
+
+/*
+	BSCardSelector Class
+*/
+
+shared_ptr<CardSelector> CardSelector::create(Node *root) {
+	auto ret = make_shared<CardSelector>(root);
+	if (ret && ret->init()) 
+		return ret;
+	return nullptr;
+}
+
+CardSelector::CardSelector(cocos2d::Node *rootnode) : root(rootnode) {}
+CardSelector::~CardSelector(){
+	clearUI();
+}
+const string CardSelector::UPDATE_SCHEDULER = "UPDATE_SCHEDULER";
+const string CardSelector::UPDATE_SCHEDULER2 = "UPDATE_SCHEDULER2";
+
+bool CardSelector::init() {
+	if (!root)
+		return false;
+
+	root->setPosition(Vec2(0, 0));
+
+	unselectedPanel = dynamic_cast<ui::Layout*>(root->getChildByName("Unselected_Panel"));
+	unselectedPrevBtn = dynamic_cast<ui::Button*>(unselectedPanel->getChildByName("Unsel_Prev_Button"));
+	unselectedNextBtn = dynamic_cast<ui::Button*>(unselectedPanel->getChildByName("Unsel_Next_Button"));
+	//unselectedPrevBtn->setVisible(false);
+	//unselectedNextBtn->setVisible(false);
+	unselectedListView = dynamic_cast<ui::ListView*>(unselectedPanel->getChildByName("UnSel_ListView"));
+	initUnselListView();
+	//doBtn = dynamic_cast<ui::Button*>(root->getChildByName("DoBtn"));
+	//doBtn->addClickEventListener([this](Ref *sender) {
+	//	doFunc();
+	//	});
+
+
+	return true;
+}
+
+void CardSelector::update(float t) {
+	if (!root->isVisible())
+		return;
+	if (unselectedListView && !holderVec.empty()) {
+		auto last = unselectedListView->getRightmostItemInCurrentView();
+		auto first = unselectedListView->getLeftmostItemInCurrentView();
+		if (last == holderVec[holderVec.size() - 1]) {
+			unselectedNextBtn->setVisible(false);
+		}
+		else
+			unselectedNextBtn->setVisible(true);
+
+		if (first == holderVec[0]) {
+			unselectedPrevBtn->setVisible(false);
+		}
+		else
+			unselectedPrevBtn->setVisible(true);
+	}
+
+}
+
+
+bool CardSelector::initUnselListView() {
+	if (!unselectedListView)
+		return false;
+	auto &listView = unselectedListView;
+
+	auto vSize = Director::getInstance()->getVisibleSize();
+	constexpr float Margin = 20.0f;
+	constexpr unsigned int MaxPerRow = 4;
+	constexpr float ItemWidth = 195;
+	auto listViewSize = listView->getContentSize();
+	auto newlistViewSize = Size(ItemWidth * MaxPerRow + Margin * (MaxPerRow - 1), listViewSize.height);
+	listView->setContentSize(newlistViewSize);
+	listView->setClippingEnabled(true);
+	listView->setItemsMargin(Margin);
+	listView->setPositionX(vSize.width / 2.0);
+	
+	auto lvLeftPos = listView->getLeftBoundary();
+	auto lvRightPos = listView->getRightBoundary();
+	unselectedPrevBtn->setPosition(Vec2(lvLeftPos - 50.0f, listView->getPositionY()));
+	unselectedNextBtn->setPosition(Vec2(lvRightPos + 50.0f, listView->getPositionY()));
+	//listView->addEventListener([this](Ref *r, ui::ScrollView::EventType type) {
+	//	if (type == ui::ScrollView::EventType::SCROLL_TO_RIGHT) {// SCROLL_TO_TOP
+	//	  // do what you need to do 
+	//		unselectedNextBtn->setVisible(false);
+	//	}
+	//	else if (type == ui::ScrollView::EventType::SCROLL_TO_LEFT) {
+	//		unselectedPrevBtn->setVisible(false);
+
+	//	}
+	//	else if(type == ui::ScrollView::EventType::SCROLLING){
+	//		unselectedNextBtn->setVisible(true);
+	//		unselectedPrevBtn->setVisible(true);
+	//	}
+	//	});
+	return true;
+}
+
+void CardSelector::clearUI() {
+	if (unselectedListView) {
+		holderVec.clear();
+		unselectedListView->removeAllItems();
+	}
+	Director::getInstance()->getScheduler()->unschedule(UPDATE_SCHEDULER, this);
+}
+
+void CardSelector::showToSelect(const vector<CardId> &cidVec, const SelectMap &selMap) {
+	clearUI();
+	root->setVisible(true);
+	
+	map<CardId, unsigned int> stackedMap;
+	for (const auto &cid : cidVec) {
+		stackedMap[cid] += 1;
+	}
+
+	unsigned int i = 0;
+	for (const auto &itr : stackedMap) {
+		const auto &cid = itr.first;
+		const auto &num = itr.second;
+
+		auto holder = UnselectedCardHolder::create();
+		holder->renderWith(cid, num);
+		unselectedListView->addChild(holder);
+		holderVec.push_back(holder);
+		++i;
+	}
+
+	unselectedNextBtn->addClickEventListener([this](Ref *sender) {
+		unselectedListView->jumpToRight();
+		});
+
+	unselectedPrevBtn->addClickEventListener([this](Ref *sender) {
+		unselectedListView->jumpToLeft();
+		});
+
+	unselectedListView->requestDoLayout();
+	
+	Director::getInstance()->getScheduler()->schedule(std::bind(&CardSelector::update, this, placeholders::_1), this, 0, CC_REPEAT_FOREVER, 0, false, UPDATE_SCHEDULER);
+
+}
+
+void CardSelector::hide() {
+	clearUI();
+	root->setVisible(false);
+}
+
 bool HelloWorld::init() {
 	if (!Layer::init())
 		return false;
@@ -98,191 +297,81 @@ bool HelloWorld::init() {
 	auto vSize = dir->getVisibleSize();
 	auto pool = GM_POOL;
 
-	root = pool->tryGetNodeCsb("ccstd_csb/battle_scene/msg_layer.csb");
-	this->addChild(root);
-	root->setPosition(Vec2(0, 0));
+	selectorNode = pool->tryGetNodeCsb("ccstd_csb/battle_scene/select_card_layout.csb");
+	this->addChild(selectorNode);
+	ui::Helper::doLayout(selectorNode);
+	selector = CardSelector::create(selectorNode);
+	selectorNode->setVisible(false);
 
-	ui::Helper::doLayout(root);
+	auto square = ui::Layout::create();
+	square->setBackGroundColorType(ui::Layout::BackGroundColorType::SOLID);
+	square->setBackGroundColor(Color3B::BLUE);
+	square->setBackGroundColorOpacity(255);
+	square->setContentSize(Size(200, 200));
+	square->setPosition(Vec2(0, 0));
+	square->setAnchorPoint(Vec2(0, 0));
+	square->setTouchEnabled(true);
+	square->addTouchEventListener([this](Ref *sender, ui::Widget::TouchEventType ev) {
+		switch (ev) {
+		case ui::Widget::TouchEventType::ENDED:
+			doFunc1();
+			break;
+		}
+		});
+	this->addChild(square);
 
-	std::string msg = "Tap ready button if you are ready to play the game and having fun \n dgsdg dgdg sdfdsf dfdg ";
-
-	ui::Layout* msgBoard = dynamic_cast<ui::Layout*>(root->getChildByName("Msg_Board"));
-	msgBoard->setVisible(true);
-
-	auto text = dynamic_cast<ui::Text*>(msgBoard->getChildByName("Msg_Text"));
-	text->setString(msg);
-	auto textSize = text->getContentSize();
-	auto boardSize = msgBoard->getContentSize();
-
-	constexpr float D_WIDTH = 20;
-	constexpr float D_HEIGHT = 10;
-
-	float newW = textSize.width + D_WIDTH * 2;
-	float newH = textSize.height + D_HEIGHT * 2;
-	msgBoard->setContentSize(Size(newW, newH));
-
-	auto layPara = ui::RelativeLayoutParameter::create();
-	//layPara->setMargin(ui::Margin(D_WIDTH, D_HEIGHT, D_WIDTH, D_HEIGHT));
-	layPara->setAlign(ui::RelativeLayoutParameter::RelativeAlign::CENTER_IN_PARENT);
-	text->setLayoutParameter(layPara);
-
-	msgBoard->setLayoutType(ui::Layout::Type::RELATIVE);
-	msgBoard->requestDoLayout();
-	//msgBoard->doLayout();
-
-	//text->setAnchorPoint(Vec2(0.5, 0.5));
-	//auto newBoardSize = msgBoard->getContentSize();
-	//text->setPosition(Vec2(newBoardSize.width / 2, newBoardSize.height / 2)); // Text o vi tri center
+	square = ui::Layout::create();
+	square->setBackGroundColorType(ui::Layout::BackGroundColorType::SOLID);
+	square->setBackGroundColor(Color3B::RED);
+	square->setBackGroundColorOpacity(255);
+	square->setContentSize(Size(200, 200));
+	square->setPosition(Vec2(500, 0));
+	square->setAnchorPoint(Vec2(0, 0));
+	square->setTouchEnabled(true);
+	square->addTouchEventListener([this](Ref *sender, ui::Widget::TouchEventType ev) {
+		switch (ev) {
+		case ui::Widget::TouchEventType::ENDED:
+			doFunc2();
+			break;
+		}
+		});
+	this->addChild(square);
 
 	return true;
+}
+
+
+void HelloWorld::doFunc1() {
+	CCLOG("Show Selector");
+	vector<string> cids = { "E1", "P1", "P2", "P1", "E1", "P2", "P3", "E2",  "1", "2", "3", "4"};
+	//vector<string> cids = { "E1", "P1", "P2"};
+
+	CardSelector::SelectMap selmap = {
+		{GConfig::SelectType::Basic_Energy_Fire, 2},
+	};
+
+	selector->showToSelect(cids, selmap);
+}
+
+void HelloWorld::doFunc2() {
+	//auto &lv = selector->unselectedListView;
+	//selector->root->setVisible(true);
+	////selector->clearUI();
+	//auto holder = UnselectedCardHolder::create();
+	////lv->removeAllItems();
+	//lv->addChild(holder);
+	//holder = UnselectedCardHolder::create();
+	//lv->addChild(holder);
+	//holder = UnselectedCardHolder::create();
+	//lv->addChild(holder);
+
+	//lv->requestDoLayout();
+	selector->hide();
 
 }
 
 void HelloWorld::onEnter() {
 	Layer::onEnter();
-}
-
-void HelloWorld::doFlipMulCoins() {
-
-	auto comp = SpriteAnimatorComponent::getComponent(coinSprite);
-	if (!comp) {
-		comp = SpriteAnimatorComponent::setComponent(coinSprite);
-	}
-	comp->addAnimation("Flip_Pikachu", {
-		"flip_coin_animations/yellow/flip_coin_yellow_pikachu.png",
-		"flip_coin_animations/yellow/flip_coin_yellow_0.png",
-		"flip_coin_animations/yellow/flip_coin_yellow_1.png",
-		"flip_coin_animations/yellow/flip_coin_yellow_2.png",
-		"flip_coin_animations/yellow/flip_coin_yellow_3.png",
-		"flip_coin_animations/yellow/flip_coin_yellow_4.png",
-		"flip_coin_animations/yellow/flip_coin_yellow_5.png",
-		"flip_coin_animations/yellow/flip_coin_yellow_6.png"
-		}, 1.0f / 8);
-	comp->addAnimation("Flip_Pikachu_End", {
-	"flip_coin_animations/yellow/flip_coin_yellow_pikachu.png",
-	"flip_coin_animations/yellow/flip_coin_yellow_0.png",
-	"flip_coin_animations/yellow/flip_coin_yellow_1.png",
-	"flip_coin_animations/yellow/flip_coin_yellow_2.png",
-	"flip_coin_animations/yellow/flip_coin_yellow_3.png",
-	"flip_coin_animations/yellow/flip_coin_yellow_4.png",
-	"flip_coin_animations/yellow/flip_coin_yellow_5.png",
-	"flip_coin_animations/yellow/flip_coin_yellow_6.png",
-	//"flip_coin_animations/yellow/flip_coin_yellow_pikachu.png"
-	"flip_coin_animations/yellow/flip_coin_yellow_3.png"
-
-		}, 1.0f / 9);
-	auto resBoard = flip1Panel->getChildByName("Result_Flip_Board");
-	resBoard->setVisible(true);
-	resBoard->setOpacity(0);
-
-	comp->playAnimation("Flip_Pikachu", true);
-	coinSprite->setPosition(Vec2(0, 0));
-	coinSprite->runAction(Sequence::create(
-		MoveBy::create(0.5f, Vec2(0, 45)),
-		MoveBy::create(0.5f, Vec2(0, -45)),
-		CallFunc::create([this]() {
-			auto comp = SpriteAnimatorComponent::getComponent(coinSprite);
-			comp->playAnimation("Flip_Pikachu_End", false, [this](std::string anim) {
-				auto gotHead = cocos2d::RandomHelper::random_int(0, 1) == 1;
-				auto preStr = gotHead ? "Head : " : "Tails : ";
-
-				auto subStr = gotHead ? std::to_string(++numHeads) : std::to_string(++numTails);
-				if (gotHead) {
-					auto headsText = dynamic_cast<ui::Text*>(flipMulPanel->getChildByName("Num_Heads_Board")->getChildByName("Num_Heads_Text"));
-					headsText->setString(preStr + subStr);
-				}
-				else {
-					auto tailsText = dynamic_cast<ui::Text*>(flipMulPanel->getChildByName("Num_Tails_Board")->getChildByName("Num_Tails_Text"));
-					tailsText->setString(preStr + subStr);
-				}
-				--numFlipLeft;
-				if (numFlipLeft > 0)
-					doFlipMulCoins();
-				});
-			}),
-		nullptr));
-}
-
-
-void HelloWorld::doFlip1Coin() {
-	auto comp = SpriteAnimatorComponent::setComponent(coinSprite);
-	comp->addAnimation("Flip_Pikachu", {
-		"flip_coin_animations/yellow/flip_coin_yellow_pikachu.png",
-		"flip_coin_animations/yellow/flip_coin_yellow_0.png",
-		"flip_coin_animations/yellow/flip_coin_yellow_1.png",
-		"flip_coin_animations/yellow/flip_coin_yellow_2.png",
-		"flip_coin_animations/yellow/flip_coin_yellow_3.png",
-		"flip_coin_animations/yellow/flip_coin_yellow_4.png",
-		"flip_coin_animations/yellow/flip_coin_yellow_5.png",
-		"flip_coin_animations/yellow/flip_coin_yellow_6.png"
-		}, 1.0f / 8);
-	comp->addAnimation("Flip_Pikachu_End", {
-	"flip_coin_animations/yellow/flip_coin_yellow_pikachu.png",
-	"flip_coin_animations/yellow/flip_coin_yellow_0.png",
-	"flip_coin_animations/yellow/flip_coin_yellow_1.png",
-	"flip_coin_animations/yellow/flip_coin_yellow_2.png",
-	"flip_coin_animations/yellow/flip_coin_yellow_3.png",
-	"flip_coin_animations/yellow/flip_coin_yellow_4.png",
-	"flip_coin_animations/yellow/flip_coin_yellow_5.png",
-	"flip_coin_animations/yellow/flip_coin_yellow_6.png",
-	//"flip_coin_animations/yellow/flip_coin_yellow_pikachu.png"
-	"flip_coin_animations/yellow/flip_coin_yellow_3.png"
-
-		}, 1.0f / 9);
-	auto resBoard = flip1Panel->getChildByName("Result_Flip_Board");
-	resBoard->setVisible(true);
-	resBoard->setOpacity(0);
-
-	comp->playAnimation("Flip_Pikachu", true);
-	coinSprite->setPosition(Vec2(0, 0));
-	coinSprite->runAction(Sequence::create(
-		MoveBy::create(0.5f, Vec2(0, 45)),
-		MoveBy::create(0.5f, Vec2(0, -45)),
-		CallFunc::create([this]() {
-			auto comp = SpriteAnimatorComponent::getComponent(coinSprite);
-			comp->playAnimation("Flip_Pikachu_End", false, [this](std::string anim) {
-				auto resBoard = flip1Panel->getChildByName("Result_Flip_Board");
-				auto resText = dynamic_cast<ui::Text*>(resBoard->getChildByName("Result_Flip_Text"));
-				resText->setString("Tails");
-				resBoard->runAction(FadeIn::create(0.5f));
-				});
-			}),
-		nullptr));
-}
-
-void HelloWorld::flip1() {
-	flip1Panel->setScale(0.75f);
-	flip1Panel->setVisible(true);
-	flip1Panel->setOpacity(0);
-	flip1Panel->runAction(Sequence::create(
-		Spawn::create(
-			FadeIn::create(0.3f),
-			ScaleTo::create(0.3f, 1.0f),
-			nullptr),
-		DelayTime::create(0.5f),
-		CallFunc::create([this]() {
-			doFlip1Coin();
-			}),
-		nullptr
-		));
-}
-
-void HelloWorld::flipMul() {
-	numFlipLeft = 5;
-	flipMulPanel->setScale(0.75f);
-	flipMulPanel->setVisible(true);
-	flipMulPanel->setOpacity(0);
-	flipMulPanel->runAction(Sequence::create(
-		Spawn::create(
-			FadeIn::create(0.3f),
-			ScaleTo::create(0.3f, 1.0f),
-			nullptr),
-		DelayTime::create(0.5f),
-		CallFunc::create([this]() {
-			doFlipMulCoins();
-			}),
-		nullptr
-				));
 }
 
 void HelloWorld::menuCloseCallback(Ref* pSender)

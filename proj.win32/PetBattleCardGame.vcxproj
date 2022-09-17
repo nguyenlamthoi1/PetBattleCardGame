@@ -180,6 +180,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\scenes\battle_scene_3\BSPrizePile.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene_3\BSResources.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene_3\CardHolder.cpp" />
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\card_selector\BSCardSelector.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene_3\define\ErrorDefine.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene_3\game\BattleMaster.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene_3\game\GameDefine.cpp" />
@@ -280,6 +281,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\scenes\battle_scene_3\BSPrizePile.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene_3\BSResources.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene_3\CardHolder.h" />
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\card_selector\BSCardSelector.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene_3\define\ErrorDefine.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene_3\game\BattleMaster.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene_3\game\GameDefine.h" />

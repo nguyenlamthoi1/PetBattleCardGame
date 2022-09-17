@@ -72,6 +72,28 @@ namespace GConfig { // Game Config
 	constexpr unsigned int PLAY_SPT_TURN_LIMIT = 1; // Gioi han so lan choi supporter card moi luot
 	constexpr unsigned int PLAY_ITEM_TURN_LIMIT = UINT_MAX; // Gioi han so lan play item card moi luot
 	constexpr unsigned int USE_PET_ABILITY_TURN_LIMIT = UINT_MAX; // Gioi han so lan play item card moi luot
+
+	// Card Actions
+
+
+	// SelectType
+	enum class SelectType {
+		Pet_Any,
+		Basic_Pet,
+		Evolved_Pet,
+
+		Basic_Energy_Any,
+		Basic_Energy_Normal,
+		Basic_Energy_Fire,
+		Basic_Energy_Water,
+		Basic_Energy_Grass,
+		Basic_Energy_Electric,
+		Basic_Energy_Psychic,
+		Basic_Energy_Fighting,
+		Basic_Energy_Steel,
+		Basic_Energy_Dark,
+		Basic_Energy_Dragon,
+	};
 }
 
 /// Global variables

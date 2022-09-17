@@ -39,6 +39,7 @@ class BSHand;
 class BSAction;
 class BSPrizePile;
 class BSPrizeSelector;
+class BSCardSelector;
 
 namespace BATTLE_SCENE_Z {
 	const float DETAILED_CARD = 1000;
@@ -76,6 +77,7 @@ public:
 	std::shared_ptr<BSNotifier> getNotifier() const;
 	std::shared_ptr<BSCoinFlipper> getCoinFlipper() const;
 	std::shared_ptr<BSPrizeSelector> getPrizeSelector() const;
+	std::shared_ptr<BSCardSelector> getCardSelector() const;
 
 	cocos2d::Node* getPrizePileNode(const PlayerIdType &id) const;
 
@@ -128,6 +130,7 @@ private:
 	std::shared_ptr<BSCoinFlipper> coinFlipper;
 
 	std::shared_ptr<BSPrizeSelector> prizeSelector;
+	std::shared_ptr<BSCardSelector> cardSelector;
 
 	cocos2d::ui::Button *endTurnBtn = nullptr;
 

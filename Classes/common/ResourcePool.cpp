@@ -73,7 +73,7 @@ bool PoolVector::returnNode(Node *node) {
 	if (pool->freeIdx - 1 > idxInPool) {
 		// swap voi  last non-free node co idx = freeIdx - 1
 		Node* tmpNode = pool->nodes[pool->freeIdx - 1];
-		auto tmpComp = getComponent<GamePoolComponent>(node, COMPONENT_KEY::GAME_POOL);
+		auto tmpComp = getComponent<GamePoolComponent>(tmpNode, COMPONENT_KEY::GAME_POOL);
 		pool->nodes[pool->freeIdx - 1] = node;
 		pool->nodes[comp->idx] = tmpNode;
 		tmpComp->idx = comp->idx;
