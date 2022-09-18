@@ -40,6 +40,9 @@
             <PlistImageFile Name="bs_ui_setting_btn_1.png" Key="bs_ui/setting_btn_1.png" />
             <PlistImageFile Name="bs_ui_trainer_frame.png" Key="bs_ui/trainer_frame.png" />
             <PlistImageFile Name="bs_ui_white_square.png" Key="bs_ui/white_square.png" />
+            <PlistImageFile Name="bs_ui_dmg_counter.png" Key="bs_ui/dmg_counter.png" />
+            <PlistImageFile Name="bs_ui_debuff_arrow.png" Key="bs_ui/debuff_arrow.png" />
+            <PlistImageFile Name="bs_ui_buff_arrow.png" Key="bs_ui/buff_arrow.png" />
           </PlistImageFolder>
           <PlistImageFolder Image="character_portraits_x3.png" PListFile="character_portraits_x3.plist" Name=".character_portraits_x3_PList.Dir">
             <PlistImageFile Name="duelist_x3_duelist_0.png" Key="duelist_x3/duelist_0.png" />
@@ -257,9 +260,10 @@
               <Project Name="energy_item.csd" Type="Node" />
               <Project Name="Prize_Holder.csd" Type="Node" />
               <Project Name="selected_card_holder.csd" Type="Node" />
+              <Project Name="selected_card_holder_1.csd" Type="Layer" />
               <Project Name="selected_card_holder_2.csd" Type="Node" />
               <Project Name="unselected_card_holder.csd" Type="Layer" />
-              <Project Name="selected_card_holder_1.csd" Type="Layer" />
+              <Project Name="MoveInfo.csd" Type="Node" />
             </Folder>
             <Project Name="battle_scene.csd" Type="Scene" />
             <Project Name="card_holder.csd" Type="Node" />
@@ -268,6 +272,7 @@
             <Project Name="select_card_layout.csd" Type="Layer" />
             <Project Name="select_prize_layout.csd" Type="Layer" />
             <Project Name="TestCard.csd" Type="Layer" />
+            <Project Name="attack_layer.csd" Type="Layer" />
           </Folder>
           <Folder Name="cards">
             <Project Name="energy_card.csd" Type="Node" />

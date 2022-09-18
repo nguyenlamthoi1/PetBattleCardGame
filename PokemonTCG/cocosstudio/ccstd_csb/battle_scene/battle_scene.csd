@@ -777,6 +777,16 @@
             <PreSize X="1.0000" Y="1.0000" />
             <FileData Type="Normal" Path="ccstd_csb/battle_scene/select_card_layout.csd" Plist="" />
           </AbstractNodeData>
+          <AbstractNodeData Name="Attack_Selector" ActionTag="415681449" Tag="218" IconVisible="True" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" StretchWidthEnable="False" StretchHeightEnable="False" InnerActionSpeed="1.0000" CustomSizeEnabled="False" ctype="ProjectNodeObjectData">
+            <Size X="1280.0000" Y="720.0000" />
+            <AnchorPoint />
+            <Position />
+            <Scale ScaleX="1.0000" ScaleY="1.0000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition />
+            <PreSize X="1.0000" Y="1.0000" />
+            <FileData Type="Normal" Path="ccstd_csb/battle_scene/attack_layer.csd" Plist="" />
+          </AbstractNodeData>
           <AbstractNodeData Name="Loading_Layout" ActionTag="757579315" VisibleForFrame="False" Tag="107" IconVisible="False" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" TouchEnable="True" ClipAble="False" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
             <Size X="1280.0000" Y="720.0000" />
             <Children>

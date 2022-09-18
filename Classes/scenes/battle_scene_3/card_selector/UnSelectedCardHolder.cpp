@@ -88,7 +88,7 @@ BSCard* BSUnselectedCardHolder::removeCard() {
 	lastCard->removeFromParent();
 	lastCard->stopAllActions();
 
-	numPanel->setVisible(!cardVec.empty());
+	numPanel->setVisible(cardVec.size() > 1);
 	numLabel->setString(to_string(cardVec.size()));
 	return lastCard;
 }
