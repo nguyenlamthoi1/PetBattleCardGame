@@ -4,6 +4,7 @@
 #include "ui/UILayout.h"
 #include "ui/UIText.h"
 #include "ui/UIImageView.h"
+#include "ui/UIListView.h"
 
 #include "BSDefine.h"
 #include <initializer_list>
@@ -15,6 +16,7 @@
 class CardData;
 class PetCardData;
 class EnergyCardData;
+class MoveData;
 
 BATTLE_SCENE_NS_BEG
 
@@ -78,6 +80,38 @@ protected:
 	float flipTime = 0.0f;
 };
 
+////////////
+
+class PetCardMove : public cocos2d::ui::Layout
+{
+public:
+	using CardId = std::string;
+
+	static PetCardMove* create(const std::shared_ptr<const MoveData> &data);
+	PetCardMove(const std::shared_ptr<const MoveData> &data);
+	virtual ~PetCardMove();
+
+	cocos2d::Node* getRoot() const { return root; }
+
+	void cleanUI();
+
+protected:
+
+	virtual bool init();
+
+	cocos2d::Node *root = nullptr;
+	cocos2d::ui::Layout *container = nullptr;
+	cocos2d::ui::Text *moveNameLb = nullptr;
+	cocos2d::ui::Text *dmgLb = nullptr;
+	cocos2d::ui::Layout *energyPanel = nullptr;
+	cocos2d::ui::Layout *desBoard = nullptr;
+	std::shared_ptr<const MoveData> data;
+
+	void setMoveDes(const std::string &s);
+	void updateEnergyPanel();
+};
+
+
 class PetCard : public BSCard {
 public:
 	virtual ~PetCard();
@@ -101,11 +135,24 @@ public:
 	cocos2d::ui::Layout *cardBack = nullptr;
 	cocos2d::ui::Layout *cardLayout = nullptr;
 
-
 	cocos2d::ui::Text *evText = nullptr;
 	cocos2d::ui::ImageView *evArrow = nullptr;
 	cocos2d::ui::Text *evFromText = nullptr;
 	cocos2d::ui::ImageView *evFromImg = nullptr;
+
+	cocos2d::ui::ListView *moveListView = nullptr;
+
+	cocos2d::ui::Layout *bottomPanel = nullptr;
+
+	cocos2d::ui::ImageView *weakPanel = nullptr;
+	cocos2d::Node *weakEnergyMarker = nullptr;
+
+	cocos2d::ui::ImageView *resistPanel = nullptr;
+	cocos2d::Node *resistEnergyMarker = nullptr;
+
+	cocos2d::ui::ImageView *retreatPanel = nullptr;
+	cocos2d::Node *retreatEnergyMarker = nullptr;
+	void updateRetreatEnergySpritePanel();
 
 	/// Getters and Setters
 	bool isEmpty() const { return !data; }
@@ -116,6 +163,10 @@ public:
 private:
 	static const std::string EMPTY_PET_IMG;
 };
+
+
+///////////////////////
+
 
 class EnergyCard : public BSCard {
 public:

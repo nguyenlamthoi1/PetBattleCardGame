@@ -264,6 +264,7 @@
               <Project Name="selected_card_holder_1.csd" Type="Layer" />
               <Project Name="selected_card_holder_2.csd" Type="Node" />
               <Project Name="unselected_card_holder.csd" Type="Layer" />
+              <Project Name="CardMoveInfo.csd" Type="Layer" />
             </Folder>
             <Project Name="attack_layer.csd" Type="Layer" />
             <Project Name="battle_scene.csd" Type="Scene" />

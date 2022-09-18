@@ -1,13 +1,16 @@
 #include "BSCard.h"
 #include "data/CardData.h"
+#include "data/MoveData.h"
 #include "GameManager.h"
 #include "common/ResourcePool.h"
 #include "common/Utilize.h"
 #include "components/WidgetTouchComponent.h"
 #include "ui/UIHelper.h"
+#include "prefabs/BSPrefabs.h"
 
 using namespace std;
 USING_NS_CC;
+BS_PREFABS_USE_NS;
 BATTLE_SCENE_NS_BEG
 
 //BSCard* BSCard::create() {
@@ -127,7 +130,7 @@ void BSCard::setDragEnabled(bool enabled) {
 */
 
 PetCard::~PetCard() {
-	//returnToPool();
+	returnToPool();
 }
 
 const std::string PetCard::EMPTY_PET_IMG = "pet_collection_1/000.png";
@@ -155,6 +158,18 @@ PetCard* PetCard::create() {
 }
 
 void PetCard::returnToPool() {
+	if (weakEnergyMarker) {
+		weakEnergyMarker->removeAllChildren();
+	}
+
+	if (resistEnergyMarker) {
+		resistEnergyMarker->removeAllChildren();
+	}
+
+	if (resistEnergyMarker) {
+		resistEnergyMarker->removeAllChildren();
+	}
+
 	if (cardNode) {
 		cardNode->removeFromParent();
 		PoolVector::returnNode(cardNode);
@@ -201,6 +216,20 @@ bool PetCard::init() {
 	td->setTouchEnabled(false);
 	td->setSwallowTouches(false);*/
 
+	bottomPanel = dynamic_cast<ui::Layout*>(cardLayout->getChildByName("Bottom_Panel"));
+	
+	weakPanel = dynamic_cast<ui::ImageView*>(bottomPanel->getChildByName("Weakness_Panel"));
+	weakEnergyMarker = weakPanel->getChildByName("EnergyMarker");
+	
+	resistPanel = dynamic_cast<ui::ImageView*>(bottomPanel->getChildByName("Resistance_Panel"));
+	resistEnergyMarker = resistPanel->getChildByName("EnergyMarker");
+
+	retreatPanel = dynamic_cast<ui::ImageView*>(bottomPanel->getChildByName("Retreat_Panel"));
+	retreatEnergyMarker = retreatPanel->getChildByName("EnergyMarker");
+
+
+	moveListView = dynamic_cast<ui::ListView*>(cardLayout->getChildByName("ListView"));
+	
 	return true;
 }
 
@@ -233,7 +262,73 @@ bool PetCard::initWithData(const std::shared_ptr<const CardData> &dta) {
 		evText->setString("Basic");
 	}
 	evArrow->setVisible(evolved);
+
+	// Retreat Panel
+	auto &retreatMap = data->retreatMap;
+	for (const auto itr : retreatMap) {
+		auto eType = itr.first;
+		auto eNum = itr.second;
+		auto eItem = EnergyItem::create(eType, eNum);
+		retreatEnergyMarker->addChild(eItem);
+	}
+	updateRetreatEnergySpritePanel();
+
+	// Weakness Panel
+	auto &weakSet = data->weakSet;
+	if (!weakSet.empty()) {
+		auto eType = *(weakSet.cbegin());
+
+		auto eItem = EnergyItem::create(eType, 1);
+		weakEnergyMarker->addChild(eItem);
+
+		auto text = dynamic_cast<ui::Text*>(weakPanel->getChildByName("Weakness_Text_1"));
+		text->setString("x2");
+	}
+	else {
+		weakEnergyMarker->setVisible(false);
+		auto text = dynamic_cast<ui::Text*>(weakPanel->getChildByName("Weakness_Text_1"));
+		text->setVisible(false);
+	}
+
+	// Resist Panel
+	auto &resistMap = data->resistanceMap;
+	if (!resistMap.empty()) {
+		auto eType = resistMap.cbegin()->first;
+		auto eNum = resistMap.cbegin()->second;
+
+		auto eItem = EnergyItem::create(eType, 1);
+		resistEnergyMarker->addChild(eItem);
+
+		auto text = dynamic_cast<ui::Text*>(resistPanel->getChildByName("Resistance_Text_1"));
+		text->setString(to_string(eNum));
+	}
+	else {
+		resistEnergyMarker->setVisible(false);
+		auto text = dynamic_cast<ui::Text*>(resistPanel->getChildByName("Resistance_Text_1"));
+		text->setVisible(false);
+	}
+
+	// Moves
+	auto moveVec = data->moveVec;
+	for (const auto &moveData : moveVec) {
+		auto moveItem = PetCardMove::create(moveData);
+		moveListView->addChild(moveItem);
+	}
+
 	return true;
+}
+
+void PetCard::updateRetreatEnergySpritePanel() {
+	auto children = retreatEnergyMarker->getChildren();
+	unsigned int i = 0;
+	constexpr float spaceX = 10.0f;
+	for (const auto &child : children) {
+		auto eChild = dynamic_cast<EnergyItem*>(child);
+		auto eSize = eChild->getEnergySize();
+		child->setPositionX((eSize.width / 2 + spaceX) * i);
+		child->setPositionY(0);
+		++i;
+	}
 }
 
 std::shared_ptr<const CardData> PetCard::getData() const {
@@ -291,12 +386,95 @@ void PetCard::setFlip(bool flip, bool anim) {
 	}
 }
 
+
+PetCardMove* PetCardMove::create(const shared_ptr<const MoveData> &data) {
+	auto ret = new (nothrow) PetCardMove(data);
+	if (ret && ret->init()) {
+		ret->autorelease();
+		return ret;
+	}
+	delete ret;
+	ret = nullptr;
+	return ret;
+}
+
+
+PetCardMove::PetCardMove(const shared_ptr<const MoveData> &dta) : data(dta) {}
+
+PetCardMove::~PetCardMove() {
+	cleanUI();
+}
+
+bool PetCardMove::init() {
+	root = GM_POOL->tryGetNodeCsb("ccstd_csb/battle_scene/prefabs/CardMoveInfo.csb");
+	if (!root)
+		return false;
+
+	container = dynamic_cast<ui::Layout*>(root->getChildByName("Container"));
+	moveNameLb = dynamic_cast<ui::Text*>(container->getChildByName("Name"));
+	dmgLb = dynamic_cast<ui::Text*>(container->getChildByName("DmgText"));
+	energyPanel = dynamic_cast<ui::Layout*>(container->getChildByName("EnergyPanel"));
+	desBoard = dynamic_cast<ui::Layout*>(container->getChildByName("Move_Board"));
+
+	auto moveName = data->name;
+	moveNameLb->setString(moveName);
+	auto dmgText = data->damageText;
+	dmgLb->setString(dmgText);
+
+	setMoveDes(data->content);
+
+	this->setContentSize(root->getContentSize());
+	this->addChild(root);
+
+	auto &costMap = data->costMap;
+	for (const auto &itr : costMap) {
+		auto eType = itr.first;
+		auto eNum = itr.second;
+		auto eItem = EnergyItem::create(eType, eNum);
+		energyPanel->addChild(eItem);
+	}
+	updateEnergyPanel();
+	return true;
+}
+
+void PetCardMove::cleanUI() {
+	energyPanel->removeAllChildren();
+	if (root) {
+		if (root->getReferenceCount() > 1)
+		{
+			root->removeFromParent(); // Release
+			PoolVector::returnNode(root);
+		}
+		root = nullptr;
+	}
+}
+
+void PetCardMove::setMoveDes(const std::string &s) {
+	auto desText = dynamic_cast<ui::Text*>(desBoard->getChildByName("Text"));
+	desText->setString(s);
+	//TODO
+}
+
+void PetCardMove::updateEnergyPanel() {
+	auto children = energyPanel->getChildren();
+	unsigned int i = 0;
+	constexpr float spaceX = 10.0f;
+	for (const auto &child : children) {
+		auto eChild = dynamic_cast<EnergyItem*>(child);
+		auto eSize = eChild->getEnergySize();
+		child->setPositionX((eSize.width / 2 + spaceX) * i);
+		child->setPositionY(0);
+		++i;
+	}
+}
+
+
 /*
 	Energy Card Class
 */
 
 EnergyCard::~EnergyCard() {
-	//returnToPool();
+	returnToPool();
 }
 
 
@@ -328,6 +506,7 @@ void EnergyCard::returnToPool() {
 		PoolVector::returnNode(cardNode);
 		cardNode = nullptr;
 	}
+
 }
 
 bool EnergyCard::init() {

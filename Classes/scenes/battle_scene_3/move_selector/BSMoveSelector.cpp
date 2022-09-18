@@ -100,6 +100,8 @@ void BSMoveSelector::showInfoHolder(CardHolder *holder) {
 	const CardId activeId = "P3";
 	const std::vector<CardId> preEvIds = { "P2", "P1" };
 	const std::vector<CardId> eIds = { "E1", "E2", "E3"};
+	//const std::vector<CardId> preEvIds;
+	//const std::vector<CardId> eIds;
 	const unsigned int dmgCounter = 40;
 	//---------//
 	cleanUI();

@@ -155,7 +155,16 @@
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Pokemon_Type" ActionTag="-1901792049" Tag="13" IconVisible="False" LeftMargin="311.0277" RightMargin="-17.0277" TopMargin="-7.4707" BottomMargin="478.4707" LeftEage="10" RightEage="10" TopEage="10" BottomEage="10" Scale9OriginX="10" Scale9OriginY="10" Scale9Width="76" Scale9Height="76" ctype="ImageViewObjectData">
+              <AbstractNodeData Name="PetTypeMarker" ActionTag="129903238" Tag="96" IconVisible="True" LeftMargin="359.3025" RightMargin="30.6975" TopMargin="35.5869" BottomMargin="531.4131" ctype="SingleNodeObjectData">
+                <Size X="0.0000" Y="0.0000" />
+                <AnchorPoint />
+                <Position X="359.3025" Y="531.4131" />
+                <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                <CColor A="255" R="255" G="255" B="255" />
+                <PrePosition X="0.9213" Y="0.9372" />
+                <PreSize X="0.0000" Y="0.0000" />
+              </AbstractNodeData>
+              <AbstractNodeData Name="Pokemon_Type" ActionTag="-1901792049" VisibleForFrame="False" Tag="13" IconVisible="False" LeftMargin="311.0277" RightMargin="-17.0277" TopMargin="-7.4707" BottomMargin="478.4707" LeftEage="10" RightEage="10" TopEage="10" BottomEage="10" Scale9OriginX="10" Scale9OriginY="10" Scale9Width="76" Scale9Height="76" ctype="ImageViewObjectData">
                 <Size X="96.0000" Y="96.0000" />
                 <AnchorPoint ScaleX="0.4679" ScaleY="0.5541" />
                 <Position X="355.9461" Y="531.6643" />
@@ -165,16 +174,16 @@
                 <PreSize X="0.2462" Y="0.1693" />
                 <FileData Type="PlistSubImage" Path="pokemon_card_template_x3/energy/energy_fire.png" Plist="ccstd_assets/pokemon_card_template_x3.plist" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Middle_Panel" ActionTag="1404557248" Tag="20" IconVisible="False" LeftMargin="21.4518" RightMargin="20.5482" TopMargin="276.4185" BottomMargin="80.5815" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
+              <AbstractNodeData Name="ListView" ActionTag="167303709" Tag="63" IconVisible="False" LeftMargin="21.4500" RightMargin="20.5500" TopMargin="276.4200" BottomMargin="80.5800" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" ScrollDirectionType="0" DirectionType="Vertical" HorizontalType="Align_HorizontalCenter" ctype="ListViewObjectData">
                 <Size X="348.0000" Y="210.0000" />
                 <AnchorPoint />
-                <Position X="21.4518" Y="80.5815" />
+                <Position X="21.4500" Y="80.5800" />
                 <Scale ScaleX="1.0000" ScaleY="1.0000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.0550" Y="0.1421" />
                 <PreSize X="0.8923" Y="0.3704" />
-                <SingleColor A="255" R="150" G="200" B="255" />
-                <FirstColor A="255" R="150" G="200" B="255" />
+                <SingleColor A="255" R="150" G="150" B="255" />
+                <FirstColor A="255" R="150" G="150" B="255" />
                 <EndColor A="255" R="255" G="255" B="255" />
                 <ColorVector ScaleY="1.0000" />
               </AbstractNodeData>
@@ -184,17 +193,6 @@
                   <AbstractNodeData Name="Weakness_Panel" ActionTag="609825671" Tag="15" IconVisible="False" LeftMargin="3.0000" RightMargin="201.0000" TopMargin="3.0000" BottomMargin="30.0000" LeftEage="15" RightEage="15" TopEage="2" BottomEage="2" Scale9OriginX="15" Scale9OriginY="2" Scale9Width="114" Scale9Height="20" ctype="ImageViewObjectData">
                     <Size X="144.0000" Y="24.0000" />
                     <Children>
-                      <AbstractNodeData Name="Weakness_Energy" ActionTag="1356312981" Tag="19" IconVisible="False" PositionPercentYEnabled="True" LeftMargin="49.7331" RightMargin="-1.7331" TopMargin="-37.3656" BottomMargin="-34.6344" ctype="SpriteObjectData">
-                        <Size X="96.0000" Y="96.0000" />
-                        <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                        <Position X="97.7331" Y="13.3656" />
-                        <Scale ScaleX="0.4000" ScaleY="0.4000" />
-                        <CColor A="255" R="255" G="255" B="255" />
-                        <PrePosition X="0.6787" Y="0.5569" />
-                        <PreSize X="0.6667" Y="4.0000" />
-                        <FileData Type="PlistSubImage" Path="pokemon_card_template_x3/energy/energy_water.png" Plist="ccstd_assets/pokemon_card_template_x3.plist" />
-                        <BlendFunc Src="1" Dst="771" />
-                      </AbstractNodeData>
                       <AbstractNodeData Name="Weakness_Text_0" ActionTag="-1536779592" Tag="51" IconVisible="False" LeftMargin="8.5287" RightMargin="15.4713" TopMargin="-5.4660" BottomMargin="0.4660" FontSize="24" LabelText="Weakness" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
                         <Size X="120.0000" Y="29.0000" />
                         <AnchorPoint />
@@ -206,6 +204,15 @@
                         <FontResource Type="Normal" Path="ccstd_fonts/GillSans_ttf/Gill-Sans-Bold.ttf" Plist="" />
                         <OutlineColor A="255" R="255" G="0" B="0" />
                         <ShadowColor A="255" R="110" G="110" B="110" />
+                      </AbstractNodeData>
+                      <AbstractNodeData Name="EnergyMarker" ActionTag="-1072875761" Tag="92" IconVisible="True" LeftMargin="97.9335" RightMargin="46.0665" TopMargin="11.2544" BottomMargin="12.7456" ctype="SingleNodeObjectData">
+                        <Size X="0.0000" Y="0.0000" />
+                        <AnchorPoint />
+                        <Position X="97.9335" Y="12.7456" />
+                        <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                        <CColor A="255" R="255" G="255" B="255" />
+                        <PrePosition X="0.6801" Y="0.5311" />
+                        <PreSize X="0.0000" Y="0.0000" />
                       </AbstractNodeData>
                       <AbstractNodeData Name="Weakness_Text_1" ActionTag="1650746264" Tag="52" IconVisible="False" LeftMargin="112.9273" RightMargin="-10.9273" TopMargin="-17.5231" BottomMargin="-1.4769" FontSize="36" LabelText="x2" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
                         <Size X="42.0000" Y="43.0000" />
@@ -255,16 +262,14 @@
                         <OutlineColor A="255" R="255" G="0" B="0" />
                         <ShadowColor A="255" R="110" G="110" B="110" />
                       </AbstractNodeData>
-                      <AbstractNodeData Name="Resistance_Energy" ActionTag="1068356388" Tag="55" IconVisible="False" PositionPercentYEnabled="True" LeftMargin="49.9343" RightMargin="-1.9343" TopMargin="-33.4296" BottomMargin="-38.5704" ctype="SpriteObjectData">
-                        <Size X="96.0000" Y="96.0000" />
-                        <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                        <Position X="97.9343" Y="9.4296" />
-                        <Scale ScaleX="0.4000" ScaleY="0.4000" />
+                      <AbstractNodeData Name="EnergyMarker" ActionTag="1799199693" Tag="94" IconVisible="True" LeftMargin="97.8719" RightMargin="46.1281" TopMargin="11.8635" BottomMargin="12.1365" ctype="SingleNodeObjectData">
+                        <Size X="0.0000" Y="0.0000" />
+                        <AnchorPoint />
+                        <Position X="97.8719" Y="12.1365" />
+                        <Scale ScaleX="1.0000" ScaleY="1.0000" />
                         <CColor A="255" R="255" G="255" B="255" />
-                        <PrePosition X="0.6801" Y="0.3929" />
-                        <PreSize X="0.6667" Y="4.0000" />
-                        <FileData Type="PlistSubImage" Path="pokemon_card_template_x3/energy/energy_water.png" Plist="ccstd_assets/pokemon_card_template_x3.plist" />
-                        <BlendFunc Src="1" Dst="771" />
+                        <PrePosition X="0.6797" Y="0.5057" />
+                        <PreSize X="0.0000" Y="0.0000" />
                       </AbstractNodeData>
                     </Children>
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
@@ -290,7 +295,7 @@
                         <OutlineColor A="255" R="255" G="0" B="0" />
                         <ShadowColor A="255" R="110" G="110" B="110" />
                       </AbstractNodeData>
-                      <AbstractNodeData Name="Retreat_Text_1" ActionTag="1875119932" Tag="57" IconVisible="False" LeftMargin="112.7700" RightMargin="-10.7700" TopMargin="-16.9643" BottomMargin="-2.0357" FontSize="36" LabelText="x2" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                      <AbstractNodeData Name="Retreat_Text_1" ActionTag="1875119932" VisibleForFrame="False" Tag="57" IconVisible="False" LeftMargin="112.7700" RightMargin="-10.7700" TopMargin="-16.9643" BottomMargin="-2.0357" FontSize="36" LabelText="x2" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
                         <Size X="42.0000" Y="43.0000" />
                         <AnchorPoint />
                         <Position X="112.7700" Y="-2.0357" />
@@ -302,16 +307,14 @@
                         <OutlineColor A="255" R="255" G="0" B="0" />
                         <ShadowColor A="255" R="110" G="110" B="110" />
                       </AbstractNodeData>
-                      <AbstractNodeData Name="Retreat_Energy" ActionTag="1044399756" Tag="58" IconVisible="False" PositionPercentYEnabled="True" LeftMargin="50.5000" RightMargin="-2.5000" TopMargin="-35.3856" BottomMargin="-36.6144" ctype="SpriteObjectData">
-                        <Size X="96.0000" Y="96.0000" />
-                        <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                        <Position X="98.5000" Y="11.3856" />
-                        <Scale ScaleX="0.4000" ScaleY="0.4000" />
+                      <AbstractNodeData Name="EnergyMarker" ActionTag="-2089400780" Tag="95" IconVisible="True" LeftMargin="97.5552" RightMargin="46.4448" TopMargin="10.9928" BottomMargin="13.0072" ctype="SingleNodeObjectData">
+                        <Size X="0.0000" Y="0.0000" />
+                        <AnchorPoint />
+                        <Position X="97.5552" Y="13.0072" />
+                        <Scale ScaleX="1.0000" ScaleY="1.0000" />
                         <CColor A="255" R="255" G="255" B="255" />
-                        <PrePosition X="0.6840" Y="0.4744" />
-                        <PreSize X="0.6667" Y="4.0000" />
-                        <FileData Type="PlistSubImage" Path="pokemon_card_template_x3/energy/energy_normal.png" Plist="ccstd_assets/pokemon_card_template_x3.plist" />
-                        <BlendFunc Src="1" Dst="771" />
+                        <PrePosition X="0.6775" Y="0.5420" />
+                        <PreSize X="0.0000" Y="0.0000" />
                       </AbstractNodeData>
                     </Children>
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />

@@ -37,8 +37,10 @@ EnergyItem::EnergyItem(EnergyId eid, unsigned int c) : id(eid), count(c) {}
 
 EnergyItem::~EnergyItem(){
 	if (root) {
-		root->removeFromParent(); // Release
-		PoolVector::returnNode(root);
+		if (root->getReferenceCount() > 1) {
+			root->removeFromParent(); // Release
+			PoolVector::returnNode(root);
+		}
 		root = nullptr;
 	}
 }
