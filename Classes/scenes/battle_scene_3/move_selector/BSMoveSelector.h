@@ -69,6 +69,16 @@ protected:
 	cocos2d::ui::Button *retreatBtn = nullptr;
 	void updateRetreatEnergySpritePanel();
 
+	cocos2d::Node *cardMarker1 = nullptr;
+	cocos2d::Node *cardMarker2 = nullptr;
+	std::vector<BSCard*> cardVec;
+	unsigned int shownCurIdx = 0;
+	cocos2d::ui::Button *nextBtn = nullptr;
+	cocos2d::ui::Button *prevBtn = nullptr;
+
+	void onClickNextBtn(cocos2d::Ref *sender);
+	void onClickPrevBtn(cocos2d::Ref *sender);
+	void updateCardPos();
 
 	PlayerIdType curPid;
 };

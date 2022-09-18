@@ -76,6 +76,13 @@ bool BSMoveSelector::init() {
 	retreatEnergyPanel = dynamic_cast<ui::Layout*>(retreatPanel->getChildByName("RetreatEnergyPanel"));
 	retreatBtn = dynamic_cast<ui::Button*>(retreatPanel->getChildByName("UseBtn"));
 
+	cardMarker1 = root->getChildByName("CardMarker1");
+	cardMarker2 = root->getChildByName("CardMarker2");
+
+	nextBtn = dynamic_cast<ui::Button*>(root->getChildByName("Next_Button"));
+	prevBtn = dynamic_cast<ui::Button*>(root->getChildByName("Prev_Button"));
+
+
 	blackPanel = dynamic_cast<ui::Layout*>(root->getChildByName("Black_Panel"));
 	blackPanel->addTouchEventListener([this](Ref *sender, ui::Widget::TouchEventType ev) {
 		switch (ev) {
@@ -90,7 +97,7 @@ bool BSMoveSelector::init() {
 void BSMoveSelector::showInfoHolder(CardHolder *holder) {
 	//--Input--//
 	
-	const CardId activeId = "P2";
+	const CardId activeId = "P3";
 	const std::vector<CardId> preEvIds = { "P2", "P1" };
 	const std::vector<CardId> eIds = { "E1", "E2", "E3"};
 	const unsigned int dmgCounter = 40;
@@ -168,7 +175,79 @@ void BSMoveSelector::showInfoHolder(CardHolder *holder) {
 		auto moveItem = MoveHolder::create(moveData);
 		listView->addChild(moveItem);
 	}
+
+	// Cards
+	std::vector<CardId> allCardVec;
+	allCardVec.push_back(activeId);
+	allCardVec.insert(allCardVec.cend(), preEvIds.cbegin(), preEvIds.cend());
+	allCardVec.insert(allCardVec.cend(), eIds.cbegin(), eIds.cend());
+
+	auto offset = Vec2(10.0, -10.0);
+	auto maxIdxHasOffset = 4;
+	for (unsigned int i = 0; i < allCardVec.size(); ++i) {
+		auto cid = allCardVec[i];
+		auto cardData = dm->getCardData(cid);
+		auto bsCard = BSCard::createWithData(cardData);
+		bsCard->setFlip(false);
+		bsCard->setLocalZOrder(allCardVec.size() - i);
+		
+		cardMarker1->addChild(bsCard);
+		cardVec.push_back(bsCard); // Phai co thu tu : Active, PreEv, Energy,..
+		
+		bsCard->retain();
+		if(i <= maxIdxHasOffset)
+			bsCard->setPosition(Vec2(offset.x * i, offset.y * i));
+		else
+			bsCard->setPosition(Vec2(offset.x * maxIdxHasOffset, offset.y * maxIdxHasOffset));
+	}
+	shownCurIdx = 0;
+	nextBtn->addClickEventListener(CC_CALLBACK_1(BSMoveSelector::onClickNextBtn, this));
+	prevBtn->addClickEventListener(CC_CALLBACK_1(BSMoveSelector::onClickPrevBtn, this));
+	prevBtn->setVisible(false);
+	nextBtn->setVisible(cardVec.size() > 1);
 };
+
+void BSMoveSelector::onClickNextBtn(cocos2d::Ref *sender) {
+	if (shownCurIdx + 1 > cardVec.size()) {
+		nextBtn->setVisible(false);
+		return;
+	}
+	shownCurIdx += 1;
+	updateCardPos();
+}
+void BSMoveSelector::onClickPrevBtn(cocos2d::Ref *sender) {
+	if (shownCurIdx <= 0) {
+		prevBtn->setVisible(false);
+		return;
+	}
+	shownCurIdx -= 1;
+	updateCardPos();
+}
+
+void BSMoveSelector::updateCardPos() {
+	cardMarker1->removeAllChildren();
+	cardMarker2->removeAllChildren();
+	for (unsigned int i = 0; i < shownCurIdx; ++i) {
+		cardMarker2->addChild(cardVec[i]);
+		cardVec[i]->setLocalZOrder(i);
+		cardVec[i]->setPosition(Vec2(0, 0));
+	}
+
+	auto offset = Vec2(10.0, -10.0);
+	auto maxIdxHasOffset = 4;
+	for (unsigned int i = shownCurIdx; i < cardVec.size(); ++i) {
+		cardMarker1->addChild(cardVec[i]);
+		cardVec[i]->setLocalZOrder(cardVec.size() - i);
+		if (i <= maxIdxHasOffset)
+			cardVec[i]->setPosition(Vec2(offset.x * i, offset.y * i));
+		else
+			cardVec[i]->setPosition(Vec2(offset.x * maxIdxHasOffset, offset.y * maxIdxHasOffset));
+	}
+
+	nextBtn->setVisible(shownCurIdx + 1 < cardVec.size());
+	prevBtn->setVisible(shownCurIdx > 0);
+}
+
 
 void BSMoveSelector::updateEnergySpritePanel() {
 	auto children = eSpritePanel->getChildren();
@@ -208,6 +287,14 @@ void BSMoveSelector::cleanUI() {
 	weakEnergyMarker->removeAllChildren();
 	resistEnergyMarker->removeAllChildren();
 	listView->removeAllChildren();
+
+	for (const auto &bsCard : cardVec) {
+		bsCard->returnToPool(); // Return Pool
+		bsCard->removeFromParent(); // Sau do xoa di
+		bsCard->release();
+	}
+	cardVec.clear();
+
 }
 
 

@@ -28,18 +28,5 @@
         <LastRunType Value="Windows" />
       </Value>
     </Item>
-    <Item Key="TabsParamsKey">
-      <Value ctype="TabsInfo">
-        <OpenedDocuments>
-          <FilePathData Path="ccstd_csb/battle_scene/attack_layer.csd" />
-          <FilePathData Path="ccstd_csb/battle_scene/prefabs/MoveInfo.csd" />
-          <FilePathData Path="ccstd_csb/battle_scene/battle_scene.csd" />
-          <FilePathData Path="ccstd_csb/battle_scene/prefabs/energy_item.csd" />
-          <FilePathData Path="ccstd_csb/battle_scene/msg_layer.csd" />
-          <FilePathData Path="ccstd_csb/battle_scene/select_card_layout.csd" />
-        </OpenedDocuments>
-        <ActiveDocument Path="ccstd_csb/battle_scene/attack_layer.csd" />
-      </Value>
-    </Item>
   </Properties>
 </UserData>
