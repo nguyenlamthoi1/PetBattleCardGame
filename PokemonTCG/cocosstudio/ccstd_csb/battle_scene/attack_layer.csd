@@ -19,6 +19,88 @@
             <EndColor A="255" R="255" G="255" B="255" />
             <ColorVector ScaleY="1.0000" />
           </AbstractNodeData>
+          <AbstractNodeData Name="CardMarker2" ActionTag="1901666004" Tag="651" IconVisible="True" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="197.7600" RightMargin="1082.2400" TopMargin="324.5701" BottomMargin="395.4299" ctype="SingleNodeObjectData">
+            <Size X="0.0000" Y="0.0000" />
+            <Children>
+              <AbstractNodeData Name="FileNode_3" ActionTag="-2105408067" Tag="652" IconVisible="True" LeftMargin="-53.2319" RightMargin="53.2319" TopMargin="11.6581" BottomMargin="-11.6581" StretchWidthEnable="False" StretchHeightEnable="False" InnerActionSpeed="1.0000" CustomSizeEnabled="False" ctype="ProjectNodeObjectData">
+                <Size X="0.0000" Y="0.0000" />
+                <AnchorPoint />
+                <Position X="-53.2319" Y="-11.6581" />
+                <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                <CColor A="255" R="255" G="255" B="255" />
+                <PrePosition />
+                <PreSize X="0.0000" Y="0.0000" />
+                <FileData Type="Normal" Path="ccstd_csb/cards/pokemon_card.csd" Plist="" />
+              </AbstractNodeData>
+              <AbstractNodeData Name="FileNode_3_0" ActionTag="-816942459" Tag="684" IconVisible="True" LeftMargin="-52.8838" RightMargin="52.8838" TopMargin="7.4691" BottomMargin="-7.4691" StretchWidthEnable="False" StretchHeightEnable="False" InnerActionSpeed="1.0000" CustomSizeEnabled="False" ctype="ProjectNodeObjectData">
+                <Size X="0.0000" Y="0.0000" />
+                <AnchorPoint />
+                <Position X="-52.8838" Y="-7.4691" />
+                <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                <CColor A="255" R="255" G="255" B="255" />
+                <PrePosition />
+                <PreSize X="0.0000" Y="0.0000" />
+                <FileData Type="Normal" Path="ccstd_csb/cards/pokemon_card.csd" Plist="" />
+              </AbstractNodeData>
+              <AbstractNodeData Name="FileNode_3_1" ActionTag="379911483" Tag="716" IconVisible="True" LeftMargin="-53.3084" RightMargin="53.3084" TopMargin="13.2038" BottomMargin="-13.2038" StretchWidthEnable="False" StretchHeightEnable="False" InnerActionSpeed="1.0000" CustomSizeEnabled="False" ctype="ProjectNodeObjectData">
+                <Size X="0.0000" Y="0.0000" />
+                <AnchorPoint />
+                <Position X="-53.3084" Y="-13.2038" />
+                <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                <CColor A="255" R="255" G="255" B="255" />
+                <PrePosition />
+                <PreSize X="0.0000" Y="0.0000" />
+                <FileData Type="Normal" Path="ccstd_csb/cards/pokemon_card.csd" Plist="" />
+              </AbstractNodeData>
+            </Children>
+            <AnchorPoint />
+            <Position X="197.7600" Y="395.4299" />
+            <Scale ScaleX="0.7000" ScaleY="0.7000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.1545" Y="0.5492" />
+            <PreSize X="0.0000" Y="0.0000" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="CardMarker" ActionTag="588775594" Tag="554" IconVisible="True" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="436.7360" RightMargin="843.2640" TopMargin="290.7300" BottomMargin="429.2700" ctype="SingleNodeObjectData">
+            <Size X="0.0000" Y="0.0000" />
+            <Children>
+              <AbstractNodeData Name="FileNode_3" ActionTag="1895907477" Tag="555" IconVisible="True" LeftMargin="22.8236" RightMargin="-22.8236" TopMargin="66.2627" BottomMargin="-66.2627" StretchWidthEnable="False" StretchHeightEnable="False" InnerActionSpeed="1.0000" CustomSizeEnabled="False" ctype="ProjectNodeObjectData">
+                <Size X="0.0000" Y="0.0000" />
+                <AnchorPoint />
+                <Position X="22.8236" Y="-66.2627" />
+                <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                <CColor A="255" R="255" G="255" B="255" />
+                <PrePosition />
+                <PreSize X="0.0000" Y="0.0000" />
+                <FileData Type="Normal" Path="ccstd_csb/cards/pokemon_card.csd" Plist="" />
+              </AbstractNodeData>
+              <AbstractNodeData Name="FileNode_3_0" ActionTag="79841206" Tag="587" IconVisible="True" LeftMargin="-15.8336" RightMargin="15.8336" TopMargin="30.8713" BottomMargin="-30.8713" StretchWidthEnable="False" StretchHeightEnable="False" InnerActionSpeed="1.0000" CustomSizeEnabled="False" ctype="ProjectNodeObjectData">
+                <Size X="0.0000" Y="0.0000" />
+                <AnchorPoint />
+                <Position X="-15.8336" Y="-30.8713" />
+                <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                <CColor A="255" R="255" G="255" B="255" />
+                <PrePosition />
+                <PreSize X="0.0000" Y="0.0000" />
+                <FileData Type="Normal" Path="ccstd_csb/cards/pokemon_card.csd" Plist="" />
+              </AbstractNodeData>
+              <AbstractNodeData Name="FileNode_3_1" ActionTag="-566697721" Tag="619" IconVisible="True" LeftMargin="-51.3596" RightMargin="51.3596" TopMargin="3.4529" BottomMargin="-3.4529" StretchWidthEnable="False" StretchHeightEnable="False" InnerActionSpeed="1.0000" CustomSizeEnabled="False" ctype="ProjectNodeObjectData">
+                <Size X="0.0000" Y="0.0000" />
+                <AnchorPoint />
+                <Position X="-51.3596" Y="-3.4529" />
+                <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                <CColor A="255" R="255" G="255" B="255" />
+                <PrePosition />
+                <PreSize X="0.0000" Y="0.0000" />
+                <FileData Type="Normal" Path="ccstd_csb/cards/pokemon_card.csd" Plist="" />
+              </AbstractNodeData>
+            </Children>
+            <AnchorPoint />
+            <Position X="436.7360" Y="429.2700" />
+            <Scale ScaleX="0.7000" ScaleY="0.7000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.3412" Y="0.5962" />
+            <PreSize X="0.0000" Y="0.0000" />
+          </AbstractNodeData>
           <AbstractNodeData Name="Info_Panel" ActionTag="-1848213504" Tag="221" IconVisible="False" LeftMargin="657.8180" RightMargin="122.1820" TopMargin="97.8448" BottomMargin="122.1552" TouchEnable="True" ClipAble="False" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
             <Size X="500.0000" Y="500.0000" />
             <Children>
@@ -346,6 +428,34 @@
             <FirstColor A="255" R="150" G="200" B="255" />
             <EndColor A="255" R="255" G="255" B="255" />
             <ColorVector ScaleY="1.0000" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="Next_Button" ActionTag="2059169969" Tag="1133" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="521.0214" RightMargin="671.9786" TopMargin="544.7620" BottomMargin="88.2380" TouchEnable="True" FontSize="14" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="57" Scale9Height="65" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
+            <Size X="87.0000" Y="87.0000" />
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position X="564.5214" Y="131.7380" />
+            <Scale ScaleX="0.5000" ScaleY="0.5000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.4410" Y="0.1830" />
+            <PreSize X="0.0680" Y="0.1208" />
+            <TextColor A="255" R="65" G="65" B="70" />
+            <PressedFileData Type="PlistSubImage" Path="bs_ui/green_button_2.png" Plist="ccstd_assets/bs_ui.plist" />
+            <NormalFileData Type="PlistSubImage" Path="bs_ui/green_button_1.png" Plist="ccstd_assets/bs_ui.plist" />
+            <OutlineColor A="255" R="255" G="0" B="0" />
+            <ShadowColor A="255" R="110" G="110" B="110" />
+          </AbstractNodeData>
+          <AbstractNodeData Name="Prev_Button" ActionTag="-1987734973" Tag="1134" IconVisible="False" PositionPercentXEnabled="True" PositionPercentYEnabled="True" LeftMargin="22.5380" RightMargin="1170.4620" TopMargin="543.2893" BottomMargin="89.7107" TouchEnable="True" FlipX="True" FontSize="14" Scale9Enable="True" LeftEage="15" RightEage="15" TopEage="11" BottomEage="11" Scale9OriginX="15" Scale9OriginY="11" Scale9Width="57" Scale9Height="65" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="ButtonObjectData">
+            <Size X="87.0000" Y="87.0000" />
+            <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+            <Position X="66.0380" Y="133.2107" />
+            <Scale ScaleX="0.5000" ScaleY="0.5000" />
+            <CColor A="255" R="255" G="255" B="255" />
+            <PrePosition X="0.0516" Y="0.1850" />
+            <PreSize X="0.0680" Y="0.1208" />
+            <TextColor A="255" R="65" G="65" B="70" />
+            <PressedFileData Type="PlistSubImage" Path="bs_ui/green_button_2.png" Plist="ccstd_assets/bs_ui.plist" />
+            <NormalFileData Type="PlistSubImage" Path="bs_ui/green_button_1.png" Plist="ccstd_assets/bs_ui.plist" />
+            <OutlineColor A="255" R="255" G="0" B="0" />
+            <ShadowColor A="255" R="110" G="110" B="110" />
           </AbstractNodeData>
         </Children>
       </ObjectData>
