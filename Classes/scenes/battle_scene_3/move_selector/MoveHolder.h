@@ -17,7 +17,7 @@
 #include <vector>
 #include <unordered_map>
 
-
+class MoveData;
 
 BATTLE_SCENE_NS_BEG
 
@@ -26,8 +26,8 @@ class MoveHolder : public cocos2d::ui::Layout
 public:
 	using CardId = std::string;
 
-	MoveHolder* create(const );
-	MoveHolder();
+	static MoveHolder* create(const std::shared_ptr<const MoveData> &data);
+	MoveHolder(const std::shared_ptr<const MoveData> &data);
 	virtual ~MoveHolder();
 
 	cocos2d::Node* getRoot() const { return root; }
@@ -39,7 +39,16 @@ protected:
 	virtual bool init();
 
 	cocos2d::Node *root = nullptr;
+	cocos2d::ui::Layout *container = nullptr;
+	cocos2d::ui::Text *moveNameLb = nullptr;
+	cocos2d::ui::Text *dmgLb = nullptr;
+	cocos2d::ui::Button *useBtn = nullptr;
+	cocos2d::ui::Layout *energyPanel = nullptr;
+	cocos2d::ui::Layout *desBoard = nullptr;
+	std::shared_ptr<const MoveData> data;
 	
+	void setMoveDes(const std::string &s);
+	void updateEnergyPanel();
 };
 
 BATTLE_SCENE_NS_END

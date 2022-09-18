@@ -279,6 +279,9 @@
     <ClCompile Include="..\Classes\scenes\battle_scene_3\move_selector\BSMoveSelector.cpp">
       <Filter>src\scenes\battle_scene\move_selector</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\move_selector\MoveHolder.cpp">
+      <Filter>src\scenes\battle_scene\move_selector</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -579,6 +582,9 @@
       <Filter>src\scenes\battle_scene\card_selector</Filter>
     </ClInclude>
     <ClInclude Include="..\Classes\scenes\battle_scene_3\move_selector\BSMoveSelector.h">
+      <Filter>src\scenes\battle_scene\move_selector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\move_selector\MoveHolder.h">
       <Filter>src\scenes\battle_scene\move_selector</Filter>
     </ClInclude>
   </ItemGroup>

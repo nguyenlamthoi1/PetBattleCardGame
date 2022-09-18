@@ -1,4 +1,5 @@
 #include "BSMoveSelector.h"
+#include "MoveHolder.h"
 
 #include "GameManager.h"
 #include "common/ResourceLoader.h"
@@ -160,6 +161,13 @@ void BSMoveSelector::showInfoHolder(CardHolder *holder) {
 		auto text = dynamic_cast<ui::Text*>(resistPanel->getChildByName("Text"));
 		text->setVisible(false);
 	}
+
+	// Moves
+	auto moveVec = activeData->moveVec;
+	for (const auto &moveData : moveVec) {
+		auto moveItem = MoveHolder::create(moveData);
+		listView->addChild(moveItem);
+	}
 };
 
 void BSMoveSelector::updateEnergySpritePanel() {
@@ -199,6 +207,7 @@ void BSMoveSelector::cleanUI() {
 	retreatEnergyPanel->removeAllChildren(); // * Return Pool energyItem
 	weakEnergyMarker->removeAllChildren();
 	resistEnergyMarker->removeAllChildren();
+	listView->removeAllChildren();
 }
 
 
