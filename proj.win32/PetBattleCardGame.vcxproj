@@ -200,6 +200,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\scenes\battle_scene_3\game\game_state\Player.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene_3\game\game_state\PrizePile.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene_3\game\player_actions\PlayerAction.cpp" />
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\move_selector\BSMoveSelector.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene_3\prefabs\EnergyItem.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene_3\prize_selector\BSPrizeSelector.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene_3\scene_actions\BSAction.cpp" />
@@ -301,6 +302,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\scenes\battle_scene_3\game\game_state\Player.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene_3\game\game_state\PrizePile.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene_3\game\player_actions\PlayerAction.h" />
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\move_selector\BSMoveSelector.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene_3\prefabs\BSPrefabs.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene_3\prize_selector\BSPrizeSelector.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene_3\scene_actions\BSAction.h" />

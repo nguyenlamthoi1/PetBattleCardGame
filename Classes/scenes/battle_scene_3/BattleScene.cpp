@@ -19,6 +19,7 @@
 #include "BSPrizePile.h"
 #include "prize_selector/BSPrizeSelector.h"
 #include "card_selector/BSCardSelector.h"
+#include "move_selector/BSMoveSelector.h"
 
 #include <stdlib.h>
 
@@ -162,6 +163,9 @@ bool BattleScene::init() {
 	coinFlipper = shared_ptr<BSCoinFlipper>(BSCoinFlipper::create(this));
 	coinFlipper->getRoot()->setVisible(false);
 
+	// Khoi tao Move Selector
+
+
 	// Khoi tao du lieu player trong game
 	//players[PLAYER] = make_shared<BSGamer>(PLAYER);
 	//players[OPPONENT] = make_shared<BSPlayer>(OPPONENT);
@@ -188,6 +192,10 @@ bool BattleScene::init() {
 	// Khoi tao CardSelector
 	cardSelector = BSCardSelector::create(this);
 	cardSelector->getRoot()->setVisible(false);
+
+	// Khoi tao MoveSelector
+	moveSelector = BSMoveSelector::create(this);
+	moveSelector->getRoot()->setVisible(false);
 
 	// + Detailed Card
 	detailLayout = dynamic_cast<ui::Layout*>(root->getChildByName("Detail_Layout"));
@@ -268,6 +276,12 @@ void BattleScene::initTopLayer() {
 	// P2
 	auto portraitImg2 = dynamic_cast<ui::ImageView*>(topLayout->getChildByName("Portrait_P2")->getChildByName("Portrait_Image"));
 	portraitImg2->loadTexture(playerData[oid]->getAvatarImg(), ui::Widget::TextureResType::PLIST);
+
+	btn1 = dynamic_cast<ui::Button*>(topLayout->getChildByName("Button_1"));
+	btn1->addClickEventListener(CC_CALLBACK_1(BattleScene::func1, this));
+	btn2 = dynamic_cast<ui::Button*>(topLayout->getChildByName("Button_2"));
+	btn2->addClickEventListener(CC_CALLBACK_1(BattleScene::func2, this));
+
 }
 
 
@@ -289,6 +303,7 @@ const vector<PlayerIdType>& BattleScene::getPids() const { return pids; }
 shared_ptr<BSPrizePile> BattleScene::getPrizePile(const PlayerIdType &id) const { return prizePiles.at(id); }
 shared_ptr<BSPrizeSelector> BattleScene::getPrizeSelector() const { return prizeSelector; }
 shared_ptr<BSCardSelector> BattleScene::getCardSelector() const { return cardSelector; }
+shared_ptr<BSMoveSelector> BattleScene::getMoveSelector() const { return moveSelector; }
 
 
 Node* BattleScene::getPrizePileNode(const PlayerIdType &id) const {
@@ -492,4 +507,16 @@ void BattleScene::setClickEndButton(const EndClickFunc &f) {
 
 
 
+
+
+/////////
+
+void BattleScene::func1(Ref *sender) {
+	moveSelector->showInfoHolder(nullptr);
+}
+
+void BattleScene::func2(Ref *sender) {
+	moveSelector->hide();
+
+}
 BATTLE_SCENE_NS_END

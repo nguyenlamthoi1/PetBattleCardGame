@@ -38,6 +38,7 @@ EnergyItem::EnergyItem(EnergyId eid, unsigned int c) : id(eid), count(c) {}
 EnergyItem::~EnergyItem(){
 	if (root) {
 		root->removeFromParent(); // Release
+		PoolVector::returnNode(root);
 		root = nullptr;
 	}
 }
@@ -49,7 +50,7 @@ bool EnergyItem::init() {
 	root = GM_POOL->tryGetNodeCsb("ccstd_csb/battle_scene/prefabs/energy_item.csb");
 	if (!root)
 		return false;
-	this->addChild(root);
+
 
 	energySprite = dynamic_cast<Sprite*>(root->getChildByName("EnergySprite"));
 	if (!energySprite)
@@ -61,6 +62,13 @@ bool EnergyItem::init() {
 
 	energySprite->setSpriteFrame(SpriteFrameCache::getInstance()->getSpriteFrameByName(energySFNMap[id]));
 	energyText->setString(count > 1 ? to_string(count) : "");
+
+
+	this->addChild(root);
+	root->setPosition(Vec2(0, 0));
+	//auto eSize = energySprite->getContentSize();
+	//this->setAnchorPoint(Vec2(0.5f, 0.5f));
+	//this->setContentSize(eSize);
 
 	return true;
 }

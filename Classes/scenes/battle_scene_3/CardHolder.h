@@ -57,6 +57,7 @@ public:
 	bool isActiveSpot();
 	bool canEvolveTo(PetCard *card);
 	
+	
 protected:
 	virtual void clear();
 

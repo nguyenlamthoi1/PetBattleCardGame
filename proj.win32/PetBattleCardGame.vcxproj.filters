@@ -91,6 +91,9 @@
     <Filter Include="src\scenes\battle_scene\card_selector">
       <UniqueIdentifier>{cb896b44-44e0-4533-bd7c-d2dfd2d5330c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\scenes\battle_scene\move_selector">
+      <UniqueIdentifier>{2b3fbd49-d7ce-4a26-ac74-bc69b0f9aba7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -272,6 +275,9 @@
     </ClCompile>
     <ClCompile Include="..\Classes\scenes\battle_scene_3\card_selector\UnSelectedCardHolder.cpp">
       <Filter>src\scenes\battle_scene\card_selector</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\move_selector\BSMoveSelector.cpp">
+      <Filter>src\scenes\battle_scene\move_selector</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -571,6 +577,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\scenes\battle_scene_3\card_selector\UnSelectedCardHolder.h">
       <Filter>src\scenes\battle_scene\card_selector</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\move_selector\BSMoveSelector.h">
+      <Filter>src\scenes\battle_scene\move_selector</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -73,7 +73,7 @@ public:
 
 	std::string eName;
 	EnergyType eType = CardDefine::Energy::None;
-	EnergyNumType eNum = 0;
+	EnergyNumType eNum = 1;
 	std::string image = "";
 };
 

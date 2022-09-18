@@ -43,6 +43,7 @@ BATTLE_SCENE_NS_BEG
 
 bool isPlayerIdInvalid(const PlayerIdType &id);
 
+constexpr unsigned int DMG_COUNTER_VAL = 10;
 constexpr unsigned int DEFAULT_MAX_BENCH_CAPACITY = 5; // So luong pokemon toi da dat duoc len bench mac dinh
 
 constexpr unsigned int ACTION_PLAY_BASIC_PET_MAX_COUNT_PER_TURN = UINT_MAX;

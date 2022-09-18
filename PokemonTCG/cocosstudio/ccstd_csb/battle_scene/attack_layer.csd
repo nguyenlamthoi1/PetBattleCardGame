@@ -6,7 +6,7 @@
       <ObjectData Name="Root" Tag="141" ctype="GameLayerObjectData">
         <Size X="1280.0000" Y="720.0000" />
         <Children>
-          <AbstractNodeData Name="Black_Panel" ActionTag="-921894418" Tag="378" IconVisible="False" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" LeftMargin="-6.3230" RightMargin="6.3230" TopMargin="2.1077" BottomMargin="-2.1077" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" ctype="PanelObjectData">
+          <AbstractNodeData Name="Black_Panel" ActionTag="-921894418" Tag="378" IconVisible="False" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" LeftMargin="-6.3230" RightMargin="6.3230" TopMargin="2.1077" BottomMargin="-2.1077" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
             <Size X="1280.0000" Y="720.0000" />
             <AnchorPoint />
             <Position X="-6.3230" Y="-2.1077" />
@@ -19,13 +19,13 @@
             <EndColor A="255" R="255" G="255" B="255" />
             <ColorVector ScaleY="1.0000" />
           </AbstractNodeData>
-          <AbstractNodeData Name="Info_Panel" ActionTag="-1848213504" Tag="221" IconVisible="False" LeftMargin="657.8180" RightMargin="122.1820" TopMargin="97.8448" BottomMargin="122.1552" TouchEnable="True" ClipAble="False" ComboBoxIndex="1" ColorAngle="90.0000" ctype="PanelObjectData">
+          <AbstractNodeData Name="Info_Panel" ActionTag="-1848213504" Tag="221" IconVisible="False" LeftMargin="657.8180" RightMargin="122.1820" TopMargin="97.8448" BottomMargin="122.1552" TouchEnable="True" ClipAble="False" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
             <Size X="500.0000" Y="500.0000" />
             <Children>
-              <AbstractNodeData Name="Top_Panel" ActionTag="613685182" Tag="458" IconVisible="False" PercentWidthEnable="True" PercentWidthEnabled="True" VerticalEdge="TopEdge" BottomMargin="420.0000" TouchEnable="True" ClipAble="False" ComboBoxIndex="1" ColorAngle="90.0000" ctype="PanelObjectData">
+              <AbstractNodeData Name="Top_Panel" ActionTag="613685182" Tag="458" IconVisible="False" PercentWidthEnable="True" PercentWidthEnabled="True" VerticalEdge="TopEdge" BottomMargin="420.0000" TouchEnable="True" ClipAble="False" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
                 <Size X="500.0000" Y="80.0000" />
                 <Children>
-                  <AbstractNodeData Name="Name_Panel" ActionTag="-77331341" Tag="914" IconVisible="False" PositionPercentYEnabled="True" PercentWidthEnable="True" PercentWidthEnabled="True" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" ctype="PanelObjectData">
+                  <AbstractNodeData Name="Name_Panel" ActionTag="-77331341" Tag="914" IconVisible="False" PositionPercentYEnabled="True" PercentWidthEnable="True" PercentWidthEnabled="True" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
                     <Size X="500.0000" Y="80.0000" />
                     <Children>
                       <AbstractNodeData Name="Pokemon_Name" ActionTag="712753675" Tag="913" IconVisible="False" PositionPercentYEnabled="True" HorizontalEdge="LeftEdge" RightMargin="26.0000" TopMargin="-3.0000" BottomMargin="-3.0000" FontSize="72" LabelText="Pokemon Name" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
@@ -40,7 +40,7 @@
                         <OutlineColor A="255" R="255" G="0" B="0" />
                         <ShadowColor A="255" R="110" G="110" B="110" />
                       </AbstractNodeData>
-                      <AbstractNodeData Name="HpPanel" ActionTag="104919652" Tag="915" IconVisible="False" HorizontalEdge="RightEdge" LeftMargin="391.6514" RightMargin="8.3486" TopMargin="14.8427" BottomMargin="15.1573" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" ctype="PanelObjectData">
+                      <AbstractNodeData Name="HpPanel" ActionTag="104919652" Tag="915" IconVisible="False" HorizontalEdge="RightEdge" LeftMargin="391.6514" RightMargin="8.3486" TopMargin="14.8427" BottomMargin="15.1573" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
                         <Size X="100.0000" Y="50.0000" />
                         <Children>
                           <AbstractNodeData Name="CurHp" ActionTag="-1035784246" Tag="916" IconVisible="False" PositionPercentYEnabled="True" HorizontalEdge="LeftEdge" RightMargin="26.0000" TopMargin="-4.0000" BottomMargin="-4.0000" FontSize="48" LabelText="100" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
@@ -67,10 +67,10 @@
                             <OutlineColor A="255" R="255" G="0" B="0" />
                             <ShadowColor A="255" R="110" G="110" B="110" />
                           </AbstractNodeData>
-                          <AbstractNodeData Name="MaxHp" ActionTag="-510703130" Tag="917" IconVisible="False" PositionPercentYEnabled="True" LeftMargin="40.2634" RightMargin="-22.2634" TopMargin="-4.6957" BottomMargin="-3.3043" FontSize="48" LabelText="160" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                          <AbstractNodeData Name="MaxHp" ActionTag="-510703130" Tag="917" IconVisible="False" PositionPercentYEnabled="True" LeftMargin="40.2634" RightMargin="-22.2634" TopMargin="-4.6950" BottomMargin="-3.3050" FontSize="48" LabelText="160" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
                             <Size X="82.0000" Y="58.0000" />
                             <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                            <Position X="81.2634" Y="25.6957" />
+                            <Position X="81.2634" Y="25.6950" />
                             <Scale ScaleX="0.5000" ScaleY="0.5000" />
                             <CColor A="255" R="0" G="0" B="0" />
                             <PrePosition X="0.8126" Y="0.5139" />
@@ -103,7 +103,7 @@
                     <EndColor A="255" R="255" G="255" B="255" />
                     <ColorVector ScaleY="1.0000" />
                   </AbstractNodeData>
-                  <AbstractNodeData Name="Energy_Panel" ActionTag="-774397258" Tag="1207" IconVisible="False" PercentWidthEnable="True" PercentWidthEnabled="True" TopMargin="83.6905" BottomMargin="-53.6905" TouchEnable="True" ClipAble="False" ComboBoxIndex="1" ColorAngle="90.0000" ctype="PanelObjectData">
+                  <AbstractNodeData Name="Energy_Panel" ActionTag="-774397258" Tag="1207" IconVisible="False" PercentWidthEnable="True" PercentWidthEnabled="True" TopMargin="83.6905" BottomMargin="-53.6905" TouchEnable="True" ClipAble="False" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
                     <Size X="500.0000" Y="50.0000" />
                     <Children>
                       <AbstractNodeData Name="Text" ActionTag="1203819577" Tag="1208" IconVisible="False" PositionPercentYEnabled="True" RightMargin="179.0000" TopMargin="-4.0000" BottomMargin="-4.0000" FontSize="48" LabelText="Attached Energy" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
@@ -118,14 +118,14 @@
                         <OutlineColor A="255" R="255" G="0" B="0" />
                         <ShadowColor A="255" R="110" G="110" B="110" />
                       </AbstractNodeData>
-                      <AbstractNodeData Name="EnergySprite_Panel" ActionTag="-1798572529" Tag="1557" IconVisible="False" PercentHeightEnable="True" PercentHeightEnabled="True" LeftMargin="172.8273" RightMargin="127.1727" TopMargin="-0.2008" BottomMargin="0.2008" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" ctype="PanelObjectData">
-                        <Size X="200.0000" Y="50.0000" />
+                      <AbstractNodeData Name="EnergySprite_Panel" ActionTag="-1798572529" Tag="1557" IconVisible="False" PercentHeightEnable="True" PercentHeightEnabled="True" LeftMargin="215.8300" RightMargin="283.1700" TopMargin="20.5500" BottomMargin="28.9500" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
+                        <Size X="1.0000" Y="0.5000" />
                         <AnchorPoint />
-                        <Position X="172.8273" Y="0.2008" />
+                        <Position X="215.8300" Y="28.9500" />
                         <Scale ScaleX="1.0000" ScaleY="1.0000" />
                         <CColor A="255" R="255" G="255" B="255" />
-                        <PrePosition X="0.3457" Y="0.0040" />
-                        <PreSize X="0.4000" Y="1.0000" />
+                        <PrePosition X="0.4317" Y="0.5790" />
+                        <PreSize X="0.0020" Y="0.0100" />
                         <SingleColor A="255" R="150" G="200" B="255" />
                         <FirstColor A="255" R="150" G="200" B="255" />
                         <EndColor A="255" R="255" G="255" B="255" />
@@ -155,10 +155,10 @@
                 <EndColor A="255" R="255" G="255" B="255" />
                 <ColorVector ScaleY="1.0000" />
               </AbstractNodeData>
-              <AbstractNodeData Name="ListView" ActionTag="306691766" Tag="1674" IconVisible="False" PercentWidthEnable="True" PercentWidthEnabled="True" TopMargin="138.1128" BottomMargin="101.8872" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" ScrollDirectionType="0" DirectionType="Vertical" ctype="ListViewObjectData">
+              <AbstractNodeData Name="ListView" ActionTag="306691766" Tag="1674" IconVisible="False" PercentWidthEnable="True" PercentWidthEnabled="True" TopMargin="138.1128" BottomMargin="101.8872" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ScrollDirectionType="0" DirectionType="Vertical" ctype="ListViewObjectData">
                 <Size X="500.0000" Y="260.0000" />
                 <Children>
-                  <AbstractNodeData Name="Panel_414" ActionTag="1752720257" Tag="1682" IconVisible="False" RightMargin="5.0000" BottomMargin="130.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" ctype="PanelObjectData">
+                  <AbstractNodeData Name="Panel_414" ActionTag="1752720257" Tag="1682" IconVisible="False" RightMargin="5.0000" BottomMargin="130.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
                     <Size X="495.0000" Y="130.0000" />
                     <Children>
                       <AbstractNodeData Name="FileNode_1" ActionTag="-2102497983" Tag="1675" IconVisible="True" LeftMargin="10.0000" RightMargin="485.0000" TopMargin="130.0000" StretchWidthEnable="False" StretchHeightEnable="False" InnerActionSpeed="1.0000" CustomSizeEnabled="False" ctype="ProjectNodeObjectData">
@@ -220,10 +220,10 @@
                 <EndColor A="255" R="255" G="255" B="255" />
                 <ColorVector ScaleY="1.0000" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Bottom_Panel" ActionTag="-2072504817" Tag="1359" IconVisible="False" PercentWidthEnable="True" PercentWidthEnabled="True" VerticalEdge="BottomEdge" TopMargin="400.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" ctype="PanelObjectData">
+              <AbstractNodeData Name="Bottom_Panel" ActionTag="-2072504817" Tag="1359" IconVisible="False" PercentWidthEnable="True" PercentWidthEnabled="True" VerticalEdge="BottomEdge" TopMargin="400.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
                 <Size X="500.0000" Y="100.0000" />
                 <Children>
-                  <AbstractNodeData Name="Weakness_Panel" ActionTag="-1098358253" Tag="1360" IconVisible="False" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" TopMargin="70.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" ctype="PanelObjectData">
+                  <AbstractNodeData Name="Weakness_Panel" ActionTag="-1098358253" Tag="1360" IconVisible="False" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" TopMargin="70.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
                     <Size X="500.0000" Y="30.0000" />
                     <Children>
                       <AbstractNodeData Name="Title" ActionTag="61800796" Tag="1362" IconVisible="False" LeftMargin="1.9974" RightMargin="297.0026" TopMargin="-17.8057" BottomMargin="-10.1943" FontSize="48" LabelText="Weakness" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
@@ -238,29 +238,26 @@
                         <OutlineColor A="255" R="255" G="0" B="0" />
                         <ShadowColor A="255" R="110" G="110" B="110" />
                       </AbstractNodeData>
-                      <AbstractNodeData Name="EnergyImg" ActionTag="-816509821" Tag="1363" IconVisible="False" LeftMargin="112.3400" RightMargin="355.6600" TopMargin="-8.3972" BottomMargin="6.3972" LeftEage="10" RightEage="10" TopEage="10" BottomEage="10" Scale9OriginX="10" Scale9OriginY="10" Scale9Width="12" Scale9Height="12" ctype="ImageViewObjectData">
-                        <Size X="32.0000" Y="32.0000" />
-                        <Children>
-                          <AbstractNodeData Name="Weak_Text" ActionTag="751716908" Tag="1552" IconVisible="False" LeftMargin="28.6386" RightMargin="-45.6386" TopMargin="-5.8571" BottomMargin="-20.1429" FontSize="48" LabelText="x2" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
-                            <Size X="49.0000" Y="58.0000" />
-                            <AnchorPoint ScaleY="0.5000" />
-                            <Position X="28.6386" Y="8.8571" />
-                            <Scale ScaleX="0.5000" ScaleY="0.5000" />
-                            <CColor A="255" R="0" G="0" B="0" />
-                            <PrePosition X="0.8950" Y="0.2768" />
-                            <PreSize X="1.5313" Y="1.8125" />
-                            <FontResource Type="Normal" Path="ccstd_fonts/GillSans_ttf/Gill Sans.ttf" Plist="" />
-                            <OutlineColor A="255" R="255" G="0" B="0" />
-                            <ShadowColor A="255" R="110" G="110" B="110" />
-                          </AbstractNodeData>
-                        </Children>
-                        <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                        <Position X="128.3400" Y="22.3972" />
+                      <AbstractNodeData Name="Marker" ActionTag="-1727485209" Tag="534" IconVisible="True" LeftMargin="135.8164" RightMargin="364.1836" TopMargin="7.0000" BottomMargin="23.0000" ctype="SingleNodeObjectData">
+                        <Size X="0.0000" Y="0.0000" />
+                        <AnchorPoint />
+                        <Position X="135.8164" Y="23.0000" />
                         <Scale ScaleX="1.0000" ScaleY="1.0000" />
                         <CColor A="255" R="255" G="255" B="255" />
-                        <PrePosition X="0.2567" Y="0.7466" />
-                        <PreSize X="0.0640" Y="1.0667" />
-                        <FileData Type="PlistSubImage" Path="energies/x1/energy_fire.png" Plist="ccstd_assets/energies.plist" />
+                        <PrePosition X="0.2716" Y="0.7667" />
+                        <PreSize X="0.0000" Y="0.0000" />
+                      </AbstractNodeData>
+                      <AbstractNodeData Name="Text" ActionTag="751716908" Tag="1552" IconVisible="False" LeftMargin="180.0000" RightMargin="271.0000" TopMargin="-16.2822" BottomMargin="-11.7178" FontSize="48" LabelText="x2" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                        <Size X="49.0000" Y="58.0000" />
+                        <AnchorPoint ScaleY="0.5000" />
+                        <Position X="180.0000" Y="17.2822" />
+                        <Scale ScaleX="0.5000" ScaleY="0.5000" />
+                        <CColor A="255" R="0" G="0" B="0" />
+                        <PrePosition X="0.3600" Y="0.5761" />
+                        <PreSize X="0.0980" Y="1.9333" />
+                        <FontResource Type="Normal" Path="ccstd_fonts/GillSans_ttf/Gill Sans.ttf" Plist="" />
+                        <OutlineColor A="255" R="255" G="0" B="0" />
+                        <ShadowColor A="255" R="110" G="110" B="110" />
                       </AbstractNodeData>
                     </Children>
                     <AnchorPoint />
@@ -289,29 +286,26 @@
                         <OutlineColor A="255" R="255" G="0" B="0" />
                         <ShadowColor A="255" R="110" G="110" B="110" />
                       </AbstractNodeData>
-                      <AbstractNodeData Name="EnergyImg" ActionTag="1638115589" Tag="1555" IconVisible="False" LeftMargin="112.3400" RightMargin="355.6600" TopMargin="-8.3972" BottomMargin="6.3972" LeftEage="10" RightEage="10" TopEage="10" BottomEage="10" Scale9OriginX="10" Scale9OriginY="10" Scale9Width="12" Scale9Height="12" ctype="ImageViewObjectData">
-                        <Size X="32.0000" Y="32.0000" />
-                        <Children>
-                          <AbstractNodeData Name="Resist_Text" ActionTag="-429123893" Tag="1556" IconVisible="False" LeftMargin="28.6386" RightMargin="-62.6386" TopMargin="-5.8571" BottomMargin="-20.1429" FontSize="48" LabelText="-20" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
-                            <Size X="66.0000" Y="58.0000" />
-                            <AnchorPoint ScaleY="0.5000" />
-                            <Position X="28.6386" Y="8.8571" />
-                            <Scale ScaleX="0.5000" ScaleY="0.5000" />
-                            <CColor A="255" R="0" G="0" B="0" />
-                            <PrePosition X="0.8950" Y="0.2768" />
-                            <PreSize X="2.0625" Y="1.8125" />
-                            <FontResource Type="Normal" Path="ccstd_fonts/GillSans_ttf/Gill Sans.ttf" Plist="" />
-                            <OutlineColor A="255" R="255" G="0" B="0" />
-                            <ShadowColor A="255" R="110" G="110" B="110" />
-                          </AbstractNodeData>
-                        </Children>
-                        <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
-                        <Position X="128.3400" Y="22.3972" />
+                      <AbstractNodeData Name="Marker" ActionTag="-372268772" Tag="535" IconVisible="True" LeftMargin="134.9035" RightMargin="365.0964" TopMargin="7.0000" BottomMargin="23.0000" ctype="SingleNodeObjectData">
+                        <Size X="0.0000" Y="0.0000" />
+                        <AnchorPoint />
+                        <Position X="134.9035" Y="23.0000" />
                         <Scale ScaleX="1.0000" ScaleY="1.0000" />
                         <CColor A="255" R="255" G="255" B="255" />
-                        <PrePosition X="0.2567" Y="0.7466" />
-                        <PreSize X="0.0640" Y="1.0667" />
-                        <FileData Type="PlistSubImage" Path="energies/x1/energy_fire.png" Plist="ccstd_assets/energies.plist" />
+                        <PrePosition X="0.2698" Y="0.7667" />
+                        <PreSize X="0.0000" Y="0.0000" />
+                      </AbstractNodeData>
+                      <AbstractNodeData Name="Text" ActionTag="-235813954" Tag="536" IconVisible="False" LeftMargin="180.0000" RightMargin="254.0000" TopMargin="-21.3794" BottomMargin="-6.6206" FontSize="48" LabelText="-20" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                        <Size X="66.0000" Y="58.0000" />
+                        <AnchorPoint ScaleY="0.5000" />
+                        <Position X="180.0000" Y="22.3794" />
+                        <Scale ScaleX="0.5000" ScaleY="0.5000" />
+                        <CColor A="255" R="0" G="0" B="0" />
+                        <PrePosition X="0.3600" Y="0.7460" />
+                        <PreSize X="0.1320" Y="1.9333" />
+                        <FontResource Type="Normal" Path="ccstd_fonts/GillSans_ttf/Gill Sans.ttf" Plist="" />
+                        <OutlineColor A="255" R="255" G="0" B="0" />
+                        <ShadowColor A="255" R="110" G="110" B="110" />
                       </AbstractNodeData>
                     </Children>
                     <AnchorPoint />
@@ -328,14 +322,14 @@
                   <AbstractNodeData Name="Retreat_Panel" ActionTag="19520168" Tag="2312" IconVisible="False" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" TopMargin="7.6782" BottomMargin="62.3218" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
                     <Size X="500.0000" Y="30.0000" />
                     <Children>
-                      <AbstractNodeData Name="EnergySprite_Panel_0" ActionTag="-1799530522" Tag="2319" IconVisible="False" PercentHeightEnable="True" PercentHeightEnabled="True" LeftMargin="120.2824" RightMargin="179.7176" TopMargin="-14.2890" BottomMargin="14.2890" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
-                        <Size X="200.0000" Y="30.0000" />
+                      <AbstractNodeData Name="RetreatEnergyPanel" ActionTag="-1799530522" Tag="2319" IconVisible="False" LeftMargin="129.2800" RightMargin="370.7200" TopMargin="7.7100" BottomMargin="22.2900" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
+                        <Size X="0.0000" Y="0.0000" />
                         <AnchorPoint />
-                        <Position X="120.2824" Y="14.2890" />
+                        <Position X="129.2800" Y="22.2900" />
                         <Scale ScaleX="1.0000" ScaleY="1.0000" />
                         <CColor A="255" R="255" G="255" B="255" />
-                        <PrePosition X="0.2406" Y="0.4763" />
-                        <PreSize X="0.4000" Y="1.0000" />
+                        <PrePosition X="0.2586" Y="0.7430" />
+                        <PreSize X="0.0000" Y="0.0000" />
                         <SingleColor A="255" R="150" G="200" B="255" />
                         <FirstColor A="255" R="150" G="200" B="255" />
                         <EndColor A="255" R="255" G="255" B="255" />
