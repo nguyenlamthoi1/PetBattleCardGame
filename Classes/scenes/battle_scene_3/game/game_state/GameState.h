@@ -12,6 +12,8 @@ namespace BattleSceneNS{
 }
 #define GameState_TAG_CLONE //
 
+class ActionData;
+
 NS_GAME_BEGIN
 
 class Deck;
@@ -41,10 +43,13 @@ public:
 	virtual ~GameState();
 
 public:
+
 	bool isGameOver() const;
 	PlayerIdType getWinnerId() const;
 	PlayerIdType getOpponentOf(const PlayerIdType &pid) const;
 	bool empty() const;
+
+	bool isCurPlayer(const PlayerIdType &id) const { return pids[curPlayer] == id; }
 	
 	void setFirstIdx(unsigned int idx) { firstPlayerIdx = idx; }
 	unsigned int getFirstIdx() const { return firstPlayerIdx; }
@@ -81,9 +86,13 @@ public:
 	void setGameOver(const PlayerIdType & winnerId);
 	bool initStateWith2Players(const PlayerIdType &p1, const PlayerIdType &p2);
 
+	//std::shared_ptr<MGame::GameAction> createAction(const std::shared_ptr<const ActionData> &adata);
+	
 	void pushAction(const std::shared_ptr<GameAction> &action);
 	void pushActions(std::initializer_list<std::shared_ptr<GameAction>> actions);
 	void pushActionsAtFront(std::initializer_list<std::shared_ptr<GameAction>> actions);
+	void replaceCurActionWith(std::initializer_list<std::shared_ptr<GameAction>> actions);
+	void replaceCurActionWithVec(const std::vector<std::shared_ptr<GameAction>> &actions);
 
 protected:
 	bool initDeck(const PlayerIdType &id);
@@ -103,7 +112,7 @@ protected:
 	std::unordered_map<PlayerIdType, std::shared_ptr<CoinFlipper>> flippers; //GameState_TAG_CLONE
 
 	std::list<std::shared_ptr<GameAction>> actionQueue; //GameState_TAG_CLONE
-
+	std::list<std::shared_ptr<GameAction>> removedQueue;
 	std::vector<PlayerIdType> pids; //GameState_TAG_CLONE // vector gom cac player id
 	unsigned int curPlayer; //GameState_TAG_CLONE // Actor hien tai dang thuc hien hanh dong 
 	unsigned int firstPlayerIdx = 0;

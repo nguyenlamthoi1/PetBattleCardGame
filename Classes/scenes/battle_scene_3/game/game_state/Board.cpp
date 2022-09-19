@@ -68,4 +68,11 @@ bool Board::hasActivePet() const {
 	return active->hasPet();
 }
 
+Board::HolderPtr Board::getBenchHolder(unsigned int idx) const {
+	if (idx >= bench.size())
+		return nullptr;
+	return bench.at(idx);
+}
+
+
 NS_GAME_END

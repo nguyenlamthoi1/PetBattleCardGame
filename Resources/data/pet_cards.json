@@ -18,7 +18,13 @@
         "Cost" : {
           "Normal" : 1
         },
-        "ContentText" : ""
+        "ContentText" : "",
+        "Actions" : [
+          {
+            "id" : "Attack_Default",
+            "override" : { "0" :10 }
+          }
+        ]
       },
       {
         "Name" : "Ember",
@@ -27,7 +33,13 @@
           "Fire": 1,
           "Normal" : 1
         },
-        "ContentText" : "Discard 1 Fire Energy attached to Charmander"
+        "ContentText" : "",
+        "Actions" : [
+          {
+            "id" : "Attack_Default",
+            "override" : { "0" :30 }
+          }
+        ]
       }
     ]
   },
@@ -58,7 +70,13 @@
         "Cost" : {
           "Normal" : 3
         },
-        "ContentText" : ""
+        "ContentText" : "",
+        "Actions" : [
+          {
+            "id" : "Attack_Default",
+            "override" : { "0" :30 }
+          }
+        ]
       },
       {
         "Name" : "Flamethrower",
@@ -67,7 +85,13 @@
           "Fire" : 2,
           "Normal" : 1
         },
-        "ContentText" : "Discard 1 Fire Energy attached to Charmander"
+        "ContentText" : "",
+        "Actions" : [
+          {
+            "id" : "Attack_Default",
+            "override" : { "0" :50 }
+          }
+        ]
       }
     ]
   },
@@ -94,11 +118,17 @@
     "Moves":[
       {
         "Name" : "Fire Spin",
-        "DamageText" : "20",
+        "DamageText" : "100",
         "Cost" : {
           "Fire" : 4
         },
-        "ContentText" : "Discard 2 Energy attached to Charizard"
+        "ContentText" : "",
+        "Actions" : [
+          {
+            "id" : "Attack_Default",
+            "override" : { "0" :100 }
+          }
+        ]
       }
     ]
   } 

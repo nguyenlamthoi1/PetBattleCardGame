@@ -36,9 +36,9 @@ public:
 	static cocos2d::Size HOLDER_SIZE;
 
 	static CardHolder* createActive(BattleScene *btlScn, PlayerIdType id);
-	static CardHolder* createBench(BattleScene *btlScn, PlayerIdType id);
+	static CardHolder* createBench(BattleScene *btlScn, PlayerIdType id, unsigned int benchIdx);
 
-	CardHolder(HolderType hType, BattleScene *btlScn, PlayerIdType id);
+	CardHolder(HolderType hType, BattleScene *btlScn, PlayerIdType id, unsigned int hIdx = 0);
 	virtual ~CardHolder();
 
 	virtual bool init() override;
@@ -53,6 +53,10 @@ public:
 	void updateInfoPanel(bool show);
 
 	// Checker
+	unsigned int getHolderIdx() const { return holderIdx; }
+	bool isType(HolderType hType) const { return type == hType; }
+	PlayerIdType getPid() const { return ownerId; }
+	bool checkCanUseMove(unsigned int moveIdx) const;
 	bool hasPetCard();
 	bool isActiveSpot();
 	bool canEvolveTo(PetCard *card);
@@ -66,6 +70,7 @@ protected:
 	HolderType type;
 	BattleScene *btlScn = nullptr;
 	PlayerIdType ownerId = PlayerIdInvalid;
+	unsigned int holderIdx = 0;
 
 	// Thong tin cua pet trong tran dau
 	int dmgCounter = 0;
@@ -95,6 +100,8 @@ protected:
 
 	void onTouchHolder();
 };
+
+
 
 BATTLE_SCENE_NS_END
 

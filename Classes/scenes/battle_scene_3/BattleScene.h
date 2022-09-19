@@ -175,6 +175,7 @@ public:
 	bool onPlayerPetCard(const PlayerIdType &playerId, unsigned int handIdx, PlaceType PlaceType);
 	bool onPlayerEndTurn(const PlayerIdType &playerId);
 	bool onPlayerDoAction(const std::shared_ptr<MGame::PlayerAction> &pAction);
+	bool onPlayerAttachEnergy(const PlayerIdType &playerId, unsigned int handIdx, PlaceType PlaceType, unsigned int benchIdx);
 
 	void setEnableEndTurnButton(bool enabled);
 	using EndClickFunc = std::function<void(cocos2d::Ref*)>;

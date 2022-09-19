@@ -20,6 +20,7 @@ public:
 		SetupBenchPet,
 		EndTurn,
 		ActiveUseMove,
+		AttachEnergy,
 		Select_Prize_Cards
 	};
 
@@ -68,6 +69,30 @@ public:
 	virtual Type getType() const override { return Type::EndTurn; }
 	PlayerIdType pid;
 };
+
+class PA_AttachEnergy : public PlayerAction {
+public:
+	enum class PlaceType {
+		Active,
+		Bench
+	};
+	PA_AttachEnergy(
+		const PlayerIdType &id, 
+		unsigned int handIdx, 
+		PlaceType pType,
+		unsigned int bIdx) :
+		pid(id), 
+		hidx(handIdx),
+		placeType(pType),
+		benchIdx(bIdx) {};
+	virtual ~PA_AttachEnergy() = default;
+	virtual Type getType() const override { return Type::AttachEnergy; }
+	PlayerIdType pid;
+	unsigned int hidx;
+	PlaceType placeType;
+	unsigned int benchIdx;
+};
+
 
 class PA_UseMove : public PlayerAction {
 public:

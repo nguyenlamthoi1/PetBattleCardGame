@@ -3,6 +3,7 @@
 #include "move_selector/BSMoveSelector.h"
 #include "GameManager.h"
 #include "data/CardData.h"
+#include "data/MoveData.h"
 
 #include "BattleScene.h"
 
@@ -22,7 +23,8 @@ BATTLE_SCENE_NS_BEG
 
 Size CardHolder::HOLDER_SIZE = Size(95, 137);
 
-CardHolder::CardHolder(HolderType hType, BattleScene *scn, PlayerIdType id) : type(hType), btlScn(scn), ownerId(id) {
+CardHolder::CardHolder(HolderType hType, BattleScene *scn, PlayerIdType id, unsigned int hIdx) : 
+	type(hType), btlScn(scn), ownerId(id), holderIdx(hIdx) {
 	CCLOG("CardHolder::Ctor %p", this);
 }
 
@@ -54,8 +56,8 @@ CardHolder* CardHolder::createActive(BattleScene *scn, PlayerIdType id) {
 	return holder;
 }
 
-CardHolder* CardHolder::createBench(BattleScene *scn, PlayerIdType id) {
-	auto holder = new (nothrow) CardHolder(HolderType::Bench, scn, id);
+CardHolder* CardHolder::createBench(BattleScene *scn, PlayerIdType id, unsigned int benchIdx) {
+	auto holder = new (nothrow) CardHolder(HolderType::Bench, scn, id, benchIdx);
 	if (holder && holder->init()) {
 		holder->autorelease();
 		return holder;
@@ -301,6 +303,20 @@ void CardHolder::setFlipPetCard(bool flip) {
 void CardHolder::onTouchHolder() {
 	auto moveSelector = btlScn->getMoveSelector();
 	moveSelector->showInfoHolder(this);
+}
+
+bool CardHolder::checkCanUseMove(unsigned int moveIdx) const {
+	//if (!petCard)
+	//	return false;
+
+	//const auto &moveVec = petCard->getPetData()->moveVec;
+	//if (moveIdx >= moveVec.size)
+	//	return false;
+
+	//auto moveData = moveVec.at(moveIdx);
+	//auto costMap = moveData->costMap;
+
+	return true;
 }
 
 

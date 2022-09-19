@@ -7,6 +7,9 @@
 #include "../game_state/Board.h"
 #include "../game_state/DiscardPile.h"
 #include "../game_state/PrizePile.h"
+#include "../game_state/Holder.h"
+#include "../game_state/Player.h"
+
 
 #include "../game_state/card/Card.h"
 
@@ -664,6 +667,7 @@ vector<shared_ptr<PlayerAction>> PlayerChooseTurnAction::getPossibleMoves(GameSt
 
 	// EndTurn
 	ret.push_back(make_shared<PA_EndTurn>(pid));
+	// Attach Energy
 
 	// Attack
 
@@ -691,6 +695,37 @@ ActionError PlayerChooseTurnAction::onReceiveInput(GameState *gstate, const std:
 
 		return ActionError::Failed;
 	}
+	else if (move->getType() == PlayerAction::Type::AttachEnergy) {
+		auto pMove = dynamic_pointer_cast<PA_AttachEnergy>(move);
+		if (!pMove || pMove->pid != pid)
+			return ActionError::Failed;
+
+		auto board = gstate->getBoard(pid);
+		auto hand = gstate->getHand(pid);
+		auto card = hand->getCardAt(pMove->hidx);
+		auto eCard = dynamic_pointer_cast<EnergyCard>(card);
+		if (eCard) {
+			auto player = gstate->getPlayer(pid);
+			bool check = player->actionExceedsLimit(Player::TurnAction::AttachEnergy);
+			if (check) {
+				if (pMove->placeType == PA_AttachEnergy::PlaceType::Active) {
+					gstate->replaceCurActionWith({
+						make_shared<PlayEnergyCard>(pMove->pid, pMove->hidx,PlayEnergyCard::PlaceType::Active)
+						});
+					return ActionError::Succeeded;
+				}
+				else {
+					gstate->replaceCurActionWith({
+						make_shared<PlayEnergyCard>(pMove->pid, pMove->hidx, PlayEnergyCard::PlaceType::Bench, pMove->benchIdx)
+						});
+					return ActionError::Succeeded;
+				}
+			}
+		}
+
+		return ActionError::Failed;
+	}
+
 	else if (move->getType() == PlayerAction::Type::EndTurn) {
 		auto pMove = dynamic_pointer_cast<PA_EndTurn>(move);
 		if (!pMove || pMove->pid != pid)
@@ -713,5 +748,34 @@ ActionError PlayerChooseTurnAction::onReceiveInput(GameState *gstate, const std:
 	return ActionError::Failed;
 }
 
+/*
+	PlayerEnergyCard Class
+*/
+
+void PlayEnergyCard::executeOn(GameState *gstate) {
+	state = State::Process;
+
+	auto hand = gstate->getHand(pid);
+	auto card = hand->getCardAt(hIdx);
+	auto eCard = dynamic_pointer_cast<EnergyCard>(card);
+
+	if (eCard) {
+		auto board = gstate->getBoard(pid);
+		shared_ptr<Holder> holder;
+		if (placeType == PlaceType::Active)
+			holder = board->getActiveHolder();
+		else
+			holder = board->getBenchHolder(benchIdx);
+		holder->attachEnergyCard(eCard);
+	}
+
+	state = State::Done;
+}
+shared_ptr<BattleSceneNS::BSAction> PlayEnergyCard::getBSAction() const {
+	return nullptr;
+}
+shared_ptr<GameAction> PlayEnergyCard::clone() const {
+	return make_shared<PlayEnergyCard>(pid, hIdx, placeType, benchIdx);
+}
 
 NS_GAME_END

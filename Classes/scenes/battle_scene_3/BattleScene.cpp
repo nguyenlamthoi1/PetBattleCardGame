@@ -366,6 +366,47 @@ void BattleScene::stopPipeline() {
 	unschedule(CC_SCHEDULE_SELECTOR(BattleScene::updatePipeline));
 }
 
+bool BattleScene::onPlayerAttachEnergy(const PlayerIdType &playerId, unsigned int handIdx, PlaceType PlaceType, unsigned int benchIdx) {
+	//auto &hand = hands.at(playerId);
+	//if (!hand->checkIdxValid(handIdx))
+	//	return false;
+	//if (pipeline.empty())
+	//	return false;
+
+	//auto curAction = dynamic_pointer_cast<WaitInputPlayer>(pipeline.front()); // Lay action hien tai cua BattleScene
+	//if (!curAction)
+	//	return false;
+	//auto bm = MGame::BattleMaster::get();
+	//return curAction->onReceivePlayerInput(bm, pAction);
+
+	//auto curAction = dynamic_pointer_cast<WaitInputPlayer>(pipeline.front()); // Lay action hien tai cua BattleScene
+	//if (!curAction)
+	//	return false;
+
+	//shared_ptr<MGame::PlayerAction> playerMove;
+	//if (place == PlaceType::Active) {
+	//	if (curAction->getType() == BSAction::ActionType::StartSetupActive) {
+	//		playerMove = make_shared<MGame::PA_SetupActive>(playerId, handIdx);
+	//	}
+	//	/*else if (curAction->getType() == BSAction::ActionType::StartSetupBench) {
+
+	//	}*/
+	//}
+	//else {
+	//	if (curAction->getType() == BSAction::ActionType::StartSetupBench) {
+	//		playerMove = make_shared<MGame::PA_SetupBench>(playerId, handIdx);
+	//	}
+	//}
+
+	//if (!playerMove)
+	//	return false;
+
+	//auto bm = MGame::BattleMaster::get();
+	//return curAction->onReceivePlayerInput(bm, playerMove);
+
+	return true;
+}
+
 bool BattleScene::onPlayerPetCard(const PlayerIdType &playerId, unsigned int handIdx, PlaceType place) {
 	auto &hand = hands.at(playerId);
 	if (!hand->checkIdxValid(handIdx))

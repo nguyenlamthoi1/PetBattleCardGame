@@ -2,6 +2,7 @@
 #include "BSCard.h"
 #include "BSDeck.h"
 #include "BSBoard.h"
+#include "BSPlayer.h"
 #include "CardHolder.h"
 #include "data/CardData.h"
 
@@ -12,6 +13,8 @@
 #include "components/WidgetTouchComponent.h"
 #include "common/Utilize.h"
 #include "ui/UIHelper.h"
+
+#include "game/player_actions/PlayerAction.h"
 
 using namespace std;
 USING_NS_CC;
@@ -286,10 +289,19 @@ void BSHand::updateCardPositions() {
 		++i;
 	}
 }
-//
-//void BSHand::onDragSucceeded() {
-//
-//}
+
+void BSHand::enabledDragForTurnAction() {
+	auto btlScn = BattleScene::getScene();
+
+	unsigned int handIdx = 0;
+	for (auto &card : cards) {
+		if (card->getType() == BSCard::Type::Pet)
+			setDragForPetCard(dynamic_cast<PetCard*>(card), handIdx);
+		else if(card->getType() == BSCard::Type::Energy)
+			setDragForEnergyCard(dynamic_cast<EnergyCard*>(card), handIdx);
+		++handIdx;
+	}
+}
 
 void BSHand::setEnableDragSetupActive(bool enabled) {
 	auto btlScn = BattleScene::getScene();
@@ -298,15 +310,19 @@ void BSHand::setEnableDragSetupActive(bool enabled) {
 	for (auto &card : cards) {
 		if (card->getType() == BSCard::Type::Pet)
 			setDragForPetCard(dynamic_cast<PetCard*>(card), handIdx);
+		else
+			card->setDragEnabled(false);
 		++handIdx;
 	}
 }
+
+
 
 void BSHand::setDragForCard(BSCard* card, unsigned int handIdx) {
 	if (card->getType() == BSCard::Type::Pet)
 		setDragForPetCard(dynamic_cast<PetCard*>(card), handIdx);
 	else if(card->getType() == BSCard::Type::Energy)
-		setDragForEnergyCard(dynamic_cast<EnergyCard*>(card));
+		setDragForEnergyCard(dynamic_cast<EnergyCard*>(card), handIdx);
 }
 
 
@@ -356,8 +372,49 @@ void BSHand::setDragForPetCard(PetCard *petCard, unsigned int handIdx) {
 		);
 }
 
-void BSHand::setDragForEnergyCard(EnergyCard *energyCard) {
+void BSHand::setDragForEnergyCard(EnergyCard *energyCard, unsigned int handIdx) {
+	if (!energyCard)
+		return;
 
+	auto btlScn = BattleScene::getScene();
+	auto board = btlScn->getBoard(pid);
+
+	auto player = btlScn->getBSPlayer(pid);
+	vector<Node*> dests;
+	if (player->actionExceedsLimit(BSPlayer::TurnAction::AttachEnergy)) // Khong the attach
+		return;
+	
+	dests = board->getAllHolders();
+	// Them Drag component
+	energyCard->setDragHandler(dests,
+		[this, btlScn](Node * cardNode, Node *dest) { // Drag Begin Callback
+			btlScn->hideCardDetail();
+		},
+		[this, board, btlScn, handIdx](Node *cardNode, Node *dest) { // Drag End Callback
+			auto eCard = dynamic_cast<EnergyCard*>(cardNode);
+			auto holder = dynamic_cast<CardHolder*>(cardNode);
+			if (!holder) {
+				auto comp = DragComponent::getComp(cardNode);
+				onDragBack(eCard);
+			}
+			else {
+				bool isActiveHolder = holder->isType(CardHolder::HolderType::Active);
+				bool check1 = holder->hasPetCard();
+				
+				auto placeType = isActiveHolder ? MGame::PA_AttachEnergy::PlaceType::Active : MGame::PA_AttachEnergy::PlaceType::Bench;
+				auto benchIdx = holder->getHolderIdx();
+				auto pAction = make_shared<MGame::PA_AttachEnergy>(pid, handIdx, placeType, benchIdx);
+				bool check2 = btlScn->onPlayerDoAction(pAction);
+
+				bool check = check1 && check2;
+				if (!check)
+					onDragBack(eCard);
+				else {
+				
+				}
+			}
+		}
+		);
 }
 
 void BSHand::setDragForSupporterCard() {
@@ -365,8 +422,11 @@ void BSHand::setDragForSupporterCard() {
 }
 
 void BSHand::disableDragAll() {
-
+	for (auto &card : cards) {
+		card->setDragEnabled(false);
+	}
 }
+
 
 bool BSHand::playPetCardFromHandToActive(unsigned int handIdx, const function<void()> &onDone) {
 	auto card = cards.at(handIdx);
@@ -396,6 +456,24 @@ bool BSHand::playPetCardFromHandToBench(unsigned int handIdx, const function<voi
 		auto board = btlScn->getBoard(pid);
 		auto petCard = dynamic_cast<PetCard*>(card);
 		suc = board->addPetOnBoard(petCard, onDone);
+		if (suc) { // Add thanh cong petCard
+			removeCardAt(handIdx);
+			updateCardPositions();
+		}
+	}
+	return suc;
+}
+
+bool BSHand::playEnergyCardFromHandToPet(unsigned int handIdx, bool isActive, unsigned int benchIdx = 0, const function<void()> &onDone) {
+	auto card = cards.at(handIdx);
+
+	bool suc = false;
+	if (card->getType() == BSCard::Type::Energy) {
+		auto btlScn = BattleScene::getScn();
+		auto board = btlScn->getBoard(pid);
+		auto holder = isActive ? board->getActiveHolder() : board->getBenchHolder(benchIdx);
+		auto eCard = dynamic_cast<EnergyCard*>(card);
+		suc = holder->attac(eCard, onDone);
 		if (suc) { // Add thanh cong petCard
 			removeCardAt(handIdx);
 			updateCardPositions();

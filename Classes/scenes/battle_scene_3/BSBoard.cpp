@@ -47,12 +47,14 @@ bool BSBoard::init() {
 	auto benchSize = benchContainer->getContentSize();
 	auto cardH = benchSize.height - 12;
 	
+	unsigned int idx = 0;
 	while (benchHolders.size() < maxBenchCapacity) {
-		auto holder = CardHolder::createBench(btlScn, ownerId);
+		auto holder = CardHolder::createBench(btlScn, ownerId, idx);
 		holder->setHolderSizeH(cardH);
 		holder->setName("BenchHolder_" + to_string(benchHolders.size()));
 		benchContainer->addChild(holder);
 		benchHolders.push_back(holder);
+		++idx;
 	}
 	alignHoldersOnBenchBoard(true); // Can chinh vi tri cac holder trong bench
 	
@@ -127,6 +129,12 @@ CardHolder* BSBoard::getActiveHolder() const {
 	return activeHolder;
 }
 
+CardHolder* BSBoard::getBenchHolder(unsigned int benchIdx) const {
+	if (benchIdx >= benchHolders.size())
+		return nullptr;
+
+	return benchHolders.at(benchIdx);
+}
 
 const string BSBoard::ACTIVE_BOARD_NAME = "Active_Board";
 const string BSBoard::BENCH_BOARD_NAME = "Bench_Board";

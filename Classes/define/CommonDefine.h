@@ -72,6 +72,7 @@ namespace GConfig { // Game Config
 	constexpr unsigned int PLAY_SPT_TURN_LIMIT = 1; // Gioi han so lan choi supporter card moi luot
 	constexpr unsigned int PLAY_ITEM_TURN_LIMIT = UINT_MAX; // Gioi han so lan play item card moi luot
 	constexpr unsigned int USE_PET_ABILITY_TURN_LIMIT = UINT_MAX; // Gioi han so lan play item card moi luot
+	constexpr unsigned int USE_ACTIVE_MOVE = 1; // Gioi han so lan play item card moi luot
 
 	// Card Actions
 

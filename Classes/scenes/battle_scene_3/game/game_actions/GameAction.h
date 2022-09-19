@@ -1,17 +1,19 @@
 #pragma once 
 
 #include "../GameDefine.h"
-
 #include <functional>
 
 namespace BattleSceneNS {
 	class BSAction;
 }
 
+class ActionData;
+
 NS_GAME_BEGIN
 
 class GameState;
 class PlayerAction;
+class Holder;
 
 class GameAction {
 public:
@@ -41,6 +43,7 @@ public:
 		discard_item_card,
 		
 		UseAttack, 
+		PlayEnergyCard,
 
 		// Action ho tro
 		branchAction, // Quan trong
@@ -83,7 +86,10 @@ public:
 		GameOver, //*
 
 		SelectPrizeCards,
-		GetPrizeCards
+		GetPrizeCards,
+
+		UseActiveMove,
+		Attack
 	};
 
 	enum class State {
@@ -391,6 +397,109 @@ public:
 	PlayerIdType pid;
 	std::vector<unsigned int> idxVec;
 };
+
+class PlayEnergyCard : public GameAction {
+public:
+	enum class PlaceType {
+		Active,
+		Bench
+	};
+
+	PlayEnergyCard(const PlayerIdType &id, unsigned int handIdx,  PlaceType pType, unsigned int bIdx = 0) 
+		: 
+		pid(id),
+		hIdx(handIdx),
+		placeType(pType),
+		benchIdx(bIdx)
+	{}
+	virtual ~PlayEnergyCard() = default;
+
+	virtual Type getType() const override { return Type::PlayEnergyCard; }
+	virtual void executeOn(GameState *gameState) override;
+	virtual std::shared_ptr<BattleSceneNS::BSAction> getBSAction() const override;
+	virtual std::shared_ptr<GameAction> clone() const override;
+
+	PlayerIdType pid;
+	unsigned int hIdx;
+	PlaceType placeType;
+	unsigned int benchIdx;
+};
+
+/////////////////////////
+// ALL ATTACK ACTIONS ///
+/////////////////////////
+
+class UseActiveMove : public GameAction {
+public:
+	UseActiveMove(const PlayerIdType &id, unsigned int moveIdx) : pid(id), midx(moveIdx) {}
+	virtual ~UseActiveMove() = default;
+
+	virtual void executeOn(GameState *gameState) override;
+	virtual Type getType() const override { return Type::UseActiveMove; }
+	virtual std::shared_ptr<BattleSceneNS::BSAction> getBSAction() const override;
+	virtual std::shared_ptr<GameAction> clone() const override;
+
+	std::shared_ptr<GameAction> createAction(GameState *gstate, const std::shared_ptr<const ActionData> &adata);
+
+	PlayerIdType pid;
+	unsigned int midx;
+};
+
+class AttackAction : public GameAction {
+public:
+	virtual Type getType() const override final { return Type::Attack; }
+};
+
+class DefaultAttack: public AttackAction{
+public:
+	DefaultAttack(const std::shared_ptr<Holder> &atker, const std::shared_ptr<Holder> &defer, unsigned int dmg) : 
+		attacker(atker), 
+		defender(defer),
+		baseDmg(dmg) {}
+	virtual ~DefaultAttack() = default;
+
+	virtual void executeOn(GameState *gameState) override;
+	virtual std::shared_ptr<GameAction> clone() const override;
+	virtual std::shared_ptr<BattleSceneNS::BSAction> getBSAction() const override;
+
+	unsigned int baseDmg = 0;
+	std::shared_ptr<Holder> attacker;
+	std::shared_ptr<Holder> defender;
+};
+
+class TakeDamage : public GameAction {
+public:
+	TakeDamage(const std::shared_ptr<Holder> &taker, 
+		int total, 
+		int base,
+		bool weakEnable,
+		bool resistEnable) 
+		: 
+		dmgTaker(taker), 
+		totalDmg(total), 
+		baseDmg(base), 
+		triggerWeak(weakEnable), 
+		triggerResistance(resistEnable)
+	{
+
+	}
+
+	virtual ~TakeDamage() = default;
+
+	virtual void executeOn(GameState *gameState) override;
+	virtual std::shared_ptr<GameAction> clone() const override;
+	virtual std::shared_ptr<BattleSceneNS::BSAction> getBSAction() const override;
+
+	std::shared_ptr<Holder> dmgTaker;
+	int totalDmg = 0;
+	int baseDmg = 0;
+	bool triggerWeak = false;
+	bool triggerResistance = false;
+};
+
+/////////////////////////
+/////////////////////////
+/////////////////////////
 
 
 NS_GAME_END

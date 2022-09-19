@@ -27,7 +27,7 @@ void Hand::pushCard(const std::shared_ptr<Card> &pushedCard) {
 }
 
 std::shared_ptr<Card> Hand::removeCard(unsigned int idx) {
-	if (idx < 0 || idx >= cardVec.size())
+	if (idx >= cardVec.size())
 		return nullptr;
 
 	auto ret = *(cardVec.cbegin() + idx);
@@ -36,7 +36,7 @@ std::shared_ptr<Card> Hand::removeCard(unsigned int idx) {
 }
 
 std::shared_ptr<Card> Hand::getCardAt(unsigned int idx) const {
-	if (idx < 0 || idx >= cardVec.size())
+	if (idx >= cardVec.size())
 		return nullptr;
 
 	return cardVec[idx];

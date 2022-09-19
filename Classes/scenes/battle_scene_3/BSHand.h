@@ -49,12 +49,14 @@ public:
 	};
 	void putToHand(const std::vector<BSCard*> &v, DrawFromType type, bool hideCards = false);
 
+	void setBtlScn(BattleScene *scn) { btlScn = scn; }
 
 	static HandPtr createShPtr(cocos2d::ui::Layout *layout, const PlayerIdType &id);
 	BSHand(cocos2d::ui::Layout *layout, PlayerIdType ownerId);
 	~BSHand();
 
 	void setEnableDragSetupActive(bool enabled);
+	void enabledDragForTurnAction();
 	void disableDragAll();
 
 	void removeCardAt(unsigned int handIdx);
@@ -62,12 +64,13 @@ public:
 	bool checkIdxValid(unsigned int idx) const { return 0 <= idx && idx < cards.size(); }
 	bool playPetCardFromHandToActive(unsigned int handIdx, const std::function<void()> &onDone = nullptr);
 	bool playPetCardFromHandToBench(unsigned int handIdx, const std::function<void()> &onDone = nullptr);
+	bool playEnergyCardFromHandToPet(unsigned int handIdx, bool isActive, unsigned int benchIdx = 0, const std::function<void()> &onDone = nullptr);
 protected:
 	bool init();
 
 	void setDragForCard(BSCard* card, unsigned int handIdx);
 	void setDragForPetCard(PetCard *petCard, unsigned int handIdx);
-	void setDragForEnergyCard(EnergyCard *energyCard);
+	void setDragForEnergyCard(EnergyCard *energyCard, unsigned int handIdx);
 	void setDragForSupporterCard();
 
 	//// Utilize functions
@@ -77,6 +80,7 @@ protected:
 	void updateCardPositions();
 
 protected:
+	BattleScene *btlScn = nullptr;
 	PlayerIdType pid = PlayerIdInvalid;
 	cocos2d::ui::Layout *handLayout = nullptr;
 	std::vector<BSCard*> cards;

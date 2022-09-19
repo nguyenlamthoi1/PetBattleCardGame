@@ -47,4 +47,9 @@ bool Holder::evolvePetCard(const std::shared_ptr<PetCard> &petCard) {
 	return false;
 }
 
+bool Holder::attachEnergyCard(const std::shared_ptr<EnergyCard> &energyCard) {
+	energyCards.push_back(energyCard);
+	return true;
+}
+
 NS_GAME_END

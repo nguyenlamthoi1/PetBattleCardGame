@@ -44,6 +44,7 @@ public:
 		EndSetup,
 
 		ChooseTurnAction,
+		AttachEnergy,
 
 		Select_Prize,
 		Get_Prize_Cards
@@ -365,6 +366,25 @@ protected:
 	PlayerIdType pid;
 	unsigned int num = 0;
 
+};
+
+class PlayerEnergyCard : public BSAction {
+public:
+	PlayerEnergyCard(const PlayerIdType &id, unsigned int handIdx, bool active, unsigned int bIdx = 0) : 
+		pid(id),
+		hIdx(handIdx),
+		isActive(active),
+		benchIdx(bIdx)
+	{}
+	virtual ~PlayerEnergyCard() = default;
+
+	virtual void executeOn(BattleScene *btlScn) override;
+	virtual ActionType getType() const override { return ActionType::AttachEnergy; }
+protected:
+	PlayerIdType pid;
+	unsigned int hIdx;
+	bool isActive = false;
+	unsigned int benchIdx;
 };
 
 

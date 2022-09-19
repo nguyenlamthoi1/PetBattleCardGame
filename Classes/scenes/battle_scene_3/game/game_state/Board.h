@@ -29,6 +29,9 @@ public:
 
 	BoardPtr clone() const;
 
+	HolderPtr getActiveHolder() const { return active; }
+	HolderPtr getBenchHolder(unsigned int idx) const;
+
 	bool hasActivePet() const;
 	bool addBasicPetCardToActive(const std::shared_ptr<PetCard> &petCard);
 	bool evolvePetAtActive(const std::shared_ptr<PetCard> &petCard);

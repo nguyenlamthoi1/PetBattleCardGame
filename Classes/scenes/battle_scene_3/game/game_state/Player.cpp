@@ -20,6 +20,7 @@ Player::Player(const PlayerIdType &id) :
 	{TurnAction::Retreat, {0, GConfig::RETREAT_PET_TURN_LIMIT}},
 	{TurnAction::UseItem, {0, GConfig::PLAY_ITEM_TURN_LIMIT}},
 	{TurnAction::UseSupporter, {0, GConfig::PLAY_SPT_TURN_LIMIT}},
+	{TurnAction::Attack, {0, GConfig::USE_ACTIVE_MOVE}},
 	})
 {
 

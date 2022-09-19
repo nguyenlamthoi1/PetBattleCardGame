@@ -50,6 +50,7 @@ public:
 
 	// Getters
 	CardHolder* getActiveHolder() const;
+	CardHolder* getBenchHolder(unsigned int benchIdx) const;
 	const std::vector<CardHolder*>& getBenchHolders() const;
 	const std::vector<cocos2d::Node*> getAllHolders() const;
 

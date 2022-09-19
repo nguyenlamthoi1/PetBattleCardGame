@@ -6,6 +6,11 @@
 #include <vector>
 #include <map>
 
+struct ActionData {
+	std::string id;
+	std::unordered_map<std::string , int> ovrValues;
+};
+
 class MoveData {
 public:
 	using EnergyType = std::string;
@@ -13,6 +18,7 @@ public:
 	std::string damageText;
 	std::string content;
 	std::map<EnergyType, unsigned int> costMap;
+	std::vector<std::shared_ptr<ActionData>> actions;
 
 	bool isEmpty() { return name.empty(); }
 };

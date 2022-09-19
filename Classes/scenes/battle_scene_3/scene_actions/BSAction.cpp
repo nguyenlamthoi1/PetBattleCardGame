@@ -634,4 +634,28 @@ bool PlayerChooseTurnAction::onReceivePlayerInput(const shared_ptr<MGame::Battle
 	return false;
 }
 
+/*
+	Attach Energy Class
+*/
+
+void PlayerEnergyCard::executeOn(BattleScene *btlScn) {
+	if (state != State::Wait)
+		return;
+
+	state = State::Processed;
+
+	if (btlScn->getPlayerId() == pid) { // Player Action
+		auto hand = btlScn->getHand(pid);
+		hand->playPetCardFromHandToActive(handIdx, [this]() {
+			state = State::Done;
+			});
+	}
+	else { // Opponent Action
+		auto hand = btlScn->getHand(pid);
+		/*hand->playPetCardFromHandToActive(handIdx, [this]() {
+			state = State::Done;
+			});*/
+	}
+}
+
 BATTLE_SCENE_NS_END

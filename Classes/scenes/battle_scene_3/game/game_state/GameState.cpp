@@ -13,6 +13,8 @@
 #include "GameManager.h"
 #include "data/PlayerData.h"
 
+#include "data/MoveData.h"
+
 using namespace std;
 
 NS_GAME_BEGIN
@@ -161,6 +163,8 @@ shared_ptr<BattleSceneNS::BSAction> GameState::progressGame() {
 
 	shared_ptr<BattleSceneNS::BSAction> bsAction;
 
+	//removedQueue.clear();
+
 	if (!actionQueue.empty()) {
 		auto curAction = actionQueue.front();
 		if (curAction->state == GameAction::State::Wait) {
@@ -171,6 +175,8 @@ shared_ptr<BattleSceneNS::BSAction> GameState::progressGame() {
 		else if (curAction->state == GameAction::State::Done)
 			actionQueue.pop_front();
 	}
+
+
 	return bsAction;
 }
 
@@ -284,6 +290,18 @@ ActionError GameState::onPlayerTakeAction(const shared_ptr<PlayerAction> &pa) {
 
 // Actions to update Game State
 
+//shared_ptr<GameAction> GameState::createAction(const std::shared_ptr<const ActionData> &adata) {
+//		auto aid = adata->id;
+//	if (aid == "Attack_Default") {
+//		auto baseDmg = adata->ovrValues.at(to_string(0));
+//		return make_shared<MGame::DefaultAttack>();
+//	}
+//	else if(false) {
+//		return nullptr;
+//	}
+//	return nullptr;
+//}
+
 void GameState::pushAction(const std::shared_ptr<GameAction> &action) {
 	actionQueue.push_back(action);
 }
@@ -294,6 +312,16 @@ void GameState::pushActions(std::initializer_list<shared_ptr<GameAction>> action
 }
 
 void GameState::pushActionsAtFront(initializer_list<shared_ptr<GameAction>> actions) {
+	actionQueue.insert(actionQueue.begin(), actions.begin(), actions.end());
+}
+
+void GameState::replaceCurActionWith(initializer_list<shared_ptr<GameAction>> actions) {
+	actionQueue.pop_front();
+	actionQueue.insert(actionQueue.begin(), actions.begin(), actions.end());
+}
+
+void GameState::replaceCurActionWithVec(const vector<shared_ptr<GameAction>> &actions) {
+	actionQueue.pop_front();
 	actionQueue.insert(actionQueue.begin(), actions.begin(), actions.end());
 }
 

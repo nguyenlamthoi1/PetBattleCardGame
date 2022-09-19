@@ -83,11 +83,26 @@ bool DataManager::loadPetCards() {
 			moveData->name = obj["Name"].GetString();
 			moveData->damageText = obj["DamageText"].GetString();
 			moveData->content = obj["ContentText"].GetString();
-
 			// Cost
 			for (auto& it : obj["Cost"].GetObj())
 				moveData->costMap.insert({ it.name.GetString(), it.value.GetUint() });
-			
+			// Actions
+			for (auto& it : obj["Actions"].GetArray()) {
+				auto actionObj = it.GetObj();
+
+				auto actionId = actionObj["id"].GetString(); // * Action Id
+				auto actionData = make_shared<ActionData>();
+				actionData->id = actionId;
+				
+				auto ovrObj = actionObj["override"].GetObj(); // * Override
+				for (auto& it : ovrObj) {
+					auto ovrId = it.name.GetString();
+					auto ovrNum = it.value.GetUint();
+					actionData->ovrValues.insert({ ovrId, ovrNum });
+				}
+				moveData->actions.push_back(actionData);
+			}
+
 			data->moveVec.emplace_back(moveData);
 		}
 
