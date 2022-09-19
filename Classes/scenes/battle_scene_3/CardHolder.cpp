@@ -245,8 +245,10 @@ bool CardHolder::tryAddEnergyCard(EnergyCard *energyCard, const function<void()>
 	energyCard->runAction(MoveTo::create(0.5f, pos));
 	showFlyingText("Energy attached");
 
-
 	player->updateActionCount(BSPlayer::TurnAction::AttachEnergy, 1);
+
+	if (onDone)
+		onDone();
 
 	return true;
 

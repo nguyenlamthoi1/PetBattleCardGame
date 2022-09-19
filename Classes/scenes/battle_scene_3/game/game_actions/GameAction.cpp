@@ -710,14 +710,18 @@ ActionError PlayerChooseTurnAction::onReceiveInput(GameState *gstate, const std:
 			if (check) {
 				if (pMove->placeType == PA_AttachEnergy::PlaceType::Active) {
 					gstate->replaceCurActionWith({
-						make_shared<PlayEnergyCard>(pMove->pid, pMove->hidx,PlayEnergyCard::PlaceType::Active)
+						make_shared<PlayEnergyCard>(pMove->pid, pMove->hidx,PlayEnergyCard::PlaceType::Active),
+						make_shared<PlayerChooseTurnAction>(pid)
 						});
+					state = State::Done;
 					return ActionError::Succeeded;
 				}
 				else {
 					gstate->replaceCurActionWith({
-						make_shared<PlayEnergyCard>(pMove->pid, pMove->hidx, PlayEnergyCard::PlaceType::Bench, pMove->benchIdx)
+						make_shared<PlayEnergyCard>(pMove->pid, pMove->hidx, PlayEnergyCard::PlaceType::Bench, pMove->benchIdx),
+						make_shared<PlayerChooseTurnAction>(pid)
 						});
+					state = State::Done;
 					return ActionError::Succeeded;
 				}
 			}
