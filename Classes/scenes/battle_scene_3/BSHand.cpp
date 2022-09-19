@@ -392,7 +392,7 @@ void BSHand::setDragForEnergyCard(EnergyCard *energyCard, unsigned int handIdx) 
 		},
 		[this, board, btlScn, handIdx](Node *cardNode, Node *dest) { // Drag End Callback
 			auto eCard = dynamic_cast<EnergyCard*>(cardNode);
-			auto holder = dynamic_cast<CardHolder*>(cardNode);
+			auto holder = dynamic_cast<CardHolder*>(dest);
 			if (!holder) {
 				auto comp = DragComponent::getComp(cardNode);
 				onDragBack(eCard);
@@ -464,7 +464,7 @@ bool BSHand::playPetCardFromHandToBench(unsigned int handIdx, const function<voi
 	return suc;
 }
 
-bool BSHand::playEnergyCardFromHandToPet(unsigned int handIdx, bool isActive, unsigned int benchIdx = 0, const function<void()> &onDone) {
+bool BSHand::playEnergyCardFromHandToPet(unsigned int handIdx, bool isActive, unsigned int benchIdx, const function<void()> &onDone) {
 	auto card = cards.at(handIdx);
 
 	bool suc = false;
@@ -473,7 +473,7 @@ bool BSHand::playEnergyCardFromHandToPet(unsigned int handIdx, bool isActive, un
 		auto board = btlScn->getBoard(pid);
 		auto holder = isActive ? board->getActiveHolder() : board->getBenchHolder(benchIdx);
 		auto eCard = dynamic_cast<EnergyCard*>(card);
-		suc = holder->attac(eCard, onDone);
+		suc = holder->tryAddEnergyCard(eCard, onDone);
 		if (suc) { // Add thanh cong petCard
 			removeCardAt(handIdx);
 			updateCardPositions();

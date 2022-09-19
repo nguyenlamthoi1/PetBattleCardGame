@@ -551,8 +551,7 @@ void BattleScene::setClickEndButton(const EndClickFunc &f) {
 void BattleScene::enablePlayerChooseTurnAction(const PlayerIdType &id) {
 	auto hand = this->getHand(pid);
 	
-	//hand->setEnableDragSetupActive(true);
-	//hand->setEnabledDragOnTurnActive();
+	hand->enabledDragForTurnAction();
 	this->setEnableEndTurnButton(true);
 	this->setClickEndButton([this](Ref*) {
 		bool suc = onPlayerEndTurn(pid);

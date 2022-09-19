@@ -6,6 +6,7 @@
 #include "../BSBoard.h"
 #include "../CardHolder.h"
 #include "../BSPrizePile.h"
+#include "../BSPlayer.h"
 #include "../prize_selector/BSPrizeSelector.h"
 
 #include "../game/BattleMaster.h"
@@ -624,6 +625,7 @@ void PlayerChooseTurnAction::executeOn(BattleScene *btlScn)  {
 bool PlayerChooseTurnAction::onReceivePlayerInput(const shared_ptr<MGame::BattleMaster> &bm, const shared_ptr<MGame::PlayerAction> &pAction) {
 	if (pAction->getType() == MGame::PlayerAction::Type::EndTurn
 		|| pAction->getType() == MGame::PlayerAction::Type::DoForMe
+		|| pAction->getType() == MGame::PlayerAction::Type::AttachEnergy
 		) {
 		auto error = bm->onPlayerChooseAction(pAction);
 		bool suc = error != ActionError::Failed;
@@ -646,7 +648,7 @@ void PlayerEnergyCard::executeOn(BattleScene *btlScn) {
 
 	if (btlScn->getPlayerId() == pid) { // Player Action
 		auto hand = btlScn->getHand(pid);
-		hand->playPetCardFromHandToActive(handIdx, [this]() {
+		hand->playEnergyCardFromHandToPet(hIdx, isActive, benchIdx, [this]() {
 			state = State::Done;
 			});
 	}
@@ -656,6 +658,8 @@ void PlayerEnergyCard::executeOn(BattleScene *btlScn) {
 			state = State::Done;
 			});*/
 	}
+	auto player = btlScn->getBSPlayer(pid);
+	player->updateActionCount(BSPlayer::TurnAction::AttachEnergy, 1);
 }
 
 BATTLE_SCENE_NS_END

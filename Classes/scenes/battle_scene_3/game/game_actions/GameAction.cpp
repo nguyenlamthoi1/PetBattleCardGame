@@ -706,7 +706,7 @@ ActionError PlayerChooseTurnAction::onReceiveInput(GameState *gstate, const std:
 		auto eCard = dynamic_pointer_cast<EnergyCard>(card);
 		if (eCard) {
 			auto player = gstate->getPlayer(pid);
-			bool check = player->actionExceedsLimit(Player::TurnAction::AttachEnergy);
+			bool check = !player->actionExceedsLimit(Player::TurnAction::AttachEnergy);
 			if (check) {
 				if (pMove->placeType == PA_AttachEnergy::PlaceType::Active) {
 					gstate->replaceCurActionWith({
@@ -767,12 +767,14 @@ void PlayEnergyCard::executeOn(GameState *gstate) {
 		else
 			holder = board->getBenchHolder(benchIdx);
 		holder->attachEnergyCard(eCard);
+		auto player = gstate->getPlayer(pid);
+		player->updateActionCount(Player::TurnAction::AttachEnergy, 1);
 	}
 
 	state = State::Done;
 }
 shared_ptr<BattleSceneNS::BSAction> PlayEnergyCard::getBSAction() const {
-	return nullptr;
+	return make_shared<BattleSceneNS::PlayerEnergyCard>(pid, hIdx, placeType == PlaceType::Active, benchIdx);
 }
 shared_ptr<GameAction> PlayEnergyCard::clone() const {
 	return make_shared<PlayEnergyCard>(pid, hIdx, placeType, benchIdx);
