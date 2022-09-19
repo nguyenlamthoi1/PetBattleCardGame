@@ -37,6 +37,7 @@ class BSCoinFlipper;
 class BSNotifier;
 class BSHand;
 class BSAction;
+class BSPlayer;
 class BSPrizePile;
 class BSPrizeSelector;
 class BSCardSelector;
@@ -74,7 +75,8 @@ public:
 	std::shared_ptr<BSDeck> getDeck(const PlayerIdType &id) const;
 	std::shared_ptr<BSPrizePile> getPrizePile(const PlayerIdType &id) const;
 	std::shared_ptr<BSBoard> getBoard(const PlayerIdType &id) const;
-
+	std::shared_ptr<BSPlayer> getBSPlayer (const PlayerIdType &id) const;
+	
 	std::shared_ptr<BSNotifier> getNotifier() const;
 	std::shared_ptr<BSCoinFlipper> getCoinFlipper() const;
 	std::shared_ptr<BSPrizeSelector> getPrizeSelector() const;
@@ -91,6 +93,8 @@ public:
 
 	unsigned int getTurnCount() const { return turnCount; }
 
+	void onTurnStart(const PlayerIdType &id);
+	void enablePlayerChooseTurnAction(const PlayerIdType &id);
 private:
 	BattleScene();
 	virtual ~BattleScene();
@@ -104,7 +108,6 @@ private:
 	void startLoadingAndInit();
 	void initGame();
 	void startGame();
-
 	std::shared_ptr<BSResources> bsres; // Quan ly cac Asset duoc tao trong Scene nhu: Card,..
 
 	std::unordered_map<PlayerIdType, std::shared_ptr<PlayerData>> playerData; // * Thong tin data cua moi nguoi choi, bao gom: deck, card back, loai coin duoc dung, avatar,..
@@ -128,6 +131,7 @@ private:
 	std::unordered_map<PlayerIdType, std::shared_ptr<BSDeck>> decks;
 	std::unordered_map<PlayerIdType, std::shared_ptr<BSBoard>> boards;
 	std::unordered_map<PlayerIdType, std::shared_ptr<BSPrizePile>> prizePiles;
+	std::unordered_map<PlayerIdType, std::shared_ptr<BSPlayer>> players;
 
 	std::shared_ptr<BSNotifier> notifier;
 	std::shared_ptr<BSCoinFlipper> coinFlipper;

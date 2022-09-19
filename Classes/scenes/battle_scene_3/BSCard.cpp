@@ -166,8 +166,12 @@ void PetCard::returnToPool() {
 		resistEnergyMarker->removeAllChildren();
 	}
 
-	if (resistEnergyMarker) {
-		resistEnergyMarker->removeAllChildren();
+	if (retreatEnergyMarker) {
+		retreatEnergyMarker->removeAllChildren();
+	}
+
+	if (moveListView) {
+		moveListView->removeAllChildren();
 	}
 
 	if (cardNode) {
@@ -202,6 +206,7 @@ bool PetCard::init() {
 	hpText = static_cast<ui::Text*>(Utilize::getChildByName(cardNode, "Hp_Value_Text"));
 	hpText->setString("0");
 
+	evSquare = dynamic_cast<ui::ImageView*>(Utilize::getChildByName(cardNode, "Evo_Square"));
 	evText = static_cast<ui::Text*>(Utilize::getChildByName(cardNode, "Evo_Text"));
 	evArrow = static_cast<ui::ImageView*>(Utilize::getChildByName(cardNode, "Evo_Arrow"));
 	evFromText = static_cast<ui::Text*>(Utilize::getChildByName(cardNode, "Pre_Evo_Name"));
@@ -262,6 +267,7 @@ bool PetCard::initWithData(const std::shared_ptr<const CardData> &dta) {
 		evText->setString("Basic");
 	}
 	evArrow->setVisible(evolved);
+	evSquare->setVisible(evolved);
 
 	// Retreat Panel
 	auto &retreatMap = data->retreatMap;

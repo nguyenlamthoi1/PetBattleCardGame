@@ -34,6 +34,8 @@ public:
 	cocos2d::Node* getRoot() const { return root; }
 
 	void showInfoHolder(CardHolder *holder);
+	void showInfoHolder2(CardHolder *holder);
+
 	void hide();
 	void cleanUI();
 

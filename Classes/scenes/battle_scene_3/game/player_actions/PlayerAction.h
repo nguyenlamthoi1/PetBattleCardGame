@@ -19,7 +19,7 @@ public:
 		SetupActivePet,
 		SetupBenchPet,
 		EndTurn,
-
+		ActiveUseMove,
 		Select_Prize_Cards
 	};
 
@@ -67,6 +67,15 @@ public:
 	virtual ~PA_EndTurn() = default;
 	virtual Type getType() const override { return Type::EndTurn; }
 	PlayerIdType pid;
+};
+
+class PA_UseMove : public PlayerAction {
+public:
+	PA_UseMove(const PlayerIdType &id, unsigned int moveIdx) : pid(id), mIdx(moveIdx) {};
+	virtual ~PA_UseMove() = default;
+	virtual Type getType() const override { return Type::ActiveUseMove; }
+	PlayerIdType pid;
+	unsigned int mIdx;
 };
 
 /*

@@ -94,12 +94,12 @@ bool BSMoveSelector::init() {
 	return true;
 }
 
-void BSMoveSelector::showInfoHolder(CardHolder *holder) {
+void BSMoveSelector::showInfoHolder2(CardHolder *holder) {
 	//--Input--//
-	
+
 	const CardId activeId = "P3";
 	const std::vector<CardId> preEvIds = { "P2", "P1" };
-	const std::vector<CardId> eIds = { "E1", "E2", "E3"};
+	const std::vector<CardId> eIds = { "E1", "E2", "E3" };
 	//const std::vector<CardId> preEvIds;
 	//const std::vector<CardId> eIds;
 	const unsigned int dmgCounter = 40;
@@ -108,6 +108,135 @@ void BSMoveSelector::showInfoHolder(CardHolder *holder) {
 	root->setVisible(true);
 	auto dm = GM_DATA_MGR;
 	auto activeData = dynamic_pointer_cast<const PetCardData>(dm->getCardData(activeId));
+
+	// PetNameLb
+	auto petName = activeData->name;
+	petNameLb->setString(petName);
+	// Hp
+	auto maxHp = activeData->hp;
+	auto curHp = maxHp >= dmgCounter * DMG_COUNTER_VAL ? maxHp - dmgCounter * DMG_COUNTER_VAL : 0;
+	maxHpLb->setString(to_string(maxHp));
+	curHpLb->setString(to_string(curHp));
+	// Energy Panel
+	for (const auto &eid : eIds) {
+		auto eData = dynamic_pointer_cast<const EnergyCardData>(dm->getCardData(eid));
+		auto eNum = eData->eNum;
+		auto eType = eData->eType;
+		auto eItem = EnergyItem::create(eType, eNum);
+		eSpritePanel->addChild(eItem);
+	}
+	updateEnergySpritePanel();
+	// Retreat Panel
+	auto &retreatMap = activeData->retreatMap;
+	for (const auto itr : retreatMap) {
+		auto eType = itr.first;
+		auto eNum = itr.second;
+		auto eItem = EnergyItem::create(eType, eNum);
+		retreatEnergyPanel->addChild(eItem);
+	}
+	updateRetreatEnergySpritePanel();
+	retreatBtn->setVisible(false);
+	// Weakness Panel
+	auto &weakSet = activeData->weakSet;
+	if (!weakSet.empty()) {
+		auto eType = *(weakSet.cbegin());
+
+		auto eItem = EnergyItem::create(eType, 1);
+		weakEnergyMarker->addChild(eItem);
+
+		auto text = dynamic_cast<ui::Text*>(weakPanel->getChildByName("Text"));
+		text->setString("x2");
+	}
+	else {
+		weakEnergyMarker->setVisible(false);
+		auto text = dynamic_cast<ui::Text*>(weakEnergyMarker->getChildByName("Text"));
+		text->setVisible(false);
+	}
+
+	// Resist Panel
+	auto &resistMap = activeData->resistanceMap;
+	if (!resistMap.empty()) {
+		auto eType = resistMap.cbegin()->first;
+		auto eNum = resistMap.cbegin()->second;
+
+		auto eItem = EnergyItem::create(eType, 1);
+		resistEnergyMarker->addChild(eItem);
+
+		auto text = dynamic_cast<ui::Text*>(resistPanel->getChildByName("Text"));
+		text->setString(to_string(eNum));
+	}
+	else {
+		resistEnergyMarker->setVisible(false);
+		auto text = dynamic_cast<ui::Text*>(resistPanel->getChildByName("Text"));
+		text->setVisible(false);
+	}
+
+	// Moves
+	auto moveVec = activeData->moveVec;
+	for (const auto &moveData : moveVec) {
+		auto moveItem = MoveHolder::create(moveData);
+		listView->addChild(moveItem);
+	}
+
+	// Cards
+	std::vector<CardId> allCardVec;
+	allCardVec.push_back(activeId);
+	allCardVec.insert(allCardVec.cend(), preEvIds.cbegin(), preEvIds.cend());
+	allCardVec.insert(allCardVec.cend(), eIds.cbegin(), eIds.cend());
+
+	auto offset = Vec2(10.0, -10.0);
+	auto maxIdxHasOffset = 4;
+	for (unsigned int i = 0; i < allCardVec.size(); ++i) {
+		auto cid = allCardVec[i];
+		auto cardData = dm->getCardData(cid);
+		auto bsCard = BSCard::createWithData(cardData);
+		bsCard->setFlip(false);
+		bsCard->setLocalZOrder(allCardVec.size() - i);
+
+		cardMarker1->addChild(bsCard);
+		cardVec.push_back(bsCard); // Phai co thu tu : Active, PreEv, Energy,..
+
+		bsCard->retain();
+		if (i <= maxIdxHasOffset)
+			bsCard->setPosition(Vec2(offset.x * i, offset.y * i));
+		else
+			bsCard->setPosition(Vec2(offset.x * maxIdxHasOffset, offset.y * maxIdxHasOffset));
+	}
+	shownCurIdx = 0;
+	nextBtn->addClickEventListener(CC_CALLBACK_1(BSMoveSelector::onClickNextBtn, this));
+	prevBtn->addClickEventListener(CC_CALLBACK_1(BSMoveSelector::onClickPrevBtn, this));
+	prevBtn->setVisible(false);
+	nextBtn->setVisible(cardVec.size() > 1);
+}
+
+
+void BSMoveSelector::showInfoHolder(CardHolder *holder) {
+	if (!holder->hasPetCard())
+		return;
+	//--Input--//
+	auto activePetCard = holder->getActivePetCard();
+	auto activeData = activePetCard->getPetData();
+	const CardId activeId = activeData->id;
+
+	std::vector<CardId> eIds;
+	auto energyCards = holder->getAttachedEnergyCards();
+	for (const auto &eCard : energyCards) {
+		eIds.push_back(eCard->getData()->id);
+	}
+
+	std::vector<CardId> preEvIds;
+	auto evCards = holder->getAttachedEnergyCards();
+	for (const auto &petCard : evCards) {
+		preEvIds.push_back(petCard->getData()->id);
+	}
+
+	const unsigned int dmgCounter = holder->getDmgCounter();
+	//---------//
+	cleanUI();
+	root->setVisible(true);
+	auto dm = GM_DATA_MGR;
+
+	//auto activeData = dynamic_pointer_cast<const PetCardData>(dm->getCardData(activeId));
 	
 	// PetNameLb
 	auto petName = activeData->name;

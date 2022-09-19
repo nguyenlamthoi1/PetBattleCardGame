@@ -123,6 +123,10 @@ public:
 	virtual bool initWithData(const std::shared_ptr<const CardData> &data) override;
 	virtual void returnToPool();
 	virtual std::shared_ptr<const CardData> getData() const override;
+	virtual std::shared_ptr<const PetCardData> getPetData() const {
+		return data;
+	}
+
 	virtual void setNormalSize() override;
 
 	std::shared_ptr<const PetCardData> data;
@@ -135,6 +139,7 @@ public:
 	cocos2d::ui::Layout *cardBack = nullptr;
 	cocos2d::ui::Layout *cardLayout = nullptr;
 
+	cocos2d::ui::ImageView *evSquare = nullptr;
 	cocos2d::ui::Text *evText = nullptr;
 	cocos2d::ui::ImageView *evArrow = nullptr;
 	cocos2d::ui::Text *evFromText = nullptr;

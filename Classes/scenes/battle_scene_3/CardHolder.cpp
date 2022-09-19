@@ -1,5 +1,6 @@
 #include "CardHolder.h"
 #include "BSCard.h"
+#include "move_selector/BSMoveSelector.h"
 #include "GameManager.h"
 #include "data/CardData.h"
 
@@ -83,6 +84,15 @@ bool CardHolder::init() {
 	node->setPosition(Vec2::ZERO);
 	
 	auto panel = node->getChildByName("PanelHolder");
+
+	showInfoPanel = dynamic_cast<ui::Layout*>(panel->getChildByName("ShowInfoPanel"));
+	showInfoPanel->addTouchEventListener([this](Ref *sender, ui::Widget::TouchEventType ev) {
+		switch (ev) {
+		case ui::Widget::TouchEventType::ENDED:
+			onTouchHolder();
+		}
+		});
+
 	cardMarker = panel->getChildByName("Holder_CardMaker");
 	energyCardMarker = panel->getChildByName("Energy_Cards_Marker");
 
@@ -287,6 +297,12 @@ void CardHolder::setFlipPetCard(bool flip) {
 		petCard->setFlip(flip, true);
 	}
 }
+
+void CardHolder::onTouchHolder() {
+	auto moveSelector = btlScn->getMoveSelector();
+	moveSelector->showInfoHolder(this);
+}
+
 
 
 BATTLE_SCENE_NS_END

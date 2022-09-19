@@ -290,13 +290,33 @@ protected:
 class OnTurnStart : public GameAction {
 public:
 
-	OnTurnStart(const PlayerIdType &id) : pid(id) {};
+	//OnTurnStart(const PlayerIdType &id) : pid(id) {};
+	OnTurnStart(unsigned int idx, const PlayerIdType &id) : pidx(idx), pid(id) {};
+
 	virtual ~OnTurnStart() = default;
 
 	virtual void executeOn(GameState *gameState) override;
-	virtual Type getType() const override { return Type::EndSetup; }
+	virtual Type getType() const override { return Type::TurnStart; }
 	virtual std::shared_ptr<BattleSceneNS::BSAction> getBSAction() const override;
 	virtual std::shared_ptr<GameAction> clone() const override;
+
+	PlayerIdType pid;
+	unsigned int pidx;
+};
+
+class PlayerChooseTurnAction : public WaitInputAction {
+public:
+
+	PlayerChooseTurnAction(const PlayerIdType &id) : pid(id) {}
+	virtual ~PlayerChooseTurnAction() = default;
+
+	virtual void executeOn(GameState *gameState) override;
+	virtual Type getType() const override { return Type::ChooseTurnAction; }
+	virtual std::shared_ptr<BattleSceneNS::BSAction> getBSAction() const override;
+	virtual std::shared_ptr<GameAction> clone() const override;
+
+	virtual std::vector<std::shared_ptr<PlayerAction>> getPossibleMoves(GameState *gameState) const override;
+	virtual ActionError onReceiveInput(GameState *gameState, const std::shared_ptr<PlayerAction> &move);
 
 	PlayerIdType pid;
 protected:

@@ -581,5 +581,57 @@ void GetPrizeCards::executeOn(BattleScene *btlScn) {
 	notifier->hideMsg();
 }
 
+/*
+	OnTurnStart Class
+*/
+const string DoTurnStart::PLAYER_TXT = "TXT_BS_YOUR_TURN";
+const string DoTurnStart::OPP_TXT = "TXT_BS_OPPONENT_TURN";
+
+
+void DoTurnStart::executeOn(BattleScene *btlScn) {
+	if (state != State::Wait)
+		return;
+	auto lang = GM_LANG;
+	state = State::Processed;
+	auto notifier = btlScn->getNotifier();
+	bool isPlayerId = pid == PLAYER_ID;
+	if(isPlayerId)
+		notifier->showMsgAndHideAfter(lang->getString(PLAYER_TXT), 0.7f);
+	else
+		notifier->showMsgAndHideAfter(lang->getString(OPP_TXT), 0.7f);
+
+	btlScn->onTurnStart(pid);
+	state = State::Done;
+}
+
+/*
+	PlayerChooseTurnAction Class
+*/
+
+void PlayerChooseTurnAction::executeOn(BattleScene *btlScn)  {
+	if (state != State::Wait)
+		return;
+
+	state = State::Processed;
+
+	if (btlScn->getPlayerId() == pid) { // Player Action
+		btlScn->enablePlayerChooseTurnAction(pid);
+	}
+	else { // Opponent Action
+		btlScn->onPlayerDoAction(make_shared<MGame::PA_DoForMe>(pid));
+	}
+}
+bool PlayerChooseTurnAction::onReceivePlayerInput(const shared_ptr<MGame::BattleMaster> &bm, const shared_ptr<MGame::PlayerAction> &pAction) {
+	if (pAction->getType() == MGame::PlayerAction::Type::EndTurn
+		|| pAction->getType() == MGame::PlayerAction::Type::DoForMe
+		) {
+		auto error = bm->onPlayerChooseAction(pAction);
+		bool suc = error != ActionError::Failed;
+		if (suc)
+			state = State::Done;
+		return suc;
+	}
+	return false;
+}
 
 BATTLE_SCENE_NS_END

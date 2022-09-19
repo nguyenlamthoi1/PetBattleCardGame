@@ -174,7 +174,7 @@
                 <PreSize X="0.2462" Y="0.1693" />
                 <FileData Type="PlistSubImage" Path="pokemon_card_template_x3/energy/energy_fire.png" Plist="ccstd_assets/pokemon_card_template_x3.plist" />
               </AbstractNodeData>
-              <AbstractNodeData Name="ListView" ActionTag="167303709" Tag="63" IconVisible="False" LeftMargin="21.4500" RightMargin="20.5500" TopMargin="276.4200" BottomMargin="80.5800" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" ScrollDirectionType="0" DirectionType="Vertical" HorizontalType="Align_HorizontalCenter" ctype="ListViewObjectData">
+              <AbstractNodeData Name="ListView" ActionTag="167303709" Tag="63" IconVisible="False" LeftMargin="21.4500" RightMargin="20.5500" TopMargin="276.4200" BottomMargin="80.5800" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ScrollDirectionType="0" DirectionType="Vertical" HorizontalType="Align_HorizontalCenter" ctype="ListViewObjectData">
                 <Size X="348.0000" Y="210.0000" />
                 <AnchorPoint />
                 <Position X="21.4500" Y="80.5800" />

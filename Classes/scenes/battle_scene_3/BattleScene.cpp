@@ -17,6 +17,7 @@
 #include "BSNotifier.h"
 #include "BSCoinFlipper.h"
 #include "BSPrizePile.h"
+#include "BSPlayer.h"
 #include "prize_selector/BSPrizeSelector.h"
 #include "card_selector/BSCardSelector.h"
 #include "move_selector/BSMoveSelector.h"
@@ -167,9 +168,8 @@ bool BattleScene::init() {
 
 
 	// Khoi tao du lieu player trong game
-	//players[PLAYER] = make_shared<BSGamer>(PLAYER);
-	//players[OPPONENT] = make_shared<BSPlayer>(OPPONENT);
-	
+	players[pid] = make_shared<BSPlayer>(this, pid);
+	players[oid] = make_shared<BSPlayer>(this, oid);
 
 	// Khoi tao Notifier
 	notifier = shared_ptr<BSNotifier>(BSNotifier::create(this));
@@ -265,8 +265,8 @@ void BattleScene::startGame() {
 	turnCount = 0;
 	phase = Phase::Start;
 
-	//bm->initGame(pid, oid);
-	//bm->startGame();
+	bm->initGame(pid, oid);
+	bm->startGame();
 }
 
 void BattleScene::initTopLayer() {
@@ -304,6 +304,7 @@ shared_ptr<BSPrizePile> BattleScene::getPrizePile(const PlayerIdType &id) const 
 shared_ptr<BSPrizeSelector> BattleScene::getPrizeSelector() const { return prizeSelector; }
 shared_ptr<BSCardSelector> BattleScene::getCardSelector() const { return cardSelector; }
 shared_ptr<BSMoveSelector> BattleScene::getMoveSelector() const { return moveSelector; }
+shared_ptr<BSPlayer> BattleScene::getBSPlayer(const PlayerIdType &id) const { return players.at(id); }
 
 
 Node* BattleScene::getPrizePileNode(const PlayerIdType &id) const {
@@ -506,6 +507,18 @@ void BattleScene::setClickEndButton(const EndClickFunc &f) {
 }
 
 
+void BattleScene::enablePlayerChooseTurnAction(const PlayerIdType &id) {
+	auto hand = this->getHand(pid);
+	
+	//hand->setEnableDragSetupActive(true);
+	//hand->setEnabledDragOnTurnActive();
+	this->setEnableEndTurnButton(true);
+	this->setClickEndButton([this](Ref*) {
+		bool suc = onPlayerEndTurn(pid);
+		if (suc)
+			setEnableEndTurnButton(false);
+		});
+}
 
 
 
@@ -517,6 +530,9 @@ void BattleScene::func1(Ref *sender) {
 
 void BattleScene::func2(Ref *sender) {
 	moveSelector->hide();
+}
 
+void BattleScene::onTurnStart(const PlayerIdType &id) {
+	players.at(id)->resetDoneCount();
 }
 BATTLE_SCENE_NS_END

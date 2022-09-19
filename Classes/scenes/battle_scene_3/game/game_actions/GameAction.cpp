@@ -17,7 +17,7 @@
 
 using namespace std;
 USING_NS_CC;
-using namespace BattleSceneNS;
+//using namespace BattleSceneNS;
 
 NS_GAME_BEGIN
 
@@ -29,7 +29,7 @@ std::shared_ptr<GameAction> GameAction::clone() const {
 	return nullptr;
 }
 
-std::shared_ptr<BSAction> GameAction::getBSAction() const {
+std::shared_ptr<BattleSceneNS::BSAction> GameAction::getBSAction() const {
 	return nullptr;
 }
 
@@ -388,8 +388,10 @@ ActionError StartSetupBenchPet::onReceiveInput(GameState *gstate, const std::sha
 		else {
 			state = State::Done;
 			gstate->pushActionsAtFront({ 
+				//make_shared<OnTurnStart>(0, PLAYER)
 				make_shared<FlipCoinGetFirst>(),
-				make_shared<EndSetup>()
+				make_shared<EndSetup>(),
+				//make_shared<OnTurnStart>(0, PLAYER)
 				});
 			//gstate->pushActionsAtFront({ make_shared<EndSetup>()});
 			return ActionError::Succeeded;
@@ -411,12 +413,23 @@ void EndSetup::executeOn(GameState *gstate) {
 	if (state != State::Wait)
 		return;
 	state = State::Process;
-	//gstate->pushActionsAtFront({make_shared<FlipCoinGetFirst>(),});
+	gstate->endSetup();
+	auto firstIdx = gstate->getFirstIdx();
+	auto firstId = gstate->getPlayerIdAt(gstate->getFirstIdx());
+
+	gstate->pushActionsAtFront({make_shared<OnTurnStart>(firstIdx, firstId)}); //??? Why deleted
+	/*auto onTurnStartAction = make_shared<OnTurnStart>(firstIdx, firstId);
+	auto &aQueue = gstate->getActionQueue();
+	aQueue.push_front(onTurnStartAction);*/
+
 	state = State::Done;
 }
 
 shared_ptr<BattleSceneNS::BSAction> EndSetup::getBSAction() const {
-	return make_shared<BattleSceneNS::DoEndSetup>();
+	return BattleSceneNS::SequenceAction::create({
+	make_shared<BattleSceneNS::WaitAction>(0.7f),
+	make_shared<BattleSceneNS::DoEndSetup>()
+		});
 }
 
 shared_ptr<GameAction> EndSetup::clone() const {
@@ -440,6 +453,8 @@ void FlipCoinGetFirst::executeOn(GameState *gstate) {
 	state = State::Process;
 	auto firstIdx = cocos2d::RandomHelper::random_int(0, (int)gstate->getPlayerCount() - 1);
 	firstId = gstate->getPids()[firstIdx];
+	gstate->setFirstIdx(firstIdx);
+	
 	state = State::Done;
 }
 
@@ -450,6 +465,7 @@ shared_ptr<BattleSceneNS::BSAction> FlipCoinGetFirst::getBSAction() const {
 shared_ptr<GameAction> FlipCoinGetFirst::clone() const {
 	return make_shared<FlipCoinGetFirst>();
 }
+
 
 /*
 	GameOverAction Class
@@ -603,6 +619,98 @@ shared_ptr<GameAction> GetPrizeCards::clone() const {
 
 shared_ptr<BattleSceneNS::BSAction> GetPrizeCards::getBSAction() const {
 	return make_shared<BattleSceneNS::GetPrizeCards>(pid, idxVec);
+}
+
+/*
+	OnTurnStart Class
+*/
+
+void OnTurnStart::executeOn(GameState *gstate) {
+	state = State::Process;
+	gstate->onTurnStart(pidx);
+	gstate->pushActionsAtFront({make_shared<PlayerChooseTurnAction>(pid)});
+	state = State::Done;
+}
+
+shared_ptr<GameAction> OnTurnStart::clone() const {
+	return make_shared<OnTurnStart>(pidx, pid);
+}
+
+shared_ptr<BattleSceneNS::BSAction> OnTurnStart::getBSAction() const {
+	return BattleSceneNS::SequenceAction::create({
+	make_shared<BattleSceneNS::WaitAction>(0.7f),
+	make_shared<BattleSceneNS::DoTurnStart>(pid)
+		});
+}
+
+/*
+	PlayerChooseTurnAction Class
+*/
+
+void PlayerChooseTurnAction::executeOn(GameState *gameState) {
+	state = State::Process;
+}
+
+shared_ptr<BattleSceneNS::BSAction> PlayerChooseTurnAction::getBSAction() const {
+	return make_shared<BattleSceneNS::PlayerChooseTurnAction>(pid);
+}
+
+shared_ptr<GameAction> PlayerChooseTurnAction::clone() const {
+	return make_shared<PlayerChooseTurnAction>(pid);
+}
+
+vector<shared_ptr<PlayerAction>> PlayerChooseTurnAction::getPossibleMoves(GameState *gameState) const {
+	vector<shared_ptr<PlayerAction>> ret;
+
+	// EndTurn
+	ret.push_back(make_shared<PA_EndTurn>(pid));
+
+	// Attack
+
+	// Retreat
+
+	// Use Item
+
+	// Use Spter
+
+	return ret;
+}
+
+ActionError PlayerChooseTurnAction::onReceiveInput(GameState *gstate, const std::shared_ptr<PlayerAction> &move) {
+	if (state != State::Process)
+		return ActionError::Failed;
+
+	// Xu ly Action Use Move
+	if (move->getType() == PlayerAction::Type::ActiveUseMove) {
+		auto pMove = dynamic_pointer_cast<PA_UseMove>(move);
+		if (!pMove || pMove->pid != pid)
+			return ActionError::Failed;
+		auto moveIdx = pMove->mIdx;
+
+		// TODO
+
+		return ActionError::Failed;
+	}
+	else if (move->getType() == PlayerAction::Type::EndTurn) {
+		auto pMove = dynamic_pointer_cast<PA_EndTurn>(move);
+		if (!pMove || pMove->pid != pid)
+			return ActionError::Failed;
+
+		auto nextIdx = gstate->getNextTurnIdx();
+		auto nextId = gstate->getPlayerIdAt(nextIdx);
+		state = State::Done;
+		gstate->pushActionsAtFront({make_shared<OnTurnStart>(nextIdx, nextId)});
+		return ActionError::Succeeded;
+	}
+	else if (move->getType() == PlayerAction::Type::DoForMe) {
+		auto pMoves = getPossibleMoves(gstate);
+		if (!pMoves.empty()) {
+			auto randIdx = cocos2d::RandomHelper::random_int(0, (int)pMoves.size() - 1);
+			return onReceiveInput(gstate, pMoves[randIdx]);
+		}
+	}
+
+	return ActionError::Failed;
 }
 
 

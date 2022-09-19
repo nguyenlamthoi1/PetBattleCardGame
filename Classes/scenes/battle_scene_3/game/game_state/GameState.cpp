@@ -128,6 +128,16 @@ void GameState::startGame() {
 		});
 }
 
+void GameState::onTurnStart(unsigned int playerIdx) {
+	phase = Phase::PlayerTurn;
+	turnCount += 1;
+	curPlayer = playerIdx;
+	auto curPlayerId = pids[curPlayer];
+	auto player = players.at(curPlayerId);
+	player->resetDoneCount(); // Reset lai so lan thuc hien cua cac player
+}
+
+
 void GameState::progressGameNoAnimation() {
 	// Lay ra 1 action de thuc thi
 	if (!isGameOver())
@@ -139,7 +149,7 @@ void GameState::progressGameNoAnimation() {
 			curAction->executeOn(this); // Thuc thi tung action
 
 		}
-		if (curAction->state == GameAction::State::Done)
+		else if (curAction->state == GameAction::State::Done)
 			actionQueue.pop_front();
 	}
 }
@@ -158,7 +168,7 @@ shared_ptr<BattleSceneNS::BSAction> GameState::progressGame() {
 
 			bsAction = curAction->getBSAction(); // Them animation
 		}
-		if (curAction->state == GameAction::State::Done)
+		else if (curAction->state == GameAction::State::Done)
 			actionQueue.pop_front();
 	}
 	return bsAction;
@@ -169,6 +179,11 @@ void GameState::startSetup() {
 	curPlayer = 0;
 	turnCount = 0;
 }
+
+void GameState::endSetup() {
+	turnCount = 0;
+}
+
 
 void GameState::clearState() {
 	pids.clear();
@@ -332,5 +347,15 @@ std::shared_ptr<GameState> GameState::clone() const {
 
 	return nullptr;
 }
+
+int GameState::getIdxOfPlayer(const PlayerIdType &id) {
+	for (unsigned int i = 0; i < pids.size(); ++i) {
+		if (pids[i] == id) {
+			return i;
+		}
+	}
+	return -1;
+}
+
 
 NS_GAME_END

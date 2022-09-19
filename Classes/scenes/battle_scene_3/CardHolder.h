@@ -56,8 +56,10 @@ public:
 	bool hasPetCard();
 	bool isActiveSpot();
 	bool canEvolveTo(PetCard *card);
-	
-	
+	PetCard *getActivePetCard() const { return petCard; }
+	unsigned int getDmgCounter() const { return dmgCounter; }
+	std::vector<PetCard*>& getPrevEvCards() { return preEvCardVec; }
+	std::vector<EnergyCard*>& getAttachedEnergyCards() { return energyCardVec; }
 protected:
 	virtual void clear();
 
@@ -87,8 +89,11 @@ protected:
 	std::map<EnergyId, BSPrefabNS::EnergyItem*> energyItemMap;
 
 	cocos2d::Node *node = nullptr;
+	cocos2d::ui::Layout *showInfoPanel = nullptr;
 
 	// Utilize functions
+
+	void onTouchHolder();
 };
 
 BATTLE_SCENE_NS_END

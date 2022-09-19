@@ -43,6 +43,8 @@ public:
 		FirstPlayerFlip,
 		EndSetup,
 
+		ChooseTurnAction,
+
 		Select_Prize,
 		Get_Prize_Cards
 	};
@@ -335,6 +337,35 @@ protected:
 
 //-------------------//
 
+class DoTurnStart : public BSAction {
+public:
+	static const std::string PLAYER_TXT;
+	static const std::string OPP_TXT;
+	DoTurnStart(const PlayerIdType &id) : pid(id) {}
+	virtual ~DoTurnStart() = default;
+
+	virtual void executeOn(BattleScene *btlScn) override;
+	virtual ActionType getType() const override { return ActionType::Sequence; }
+protected:
+	PlayerIdType pid;
+};
+
+class PlayerChooseTurnAction : public WaitInputPlayer {
+public:
+	//const static std::string PLAYER_DO_ACTION;
+	//const static std::string OPP_DO_ACTION;
+
+	PlayerChooseTurnAction(const PlayerIdType &id) : pid(id) {};
+	virtual ~PlayerChooseTurnAction() = default;
+
+	virtual void executeOn(BattleScene *btlScn) override;
+	virtual ActionType getType() const override { return ActionType::ChooseTurnAction;}
+	virtual bool onReceivePlayerInput(const std::shared_ptr<MGame::BattleMaster> &bm, const std::shared_ptr<MGame::PlayerAction> &pAction) override;
+protected:
+	PlayerIdType pid;
+	unsigned int num = 0;
+
+};
 
 
 class GameOverAction : public BSAction {
@@ -348,5 +379,7 @@ public:
 protected:
 	PlayerIdType winnerId;
 };
+
+
 
 BATTLE_SCENE_NS_END
