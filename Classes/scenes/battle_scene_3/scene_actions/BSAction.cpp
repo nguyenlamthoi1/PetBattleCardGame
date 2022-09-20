@@ -632,6 +632,7 @@ bool PlayerChooseTurnAction::onReceivePlayerInput(const shared_ptr<MGame::Battle
 		|| pAction->getType() == MGame::PlayerAction::Type::AttachEnergy
 		|| pAction->getType() == MGame::PlayerAction::Type::EvolvePet
 		|| pAction->getType() == MGame::PlayerAction::Type::PlayPetCardToBench
+		|| pAction->getType() == MGame::PlayerAction::Type::ActiveUseMove
 		) {
 		auto error = bm->onPlayerChooseAction(pAction);
 		bool suc = error != ActionError::Failed;

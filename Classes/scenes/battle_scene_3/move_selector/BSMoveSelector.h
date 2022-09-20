@@ -22,6 +22,7 @@ BATTLE_SCENE_NS_BEG
 class BattleScene;
 class BSCard;
 class CardHolder;
+class MoveHolder;
 
 class BSMoveSelector : public IEventsHandler
 {
@@ -33,7 +34,7 @@ public:
 
 	cocos2d::Node* getRoot() const { return root; }
 
-	void showInfoHolder(CardHolder *holder);
+	void showInfoHolder(CardHolder *holder, bool allowUseMove = false, bool allowRetreat = false);
 	void showInfoHolder2(CardHolder *holder);
 
 	void hide();
@@ -81,6 +82,8 @@ protected:
 	void onClickNextBtn(cocos2d::Ref *sender);
 	void onClickPrevBtn(cocos2d::Ref *sender);
 	void updateCardPos();
+
+	void onClickUseMove(CardHolder * cHolder, MoveHolder *mHolder, unsigned int moveIdx);
 
 	PlayerIdType curPid;
 };

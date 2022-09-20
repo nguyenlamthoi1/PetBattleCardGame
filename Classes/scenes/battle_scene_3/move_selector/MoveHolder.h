@@ -24,6 +24,8 @@ BATTLE_SCENE_NS_BEG
 class MoveHolder : public cocos2d::ui::Layout
 {
 public:
+	
+	using ClickUseBtnFunc = std::function<void(MoveHolder*)>;
 	using CardId = std::string;
 
 	static MoveHolder* create(const std::shared_ptr<const MoveData> &data);
@@ -33,7 +35,10 @@ public:
 	cocos2d::Node* getRoot() const { return root; }
 
 	void cleanUI();
+	void setEnabledUseBtn(bool enabled);
+	void setClickUseBtnFunc(const ClickUseBtnFunc &f) { onUseMove = f; }
 
+	const std::map<std::string, unsigned int>& getRequiredEnergies() const;
 protected:
 
 	virtual bool init();
@@ -47,6 +52,8 @@ protected:
 	cocos2d::ui::Layout *desBoard = nullptr;
 	std::shared_ptr<const MoveData> data;
 	
+	ClickUseBtnFunc onUseMove = nullptr;
+
 	void setMoveDes(const std::string &s);
 	void updateEnergyPanel();
 };

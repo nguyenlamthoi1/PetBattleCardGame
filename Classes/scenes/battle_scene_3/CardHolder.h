@@ -55,6 +55,7 @@ public:
 	void addEnergyItem(const std::string eType, unsigned int eNum);
 
 	// Checker
+	PlayerIdType getOwnerId() const { return ownerId; }
 	unsigned int getHolderIdx() const { return holderIdx; }
 	bool isType(HolderType hType) const { return type == hType; }
 	PlayerIdType getPid() const { return ownerId; }

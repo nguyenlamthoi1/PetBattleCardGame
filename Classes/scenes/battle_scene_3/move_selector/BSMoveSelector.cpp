@@ -12,8 +12,10 @@
 #include "scenes/battle_scene_3/BSResources.h"
 #include "scenes/battle_scene_3/BSPrizePile.h"
 #include "scenes/battle_scene_3/CardHolder.h"
-#include "scenes/battle_scene_3/prefabs/BSPrefabs.h"
+#include "scenes/battle_scene_3/BSPlayer.h"
 
+#include "scenes/battle_scene_3/prefabs/BSPrefabs.h"
+#include "scenes/battle_scene_3/game/player_actions/PlayerAction.h"
 
 #include "data/CardData.h"
 
@@ -210,9 +212,10 @@ void BSMoveSelector::showInfoHolder2(CardHolder *holder) {
 }
 
 
-void BSMoveSelector::showInfoHolder(CardHolder *holder) {
+void BSMoveSelector::showInfoHolder(CardHolder *holder, bool allowUseMove, bool allowRetreat) {
 	if (!holder->hasPetCard())
 		return;
+
 	//--Input--//
 	auto activePetCard = holder->getActivePetCard();
 	auto activeData = activePetCard->getPetData();
@@ -247,24 +250,31 @@ void BSMoveSelector::showInfoHolder(CardHolder *holder) {
 	maxHpLb->setString(to_string(maxHp));
 	curHpLb->setString(to_string(curHp));
 	// Energy Panel
+	std::unordered_map<string, unsigned int> attachedEnergyMap;
 	for (const auto &eid : eIds) {
 		auto eData = dynamic_pointer_cast<const EnergyCardData>(dm->getCardData(eid));
 		auto eNum = eData->eNum;
 		auto eType = eData->eType;
 		auto eItem = EnergyItem::create(eType, eNum);
 		eSpritePanel->addChild(eItem);
+
+		attachedEnergyMap[eType] += eNum; // * Cap nhat energy dang co
 	}
 	updateEnergySpritePanel();
 	// Retreat Panel
-	auto &retreatMap = activeData->retreatMap;
+	auto &retreatMap = activeData->retreatMap; // So nang luong can de retreat
+	bool enoughEnergyToRetreat = true;
 	for (const auto itr : retreatMap) {
 		auto eType = itr.first;
 		auto eNum = itr.second;
 		auto eItem = EnergyItem::create(eType, eNum);
 		retreatEnergyPanel->addChild(eItem);
+
+		enoughEnergyToRetreat &= attachedEnergyMap[eType] >= eNum;
 	}
 	updateRetreatEnergySpritePanel();
-	retreatBtn->setVisible(false);
+	retreatBtn->setVisible(allowRetreat && enoughEnergyToRetreat);
+
 	// Weakness Panel
 	auto &weakSet = activeData->weakSet;
 	if (!weakSet.empty()) {
@@ -302,9 +312,23 @@ void BSMoveSelector::showInfoHolder(CardHolder *holder) {
 
 	// Moves
 	auto moveVec = activeData->moveVec;
+	unsigned int moveIdx = 0;
 	for (const auto &moveData : moveVec) {
 		auto moveItem = MoveHolder::create(moveData);
 		listView->addChild(moveItem);
+
+		const auto &costMap = moveItem->getRequiredEnergies();
+		bool enoughEnergy = true;
+		for (const auto &itr : costMap) {
+			auto eType = itr.first;
+			auto eNum = itr.second;
+			enoughEnergy &= attachedEnergyMap[eType] >= eNum;
+		}
+		moveItem->setEnabledUseBtn(enoughEnergy);
+		moveItem->setClickUseBtnFunc([this, holder, moveIdx](MoveHolder *mHolder) {
+			onClickUseMove(holder, mHolder, moveIdx);
+			});
+		++moveIdx;
 	}
 
 	// Cards
@@ -426,6 +450,21 @@ void BSMoveSelector::cleanUI() {
 	}
 	cardVec.clear();
 
+}
+
+void BSMoveSelector::onClickUseMove(CardHolder * cHolder, MoveHolder *mHolder, unsigned int moveIdx) {
+	if (!cHolder || !mHolder) // Phai khac Nullptr
+		return;
+	auto ownerId = cHolder->getOwnerId();
+	if (cHolder->getOwnerId() != PLAYER) // Khong phai nguoi choi thi khong duoc thuc thi
+		return;
+	bool isActive = cHolder->isActiveSpot(); 
+	if (!isActive) // Holder thi trien skill phai la active
+		return;
+	auto player = btlScn->getBSPlayer(ownerId);
+	if(player->actionExceedsLimit)
+	auto pMove = make_shared<MGame::PA_UseMove>(cHolder->getOwnerId(), moveIdx);
+	bool suc = btlScn->onPlayerDoAction(pMove);
 }
 
 

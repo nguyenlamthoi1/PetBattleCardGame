@@ -98,7 +98,7 @@ public:
 	void onEndSetup();
 	void onTurnStart(const PlayerIdType &id);
 	void enablePlayerChooseTurnAction(const PlayerIdType &id);
-
+	void showHolderInfo(CardHolder *holder);
 	void onEndGame(const PlayerIdType &winnerId);
 private:
 	BattleScene();

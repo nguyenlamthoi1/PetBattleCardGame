@@ -363,8 +363,9 @@ void CardHolder::setFlipPetCard(bool flip) {
 }
 
 void CardHolder::onTouchHolder() {
+
 	auto moveSelector = btlScn->getMoveSelector();
-	moveSelector->showInfoHolder(this);
+	//moveSelector->showPetAttacks(this);
 }
 
 bool CardHolder::checkCanUseMove(unsigned int moveIdx) const {

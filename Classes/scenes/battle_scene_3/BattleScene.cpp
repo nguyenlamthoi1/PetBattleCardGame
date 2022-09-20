@@ -563,6 +563,11 @@ void BattleScene::enablePlayerChooseTurnAction(const PlayerIdType &id) {
 		});
 }
 
+void BattleScene::showHolderInfo(CardHolder *holder) {
+	moveSelector->showInfoHolder(holder);
+}
+
+
 
 
 /////////

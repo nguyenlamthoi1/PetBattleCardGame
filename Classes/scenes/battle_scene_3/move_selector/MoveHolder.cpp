@@ -72,6 +72,12 @@ bool MoveHolder::init() {
 	}
 	root->setPosition(Vec2(10, 5));
 	updateEnergyPanel();
+
+	useBtn->addClickEventListener([this](Ref* sender){
+		if (onUseMove)
+			onUseMove(this);
+		});
+
 	return true;
 }
 
@@ -102,5 +108,15 @@ void MoveHolder::updateEnergyPanel() {
 		++i;
 	}
 }
+
+const std::map<std::string, unsigned int>& MoveHolder::getRequiredEnergies() const {
+	return data->costMap;
+}
+
+void MoveHolder::setEnabledUseBtn(bool enabled) {
+	useBtn->setVisible(enabled);
+}
+
+
 
 BATTLE_SCENE_NS_END
