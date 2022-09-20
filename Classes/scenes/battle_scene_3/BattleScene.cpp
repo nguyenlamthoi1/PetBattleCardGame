@@ -577,8 +577,11 @@ void BattleScene::func2(Ref *sender) {
 
 void BattleScene::onTurnStart(const PlayerIdType &id) {
 	phase = Phase::PlayerTurn;
-	if (updateTurnCountAfterSetup)
+
+	if (updateTurnCountAfterSetup) {
 		turnCount = 0;
+		updateTurnCountAfterSetup = false;
+	}
 	else
 		turnCount += 1;
 	curPlayerId = id;
