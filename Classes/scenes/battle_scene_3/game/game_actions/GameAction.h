@@ -460,6 +460,8 @@ public:
 	unsigned int hIdx;
 	PlaceType placeType;
 	unsigned int benchIdx;
+protected:
+	bool suc = false;
 };
 
 /////////////////////////

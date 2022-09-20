@@ -345,20 +345,21 @@ void BSHand::setDragForPetCard(PetCard *petCard, unsigned int handIdx) {
 		},
 		[this, board, btlScn, handIdx](Node *cardNode, Node *dest) { // Drag End Callback
 			auto petCard = dynamic_cast<PetCard*>(cardNode);
-			
-			if (!dest) {
+			if (!dest || !petCard) {
 				auto comp = DragComponent::getComp(cardNode);
 				onDragBack(petCard);
 			}
 			else {
-				bool dragOnActive = board->isActiveBoard(dest);
-				//bool check1 = board->checkCanAddPetCard(petCard, dest);
-				//bool check2 = btlScn->onPlayerPetCard(pid, handIdx, dragOnActive ? BattleScene::PlaceType::Active : BattleScene::PlaceType::Bench);
-				bool check = board->checkCanAddPetCard(petCard, dest) && 
-					btlScn->onPlayerPetCard(pid, handIdx, dragOnActive ? BattleScene::PlaceType::Active : BattleScene::PlaceType::Bench) 
-					&& true;
-				if (!check)
-					onDragBack(petCard);
+				auto petData = petCard->getPetData();
+				bool isBasic = petData->isBasicCard();
+
+				if (isBasic) {
+					bool dragOnActive = board->isActiveBoard(dest);
+					bool check = board->checkCanAddPetCard(petCard, dest) &&
+						btlScn->onPlayerPetCard(pid, handIdx, dragOnActive ? BattleScene::PlaceType::Active : BattleScene::PlaceType::Bench);
+					if (!check)
+						onDragBack(petCard);
+				}
 				else {
 					/*if (dragOnActive)
 						board->addPetOnActive(petCard);

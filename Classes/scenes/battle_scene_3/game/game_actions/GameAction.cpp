@@ -667,7 +667,7 @@ vector<shared_ptr<PlayerAction>> PlayerChooseTurnAction::getPossibleMoves(GameSt
 	vector<shared_ptr<PlayerAction>> ret;
 
 	// EndTurn
-	//ret.push_back(make_shared<PA_EndTurn>(pid));
+	ret.push_back(make_shared<PA_EndTurn>(pid));
 	
 	auto player = gstate->getPlayer(pid);
 	// Lay tat ca vi tri Pet tren Board
@@ -845,14 +845,16 @@ void PlayEnergyCard::executeOn(GameState *gstate) {
 	auto card = hand->getCardAt(hIdx);
 	auto eCard = dynamic_pointer_cast<EnergyCard>(card);
 
+	suc = false;
+
 	if (eCard) {
 		auto board = gstate->getBoard(pid);
-		shared_ptr<Holder> holder;
-		if (placeType == PlaceType::Active)
-			holder = board->getActiveHolder();
-		else
-			holder = board->getBenchHolder(benchIdx);
-		holder->attachEnergyCard(eCard);
+		auto holder = placeType == PlaceType::Active ? board->getActiveHolder() : board->getBenchHolder(benchIdx);
+		suc = holder->attachEnergyCard(eCard);
+	}
+
+	if (suc) {
+		hand->removeCard(hIdx);
 		auto player = gstate->getPlayer(pid);
 		player->updateActionCount(Player::TurnAction::AttachEnergy, 1);
 	}
@@ -860,7 +862,7 @@ void PlayEnergyCard::executeOn(GameState *gstate) {
 	state = State::Done;
 }
 shared_ptr<BattleSceneNS::BSAction> PlayEnergyCard::getBSAction() const {
-	return make_shared<BattleSceneNS::PlayerEnergyCard>(pid, hIdx, placeType == PlaceType::Active, benchIdx);
+	return suc ? make_shared<BattleSceneNS::PlayerEnergyCard>(pid, hIdx, placeType == PlaceType::Active, benchIdx) : nullptr;
 }
 shared_ptr<GameAction> PlayEnergyCard::clone() const {
 	return make_shared<PlayEnergyCard>(pid, hIdx, placeType, benchIdx);
@@ -885,6 +887,7 @@ void PlayEvPetCard::executeOn(GameState *gstate) {
 	}
 
 	if (suc) {
+		hand->removeCard(hIdx);
 		auto player = gstate->getPlayer(pid);
 		player->updateActionCount(Player::TurnAction::EvolvePet, 1);
 	}

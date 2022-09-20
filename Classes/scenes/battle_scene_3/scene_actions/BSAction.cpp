@@ -626,6 +626,7 @@ bool PlayerChooseTurnAction::onReceivePlayerInput(const shared_ptr<MGame::Battle
 	if (pAction->getType() == MGame::PlayerAction::Type::EndTurn
 		|| pAction->getType() == MGame::PlayerAction::Type::DoForMe
 		|| pAction->getType() == MGame::PlayerAction::Type::AttachEnergy
+		|| pAction->getType() == MGame::PlayerAction::Type::EvolvePet
 		) {
 		auto error = bm->onPlayerChooseAction(pAction);
 		bool suc = error != ActionError::Failed;

@@ -201,6 +201,8 @@ bool CardHolder::tryEvolveTo(PetCard *toCard, const std::function<void()> &onDon
 		auto startPosition = Utilize::mnode::getLocalPos(toCard, cardMarker);
 		toCard->removeFromParent();
 		cardMarker->addChild(toCard);
+		
+		toCard->setFlip(false);
 
 		auto destPosition = Vec2(0, 0);
 		auto dist = destPosition.distance(startPosition);
@@ -265,6 +267,8 @@ bool CardHolder::tryAddEnergyCard(EnergyCard *energyCard, const function<void()>
 	energyCardVec.push_back(energyCard);
 
 	// Animation
+	energyCard->setFlip(false);
+
 	auto startPosition = Utilize::mnode::getLocalPos(energyCard, cardMarker);
 	energyCard->removeFromParent();
 	energyCardMarker->addChild(energyCard);
