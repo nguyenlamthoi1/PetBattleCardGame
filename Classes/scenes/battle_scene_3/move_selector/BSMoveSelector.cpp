@@ -116,7 +116,7 @@ void BSMoveSelector::showInfoHolder2(CardHolder *holder) {
 	petNameLb->setString(petName);
 	// Hp
 	auto maxHp = activeData->hp;
-	auto curHp = maxHp >= dmgCounter * DMG_COUNTER_VAL ? maxHp - dmgCounter * DMG_COUNTER_VAL : 0;
+	auto curHp = maxHp >= dmgCounter  ? maxHp - dmgCounter  : 0;
 	maxHpLb->setString(to_string(maxHp));
 	curHpLb->setString(to_string(curHp));
 	// Energy Panel
@@ -246,7 +246,7 @@ void BSMoveSelector::showInfoHolder(CardHolder *holder, bool allowUseMove, bool 
 	petNameLb->setString(petName);
 	// Hp
 	auto maxHp = activeData->hp;
-	auto curHp = maxHp >= dmgCounter * DMG_COUNTER_VAL ? maxHp - dmgCounter * DMG_COUNTER_VAL : 0;
+	auto curHp = maxHp >= dmgCounter  ? maxHp - dmgCounter  : 0;
 	maxHpLb->setString(to_string(maxHp));
 	curHpLb->setString(to_string(curHp));
 	// Energy Panel

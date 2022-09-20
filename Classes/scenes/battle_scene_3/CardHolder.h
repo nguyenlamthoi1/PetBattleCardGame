@@ -48,12 +48,17 @@ public:
 	bool tryAddBasicPetCard(PetCard *card, const std::function<void()> &onDone = nullptr);
 	bool tryAddEnergyCard(EnergyCard *card, const std::function<void()> &onDone = nullptr);
 	bool tryEvolveTo(PetCard *card, const std::function<void()> &onDone = nullptr);
+	
+	bool tryAttackActiveOpp(CardHolder* taker, unsigned int totalDmg, bool triggerWeak, bool triggerResist, const std::function<void()> &onDone = nullptr);
+	void onTakeDamage(unsigned int totalDmg, bool triggerWeak, bool triggerResist);
 
 	void setFlipPetCard(bool flip);
 
 	void updateInfoPanel(bool show);
-	void addEnergyItem(const std::string eType, unsigned int eNum);
+	void updateDmgImg(bool anim = false);
 
+	void addEnergyItem(const std::string eType, unsigned int eNum);
+	void launchFlyingMsg(const std::string &msg, cocos2d::Color4B color, float delay = 0.0f);
 	// Checker
 	PlayerIdType getOwnerId() const { return ownerId; }
 	unsigned int getHolderIdx() const { return holderIdx; }
@@ -88,6 +93,8 @@ protected:
 	cocos2d::Node *evCardMarker = nullptr;
 	cocos2d::Node *energyCardMarker = nullptr;
 
+	cocos2d::ui::ImageView *dmgImg = nullptr;
+	cocos2d::ui::Text *dmgTxt = nullptr;
 
 	cocos2d::ui::Text *flyingText = nullptr;
 	void showFlyingText(const std::string &s);

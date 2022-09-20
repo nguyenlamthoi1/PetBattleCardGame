@@ -530,12 +530,16 @@ public:
 	virtual Type getType() const override final { return Type::Attack; }
 };
 
-class DefaultAttack: public AttackAction{
+class DefaultAttack: public AttackAction{ // Active Attack Active
 public:
-	DefaultAttack(const std::shared_ptr<Holder> &atker, const std::shared_ptr<Holder> &defer, unsigned int dmg) : 
-		attacker(atker), 
-		defender(defer),
+	DefaultAttack(
+		const PlayerIdType &atkOwner, 
+		//const PlayerIdType &defOwner, 
+		unsigned int dmg) :
+		attacker(atkOwner),
+		//defender(defOwner),
 		baseDmg(dmg) {}
+
 	virtual ~DefaultAttack() = default;
 
 	virtual void executeOn(GameState *gameState) override;
@@ -543,9 +547,31 @@ public:
 	virtual std::shared_ptr<BattleSceneNS::BSAction> getBSAction() const override;
 
 	unsigned int baseDmg = 0;
-	std::shared_ptr<Holder> attacker;
-	std::shared_ptr<Holder> defender;
+	PlayerIdType attacker;
+protected:
+	bool triggerWeak = false;
+	bool triggerResist = false;
+	unsigned int totalDmg = 0;
 };
+
+class PetKnockedOut : public AttackAction { // Active Attack Active
+public:
+	PetKnockedOut(const PlayerIdType &id, bool active, unsigned int benchIdx) :
+	pid(id),
+	isActive(active),
+	bIdx(benchIdx)
+	{}
+	virtual ~PetKnockedOut() = default;
+
+	virtual void executeOn(GameState *gameState) override;
+	virtual std::shared_ptr<GameAction> clone() const override;
+	virtual std::shared_ptr<BattleSceneNS::BSAction> getBSAction() const override;
+
+	PlayerIdType pid;
+	bool isActive = false;
+	unsigned int bIdx;
+};
+
 
 class TakeDamage : public GameAction {
 public:

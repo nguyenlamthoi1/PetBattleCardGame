@@ -48,6 +48,7 @@ public:
 		EvolvePet,
 		PlayBasicPet,
 		DoAttack,
+		OnKnockedOut,
 
 		Select_Prize,
 		Get_Prize_Cards
@@ -438,6 +439,22 @@ protected:
 	bool triggerWeak;
 	bool triggerResist;
 	unsigned int totalDmg;
+};
+
+class DoPetKnockedOut : public BSAction {
+public:
+	DoPetKnockedOut(const PlayerIdType &id, bool active, unsigned int benchIdx) :
+		pid(id),
+		isActive(active),
+		bIdx(benchIdx){}
+	virtual ~DoPetKnockedOut() = default;
+
+	virtual void executeOn(BattleScene *btlScn) override;
+	virtual ActionType getType() const override { return ActionType::OnKnockedOut; }
+protected:
+	PlayerIdType pid;
+	bool isActive;
+	unsigned int bIdx;
 };
 
 class GameOverAction : public BSAction {

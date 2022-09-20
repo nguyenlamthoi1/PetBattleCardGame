@@ -37,10 +37,9 @@ shared_ptr<GameAction> UseActiveMove::createAction(GameState *gstate, const shar
 		auto atkBoard = gstate->getBoard(pid);
 		auto atkHolder = atkBoard->getActiveHolder();
 		// Defender
-		auto defBoard = gstate->getBoard(oId);
-		auto defHolder = defBoard->getActiveHolder();
-		
-		return make_shared<MGame::DefaultAttack>(atkHolder, defHolder, baseDmg);
+		//auto defBoard = gstate->getBoard(oId);
+		//auto defHolder = defBoard->getActiveHolder();
+		return make_shared<MGame::DefaultAttack>(atkHolder->getOwnerId(), baseDmg);
 	}
 	else if(false) {
 		return nullptr;
@@ -100,27 +99,30 @@ shared_ptr<GameAction> UseActiveMove::clone() const {
 void DefaultAttack::executeOn(GameState *gstate) {
 	state = State::Process;
 
-	auto atkCard = attacker->getPetCard();
+	auto atkHolder = gstate->getBoard(attacker)->getActiveHolder();
+	auto atkCard = atkHolder->getPetCard();
 	auto atkData = atkCard->getPetData();
 	auto atkType = atkData->type;
 
-	auto defCard = defender->getPetCard();
+	auto oppId = gstate->getOpponentOf(attacker);
+	auto defHolder = gstate->getBoard(oppId)->getActiveHolder();
+	auto defCard = defHolder->getPetCard();
 	auto defData = defCard->getPetData();
 	auto weakType = *(defData->weakSet.begin());
 
 	int incDmg = 0;
 
 	// Xet resistance
-	bool triggerResistance = false;
+	triggerResist = false;
 	auto resistType = defData->resistanceMap.begin()->first;
 	if (!resistType.empty() && atkType == resistType)
 	{
 		auto resistNum = defData->resistanceMap.begin()->second;
-		triggerResistance = true;
+		triggerResist = true;
 		incDmg += resistNum; // * Nen la so am
 	}
 
-	bool triggerWeak = false;
+	triggerWeak = false;
 
 	// Xet weakness
 	if (!weakType.empty() && atkType == weakType) {
@@ -128,6 +130,11 @@ void DefaultAttack::executeOn(GameState *gstate) {
 		incDmg += baseDmg; // x2 Base Damge
 	}
 
+	totalDmg = baseDmg + incDmg;
+	defHolder->takeDmg(totalDmg);
+	if (defHolder->isKnockedOut()) {
+
+	}
 	/*gstate->replaceCurActionWith({
 		make_shared<TakeDamage>(
 			defender,
@@ -142,12 +149,39 @@ void DefaultAttack::executeOn(GameState *gstate) {
 }
 
 shared_ptr<BattleSceneNS::BSAction> DefaultAttack::getBSAction() const {
-	return nullptr;
+	return make_shared<BattleSceneNS::DoAttackActive>(attacker, totalDmg, triggerWeak, triggerResist);
 }
 
 shared_ptr<GameAction> DefaultAttack::clone() const {
-	return make_shared<DefaultAttack>(attacker, defender, baseDmg);
+	return make_shared<DefaultAttack>(attacker, baseDmg);
 }
+
+
+void PetKnockedOut::executeOn(GameState *gstate) {
+	state = State::Process;
+
+	auto board = gstate->getBoard(pid);
+	auto holder = isActive ? board->getActiveHolder() : board->getBenchHolder(bIdx);
+	holder->onKnockedOut();
+
+	state = State::Done;
+}
+shared_ptr<GameAction> PetKnockedOut::clone() const {
+	return make_shared<PetKnockedOut>(pid, isActive, bIdx);
+}
+shared_ptr<BattleSceneNS::BSAction> PetKnockedOut::getBSAction() const {
+	return nullptr;
+}
+
+
+
+
+
+
+
+
+
+
 
 void TakeDamage::executeOn(GameState *gameState) {
 

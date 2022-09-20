@@ -105,4 +105,14 @@ bool Holder::enoughEnergies(const std::map<std::string, unsigned int> &rqMap) co
 	return enough;
 }
 
+bool Holder::takeDmg(unsigned int dmg) {
+	dmgCounter += dmg;
+}
+
+void Holder::onKnockedOut() {
+
+}
+
+
+
 NS_GAME_END

@@ -74,6 +74,30 @@
                 <EndColor A="255" R="255" G="255" B="255" />
                 <ColorVector ScaleY="1.0000" />
               </AbstractNodeData>
+              <AbstractNodeData Name="Dmg_Img" ActionTag="887536445" Tag="606" IconVisible="False" LeftMargin="-49.5000" RightMargin="45.5000" TopMargin="7.5000" BottomMargin="30.5000" LeftEage="32" RightEage="32" TopEage="32" BottomEage="32" Scale9OriginX="32" Scale9OriginY="32" Scale9Width="35" Scale9Height="35" ctype="ImageViewObjectData">
+                <Size X="99.0000" Y="99.0000" />
+                <Children>
+                  <AbstractNodeData Name="Dmg_Lb" ActionTag="193009790" Tag="607" IconVisible="False" LeftMargin="-16.8627" RightMargin="-4.1373" TopMargin="20.3651" BottomMargin="-7.3651" FontSize="72" LabelText="100" OutlineSize="2" OutlineEnabled="True" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ShadowEnabled="True" ctype="TextObjectData">
+                    <Size X="122.0000" Y="90.0000" />
+                    <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                    <Position X="43.1373" Y="35.6349" />
+                    <Scale ScaleX="1.0000" ScaleY="1.0000" />
+                    <CColor A="255" R="255" G="255" B="255" />
+                    <PrePosition X="0.4357" Y="0.3599" />
+                    <PreSize X="1.2121" Y="0.8687" />
+                    <FontResource Type="Normal" Path="ccstd_fonts/GillSans_ttf/Gill-Sans-Bold.ttf" Plist="" />
+                    <OutlineColor A="255" R="255" G="0" B="0" />
+                    <ShadowColor A="255" R="110" G="110" B="110" />
+                  </AbstractNodeData>
+                </Children>
+                <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
+                <Position Y="80.0000" />
+                <Scale ScaleX="0.5000" ScaleY="0.5000" />
+                <CColor A="255" R="255" G="255" B="255" />
+                <PrePosition Y="0.5839" />
+                <PreSize X="1.0421" Y="0.7226" />
+                <FileData Type="PlistSubImage" Path="bs_ui/dmg_counter.png" Plist="ccstd_assets/bs_ui.plist" />
+              </AbstractNodeData>
               <AbstractNodeData Name="Hd_ColorPanel" ActionTag="-1448343792" VisibleForFrame="False" Tag="3016" IconVisible="False" PercentWidthEnable="True" PercentHeightEnable="True" PercentWidthEnabled="True" PercentHeightEnabled="True" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
                 <Size X="95.0000" Y="137.0000" />
                 <AnchorPoint />

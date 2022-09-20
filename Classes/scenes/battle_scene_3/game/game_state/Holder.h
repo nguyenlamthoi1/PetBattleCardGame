@@ -28,6 +28,8 @@ public:
 	virtual bool init();
 	void setGameState(GameState *gameState) { gstate = gameState; }
 
+
+	PlayerIdType getOwnerId() const { return pid; }
 	unsigned int getPlayedTurn() const { return onPlayedTurn; }
 	PetCardPtr getPetCard() const { return petCard; }
 	bool hasPet() const { return petCard != nullptr; }
@@ -40,6 +42,13 @@ public:
 
 	bool canAttachEnergy() const;
 	bool attachEnergyCard(const std::shared_ptr<const EnergyCard> &energyCard);
+
+	bool takeDmg(unsigned int dmg);
+	bool isKnockedOut() const { return dmgCounter >= maxHp; }
+	void setDmgCounter(unsigned int dmg) { dmgCounter = dmg; }
+	unsigned int getCurDmg() const { return dmgCounter; }
+
+	void onKnockedOut();
 protected:
 	GameState *gstate = nullptr;
 

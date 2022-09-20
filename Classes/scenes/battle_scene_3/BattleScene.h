@@ -93,7 +93,7 @@ public:
 
 	PlayerIdType getPlayerId() const { return pid; }
 	PlayerIdType getOpponentId() const { return oid; }
-
+	PlayerIdType getOpponentIdOf(const PlayerIdType &id) const { return pid == id ? oid : pid; }
 	unsigned int getTurnCount() const { return turnCount; }
 
 	void onEndSetup();

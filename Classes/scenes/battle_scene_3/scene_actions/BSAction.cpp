@@ -267,8 +267,36 @@ void DoAttackActive::executeOn(BattleScene *btlScn) {
 		return;
 
 	state = State::Processed;
-	
+	auto atkHolder = btlScn->getBoard(atkOwnerId)->getActiveHolder();
+
+	auto oppId = btlScn->getOpponentIdOf(atkOwnerId);
+	auto defHolder = btlScn->getBoard(oppId)->getActiveHolder();
+
+	atkHolder->tryAttackActiveOpp(defHolder, totalDmg, triggerWeak, triggerResist,
+		[this]() {
+			state = State::Done;
+		}
+		);
 }
+
+/*
+	GameOverAction Class
+*/
+
+void DoPetKnockedOut::executeOn(BattleScene *btlScn) {
+	state = State::Processed;
+	auto holder = btlScn->getBoard(pid)->getActiveHolder();
+
+	auto oppId = btlScn->getOpponentIdOf(atkOwnerId);
+	auto defHolder = btlScn->getBoard(oppId)->getActiveHolder();
+
+	atkHolder->tryAttackActiveOpp(defHolder, totalDmg, triggerWeak, triggerResist,
+		[this]() {
+			state = State::Done;
+		}
+	);
+}
+
 
 /*
 	GameOverAction Class

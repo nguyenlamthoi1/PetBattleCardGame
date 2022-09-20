@@ -112,6 +112,10 @@ bool CardHolder::init() {
 
 	energyPanel = dynamic_cast<ui::Layout*>(panel->getChildByName("Energy_Panel"));
 
+	dmgImg = dynamic_cast<ui::ImageView*>(hpPanel->getChildByName("Dmg_Img"));
+	dmgTxt = dynamic_cast<ui::Text*>(layout->getChildByName("Dmg_Lb"));
+	dmgImg->setVisible(false);
+
 	return true;
 }
 
@@ -311,16 +315,74 @@ bool CardHolder::tryAddEnergyCard(EnergyCard *energyCard, const function<void()>
 	return true;
 }
 
-void CardHolder::addEnergyItem(const std::string eType, unsigned int eNum) {
+void CardHolder::addEnergyItem(const std::string eType, unsigned int eNum) {}
+
+bool CardHolder::tryAttackActiveOpp(CardHolder* taker, unsigned int totalDmg, bool triggerWeak, bool triggerResist, const function<void()> &onDone) {
+	if (!taker) {
+		if (onDone)
+			onDone();
+		return false;
+	}
+
+	petCard->runAction( // Action 1
+		Sequence::create(
+			EaseBackInOut::create(MoveBy::create(0.4f, Vec2(0, 50))),
+			MoveTo::create(0.6f, Vec2(0, 0)),
+			nullptr));
+
+	petCard->runAction( // Action 2
+		Sequence::create(
+			DelayTime::create(0.35f),
+			CallFunc::create([taker, totalDmg, triggerWeak, triggerResist, onDone]() {
+				taker->onTakeDamage(totalDmg, triggerWeak, triggerResist);
+				if (onDone)
+					onDone();
+				}),
+			nullptr));
+
 }
 
+void CardHolder::onTakeDamage(unsigned int totalDmg, bool triggerWeak, bool triggerResist) {
+	dmgCounter += totalDmg;
+	updateInfoPanel(true);
+
+	// Do animation
+	launchFlyingMsg(to_string(totalDmg), Color4B::ORANGE);
+	launchFlyingMsg(to_string(totalDmg), Color4B::RED, 0.2f);
+	launchFlyingMsg(to_string(totalDmg), Color4B::BLUE, 0.4f);
+	updateDmgImg(true);
+}
+
+void CardHolder::launchFlyingMsg(const std::string &msg, cocos2d::Color4B color, float delay) {
+	auto flyingTextParent = flyingText->getParent();
+	auto cloned = dynamic_cast<ui::Text*>(flyingText->clone());
+	flyingTextParent->addChild(cloned);
+	cloned->setString(msg);
+	cloned->setColor(Color3B::RED);
+	cloned->setVisible(true);
+	Vec2 pos = Vec2(45, 67);
+	cloned->runAction(Sequence::create(
+		MoveTo::create(0.8f, pos + Vec2(0, 30)),
+		RemoveSelf::create(),
+		nullptr));
+}
 
 void CardHolder::updateInfoPanel(bool show) {
 	if (show)
 		hpPanel->setVisible(true);
 
-	unsigned int curHp = maxHp > dmgCounter * DMG_COUNTER_VAL ? maxHp - dmgCounter * DMG_COUNTER_VAL : 0;
+	unsigned int curHp = maxHp > dmgCounter ? maxHp - dmgCounter : 0;
 	hpText->setString(to_string(curHp));
+}
+
+void CardHolder::updateDmgImg(bool anim) {
+	dmgImg->setVisible(dmgCounter > 0);
+	dmgTxt->setString(to_string(dmgCounter));
+	if (anim) {
+		dmgImg->stopAllActions();
+		dmgImg->setScale(0.5);
+		dmgImg->runAction(EaseBackOut::create(ScaleBy::create(0.2, 2.0f, 2.0f)));
+	}
 }
 
 void CardHolder::showFlyingText(const string &s) {
