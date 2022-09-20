@@ -33,6 +33,7 @@ public:
 	HolderPtr getBenchHolder(unsigned int idx) const;
 	std::vector<HolderPtr> getAllHolders() const;
 
+	bool benchHasPet() const;
 	bool hasActivePet() const;
 	bool addBasicPetCardToActive(const std::shared_ptr<PetCard> &petCard);
 	bool evolvePetAtActive(const std::shared_ptr<PetCard> &petCard);
@@ -44,7 +45,6 @@ protected:
 	PlayerIdType pid = PlayerIdInvalid;
 
 	HolderPtr active;
-
 	unsigned int benchCapacity = 5;
 	//unsigned int curBench = 0;
 	HolderPtrVec bench;

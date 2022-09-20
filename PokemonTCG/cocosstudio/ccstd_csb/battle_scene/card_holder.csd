@@ -77,14 +77,14 @@
               <AbstractNodeData Name="Dmg_Img" ActionTag="887536445" Tag="606" IconVisible="False" LeftMargin="-49.5000" RightMargin="45.5000" TopMargin="7.5000" BottomMargin="30.5000" LeftEage="32" RightEage="32" TopEage="32" BottomEage="32" Scale9OriginX="32" Scale9OriginY="32" Scale9Width="35" Scale9Height="35" ctype="ImageViewObjectData">
                 <Size X="99.0000" Y="99.0000" />
                 <Children>
-                  <AbstractNodeData Name="Dmg_Lb" ActionTag="193009790" Tag="607" IconVisible="False" LeftMargin="-16.8627" RightMargin="-4.1373" TopMargin="20.3651" BottomMargin="-7.3651" FontSize="72" LabelText="100" OutlineSize="2" OutlineEnabled="True" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ShadowEnabled="True" ctype="TextObjectData">
+                  <AbstractNodeData Name="Dmg_Lb" ActionTag="193009790" Tag="607" IconVisible="False" LeftMargin="-17.8627" RightMargin="-5.1373" TopMargin="18.3651" BottomMargin="-9.3651" FontSize="72" LabelText="100" OutlineSize="2" OutlineEnabled="True" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ShadowEnabled="True" ctype="TextObjectData">
                     <Size X="122.0000" Y="90.0000" />
                     <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                     <Position X="43.1373" Y="35.6349" />
                     <Scale ScaleX="1.0000" ScaleY="1.0000" />
                     <CColor A="255" R="255" G="255" B="255" />
                     <PrePosition X="0.4357" Y="0.3599" />
-                    <PreSize X="1.2121" Y="0.8687" />
+                    <PreSize X="1.2323" Y="0.9091" />
                     <FontResource Type="Normal" Path="ccstd_fonts/GillSans_ttf/Gill-Sans-Bold.ttf" Plist="" />
                     <OutlineColor A="255" R="255" G="0" B="0" />
                     <ShadowColor A="255" R="110" G="110" B="110" />
@@ -124,15 +124,15 @@
                 <EndColor A="255" R="255" G="255" B="255" />
                 <ColorVector ScaleY="1.0000" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Flying_Text" ActionTag="-622108568" VisibleForFrame="False" Tag="120" IconVisible="False" LeftMargin="-88.4105" RightMargin="-84.5895" TopMargin="26.2982" BottomMargin="24.7018" FontSize="72" LabelText="Evolution" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
-                <Size X="268.0000" Y="86.0000" />
+              <AbstractNodeData Name="Flying_Text" ActionTag="-622108568" VisibleForFrame="False" Tag="120" IconVisible="False" LeftMargin="-113.9105" RightMargin="-110.0895" TopMargin="26.2982" BottomMargin="24.7018" FontSize="72" LabelText="Evolution" ShadowOffsetX="2.0000" ShadowOffsetY="-2.0000" ctype="TextObjectData">
+                <Size X="319.0000" Y="86.0000" />
                 <AnchorPoint ScaleX="0.5000" ScaleY="0.5000" />
                 <Position X="45.5895" Y="67.7018" />
                 <Scale ScaleX="0.5000" ScaleY="0.5000" />
                 <CColor A="255" R="255" G="255" B="255" />
                 <PrePosition X="0.4799" Y="0.4942" />
-                <PreSize X="2.8211" Y="0.6277" />
-                <FontResource Type="Normal" Path="ccstd_fonts/GillSans_ttf/Gill Sans.ttf" Plist="" />
+                <PreSize X="3.3579" Y="0.6277" />
+                <FontResource Type="Normal" Path="ccstd_fonts/GillSans_ttf/Gill-Sans-Bold.ttf" Plist="" />
                 <OutlineColor A="255" R="255" G="0" B="0" />
                 <ShadowColor A="255" R="110" G="110" B="110" />
               </AbstractNodeData>

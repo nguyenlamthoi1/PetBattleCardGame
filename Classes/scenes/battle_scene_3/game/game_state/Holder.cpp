@@ -2,6 +2,7 @@
 #include "card/Card.h"
 #include "data/CardData.h"
 #include "GameState.h"
+#include "DiscardPile.h"
 
 using namespace std;
 
@@ -111,8 +112,25 @@ bool Holder::takeDmg(unsigned int dmg) {
 }
 
 void Holder::onKnockedOut() {
-
 }
+
+void Holder::removePetAndAllCards(std::vector<std::shared_ptr<const Card>> &vec) {
+	vec.push_back(petCard);
+	petCard = nullptr;
+
+	vec.insert(vec.cend(), evPetCards.begin(), evPetCards.end());
+	evPetCards.clear();
+
+	vec.insert(vec.cend(), energyCards.begin(), energyCards.end());
+	energyCards.clear();
+	totalEnergy.clear();
+
+	onPlayedTurn = 0;
+	dmgCounter = 0;
+	maxHp = 0;
+}
+
+void 
 
 
 

@@ -136,17 +136,10 @@ void DefaultAttack::executeOn(GameState *gstate) {
 	totalDmg = tempBase + incDmg <= 0 ? 0 : baseDmg + incDmg;
 	defHolder->takeDmg(totalDmg);
 	if (defHolder->isKnockedOut()) {
-
+		gstate->replaceCurActionWith({
+			make_shared<PetKnockedOut>(oppId, true, 0)
+			});
 	}
-	/*gstate->replaceCurActionWith({
-		make_shared<TakeDamage>(
-			defender,
-			baseDmg + incDmg,
-			baseDmg,
-			triggerWeak,
-			triggerResistance
-			)
-		});*/
 
 	state = State::Done;
 }
@@ -167,7 +160,24 @@ void PetKnockedOut::executeOn(GameState *gstate) {
 
 	auto board = gstate->getBoard(pid);
 	auto holder = isActive ? board->getActiveHolder() : board->getBenchHolder(bIdx);
-	holder->onKnockedOut();
+	
+	vector<shared_ptr<const Card>> discardedVec;
+	holder->removePetAndAllCards(discardedVec);
+
+	auto discard = gstate->getDiscardPile(pid);
+	discard->pushCards(discardedVec);
+
+	if (board->benchHasPet()) {
+		gstate->replaceCurActionWith(
+			{ 
+				make_shared<GameOverAction>(gstate->getOpponentOf(pid)) 
+			}
+		);
+
+	}
+	else {
+		gstate->replaceCurActionWith({ make_shared<GameOverAction>(gstate->getOpponentOf(pid)) });
+	}
 
 	state = State::Done;
 }
@@ -175,7 +185,7 @@ shared_ptr<GameAction> PetKnockedOut::clone() const {
 	return make_shared<PetKnockedOut>(pid, isActive, bIdx);
 }
 shared_ptr<BattleSceneNS::BSAction> PetKnockedOut::getBSAction() const {
-	return nullptr;
+	return make_shared<BattleSceneNS::DoPetKnockedOut>(pid, isActive, bIdx);
 }
 
 

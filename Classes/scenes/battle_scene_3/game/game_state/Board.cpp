@@ -84,6 +84,19 @@ bool Board::hasActivePet() const {
 	return active->hasPet();
 }
 
+bool Board::benchHasPet() const {
+	bool ret = false;
+	for (const auto &holder : bench) {
+		if (holder->hasPet())
+		{
+			ret = true;
+			break;
+		}
+	}
+	return ret;
+}
+
+
 vector<Board::HolderPtr> Board::getAllHolders() const {
 	vector<HolderPtr> ret;
 	ret.push_back(active);

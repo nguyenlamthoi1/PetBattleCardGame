@@ -9,7 +9,7 @@ class Card;
 
 class DiscardPile {
 public:
-	using CardVector = std::vector<std::shared_ptr<Card>>;
+	using CardVector = std::vector<std::shared_ptr<const Card>>;
 	using DiscardIdx = unsigned int;
 	using DiscardPtr = std::shared_ptr<DiscardPile>;
 

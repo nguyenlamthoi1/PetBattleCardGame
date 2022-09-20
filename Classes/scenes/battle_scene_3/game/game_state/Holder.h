@@ -34,7 +34,6 @@ public:
 	PetCardPtr getPetCard() const { return petCard; }
 	bool hasPet() const { return petCard != nullptr; }
 	bool addBasicPetCard(const std::shared_ptr<PetCard> &petCard);
-	
 	bool canEvolveTo(const std::shared_ptr<const PetCard> &petCard) const;
 	bool evolvePetCardTo(const std::shared_ptr<const PetCard> &petCard);
 	
@@ -48,6 +47,7 @@ public:
 	void setDmgCounter(unsigned int dmg) { dmgCounter = dmg; }
 	unsigned int getCurDmg() const { return dmgCounter; }
 
+	void removePetAndAllCards(std::vector<std::shared_ptr<const Card>> &vec);
 	void onKnockedOut();
 protected:
 	GameState *gstate = nullptr;
