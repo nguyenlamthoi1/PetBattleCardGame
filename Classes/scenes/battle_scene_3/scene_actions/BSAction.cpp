@@ -293,12 +293,9 @@ void DoPetKnockedOut::executeOn(BattleScene *btlScn) {
 	holder->removePetAndAllCards(discardedVec);
 
 	auto discardPile = btlScn->getDiscardPile(pid);
-	unsigned int i = 0;
-	for (const auto card : discardedVec) {
-		discardPile->pushCard(card, 0.5f * i);
-		++i;
-	}
-	//auto discard = btlScn->getPlayerId();
+	discardPile->pushCardsFromHolder(discardedVec, holder, [this]() {
+		state = State::Done;
+		});
 }
 
 

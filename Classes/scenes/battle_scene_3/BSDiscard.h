@@ -20,6 +20,7 @@ BATTLE_SCENE_NS_BEG
 
 class BattleScene;
 class BSCard;
+class CardHolder;
 
 class BSDiscardPile : public IEventsHandler
 {
@@ -34,7 +35,8 @@ public:
 	BSDiscardPile(BattleScene *scn, const PlayerIdType &id);
 	virtual ~BSDiscardPile();
 
-	void pushCard(BSCard *card, float delay = 0.0f);
+	void pushCardFromHolder(BSCard *card, CardHolder *holder, float delay = 0.0f, const std::function<void()> &onDone = nullptr);
+	void pushCardsFromHolder(const std::vector<BSCard*> &cardVec, CardHolder *holder,  const std::function<void()> &onDone = nullptr);
 
 	//void drawFromDeck(const std::vector<CardId> &idvec);
 	//std::vector<BSCard*> draw(const std::vector<unsigned int> &v);

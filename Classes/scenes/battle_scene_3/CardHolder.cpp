@@ -384,6 +384,7 @@ void CardHolder::removePetAndAllCards(std::vector<BSCard*> &vec) {
 		vec.push_back(eCard);
 	}
 	energyCardVec.clear();
+	energyPanel->removeAllChildren();
 
 	dmgCounter = 0;
 	maxHp = 0;
@@ -395,8 +396,7 @@ void CardHolder::removePetAndAllCards(std::vector<BSCard*> &vec) {
 
 
 void CardHolder::updateInfoPanel(bool show) {
-	if (show)
-		hpPanel->setVisible(true);
+	hpPanel->setVisible(show);
 
 	unsigned int curHp = maxHp > dmgCounter ? maxHp - dmgCounter : 0;
 	hpText->setString(to_string(curHp));

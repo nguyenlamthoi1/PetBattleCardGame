@@ -1,12 +1,13 @@
 #include "BSDiscard.h"
 #include "BSDeck.h"
-
+#include "common/Utilize.h"
 #include "GameManager.h"
 #include "common/ResourceLoader.h"
 #include "common/ResourcePool.h"
 #include "common/LangSys.h"
 #include "scenes/battle_scene_3/BattleScene.h"
 #include "ui/UIHelper.h"
+#include "CardHolder.h"
 
 #include "scenes/battle_scene_3/BSCard.h"
 #include "scenes/battle_scene_3/BSResources.h"
@@ -124,19 +125,48 @@ const string BSDiscardPile::EV_DRAW_ACTION_DONE = "EV_DRAW_ACTION_DONE";
 //}
 
 
-void BSDiscardPile::pushCard(BSCard *card, float delay) {
+void BSDiscardPile::pushCardFromHolder(BSCard *card, CardHolder *holder, float delay,const std::function<void()> &onDone) {
 	// Tra ve pile
-	auto destPos = Vec2(0, 0);
-	auto startPos = destPos + Vec2(0, 100);
+	cocos2d::Node *fromNode;
+	auto startPos = Utilize::mnode::getLocalPos(holder, cardMarker);
 	card->setPosition(startPos);
-	auto action = MoveTo::create(delay, destPos);
-	card->runAction(action);
 
-	if(card->getParent())
-		card->removeFromParent();
+	auto destPos = Vec2(0, 0);
+	card->runAction(MoveTo::create(delay, destPos));
 
 	cardMarker->addChild(card);
 	cardVec.push_back(card);
 }
 
+void BSDiscardPile::pushCardsFromHolder(const std::vector<BSCard*> &addedVec, CardHolder *holder,  const std::function<void()> &onDone) {
+	unsigned int i = 0;
+	float delay = 0.5f;
+	for (const auto card : addedVec) {
+		// Tra ve pile
+		cocos2d::Node *fromNode;
+		auto startPos = Utilize::mnode::getLocalPos(holder, cardMarker);
+		card->setPosition(startPos);
+
+		auto destPos = Vec2(0, 0);
+
+		if (i == addedVec.size() - 1) {
+			card->runAction(
+				Sequence::create(
+					MoveTo::create(delay * i, destPos),
+					CallFunc::create([onDone](){
+						if (onDone)
+							onDone();
+					}),
+					nullptr)
+				
+			);
+		}
+		else
+			card->runAction(MoveTo::create(delay * i, destPos));
+
+		cardMarker->addChild(card);
+		cardVec.push_back(card);
+		++i;
+	}
+}
 BATTLE_SCENE_NS_END

@@ -14,7 +14,7 @@
     "Moves":[
       {
         "Name" : "Scratch",
-        "DamageText" : "10",
+        "DamageText" : "100",
         "Cost" : {
           "Normal" : 1
         },
