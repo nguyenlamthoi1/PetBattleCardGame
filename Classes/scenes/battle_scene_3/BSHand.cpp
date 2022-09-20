@@ -482,6 +482,24 @@ bool BSHand::playEnergyCardFromHandToPet(unsigned int handIdx, bool isActive, un
 	return suc;
 }
 
+bool BSHand::playEvCardFromHandToPet(unsigned int handIdx, bool isActive, unsigned int benchIdx, const function<void()> &onDone) {
+	auto card = cards.at(handIdx);
+
+	bool suc = false;
+	if (card->getType() == BSCard::Type::Pet) {
+		auto btlScn = BattleScene::getScn();
+		auto board = btlScn->getBoard(pid);
+		auto holder = isActive ? board->getActiveHolder() : board->getBenchHolder(benchIdx);
+		auto pCard = dynamic_cast<PetCard*>(card);
+		suc = holder->tryEvolveTo(pCard, onDone);
+		if (suc) { // Add thanh cong petCard
+			removeCardAt(handIdx);
+			updateCardPositions();
+		}
+	}
+	return suc;
+}
+
 void BSHand::removeCardAt(unsigned int handIdx) {
 	if (!checkIdxValid(handIdx))
 		return;

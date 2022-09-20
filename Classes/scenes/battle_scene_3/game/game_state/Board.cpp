@@ -68,6 +68,13 @@ bool Board::hasActivePet() const {
 	return active->hasPet();
 }
 
+vector<Board::HolderPtr> Board::getAllHolders() const {
+	vector<HolderPtr> ret;
+	ret.push_back(active);
+	ret.insert(ret.cend(), bench.cbegin(), bench.cend());
+	return ret;
+}
+
 Board::HolderPtr Board::getBenchHolder(unsigned int idx) const {
 	if (idx >= bench.size())
 		return nullptr;

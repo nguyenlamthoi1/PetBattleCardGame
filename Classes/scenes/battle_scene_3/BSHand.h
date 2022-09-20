@@ -65,6 +65,7 @@ public:
 	bool playPetCardFromHandToActive(unsigned int handIdx, const std::function<void()> &onDone = nullptr);
 	bool playPetCardFromHandToBench(unsigned int handIdx, const std::function<void()> &onDone = nullptr);
 	bool playEnergyCardFromHandToPet(unsigned int handIdx, bool isActive, unsigned int benchIdx = 0, const std::function<void()> &onDone = nullptr);
+	bool playEvCardFromHandToPet(unsigned int handIdx, bool isActive, unsigned int benchIdx = 0, const std::function<void()> &onDone = nullptr);
 protected:
 	bool init();
 

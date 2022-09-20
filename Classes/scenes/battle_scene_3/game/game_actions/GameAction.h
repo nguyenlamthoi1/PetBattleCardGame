@@ -31,25 +31,20 @@ public:
 		EndSetup,
 
 		TurnStart,
-
 		ChooseTurnAction,
-		PlayBasicPet,
-		EvolvePet,
+
+		UseActiveMove,
+		Attack,
+		PetKnockedOut,
+		SelectPrizeCards,
+		GetPrizeCards,
+
 		RetreatPet,
-		AttackPet, // Quan trong
-		useAbility,
-		useItemCard, // Su dung giong nhu spter card hoac attach vao Pet
-		
-		discard_item_card,
-		
-		UseAttack, 
+		PlayEvolvePet,
+		PlayBasicPet,
 		PlayEnergyCard,
 
-		// Action ho tro
-		branchAction, // Quan trong
-		healPet, // *
-		flipCoin, // *
-
+		flipCoin,
 		FirstDrawCard,
 		DrawFromDeck,
 
@@ -81,15 +76,10 @@ public:
 		DiscardAttachedItemFromPet,
 		PetDie, // *
 
-		UpdateBetweenTurn, // *
-		SwitchPlayerTurn, //*
 		GameOver, //*
+	
 
-		SelectPrizeCards,
-		GetPrizeCards,
-
-		UseActiveMove,
-		Attack
+		
 	};
 
 	enum class State {
@@ -398,6 +388,53 @@ public:
 	std::vector<unsigned int> idxVec;
 };
 
+////////////////////////////////////
+// Play Basic Pet Card From Hand ///
+////////////////////////////////////
+
+////////////////////////////////////
+////////////////////////////////////
+////////////////////////////////////
+
+
+////////////////////////////////////////
+// Play Evolution Pet Card From Hand ///
+////////////////////////////////////////
+
+class PlayEvPetCard : public GameAction {
+public:
+
+	PlayEvPetCard(
+		const PlayerIdType &id, 
+		unsigned int handIdx, 
+		bool toActive, 
+		unsigned int benchIdx = 0) : 
+		pid(id), hIdx(handIdx), isActive(toActive), bIdx(benchIdx) {}
+	virtual ~PlayEvPetCard() = default;
+
+	virtual void executeOn(GameState *gameState) override;
+	virtual std::shared_ptr<BattleSceneNS::BSAction> getBSAction() const override;
+	virtual std::shared_ptr<GameAction> clone() const override;
+	virtual Type getType() const override { return Type::GetPrizeCards; }
+
+	PlayerIdType pid;
+	unsigned int hIdx;
+	bool isActive = false;
+	unsigned int bIdx;
+
+protected:
+	bool suc = false; // T: Game state changed
+};
+
+////////////////////////////////////////
+////////////////////////////////////////
+////////////////////////////////////////
+
+
+///////////////////////
+// Energy Attaching ///
+///////////////////////
+
 class PlayEnergyCard : public GameAction {
 public:
 	enum class PlaceType {
@@ -424,6 +461,11 @@ public:
 	PlaceType placeType;
 	unsigned int benchIdx;
 };
+
+/////////////////////////
+/////////////////////////
+/////////////////////////
+
 
 /////////////////////////
 // ALL ATTACK ACTIONS ///

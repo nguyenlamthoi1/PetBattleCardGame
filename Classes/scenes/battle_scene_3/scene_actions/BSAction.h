@@ -45,6 +45,7 @@ public:
 
 		ChooseTurnAction,
 		AttachEnergy,
+		EvolvePet,
 
 		Select_Prize,
 		Get_Prize_Cards
@@ -370,7 +371,7 @@ protected:
 
 class PlayerEnergyCard : public BSAction {
 public:
-	PlayerEnergyCard(const PlayerIdType &id, unsigned int handIdx, bool active, unsigned int bIdx = 0) : 
+	PlayerEnergyCard(const PlayerIdType &id, unsigned int handIdx, bool active, unsigned int bIdx = 0) :
 		pid(id),
 		hIdx(handIdx),
 		isActive(active),
@@ -380,6 +381,25 @@ public:
 
 	virtual void executeOn(BattleScene *btlScn) override;
 	virtual ActionType getType() const override { return ActionType::AttachEnergy; }
+protected:
+	PlayerIdType pid;
+	unsigned int hIdx;
+	bool isActive = false;
+	unsigned int benchIdx;
+};
+
+class PlayEvPetCard : public BSAction {
+public:
+	PlayEvPetCard(const PlayerIdType &id, unsigned int handIdx, bool active, unsigned int bIdx = 0) :
+		pid(id),
+		hIdx(handIdx),
+		isActive(active),
+		benchIdx(bIdx)
+	{}
+	virtual ~PlayEvPetCard() = default;
+
+	virtual void executeOn(BattleScene *btlScn) override;
+	virtual ActionType getType() const override { return ActionType::EvolvePet; }
 protected:
 	PlayerIdType pid;
 	unsigned int hIdx;

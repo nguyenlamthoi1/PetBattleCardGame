@@ -31,8 +31,12 @@ public:
 	PetCardPtr getPetCard() const { return petCard; }
 	bool hasPet() const { return petCard != nullptr; }
 	bool addBasicPetCard(const std::shared_ptr<PetCard> &petCard);
-	bool evolvePetCard(const std::shared_ptr<PetCard> &petCard);
-	bool attachEnergyCard(const std::shared_ptr<EnergyCard> &energyCard);
+	
+	bool canEvolveTo(const std::shared_ptr<const PetCard> &petCard) const;
+	bool evolvePetCardTo(const std::shared_ptr<const PetCard> &petCard);
+	
+	bool canAttachEnergy() const;
+	bool attachEnergyCard(const std::shared_ptr<const EnergyCard> &energyCard);
 protected:
 	GameState *gstate = nullptr;
 
@@ -41,7 +45,10 @@ protected:
 	PetCardPtr petCard;
 	std::vector<PetCardPtr> evPetCards; // Danh sach card tien hoa cua petCard
 	std::vector<EnergyCardPtr> energyCards;
+	
 	unsigned int onPlayedTurn = 0;
+	unsigned int dmgCounter = 0;
+	unsigned int maxHp = 0;
 };
 
 NS_GAME_END

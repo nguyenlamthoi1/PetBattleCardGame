@@ -21,6 +21,7 @@ public:
 		EndTurn,
 		ActiveUseMove,
 		AttachEnergy,
+		EvolvePet,
 		Select_Prize_Cards
 	};
 
@@ -90,6 +91,26 @@ public:
 	PlayerIdType pid;
 	unsigned int hidx;
 	PlaceType placeType;
+	unsigned int benchIdx;
+};
+
+class PA_EvPetCard : public PlayerAction {
+public:
+	PA_EvPetCard(
+		const PlayerIdType &id,
+		unsigned int handIdx,
+		bool toActive,
+		unsigned int bIdx) :
+		pid(id),
+		hidx(handIdx),
+		isActive(toActive),
+		benchIdx(bIdx) {};
+	virtual ~PA_EvPetCard() = default;
+	virtual Type getType() const override { return Type::EvolvePet; }
+
+	PlayerIdType pid;
+	unsigned int hidx;
+	bool isActive;
 	unsigned int benchIdx;
 };
 

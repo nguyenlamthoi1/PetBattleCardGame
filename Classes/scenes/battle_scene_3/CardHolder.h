@@ -47,10 +47,12 @@ public:
 	
 	bool tryAddBasicPetCard(PetCard *card, const std::function<void()> &onDone = nullptr);
 	bool tryAddEnergyCard(EnergyCard *card, const std::function<void()> &onDone = nullptr);
+	bool tryEvolveTo(PetCard *card, const std::function<void()> &onDone = nullptr);
 
 	void setFlipPetCard(bool flip);
 
 	void updateInfoPanel(bool show);
+	void addEnergyItem(const std::string eType, unsigned int eNum);
 
 	// Checker
 	unsigned int getHolderIdx() const { return holderIdx; }
@@ -73,7 +75,8 @@ protected:
 	unsigned int holderIdx = 0;
 
 	// Thong tin cua pet trong tran dau
-	int dmgCounter = 0;
+	unsigned int dmgCounter = 0;
+	unsigned int maxHp = 0;
 	int playedTurn = -1;
 
 	PetCard *petCard = nullptr;

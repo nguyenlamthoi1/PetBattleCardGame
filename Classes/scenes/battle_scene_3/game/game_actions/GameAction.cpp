@@ -10,6 +10,7 @@
 #include "../game_state/Holder.h"
 #include "../game_state/Player.h"
 
+#include "data/CardData.h"
 
 #include "../game_state/card/Card.h"
 
@@ -662,21 +663,69 @@ shared_ptr<GameAction> PlayerChooseTurnAction::clone() const {
 	return make_shared<PlayerChooseTurnAction>(pid);
 }
 
-vector<shared_ptr<PlayerAction>> PlayerChooseTurnAction::getPossibleMoves(GameState *gameState) const {
+vector<shared_ptr<PlayerAction>> PlayerChooseTurnAction::getPossibleMoves(GameState *gstate) const {
 	vector<shared_ptr<PlayerAction>> ret;
 
 	// EndTurn
-	ret.push_back(make_shared<PA_EndTurn>(pid));
-	// Attach Energy
+	//ret.push_back(make_shared<PA_EndTurn>(pid));
+	
+	auto player = gstate->getPlayer(pid);
+	// Lay tat ca vi tri Pet tren Board
+	auto board = gstate->getBoard(pid);
+	std::vector<std::shared_ptr<Holder>> allHolders = board->getAllHolders(); // * Active Holder co idx == 0 trong vector nay
+	
+	auto hand = gstate->getHand(pid);
+	auto cards = hand->getAllCards();
+	
+	// Play Basic Pet, Play Evolve Peet, Play Energy
+	unsigned int handIdx = 0;
+	for (const auto &card : cards) {
+		switch (card->getType()) {
+		case Card::Type::Pet:
+		{
+			break;
+			auto pCard = dynamic_pointer_cast<const PetCard>(card);
+			if (pCard) {
+				auto pData = pCard->getPetData();
+				bool isBasic = pData->evStage < 1;
+				if (isBasic) {// Check Basic
+					// TODO: Them action: play Basic
+				}
+				else { // Check Evolution
+					if (!player->actionExceedsLimit(Player::TurnAction::EvolvePet))
+						for (unsigned int i = 0; i < allHolders.size(); ++i) {
+							auto holder = allHolders[i];
+							bool isHolderActive = i <= 0;
+							unsigned int benchIdx = isHolderActive ? 0 : i - 1;
+							if (holder->canEvolveTo(pCard))
+								ret.push_back(make_shared<PA_EvPetCard>(pid, handIdx, isHolderActive, benchIdx));
+						}
+				}
+			}
+			break;
+		}
+		case Card::Type::Energy: {
+			auto eCard = dynamic_pointer_cast<const EnergyCard>(card);
+			if (eCard) {
+				auto eData = eCard->getEnergyData();
+				if (!player->actionExceedsLimit(Player::TurnAction::AttachEnergy))
+					for (unsigned int i = 0; i < allHolders.size(); ++i) {
+						auto holder = allHolders[i];
+						bool isHolderActive = i <= 0;
+						unsigned int benchIdx = isHolderActive ? 0 : i - 1;
+						if (holder->canAttachEnergy())
+						{
+							auto plcType = isHolderActive ? PA_AttachEnergy::PlaceType::Active : PA_AttachEnergy::PlaceType::Bench;
+							ret.push_back(make_shared<PA_AttachEnergy>(pid, handIdx, plcType, benchIdx));
 
-	// Attack
-
-	// Retreat
-
-	// Use Item
-
-	// Use Spter
-
+						}
+					}
+			}
+			break;
+		}
+		}
+		++handIdx;
+	}
 	return ret;
 }
 
@@ -729,7 +778,40 @@ ActionError PlayerChooseTurnAction::onReceiveInput(GameState *gstate, const std:
 
 		return ActionError::Failed;
 	}
+	else if (move->getType() == PlayerAction::Type::EvolvePet) {
+		auto pMove = dynamic_pointer_cast<PA_EvPetCard>(move);
+		if (!pMove || pMove->pid != pid)
+			return ActionError::Failed;
 
+		auto board = gstate->getBoard(pid);
+		auto hand = gstate->getHand(pid);
+		auto card = hand->getCardAt(pMove->hidx);
+		auto pCard = dynamic_pointer_cast<PetCard>(card);
+		if (pCard) {
+			auto player = gstate->getPlayer(pid);
+			bool check = !player->actionExceedsLimit(Player::TurnAction::AttachEnergy);
+			if (check) {
+				if (pMove->isActive) {
+					gstate->replaceCurActionWith({
+						make_shared<PlayEvPetCard>(pMove->pid, pMove->hidx, pMove->isActive),
+						make_shared<PlayerChooseTurnAction>(pid)
+						});
+					state = State::Done;
+					return ActionError::Succeeded;
+				}
+				else {
+					gstate->replaceCurActionWith({
+						make_shared<PlayEvPetCard>(pMove->pid, pMove->hidx,pMove->isActive, pMove->benchIdx),
+						make_shared<PlayerChooseTurnAction>(pid)
+						});
+					state = State::Done;
+					return ActionError::Succeeded;
+				}
+			}
+		}
+
+		return ActionError::Failed;
+	}
 	else if (move->getType() == PlayerAction::Type::EndTurn) {
 		auto pMove = dynamic_pointer_cast<PA_EndTurn>(move);
 		if (!pMove || pMove->pid != pid)
@@ -782,6 +864,38 @@ shared_ptr<BattleSceneNS::BSAction> PlayEnergyCard::getBSAction() const {
 }
 shared_ptr<GameAction> PlayEnergyCard::clone() const {
 	return make_shared<PlayEnergyCard>(pid, hIdx, placeType, benchIdx);
+}
+
+
+/*
+	PlayEvPetCard Class
+*/
+
+void PlayEvPetCard::executeOn(GameState *gstate) {
+	state = State::Process;
+	suc = false;
+	auto hand = gstate->getHand(pid);
+	auto card = hand->getCardAt(hIdx);
+	auto pCard = dynamic_pointer_cast<PetCard>(card);
+	if (pCard) { // * Pet card khong NULL
+		auto board = gstate->getBoard(pid);
+		shared_ptr<Holder> holder = isActive ? board->getActiveHolder() : board->getBenchHolder(bIdx);
+		if (holder) // * Holder khoong NULL
+			suc = holder->evolvePetCardTo(pCard);
+	}
+
+	if (suc) {
+		auto player = gstate->getPlayer(pid);
+		player->updateActionCount(Player::TurnAction::EvolvePet, 1);
+	}
+		
+	state = State::Done;
+}
+shared_ptr<BattleSceneNS::BSAction> PlayEvPetCard::getBSAction() const {
+	return suc ? make_shared<BattleSceneNS::PlayEvPetCard>(pid, hIdx, isActive, bIdx) : nullptr;
+}
+shared_ptr<GameAction> PlayEvPetCard::clone() const {
+	return make_shared<PlayEvPetCard>(pid, hIdx, isActive, bIdx);
 }
 
 NS_GAME_END

@@ -138,13 +138,13 @@ void CardHolder::setHolderSizeW(float w) {
 
 
 bool CardHolder::tryAddBasicPetCard(PetCard *card, const function<void()> &onDone) {
-	constexpr float CardMoveSpeed = 400.0f;
+	if (!card || petCard)
+		return false;
 
+	constexpr float CardMoveSpeed = 400.0f;
 	auto petData = dynamic_pointer_cast<const PetCardData>(card->getData());
 	bool isBasic = petData->evStage < 1;
 	if (isBasic) {
-		if (petCard)
-			return false;
 		petCard = card;
 
 		auto startPosition = Utilize::mnode::getLocalPos(card, cardMarker);
@@ -164,56 +164,80 @@ bool CardHolder::tryAddBasicPetCard(PetCard *card, const function<void()> &onDon
 					}),
 				nullptr
 				));
-		
-		if(!card->isFlippedDown())
-			updateInfoPanel(true);
-		
 		WidgetTouchNS::setEnableDragComponent(card, false);
 
 		// * Cap nhat thong tin holder
 		dmgCounter = 0;
+		maxHp = petData->hp;
 		playedTurn = btlScn->getTurnCount();
-
+		if (!card->isFlippedDown())
+			updateInfoPanel(true);
 		return true;
 	}
-	else { // Evolved card
-		if (!petCard)
-			return false;
-		
-		auto holderPetData = dynamic_pointer_cast<const PetCardData>(petCard->getData());
-		if (holderPetData->name != petData->evolveFrom)
-			return false;
+	
+	return false;
+}
 
-		petCard->removeFromParent();
-		petCard->retain();
+bool CardHolder::tryEvolveTo(PetCard *toCard, const std::function<void()> &onDone) {
+	if (!toCard || !petCard) // * Check 1
+		return false;
+
+	auto player = btlScn->getBSPlayer(ownerId);
+	if (player->actionExceedsLimit(BSPlayer::TurnAction::AttachEnergy)) // * Check 2
+		return false;
+
+	bool suc = false;
+
+	auto toPetData = dynamic_pointer_cast<const PetCardData>(toCard->getData());
+	//bool isEv = toPetData->evStage >= 1;
+	auto holderPetData = dynamic_pointer_cast<const PetCardData>(petCard->getData());
+	if (holderPetData->name == toPetData->evolveFrom) 
+		suc = true; // Co the tien hoa
+	
+	if (suc) {
 		preEvCardVec.push_back(petCard);
+		petCard = toCard;
 
-		petCard = card;
-		card->removeFromParent();
-		cardMarker->addChild(card);
-		auto pos = Vec2(0, 0);
-		card->setPosition(pos + Vec2(0, 25));
-		card->runAction(MoveTo::create(0.5f, pos));
-		showFlyingText("Evolved");
-		updateInfoPanel(true);
+		auto startPosition = Utilize::mnode::getLocalPos(toCard, cardMarker);
+		toCard->removeFromParent();
+		cardMarker->addChild(toCard);
+
+		auto destPosition = Vec2(0, 0);
+		auto dist = destPosition.distance(startPosition);
+		toCard->setPosition(startPosition);
+		constexpr float CardMoveSpeed = 420.0f;
+		toCard->runAction(
+			Sequence::create(
+				MoveTo::create(dist / CardMoveSpeed, destPosition),
+				CallFunc::create([toCard]() {toCard->setPosition(Vec2(0, 25)); }),
+				MoveTo::create(0.6f, Vec2(0, 0)),
+				CallFunc::create([onDone, this]() {
+					showFlyingText("Evolved");
+					if (onDone)
+						onDone();
+					}),
+				nullptr));
 
 		// * Cap nhat thong tin holder
 		playedTurn = btlScn->getTurnCount();
-
-		return true;
+		maxHp = toPetData->hp;
+		player->updateActionCount(BSPlayer::TurnAction::EvolvePet, 1);
+		updateInfoPanel(true); // * Cap nhat Hp UI
 	}
+
+	return suc;
 }
 
 bool CardHolder::tryAddEnergyCard(EnergyCard *energyCard, const function<void()> &onDone) {
-	if (!petCard)
+	if (!petCard || !energyCard)
 		return false;
 	
-	auto energyData = dynamic_pointer_cast<const EnergyCardData>(energyCard->getData());
 	auto player = btlScn->getBSPlayer(ownerId);
-	
 	if (player->actionExceedsLimit(BSPlayer::TurnAction::AttachEnergy))
 		return false;
 
+	auto energyData = dynamic_pointer_cast<const EnergyCardData>(energyCard->getData());
+	// Cap nhat EnergyPanel
 	auto eType = energyData->eType;
 	auto eNum = energyData->eNum;
 	auto foundIt = energyItemMap.find(eType);
@@ -223,7 +247,7 @@ bool CardHolder::tryAddEnergyCard(EnergyCard *energyCard, const function<void()>
 		eItem->retain();
 		eItem->stack(0);
 		energyPanel->addChild(eItem);
-		
+
 		// Them Energy Sprite
 		auto startPos = Vec2(0, 0);
 		auto insIdx = energyItemMap.size() - 1;
@@ -236,30 +260,45 @@ bool CardHolder::tryAddEnergyCard(EnergyCard *energyCard, const function<void()>
 		auto &eItem = foundIt->second;
 		eItem->stack(1);
 	}
+
 	// Them card
 	energyCardVec.push_back(energyCard);
+
+	// Animation
+	auto startPosition = Utilize::mnode::getLocalPos(energyCard, cardMarker);
 	energyCard->removeFromParent();
 	energyCardMarker->addChild(energyCard);
-	auto pos = Vec2(0, 0);
-	energyCard->setPosition(pos + Vec2(50, 0));
-	energyCard->runAction(MoveTo::create(0.5f, pos));
-	showFlyingText("Energy attached");
+
+	auto destPosition = Vec2(0, 0);
+	auto dist = destPosition.distance(startPosition);
+	energyCard->setPosition(startPosition);
+	constexpr float CardMoveSpeed = 420.0f;
+	energyCard->runAction(
+		Sequence::create(
+			MoveTo::create(dist / CardMoveSpeed, destPosition),
+			CallFunc::create([energyCard]() {energyCard->setPosition(Vec2(0, 55)); }),
+			MoveTo::create(0.6f, Vec2(0, 0)),
+			CallFunc::create([onDone, this]() {
+				showFlyingText("Energy attached");
+				if (onDone)
+					onDone();
+				}),
+			nullptr));
 
 	player->updateActionCount(BSPlayer::TurnAction::AttachEnergy, 1);
-
-	if (onDone)
-		onDone();
-
 	return true;
-
-
 }
 
+void CardHolder::addEnergyItem(const std::string eType, unsigned int eNum) {
+}
+
+
 void CardHolder::updateInfoPanel(bool show) {
-	auto holderPetData = dynamic_pointer_cast<const PetCardData>(petCard->getData());
 	if (show)
 		hpPanel->setVisible(true);
-	hpText->setString(to_string(holderPetData->hp - dmgCounter));
+
+	unsigned int curHp = maxHp > dmgCounter * DMG_COUNTER_VAL ? maxHp - dmgCounter * DMG_COUNTER_VAL : 0;
+	hpText->setString(to_string(curHp));
 }
 
 void CardHolder::showFlyingText(const string &s) {

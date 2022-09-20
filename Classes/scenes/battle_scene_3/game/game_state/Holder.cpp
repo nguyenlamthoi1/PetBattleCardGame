@@ -23,19 +23,21 @@ bool Holder::init() {
 }
 
 bool Holder::addBasicPetCard(const std::shared_ptr<PetCard> &pcard) {
-	if (!pcard)
+	if (!pcard || petCard)
 		return false;
 
 	auto data = pcard->getPetData();
 	bool isBasic = data->isBasicCard();
 	bool suc = false;
-	if (isBasic && !petCard) {
+	if (isBasic) {
 		petCard = pcard;
 		suc = true;
 	}
 	
 	if (suc) {
 		onPlayedTurn = gstate->getTurnCount();
+		dmgCounter = 0;
+		maxHp = data->hp;
 
 		// Dispatach Event OnPlay
 		// TODO
@@ -43,13 +45,51 @@ bool Holder::addBasicPetCard(const std::shared_ptr<PetCard> &pcard) {
 	return suc;
 }
 
-bool Holder::evolvePetCard(const std::shared_ptr<PetCard> &petCard) {
-	return false;
+bool Holder::canEvolveTo(const std::shared_ptr<const PetCard> &toCard) const {
+	if (!toCard || !petCard)
+		return false;
+	auto toCardData = toCard->getPetData();
+	auto fromCardData = petCard->getPetData();
+	if (toCardData->evolveFrom != fromCardData->name)
+		return false;
+	return true;
 }
 
-bool Holder::attachEnergyCard(const std::shared_ptr<EnergyCard> &energyCard) {
+bool Holder::evolvePetCardTo(const std::shared_ptr<const PetCard> &toCard) {
+	if(!toCard || !petCard)
+		return false;
+
+	bool suc = false;
+	
+	auto toCardData = toCard->getPetData();
+	auto fromCardData = petCard->getPetData();
+
+	if (toCardData->evolveFrom == fromCardData->name) { // * Co the tien hoa
+		evPetCards.push_back(petCard);
+		petCard = toCard;
+		suc = true;
+	}
+
+	if (suc)
+	{
+		onPlayedTurn = gstate->getTurnCount();
+		maxHp = toCardData->hp;
+	}
+
+	return suc;
+}
+
+bool Holder::attachEnergyCard(const std::shared_ptr<const EnergyCard> &energyCard) {
+	if (!energyCard || !petCard)
+		return false;
+
 	energyCards.push_back(energyCard);
 	return true;
 }
+
+bool Holder::canAttachEnergy() const {
+	return petCard != nullptr;
+}
+
 
 NS_GAME_END

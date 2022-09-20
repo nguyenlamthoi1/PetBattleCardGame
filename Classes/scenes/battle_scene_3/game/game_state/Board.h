@@ -31,6 +31,7 @@ public:
 
 	HolderPtr getActiveHolder() const { return active; }
 	HolderPtr getBenchHolder(unsigned int idx) const;
+	std::vector<HolderPtr> getAllHolders() const;
 
 	bool hasActivePet() const;
 	bool addBasicPetCardToActive(const std::shared_ptr<PetCard> &petCard);

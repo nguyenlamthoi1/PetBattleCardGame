@@ -654,12 +654,41 @@ void PlayerEnergyCard::executeOn(BattleScene *btlScn) {
 	}
 	else { // Opponent Action
 		auto hand = btlScn->getHand(pid);
-		/*hand->playPetCardFromHandToActive(handIdx, [this]() {
+		hand->playEnergyCardFromHandToPet(hIdx, isActive, benchIdx, [this]() {
 			state = State::Done;
-			});*/
+			});
 	}
-	auto player = btlScn->getBSPlayer(pid);
-	player->updateActionCount(BSPlayer::TurnAction::AttachEnergy, 1);
+
+	//auto player = btlScn->getBSPlayer(pid);
+	//player->updateActionCount(BSPlayer::TurnAction::AttachEnergy, 1);
 }
+
+/*
+	PlayEvPetCard Class
+*/
+
+void PlayEvPetCard::executeOn(BattleScene *btlScn) {
+	if (state != State::Wait)
+		return;
+
+	state = State::Processed;
+
+	if (btlScn->getPlayerId() == pid) { // Player Action
+		auto hand = btlScn->getHand(pid);
+		hand->playEnergyCardFromHandToPet(hIdx, isActive, benchIdx, [this]() {
+			state = State::Done;
+			});
+	}
+	else { // Opponent Action
+		auto hand = btlScn->getHand(pid);
+		hand->playEnergyCardFromHandToPet(hIdx, isActive, benchIdx, [this]() {
+			state = State::Done;
+			});
+	}
+
+	//auto player = btlScn->getBSPlayer(pid);
+	//player->updateActionCount(BSPlayer::TurnAction::EvolvePet, 1);
+}
+
 
 BATTLE_SCENE_NS_END
