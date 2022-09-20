@@ -22,7 +22,7 @@
         "Actions" : [
           {
             "id" : "Attack_Default",
-            "override" : { "0" :10 }
+            "override" : { "0" :100 }
           }
         ]
       },
