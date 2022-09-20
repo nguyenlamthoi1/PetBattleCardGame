@@ -262,6 +262,14 @@ void DrawCardAction::executeOn(BattleScene *btlScn) {
 //
 //void SetupAction::end(){}
 
+void DoAttackActive::executeOn(BattleScene *btlScn) {
+	if (state != State::Wait)
+		return;
+
+	state = State::Processed;
+	
+}
+
 /*
 	GameOverAction Class
 */

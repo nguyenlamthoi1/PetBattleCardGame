@@ -47,6 +47,7 @@ public:
 		AttachEnergy,
 		EvolvePet,
 		PlayBasicPet,
+		DoAttack,
 
 		Select_Prize,
 		Get_Prize_Cards
@@ -420,6 +421,24 @@ protected:
 	unsigned int handIdx;
 };
 
+class DoAttackActive : public BSAction {
+public:
+	DoAttackActive(
+		PlayerIdType &atkId, 
+		unsigned int total,
+		bool weak,
+		bool resistance) : 
+		atkOwnerId(atkId), triggerWeak(weak), triggerResist(resistance){}
+	virtual ~DoAttackActive() = default;
+
+	virtual void executeOn(BattleScene *btlScn) override;
+	virtual ActionType getType() const override { return ActionType::DoAttack; }
+protected:
+	PlayerIdType atkOwnerId;
+	bool triggerWeak;
+	bool triggerResist;
+	unsigned int totalDmg;
+};
 
 class GameOverAction : public BSAction {
 public:

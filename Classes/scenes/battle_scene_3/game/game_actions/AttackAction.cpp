@@ -53,7 +53,7 @@ void UseActiveMove::executeOn(GameState *gstate) {
 	state = State::Process;
 
 	auto player = gstate->getPlayer(pid);
-	bool check1 = !player->actionExceedsLimit(Player::TurnAction::Retreat);
+	bool check1 = /*!player->actionExceedsLimit(Player::TurnAction::Retreat)*/ true;
 	bool check2 = gstate->isCurPlayer(pid);
 
 	if (check1 && check2) { // Bat dau move
@@ -146,7 +146,7 @@ shared_ptr<BattleSceneNS::BSAction> DefaultAttack::getBSAction() const {
 }
 
 shared_ptr<GameAction> DefaultAttack::clone() const {
-	return nullptr;
+	return make_shared<DefaultAttack>(attacker, defender, baseDmg);
 }
 
 void TakeDamage::executeOn(GameState *gameState) {
