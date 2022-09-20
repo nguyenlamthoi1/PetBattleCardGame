@@ -425,7 +425,7 @@ protected:
 class DoAttackActive : public BSAction {
 public:
 	DoAttackActive(
-		PlayerIdType &atkId, 
+		const PlayerIdType &atkId, 
 		unsigned int total,
 		bool weak,
 		bool resistance) : 

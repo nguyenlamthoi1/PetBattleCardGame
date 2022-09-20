@@ -112,8 +112,8 @@ bool CardHolder::init() {
 
 	energyPanel = dynamic_cast<ui::Layout*>(panel->getChildByName("Energy_Panel"));
 
-	dmgImg = dynamic_cast<ui::ImageView*>(hpPanel->getChildByName("Dmg_Img"));
-	dmgTxt = dynamic_cast<ui::Text*>(layout->getChildByName("Dmg_Lb"));
+	dmgImg = dynamic_cast<ui::ImageView*>(layout->getChildByName("Dmg_Img"));
+	dmgTxt = dynamic_cast<ui::Text*>(dmgImg->getChildByName("Dmg_Lb"));
 	dmgImg->setVisible(false);
 
 	return true;
@@ -366,6 +366,11 @@ void CardHolder::launchFlyingMsg(const std::string &msg, cocos2d::Color4B color,
 		RemoveSelf::create(),
 		nullptr));
 }
+
+void CardHolder::doKnockedOut(const std::function<void()> &onDone) {
+
+}
+
 
 void CardHolder::updateInfoPanel(bool show) {
 	if (show)

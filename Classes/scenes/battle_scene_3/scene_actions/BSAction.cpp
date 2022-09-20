@@ -285,12 +285,8 @@ void DoAttackActive::executeOn(BattleScene *btlScn) {
 
 void DoPetKnockedOut::executeOn(BattleScene *btlScn) {
 	state = State::Processed;
-	auto holder = btlScn->getBoard(pid)->getActiveHolder();
-
-	auto oppId = btlScn->getOpponentIdOf(atkOwnerId);
-	auto defHolder = btlScn->getBoard(oppId)->getActiveHolder();
-
-	atkHolder->tryAttackActiveOpp(defHolder, totalDmg, triggerWeak, triggerResist,
+	auto holder = isActive ? btlScn->getBoard(pid)->getActiveHolder() : btlScn->getBoard(pid)->getBenchHolder(bIdx);
+	holder->doKnockedOut(
 		[this]() {
 			state = State::Done;
 		}

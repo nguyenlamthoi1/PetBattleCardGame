@@ -107,6 +107,7 @@ bool Holder::enoughEnergies(const std::map<std::string, unsigned int> &rqMap) co
 
 bool Holder::takeDmg(unsigned int dmg) {
 	dmgCounter += dmg;
+	return true;
 }
 
 void Holder::onKnockedOut() {

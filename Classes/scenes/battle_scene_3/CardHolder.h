@@ -59,6 +59,8 @@ public:
 
 	void addEnergyItem(const std::string eType, unsigned int eNum);
 	void launchFlyingMsg(const std::string &msg, cocos2d::Color4B color, float delay = 0.0f);
+	
+	void doKnockedOut(const std::function<void()> &onDone = nullptr);
 	// Checker
 	PlayerIdType getOwnerId() const { return ownerId; }
 	unsigned int getHolderIdx() const { return holderIdx; }

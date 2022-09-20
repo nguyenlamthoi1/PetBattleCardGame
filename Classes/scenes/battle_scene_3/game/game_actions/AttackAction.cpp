@@ -108,23 +108,25 @@ void DefaultAttack::executeOn(GameState *gstate) {
 	auto defHolder = gstate->getBoard(oppId)->getActiveHolder();
 	auto defCard = defHolder->getPetCard();
 	auto defData = defCard->getPetData();
-	auto weakType = *(defData->weakSet.begin());
 
 	int incDmg = 0;
 
 	// Xet resistance
 	triggerResist = false;
-	auto resistType = defData->resistanceMap.begin()->first;
-	if (!resistType.empty() && atkType == resistType)
-	{
-		auto resistNum = defData->resistanceMap.begin()->second;
-		triggerResist = true;
-		incDmg += resistNum; // * Nen la so am
+	if (!defData->resistanceMap.empty()) {
+		auto resistType = defData->resistanceMap.begin()->first;
+		if (!resistType.empty() && atkType == resistType)
+		{
+			auto resistNum = defData->resistanceMap.begin()->second;
+			triggerResist = true;
+			incDmg += resistNum; // * Nen la so am
+		}
 	}
 
 	triggerWeak = false;
 
 	// Xet weakness
+	auto weakType = defData->weakSet.empty() ? "" : *(defData->weakSet.begin());
 	if (!weakType.empty() && atkType == weakType) {
 		triggerWeak = true;
 		incDmg += baseDmg; // x2 Base Damge
