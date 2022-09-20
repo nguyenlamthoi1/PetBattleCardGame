@@ -176,6 +176,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\scenes\battle_scene_3\BSCoinFlipper.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene_3\BSDeck.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene_3\BSDefine.cpp" />
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\BSDiscard.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene_3\BSHand.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene_3\BSNotifier.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene_3\BSPlayer.cpp" />
@@ -284,6 +285,7 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\scenes\battle_scene_3\BSCoinFlipper.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene_3\BSDeck.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene_3\BSDefine.h" />
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\BSDiscard.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene_3\BSHand.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene_3\BSNotifier.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene_3\BSPlayer.h" />

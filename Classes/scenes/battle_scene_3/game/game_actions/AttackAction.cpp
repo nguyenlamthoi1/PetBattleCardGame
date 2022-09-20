@@ -168,15 +168,15 @@ void PetKnockedOut::executeOn(GameState *gstate) {
 	discard->pushCards(discardedVec);
 
 	if (board->benchHasPet()) {
-		gstate->replaceCurActionWith(
+	/*	gstate->replaceCurActionWith(
 			{ 
 				make_shared<GameOverAction>(gstate->getOpponentOf(pid)) 
 			}
-		);
+		);*/
 
 	}
 	else {
-		gstate->replaceCurActionWith({ make_shared<GameOverAction>(gstate->getOpponentOf(pid)) });
+		gstate->replaceCurActionWith({ make_shared<GameOverAction>(pid) });
 	}
 
 	state = State::Done;

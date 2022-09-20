@@ -130,8 +130,4 @@ void Holder::removePetAndAllCards(std::vector<std::shared_ptr<const Card>> &vec)
 	maxHp = 0;
 }
 
-void 
-
-
-
 NS_GAME_END

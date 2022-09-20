@@ -98,7 +98,7 @@ bool CardHolder::init() {
 
 	cardMarker = panel->getChildByName("Holder_CardMaker");
 	energyCardMarker = panel->getChildByName("Energy_Cards_Marker");
-	evCardMarker = panel->getChildByName("Ev_Marker");
+	//evCardMarker = panel->getChildByName("Ev_Marker");
 
 	flyingText = dynamic_cast<ui::Text*>(panel->getChildByName("Flying_Text"));
 	flyingText->setVisible(false);
@@ -367,9 +367,31 @@ void CardHolder::launchFlyingMsg(const std::string &msg, cocos2d::Color4B color,
 		nullptr));
 }
 
-void CardHolder::doKnockedOut(const std::function<void()> &onDone) {
+void CardHolder::removePetAndAllCards(std::vector<BSCard*> &vec) {
+	vec.push_back(petCard);
+	petCard = nullptr;
 
+	for (const auto &pCard : preEvCardVec) {
+		pCard->removeFromParent();
+		pCard->stopAllActions();
+		vec.push_back(pCard);
+	}
+	preEvCardVec.clear();
+
+	for (const auto &eCard : energyCardVec) {
+		eCard->removeFromParent();
+		eCard->stopAllActions();
+		vec.push_back(eCard);
+	}
+	energyCardVec.clear();
+
+	dmgCounter = 0;
+	maxHp = 0;
+	playedTurn = 0;
+	updateInfoPanel(false);
+	updateDmgImg();
 }
+
 
 
 void CardHolder::updateInfoPanel(bool show) {

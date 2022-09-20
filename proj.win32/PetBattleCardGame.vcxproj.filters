@@ -291,6 +291,9 @@
     <ClCompile Include="..\Classes\scenes\battle_scene_3\game\game_actions\AttackAction.cpp">
       <Filter>src\scenes\battle_scene\game\game_actions</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\BSDiscard.cpp">
+      <Filter>src\scenes\battle_scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -601,6 +604,9 @@
     </ClInclude>
     <ClInclude Include="..\Classes\data\ActionParser.h">
       <Filter>src\data</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\BSDiscard.h">
+      <Filter>src\scenes\battle_scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

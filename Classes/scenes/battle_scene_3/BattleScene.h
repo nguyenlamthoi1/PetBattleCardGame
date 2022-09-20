@@ -43,6 +43,7 @@ class BSPrizeSelector;
 class BSCardSelector;
 class BSMoveSelector;
 class CardHolder;
+class BSDiscardPile;
 
 namespace BATTLE_SCENE_Z {
 	const float DETAILED_CARD = 1000;
@@ -79,6 +80,7 @@ public:
 	std::shared_ptr<BSPrizePile> getPrizePile(const PlayerIdType &id) const;
 	std::shared_ptr<BSBoard> getBoard(const PlayerIdType &id) const;
 	std::shared_ptr<BSPlayer> getBSPlayer (const PlayerIdType &id) const;
+	std::shared_ptr<BSDiscardPile> getDiscardPile(const PlayerIdType &id) const;
 	
 	std::shared_ptr<BSNotifier> getNotifier() const;
 	std::shared_ptr<BSCoinFlipper> getCoinFlipper() const;
@@ -140,6 +142,7 @@ private:
 	std::unordered_map<PlayerIdType, std::shared_ptr<BSBoard>> boards;
 	std::unordered_map<PlayerIdType, std::shared_ptr<BSPrizePile>> prizePiles;
 	std::unordered_map<PlayerIdType, std::shared_ptr<BSPlayer>> players;
+	std::unordered_map<PlayerIdType, std::shared_ptr<BSDiscardPile>> discardPiles;
 
 	std::shared_ptr<BSNotifier> notifier;
 	std::shared_ptr<BSCoinFlipper> coinFlipper;

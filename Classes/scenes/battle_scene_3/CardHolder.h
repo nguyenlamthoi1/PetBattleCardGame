@@ -60,7 +60,7 @@ public:
 	void addEnergyItem(const std::string eType, unsigned int eNum);
 	void launchFlyingMsg(const std::string &msg, cocos2d::Color4B color, float delay = 0.0f);
 	
-	void doKnockedOut(const std::function<void()> &onDone = nullptr);
+	void removePetAndAllCards(std::vector<BSCard*> &vec);
 	// Checker
 	PlayerIdType getOwnerId() const { return ownerId; }
 	unsigned int getHolderIdx() const { return holderIdx; }
@@ -85,14 +85,14 @@ protected:
 	// Thong tin cua pet trong tran dau
 	unsigned int dmgCounter = 0;
 	unsigned int maxHp = 0;
-	int playedTurn = -1;
+	int playedTurn = 0;
 
 	PetCard *petCard = nullptr;
 	std::vector<PetCard*> preEvCardVec;
 	std::vector<EnergyCard*> energyCardVec;
 
 	cocos2d::Node *cardMarker = nullptr;
-	cocos2d::Node *evCardMarker = nullptr;
+	//cocos2d::Node *evCardMarker = nullptr;
 	cocos2d::Node *energyCardMarker = nullptr;
 
 	cocos2d::ui::ImageView *dmgImg = nullptr;

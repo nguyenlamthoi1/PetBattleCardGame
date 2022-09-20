@@ -7,6 +7,8 @@
 #include "../CardHolder.h"
 #include "../BSPrizePile.h"
 #include "../BSPlayer.h"
+#include "../BSDiscard.h"
+
 #include "../prize_selector/BSPrizeSelector.h"
 
 #include "../game/BattleMaster.h"
@@ -286,11 +288,17 @@ void DoAttackActive::executeOn(BattleScene *btlScn) {
 void DoPetKnockedOut::executeOn(BattleScene *btlScn) {
 	state = State::Processed;
 	auto holder = isActive ? btlScn->getBoard(pid)->getActiveHolder() : btlScn->getBoard(pid)->getBenchHolder(bIdx);
-	holder->doKnockedOut(
-		[this]() {
-			state = State::Done;
-		}
-	);
+	
+	std::vector<BSCard*> discardedVec;
+	holder->removePetAndAllCards(discardedVec);
+
+	auto discardPile = btlScn->getDiscardPile(pid);
+	unsigned int i = 0;
+	for (const auto card : discardedVec) {
+		discardPile->pushCard(card, 0.5f * i);
+		++i;
+	}
+	//auto discard = btlScn->getPlayerId();
 }
 
 

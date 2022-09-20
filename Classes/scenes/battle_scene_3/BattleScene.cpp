@@ -18,6 +18,7 @@
 #include "BSCoinFlipper.h"
 #include "BSPrizePile.h"
 #include "BSPlayer.h"
+#include "BSDiscard.h"
 #include "CardHolder.h"
 #include "prize_selector/BSPrizeSelector.h"
 #include "card_selector/BSCardSelector.h"
@@ -160,6 +161,10 @@ bool BattleScene::init() {
 	// Khoi tao PrizePile
 	prizePiles[pid] = BSPrizePile::create(this, pid);
 	prizePiles[oid] = BSPrizePile::create(this, oid);
+
+	// Khoi tao DiscardPile
+	discardPiles[pid] = BSDiscardPile::create(this, pid);
+	discardPiles[oid] = BSDiscardPile::create(this, oid);
 
 	// Khoi tao Coin Flipper
 	coinFlipper = shared_ptr<BSCoinFlipper>(BSCoinFlipper::create(this));
@@ -310,6 +315,7 @@ shared_ptr<BSPrizeSelector> BattleScene::getPrizeSelector() const { return prize
 shared_ptr<BSCardSelector> BattleScene::getCardSelector() const { return cardSelector; }
 shared_ptr<BSMoveSelector> BattleScene::getMoveSelector() const { return moveSelector; }
 shared_ptr<BSPlayer> BattleScene::getBSPlayer(const PlayerIdType &id) const { return players.at(id); }
+shared_ptr<BSDiscardPile> BattleScene::getDiscardPile(const PlayerIdType &id) const { return discardPiles.at(id); }
 
 
 Node* BattleScene::getPrizePileNode(const PlayerIdType &id) const {
