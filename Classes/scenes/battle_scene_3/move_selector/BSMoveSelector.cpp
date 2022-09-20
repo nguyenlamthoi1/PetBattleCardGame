@@ -455,15 +455,20 @@ void BSMoveSelector::cleanUI() {
 void BSMoveSelector::onClickUseMove(CardHolder * cHolder, MoveHolder *mHolder, unsigned int moveIdx) {
 	if (!cHolder || !mHolder) // Phai khac Nullptr
 		return;
-	auto ownerId = cHolder->getOwnerId();
-	if (cHolder->getOwnerId() != PLAYER) // Khong phai nguoi choi thi khong duoc thuc thi
-		return;
+
 	bool isActive = cHolder->isActiveSpot(); 
 	if (!isActive) // Holder thi trien skill phai la active
 		return;
+
+	auto ownerId = cHolder->getOwnerId();
+	if (ownerId != PLAYER) // Khong phai nguoi choi thi khong duoc thuc thi
+		return;
+
 	auto player = btlScn->getBSPlayer(ownerId);
-	if(player->actionExceedsLimit)
-	auto pMove = make_shared<MGame::PA_UseMove>(cHolder->getOwnerId(), moveIdx);
+	if (player->actionExceedsLimit(BSPlayer::TurnAction::Attack)) // Chua tung Attack
+		return;
+
+	auto pMove = make_shared<MGame::PA_UseMove>(ownerId, moveIdx);
 	bool suc = btlScn->onPlayerDoAction(pMove);
 }
 

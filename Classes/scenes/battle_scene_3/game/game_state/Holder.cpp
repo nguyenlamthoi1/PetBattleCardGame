@@ -84,6 +84,10 @@ bool Holder::attachEnergyCard(const std::shared_ptr<const EnergyCard> &energyCar
 		return false;
 
 	energyCards.push_back(energyCard);
+	auto eData = energyCard->getEnergyData();
+	auto eType = eData->eType;
+	auto eNum = eData->eNum;
+	totalEnergy[eType] += eNum;
 	return true;
 }
 
@@ -91,5 +95,14 @@ bool Holder::canAttachEnergy() const {
 	return petCard != nullptr;
 }
 
+bool Holder::enoughEnergies(const std::map<std::string, unsigned int> &rqMap) const {
+	bool enough = true;
+	for (const auto & itr : rqMap) {
+		auto eType = itr.first;
+		auto eNum = itr.second;
+		enough &= totalEnergy.at(eType) >= eNum;
+	}
+	return enough;
+}
 
 NS_GAME_END

@@ -11,6 +11,7 @@
 #include "../game_state/Player.h"
 
 #include "data/CardData.h"
+#include "data/MoveData.h"
 
 #include "../game_state/card/Card.h"
 
@@ -755,9 +756,36 @@ ActionError PlayerChooseTurnAction::onReceiveInput(GameState *gstate, const std:
 		auto pMove = dynamic_pointer_cast<PA_UseMove>(move);
 		if (!pMove || pMove->pid != pid)
 			return ActionError::Failed;
-		auto moveIdx = pMove->mIdx;
 
-		// TODO
+		auto player = gstate->getPlayer(pid);
+		if (player->actionExceedsLimit(Player::TurnAction::Attack))
+			return ActionError::Failed;
+
+		auto moveIdx = pMove->mIdx;
+		auto board = gstate->getBoard(pid);
+		auto activeHolder = board->getActiveHolder();
+		if (activeHolder->hasPet()) { // Phai co active Pet
+			auto petCard = activeHolder->getPetCard();
+			auto petData = petCard->getPetData();
+			const auto &moveVec = petData->moveVec;
+			if (moveIdx < moveVec.size()) { // Kiem tra moveIdx hop le
+				auto moveData = moveVec[moveIdx];
+				const auto &costMap = moveData->costMap;
+				bool haveEnoughEnergy = activeHolder->enoughEnergies(costMap); // Kiem tra nang luong
+				if (haveEnoughEnergy) {
+					auto nextIdx = gstate->getNextTurnIdx();
+					auto nextId = gstate->getPlayerIdAt(nextIdx);
+					gstate->replaceCurActionWithVec({ 
+						make_shared<UseActiveMove>(pid, moveIdx),
+						make_shared<OnTurnStart>(nextIdx, nextId) 
+						});
+					return ActionError::Succeeded;
+					state = State::Done;
+				}
+			}
+		}
+
+
 
 		return ActionError::Failed;
 	}

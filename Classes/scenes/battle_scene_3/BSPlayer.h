@@ -24,7 +24,8 @@ public:
 		AttachEnergy, // Limited
 		Retreat, // Limited
 		UseItem, // No Limit
-		UseSupporter // Limited
+		UseSupporter, // Limited
+		Attack // Limited
 	};
 
 	using PlayerPtr = std::shared_ptr<BSPlayer>;

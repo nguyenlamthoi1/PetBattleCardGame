@@ -18,6 +18,7 @@
 #include "BSCoinFlipper.h"
 #include "BSPrizePile.h"
 #include "BSPlayer.h"
+#include "CardHolder.h"
 #include "prize_selector/BSPrizeSelector.h"
 #include "card_selector/BSCardSelector.h"
 #include "move_selector/BSMoveSelector.h"
@@ -564,7 +565,11 @@ void BattleScene::enablePlayerChooseTurnAction(const PlayerIdType &id) {
 }
 
 void BattleScene::showHolderInfo(CardHolder *holder) {
-	moveSelector->showInfoHolder(holder);
+	auto ownerId = holder->getOwnerId();
+	auto player = getBSPlayer(ownerId);
+	auto canUseMove = ownerId == PLAYER && !player->actionExceedsLimit(BSPlayer::TurnAction::Attack);
+	auto canRetreat = ownerId == PLAYER && !player->actionExceedsLimit(BSPlayer::TurnAction::Retreat);
+	moveSelector->showInfoHolder(holder, canUseMove, canRetreat);
 }
 
 

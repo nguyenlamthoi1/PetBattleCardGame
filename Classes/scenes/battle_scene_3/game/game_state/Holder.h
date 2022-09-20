@@ -36,6 +36,8 @@ public:
 	bool canEvolveTo(const std::shared_ptr<const PetCard> &petCard) const;
 	bool evolvePetCardTo(const std::shared_ptr<const PetCard> &petCard);
 	
+	bool enoughEnergies(const std::map<std::string, unsigned int> &rqMap) const;
+
 	bool canAttachEnergy() const;
 	bool attachEnergyCard(const std::shared_ptr<const EnergyCard> &energyCard);
 protected:
@@ -46,7 +48,8 @@ protected:
 	PetCardPtr petCard;
 	std::vector<PetCardPtr> evPetCards; // Danh sach card tien hoa cua petCard
 	std::vector<EnergyCardPtr> energyCards;
-	
+	std::unordered_map<std::string, unsigned int> totalEnergy;
+
 	unsigned int onPlayedTurn = 0;
 	unsigned int dmgCounter = 0;
 	unsigned int maxHp = 0;

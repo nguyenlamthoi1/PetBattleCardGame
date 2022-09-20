@@ -42,6 +42,7 @@ class BSPrizePile;
 class BSPrizeSelector;
 class BSCardSelector;
 class BSMoveSelector;
+class CardHolder;
 
 namespace BATTLE_SCENE_Z {
 	const float DETAILED_CARD = 1000;
