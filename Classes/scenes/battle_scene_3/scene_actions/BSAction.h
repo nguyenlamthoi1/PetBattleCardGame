@@ -429,7 +429,10 @@ public:
 		unsigned int total,
 		bool weak,
 		bool resistance) : 
-		atkOwnerId(atkId), triggerWeak(weak), triggerResist(resistance){}
+		atkOwnerId(atkId), 
+		totalDmg(total),
+		triggerWeak(weak), 
+		triggerResist(resistance){}
 	virtual ~DoAttackActive() = default;
 
 	virtual void executeOn(BattleScene *btlScn) override;

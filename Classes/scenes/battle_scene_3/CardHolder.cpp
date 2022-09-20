@@ -385,8 +385,8 @@ void CardHolder::updateDmgImg(bool anim) {
 	dmgTxt->setString(to_string(dmgCounter));
 	if (anim) {
 		dmgImg->stopAllActions();
-		dmgImg->setScale(0.5);
-		dmgImg->runAction(EaseBackOut::create(ScaleBy::create(0.2, 2.0f, 2.0f)));
+		dmgImg->setScale(0.45);
+		dmgImg->runAction(EaseBackOut::create(ScaleTo::create(0.2, 0.5f , 0.5f)));
 	}
 }
 

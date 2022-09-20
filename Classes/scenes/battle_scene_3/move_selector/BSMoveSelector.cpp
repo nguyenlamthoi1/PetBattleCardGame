@@ -470,6 +470,9 @@ void BSMoveSelector::onClickUseMove(CardHolder * cHolder, MoveHolder *mHolder, u
 
 	auto pMove = make_shared<MGame::PA_UseMove>(ownerId, moveIdx);
 	bool suc = btlScn->onPlayerDoAction(pMove);
+	if (suc) {
+		hide();
+	}
 }
 
 

@@ -132,7 +132,8 @@ void DefaultAttack::executeOn(GameState *gstate) {
 		incDmg += baseDmg; // x2 Base Damge
 	}
 
-	totalDmg = baseDmg + incDmg;
+	int tempBase = baseDmg;
+	totalDmg = tempBase + incDmg <= 0 ? 0 : baseDmg + incDmg;
 	defHolder->takeDmg(totalDmg);
 	if (defHolder->isKnockedOut()) {
 
@@ -151,6 +152,8 @@ void DefaultAttack::executeOn(GameState *gstate) {
 }
 
 shared_ptr<BattleSceneNS::BSAction> DefaultAttack::getBSAction() const {
+	auto a = totalDmg;
+	auto b = attacker;
 	return make_shared<BattleSceneNS::DoAttackActive>(attacker, totalDmg, triggerWeak, triggerResist);
 }
 
