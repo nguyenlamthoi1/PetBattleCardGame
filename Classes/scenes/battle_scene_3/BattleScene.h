@@ -98,6 +98,8 @@ public:
 	void onEndSetup();
 	void onTurnStart(const PlayerIdType &id);
 	void enablePlayerChooseTurnAction(const PlayerIdType &id);
+
+	void onEndGame(const PlayerIdType &winnerId);
 private:
 	BattleScene();
 	virtual ~BattleScene();
@@ -117,6 +119,7 @@ private:
 
 	Phase phase = Phase::None;
 	unsigned int turnCount = 0;
+	bool updateTurnCountAfterSetup = false;
 
 	PlayerIdType curPlayerId;
 	std::vector<PlayerIdType> pids;
@@ -184,6 +187,13 @@ public:
 	void setEnableEndTurnButton(bool enabled);
 	using EndClickFunc = std::function<void(cocos2d::Ref*)>;
 	void setClickEndButton(const EndClickFunc &f);
+
+	cocos2d::ui::Layout *endLayout = nullptr;
+	void showEndLayout(const PlayerIdType &winnerId);
+	void continueGame();
+	void backHome();
+	
+	//void hideEndLayout();
 private:
 	void checkClean();
 
@@ -204,6 +214,8 @@ private:
 	cocos2d::ui::Button *btn2 = nullptr;
 	void func1(cocos2d::Ref *sender);
 	void func2(cocos2d::Ref *sender);
+
+
 };
 
 BATTLE_SCENE_NS_END

@@ -63,8 +63,8 @@ void BattleMaster::endGame() {
 }
 
 void BattleMaster::gameLoop(float t) {
-	if (gstate->isGameOver())
-		return;
+	/*if (gstate->isGameOver())
+		return;*/
 
 	//auto& actionQueue = gstate->actionQueue;
 	//auto btlScn = BattleSceneNS::BattleScene::getScene();

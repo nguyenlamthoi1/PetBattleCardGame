@@ -46,6 +46,7 @@ public:
 		ChooseTurnAction,
 		AttachEnergy,
 		EvolvePet,
+		PlayBasicPet,
 
 		Select_Prize,
 		Get_Prize_Cards
@@ -405,6 +406,18 @@ protected:
 	unsigned int hIdx;
 	bool isActive = false;
 	unsigned int benchIdx;
+};
+
+class DoPlayPetFromHand : public BSAction {
+public:
+	DoPlayPetFromHand(const PlayerIdType &id, unsigned int hIdx) : pid(id), handIdx(hIdx) {}
+	virtual ~DoPlayPetFromHand() = default;
+
+	virtual void executeOn(BattleScene *btlScn) override;
+	virtual ActionType getType() const override { return ActionType::PlayBasicPet; }
+protected:
+	PlayerIdType pid;
+	unsigned int handIdx;
 };
 
 

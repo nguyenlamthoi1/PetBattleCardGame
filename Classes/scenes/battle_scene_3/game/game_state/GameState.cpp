@@ -166,13 +166,12 @@ void GameState::progressGameNoAnimation() {
 
 shared_ptr<BattleSceneNS::BSAction> GameState::progressGame() {
 	// Lay ra 1 action de thuc thi
-	if (isGameOver())
-		return nullptr;
+	//if (isGameOver())
+	//	return nullptr;
 
 	shared_ptr<BattleSceneNS::BSAction> bsAction;
 
 	//removedQueue.clear();
-
 	if (!actionQueue.empty()) {
 		auto curAction = actionQueue.front();
 		if (curAction->state == GameAction::State::Wait) {
@@ -183,7 +182,6 @@ shared_ptr<BattleSceneNS::BSAction> GameState::progressGame() {
 		else if (curAction->state == GameAction::State::Done)
 			actionQueue.pop_front();
 	}
-
 
 	return bsAction;
 }

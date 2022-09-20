@@ -15,14 +15,16 @@ class PlayerAction {
 public:
 	enum class Type {
 		None,
-		DoForMe,
-		SetupActivePet,
-		SetupBenchPet,
-		EndTurn,
-		ActiveUseMove,
-		AttachEnergy,
-		EvolvePet,
-		Select_Prize_Cards
+		DoForMe, // OK
+		SetupActivePet, // OK
+		SetupBenchPet, // OK
+		EndTurn, // OK
+		ActiveUseMove, // NOT OK
+		AttachEnergy, //OK
+		EvolvePet, // OK
+		Select_Prize_Cards, // OK
+		PlayPetCardToBench, //NOT OK
+		SelectPetAt // NOT OK
 	};
 
 	PlayerAction(Type t, const PlayerIdType &id) : type(t), pid(id) {}
@@ -114,7 +116,6 @@ public:
 	unsigned int benchIdx;
 };
 
-
 class PA_UseMove : public PlayerAction {
 public:
 	PA_UseMove(const PlayerIdType &id, unsigned int moveIdx) : pid(id), mIdx(moveIdx) {};
@@ -123,6 +124,17 @@ public:
 	PlayerIdType pid;
 	unsigned int mIdx;
 };
+
+class PA_PlayPetCardToBench : public PlayerAction {
+public:
+	PA_PlayPetCardToBench(const PlayerIdType &id, unsigned int hIdx) : pid(id), handIdx(hIdx) {};
+	virtual ~PA_PlayPetCardToBench() = default;
+	virtual Type getType() const override { return Type::PlayPetCardToBench; }
+
+	PlayerIdType pid;
+	unsigned int handIdx = 0;
+};
+
 
 /*
 	Player lua chon

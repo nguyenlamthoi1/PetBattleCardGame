@@ -41,7 +41,7 @@ public:
 	using HandPtr = std::shared_ptr<BSHand>;
 
 	//void drawCards(size_t n, std::function<void()> f = nullptr);
-	void drawCards(size_t n, const std::vector<CardId> &v, bool hideCards = false);
+	void drawCards(const std::vector<CardId> &v, bool hideCards = false);
 	
 	enum class DrawFromType {
 		None,

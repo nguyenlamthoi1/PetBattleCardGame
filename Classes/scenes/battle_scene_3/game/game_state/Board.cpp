@@ -54,11 +54,27 @@ bool Board::evolvePetAtActive(const shared_ptr<PetCard> &petCard) {
 
 bool Board::addBasicPetCardToBench(const shared_ptr<PetCard> &petCard) {
 	for (const auto &holder : bench) {
-		if (!holder->hasPet())
-			return holder->addBasicPetCard(petCard);
+		if (!holder->hasPet()) {
+			auto suc = holder->addBasicPetCard(petCard);
+			if (suc) {
+				//curBench += 1;
+				return true;
+			}
+		}
 	}
 	return false;
 }
+
+bool Board::isBenchFull() const {
+	//return curBench >= benchCapacity;
+	for (const auto &holder : bench) {
+		if (!holder->hasPet()) {
+			return false;
+		}
+	}
+	return true;
+}
+
 bool Board::evolvePetAtBench(const std::shared_ptr<PetCard> &petCard, unsigned int benchIdx) {
 	//TODO
 	return false;

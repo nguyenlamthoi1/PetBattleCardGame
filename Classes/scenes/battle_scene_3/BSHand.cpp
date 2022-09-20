@@ -4,6 +4,7 @@
 #include "BSBoard.h"
 #include "BSPlayer.h"
 #include "CardHolder.h"
+#include "BSNotifier.h"
 #include "data/CardData.h"
 
 #include "BattleScene.h"
@@ -53,8 +54,22 @@ bool BSHand::init() {
 	return true;
 }
 
-void BSHand::drawCards(size_t n, const vector<CardId> &idVec, bool hideCards) {
+void BSHand::drawCards(const vector<CardId> &idVec, bool hideCards) {
 	auto btlScn = BattleScene::getScn();
+
+	if (idVec.empty()) {
+		auto lang = GM_LANG;
+		auto notifier = btlScn->getNotifier();
+		notifier->showMsgAndHideAfter(lang->getString(pid == PLAYER ? "TXT_BS_PLAYER_CAN_NOT_DRAW" : "TXT_BS_OPP_CAN_NOT_DRAW"), 1.6f);
+		handLayout->runAction(Sequence::create(
+			DelayTime::create(1.0f),
+			CallFunc::create([this](){
+				dispatchEvent(EV_DRAW_ACTION_DONE);
+				}),
+			nullptr));
+		return;
+	}
+	
 	auto &deck = btlScn->getDeck(pid);
 	auto drawnVec = deck->drawTop(idVec);
 

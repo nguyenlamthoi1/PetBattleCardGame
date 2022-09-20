@@ -200,6 +200,10 @@ bool BattleScene::init() {
 	// + Detailed Card
 	detailLayout = dynamic_cast<ui::Layout*>(root->getChildByName("Detail_Layout"));
 
+	// Khoi tao ending layout
+	endLayout = dynamic_cast<ui::Layout*>(root->getChildByName("End_Layout"));
+	endLayout->setVisible(false);
+
 	// Khoi tao Loading Layout
 	loadingLayout = dynamic_cast<ui::Layout*>(root->getChildByName("Loading_Layout"));
 	if (!loadingLayout)
@@ -419,18 +423,17 @@ bool BattleScene::onPlayerPetCard(const PlayerIdType &playerId, unsigned int han
 		return false;
 
 	shared_ptr<MGame::PlayerAction> playerMove;
-	if (place == PlaceType::Active) {
-		if (curAction->getType() == BSAction::ActionType::StartSetupActive) {
-			playerMove = make_shared<MGame::PA_SetupActive>(playerId, handIdx);
-		}
-		/*else if (curAction->getType() == BSAction::ActionType::StartSetupBench) {
 
-		}*/
+	if (curAction->getType() == BSAction::ActionType::StartSetupActive && place == PlaceType::Active) {
+		playerMove = make_shared<MGame::PA_SetupActive>(playerId, handIdx);
 	}
-	else {
-		if (curAction->getType() == BSAction::ActionType::StartSetupBench) {
-			playerMove = make_shared<MGame::PA_SetupBench>(playerId, handIdx);
-		}
+	else if (curAction->getType() == BSAction::ActionType::StartSetupBench && place == PlaceType::Bench)
+	{
+		playerMove = make_shared<MGame::PA_SetupBench>(playerId, handIdx);
+	}
+	else if (curAction->getType() == BSAction::ActionType::ChooseTurnAction) {
+		if(place == PlaceType::Bench)
+			playerMove = make_shared<MGame::PA_PlayPetCardToBench>(playerId, handIdx);
 	}
 
 	if (!playerMove)
@@ -574,12 +577,70 @@ void BattleScene::func2(Ref *sender) {
 
 void BattleScene::onTurnStart(const PlayerIdType &id) {
 	phase = Phase::PlayerTurn;
-	turnCount += 1;
+	if (updateTurnCountAfterSetup)
+		turnCount = 0;
+	else
+		turnCount += 1;
 	curPlayerId = id;
 	players.at(id)->resetDoneCount();
 }
 
 void BattleScene::onEndSetup() {
 	turnCount = 0;
+	updateTurnCountAfterSetup = true;
 }
+
+void BattleScene::onEndGame(const PlayerIdType &winnerId) {
+	phase = Phase::End;
+	stopPipeline();
+	showEndLayout(winnerId);
+}
+
+void BattleScene::showEndLayout(const PlayerIdType &winnerId) {
+	endLayout->setVisible(true);
+	
+	auto lang = GM_LANG;
+	static const string OPP_WIN_TXT = "TXT_BS_OPPONENT_WIN";
+	static const string PLAYER_WIN_TXT = "TXT_BS_PLAYER_WIN";
+	static const string DRAW_TXT = "TXT_BS_DRAW_GAME";
+	string resultText;
+
+	if (winnerId.empty()) {
+		resultText = lang->getString(DRAW_TXT);
+	}
+	else {
+		if (winnerId == PLAYER) {
+			resultText = lang->getString(PLAYER_WIN_TXT);
+		}
+		else {
+			resultText = lang->getString(OPP_WIN_TXT);
+		}
+	}
+	auto winText = dynamic_cast<ui::Text*>(endLayout->getChildByName("End_Text"));
+	winText->setString(resultText);
+	winText->stopAllActions();
+	auto middlePos = winText->getPosition();
+	auto dest = middlePos;
+	winText->setPosition(middlePos + Vec2(0, 400));
+	winText->runAction(EaseBackOut::create(MoveTo::create(0.6f, dest)));
+
+	auto ctnBtn = dynamic_cast<ui::Button*>(endLayout->getChildByName("ContinueBtn"));
+	ctnBtn->addClickEventListener([this](Ref *sender) {
+		continueGame();
+		});
+
+	auto homeBtn = dynamic_cast<ui::Button*>(endLayout->getChildByName("HomeBtn"));
+	ctnBtn->addClickEventListener([this](Ref *sender) {
+		backHome();
+		});
+}
+
+void BattleScene::continueGame() {
+
+}
+
+void BattleScene::backHome() {
+
+}
+
 BATTLE_SCENE_NS_END

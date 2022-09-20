@@ -37,6 +37,7 @@ public:
 	bool addBasicPetCardToActive(const std::shared_ptr<PetCard> &petCard);
 	bool evolvePetAtActive(const std::shared_ptr<PetCard> &petCard);
 	bool addBasicPetCardToBench(const std::shared_ptr<PetCard> &petCard);
+	bool isBenchFull() const;
 	bool evolvePetAtBench(const std::shared_ptr<PetCard> &petCard, unsigned int benchIdx);
 protected:
 	GameState* gstate = nullptr; // weak pointer
@@ -44,7 +45,8 @@ protected:
 
 	HolderPtr active;
 
-	unsigned int benchCapacity;
+	unsigned int benchCapacity = 5;
+	//unsigned int curBench = 0;
 	HolderPtrVec bench;
 };
 

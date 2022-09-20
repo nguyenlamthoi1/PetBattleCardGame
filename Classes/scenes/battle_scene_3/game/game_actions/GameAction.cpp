@@ -161,6 +161,7 @@ std::shared_ptr<GameAction> DrawAction::clone() const {
 }
 
 
+
 //----------//
 //SETUP FLOW//
 //----------//
@@ -292,7 +293,12 @@ ActionError StartSetupActivePet::onReceiveInput(GameState *gstate, const std::sh
 
 		if (petCard && petCard->isBasicCard()) {
 			state = State::Done;
-			gstate->pushActionsAtFront({
+			/*gstate->pushActionsAtFront({
+				make_shared<SetupActivePet>(pid, handIdx),
+				make_shared<StartSetupBenchPet>(pid)
+				});*/
+
+			gstate->replaceCurActionWith({
 				make_shared<SetupActivePet>(pid, handIdx),
 				make_shared<StartSetupBenchPet>(pid)
 				});
@@ -368,7 +374,12 @@ ActionError StartSetupBenchPet::onReceiveInput(GameState *gstate, const std::sha
 
 		if (petCard && petCard->isBasicCard()) {
 			state = State::Done;
-			gstate->pushActionsAtFront({ 
+			/*gstate->pushActionsAtFront({ 
+				make_shared<SetupBenchPet>(pid, handIdx),
+				make_shared<StartSetupBenchPet>(pid),
+				});*/
+
+			gstate->replaceCurActionWith({
 				make_shared<SetupBenchPet>(pid, handIdx),
 				make_shared<StartSetupBenchPet>(pid),
 				});
@@ -386,18 +397,21 @@ ActionError StartSetupBenchPet::onReceiveInput(GameState *gstate, const std::sha
 		auto board = gstate->getBoard(otherId);
 		if (!board->hasActivePet()){ // Doi thu chua co Active Pet
 			state = State::Done;
-			gstate->pushActionsAtFront({ make_shared<StartSetupActivePet>(otherId) });
+			//gstate->pushActionsAtFront({ make_shared<StartSetupActivePet>(otherId) });
+			gstate->replaceCurActionWith({ make_shared<StartSetupActivePet>(otherId) });
+
 			return ActionError::Succeeded;
 		}
 		else {
 			state = State::Done;
-			gstate->pushActionsAtFront({ 
-				//make_shared<OnTurnStart>(0, PLAYER)
+			/*gstate->pushActionsAtFront({ 
 				make_shared<FlipCoinGetFirst>(),
 				make_shared<EndSetup>(),
-				//make_shared<OnTurnStart>(0, PLAYER)
+				});*/
+			gstate->replaceCurActionWith({
+				make_shared<FlipCoinGetFirst>(),
+				make_shared<EndSetup>(),
 				});
-			//gstate->pushActionsAtFront({ make_shared<EndSetup>()});
 			return ActionError::Succeeded;
 		}
 
@@ -421,10 +435,9 @@ void EndSetup::executeOn(GameState *gstate) {
 	auto firstIdx = gstate->getFirstIdx();
 	auto firstId = gstate->getPlayerIdAt(gstate->getFirstIdx());
 
-	gstate->pushActionsAtFront({make_shared<OnTurnStart>(firstIdx, firstId)}); //??? Why deleted
-	/*auto onTurnStartAction = make_shared<OnTurnStart>(firstIdx, firstId);
-	auto &aQueue = gstate->getActionQueue();
-	aQueue.push_front(onTurnStartAction);*/
+	//gstate->pushActionsAtFront({make_shared<OnTurnStart>(firstIdx, firstId)}); //??? Why deleted
+	gstate->replaceCurActionWith({ make_shared<OnTurnStart>(firstIdx, firstId) }); //??? Why deleted
+
 
 	state = State::Done;
 }
@@ -483,7 +496,7 @@ void GameOverAction::executeOn(GameState *gstate) {
 	state = State::Process;
 
 	gstate->setGameOver(winnerId);
-
+	
 	state = State::Done;
 }
 
@@ -632,7 +645,11 @@ shared_ptr<BattleSceneNS::BSAction> GetPrizeCards::getBSAction() const {
 void OnTurnStart::executeOn(GameState *gstate) {
 	state = State::Process;
 	gstate->onTurnStart(pidx);
-	gstate->pushActionsAtFront({make_shared<PlayerChooseTurnAction>(pid)});
+	
+	gstate->replaceCurActionWithVec({
+		make_shared<DrawOnTurnStart>(pid),
+		make_shared<PlayerChooseTurnAction>(pid)
+		});
 	state = State::Done;
 }
 
@@ -823,7 +840,9 @@ ActionError PlayerChooseTurnAction::onReceiveInput(GameState *gstate, const std:
 		auto nextIdx = gstate->getNextTurnIdx();
 		auto nextId = gstate->getPlayerIdAt(nextIdx);
 		state = State::Done;
-		gstate->pushActionsAtFront({make_shared<OnTurnStart>(nextIdx, nextId)});
+		
+		//gstate->pushActionsAtFront({make_shared<OnTurnStart>(nextIdx, nextId)});
+		gstate->replaceCurActionWithVec({ make_shared<OnTurnStart>(nextIdx, nextId) });
 		return ActionError::Succeeded;
 	}
 	else if (move->getType() == PlayerAction::Type::DoForMe) {
@@ -833,7 +852,27 @@ ActionError PlayerChooseTurnAction::onReceiveInput(GameState *gstate, const std:
 			return onReceiveInput(gstate, pMoves[randIdx]);
 		}
 	}
+	else if (move->getType() == PlayerAction::Type::PlayPetCardToBench) {
+		auto pMove = dynamic_pointer_cast<PA_PlayPetCardToBench>(move);
+		if (!pMove || pMove->pid != pid)
+			return ActionError::Failed;
 
+		auto board = gstate->getBoard(pid);
+		auto hand = gstate->getHand(pid);
+		auto card = hand->getCardAt(pMove->handIdx);
+		auto pCard = dynamic_pointer_cast<PetCard>(card);
+		if (pCard && pCard->isBasicCard() && !board->isBenchFull()) {
+			//auto player = gstate->getPlayer(pid);
+			//bool check = !player->actionExceedsLimit(Player::TurnAction::PlayPetCard);
+			gstate->replaceCurActionWith({
+					make_shared<PlayerPlayPetCardToBench>(pMove->pid, pMove->handIdx),
+					make_shared<PlayerChooseTurnAction>(pid)
+				});
+			state = State::Done;
+			return ActionError::Succeeded;
+		}
+		return ActionError::Failed;
+	}
 	return ActionError::Failed;
 }
 
@@ -902,6 +941,75 @@ shared_ptr<BattleSceneNS::BSAction> PlayEvPetCard::getBSAction() const {
 }
 shared_ptr<GameAction> PlayEvPetCard::clone() const {
 	return make_shared<PlayEvPetCard>(pid, hIdx, isActive, bIdx);
+}
+
+/*
+	DrawOnTurnStart Class
+*/
+
+void DrawOnTurnStart::executeOn(GameState *gstate) {
+	state = State::Process;
+
+	auto deck = gstate->getDeck(pid);
+	vector<shared_ptr<Card>> cardObjVec;
+	deck->popTop(drawnNum, cardObjVec); // Rut tu Top Deck
+
+	// Cap nhat Hand
+	auto hand = gstate->getHand(pid);
+	hand->pushCards(cardObjVec);
+
+	// Cap nhat result vector
+	for (const auto& cardObj : cardObjVec)
+		cardIdsVec.emplace_back(cardObj->getId());
+
+	// * Khi het bai dau moi turn phai check ket thuc game
+	if (cardObjVec.size() < drawnNum) {
+		gstate->replaceCurActionWith ({make_shared<GameOverAction>(gstate->getOpponentOf(pid)) });
+	}
+
+	state = State::Done;
+}
+
+std::shared_ptr<BattleSceneNS::BSAction> DrawOnTurnStart::getBSAction() const {
+	return BattleSceneNS::SequenceAction::create({
+		make_shared<BattleSceneNS::WaitAction>(0.7f),
+		make_shared<BattleSceneNS::DrawCardAction>(pid, drawnNum, cardIdsVec),
+		});
+}
+
+std::shared_ptr<GameAction> DrawOnTurnStart::clone() const {
+	return  make_shared<DrawOnTurnStart>(pid);
+}
+
+/*
+	PlayerPlayPetCardToBench Class
+*/
+
+void PlayerPlayPetCardToBench::executeOn(GameState *gstate) {
+	state = State::Process;
+
+	auto hand = gstate->getHand(pid);
+	auto board = gstate->getBoard(pid);
+
+	suc = false;
+	// Kiem tra handIdx co phai basic pet card
+	auto petCard = dynamic_pointer_cast<PetCard>(hand->getCardAt(hIdx));
+	suc = board->addBasicPetCardToBench(petCard);
+	if (suc)
+		hand->removeCard(hIdx);
+
+	state = State::Done;
+}
+
+std::shared_ptr<BattleSceneNS::BSAction> PlayerPlayPetCardToBench::getBSAction() const {
+	return BattleSceneNS::SequenceAction::create({
+		make_shared<BattleSceneNS::WaitAction>(0.5f),
+		make_shared<BattleSceneNS::DoPlayPetFromHand>(pid, hIdx),
+		});
+}
+
+std::shared_ptr<GameAction> PlayerPlayPetCardToBench::clone() const {
+	return  make_shared<PlayerPlayPetCardToBench>(pid, hIdx);
 }
 
 NS_GAME_END

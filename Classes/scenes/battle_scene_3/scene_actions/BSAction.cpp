@@ -136,11 +136,12 @@ void DrawCardAction::executeOn(BattleScene *btlScn) {
 	state = State::Processed;
 	auto hand = btlScn->getHand(pid);
 	bool isPlayerId = pid == PLAYER_ID;
-	hand->drawCards(drawnNum, drawnCards, !isPlayerId);
 	onDrawnDone = hand->addEventHandler(BSHand::EV_DRAW_ACTION_DONE, [this, hand](const std::shared_ptr<MEvent>&) {
 		state = State::Done;
 		hand->removeHandler(onDrawnDone);
 		});
+	hand->drawCards(drawnCards, !isPlayerId);
+	
 }
 
 
@@ -282,7 +283,7 @@ void GameOverAction::executeOn(BattleScene *btlScn) {
 	else {
 		CCLOG("GameOver: no winner", winnerId.c_str());
 	}
-
+	btlScn->onEndGame(winnerId);
 	state = State::Done;
 }
 
@@ -691,6 +692,30 @@ void PlayEvPetCard::executeOn(BattleScene *btlScn) {
 
 	auto player = btlScn->getBSPlayer(pid);
 	player->updateActionCount(BSPlayer::TurnAction::EvolvePet, 1);
+}
+
+/*
+	DoPlayPetFromHand
+*/
+
+void DoPlayPetFromHand::executeOn(BattleScene *btlScn) {
+	if (state != State::Wait)
+		return;
+
+	state = State::Processed;
+
+	if (btlScn->getPlayerId() == pid) { // Player Action
+		auto hand = btlScn->getHand(pid);
+		hand->playPetCardFromHandToBench(handIdx, [this]() {
+			state = State::Done;
+			});
+	}
+	else { // Opponent Action
+		auto hand = btlScn->getHand(pid);
+		hand->playPetCardFromHandToBench(handIdx, [this]() {
+			state = State::Done;
+			});
+	}
 }
 
 

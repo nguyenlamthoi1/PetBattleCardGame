@@ -33,15 +33,16 @@ public:
 		TurnStart,
 		ChooseTurnAction,
 
+		DrawOnTurnStart,
 		UseActiveMove,
 		Attack,
 		PetKnockedOut,
 		SelectPrizeCards,
 		GetPrizeCards,
+		PlayBasicPet,
 
 		RetreatPet,
 		PlayEvolvePet,
-		PlayBasicPet,
 		PlayEnergyCard,
 
 		flipCoin,
@@ -161,6 +162,23 @@ protected:
 	std::vector<CardId> cardIdsVec;
 };
 
+class DrawOnTurnStart : public GameAction {
+public:
+	using CardId = std::string;
+
+	DrawOnTurnStart(const PlayerIdType &id) : pid(id) {}
+	virtual ~DrawOnTurnStart() = default;
+
+	virtual void executeOn(GameState *state) override;
+	virtual Type getType() const override { return Type::DrawOnTurnStart; }
+	virtual std::shared_ptr<BattleSceneNS::BSAction> getBSAction() const override;
+	virtual std::shared_ptr<GameAction> clone() const override;
+
+	PlayerIdType pid;
+	unsigned int drawnNum = 1;
+protected:
+	std::vector<CardId> cardIdsVec;
+};
 
 //--Setup Flow--//
 
@@ -392,6 +410,24 @@ public:
 // Play Basic Pet Card From Hand ///
 ////////////////////////////////////
 
+class PlayerPlayPetCardToBench : public GameAction {
+public:
+
+	PlayerPlayPetCardToBench(const PlayerIdType &id, unsigned int handIdx) : pid(id), hIdx(handIdx)  {}
+	virtual ~PlayerPlayPetCardToBench() = default;
+
+	virtual void executeOn(GameState *gameState) override;
+	virtual std::shared_ptr<BattleSceneNS::BSAction> getBSAction() const override;
+	virtual std::shared_ptr<GameAction> clone() const override;
+	virtual Type getType() const override { return Type::PlayBasicPet; }
+
+	PlayerIdType pid;
+	unsigned int hIdx;
+protected:
+	bool suc = false; // T: Game state changed
+};
+
+
 ////////////////////////////////////
 ////////////////////////////////////
 ////////////////////////////////////
@@ -415,7 +451,7 @@ public:
 	virtual void executeOn(GameState *gameState) override;
 	virtual std::shared_ptr<BattleSceneNS::BSAction> getBSAction() const override;
 	virtual std::shared_ptr<GameAction> clone() const override;
-	virtual Type getType() const override { return Type::GetPrizeCards; }
+	virtual Type getType() const override { return Type::PlayBasicPet; }
 
 	PlayerIdType pid;
 	unsigned int hIdx;
