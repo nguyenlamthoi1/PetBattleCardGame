@@ -303,6 +303,7 @@ void StartSetupAction::executeOn(BattleScene *btlScn) {
 	auto lang = GM_LANG;
 	auto notifier = btlScn->getNotifier();
 	notifier->showMsgAndHideAfter(lang->getString(START_SETUP_TXT), 1.5f);
+	//notifier->showMsg(lang->getString(START_SETUP_TXT));
 
 	state = State::Done;
 }
@@ -322,7 +323,7 @@ void StartSetupActive::executeOn(BattleScene *btlScn) {
 
 	if (btlScn->getPlayerId() == pid) { // Player Action
 		auto notifier = btlScn->getNotifier();
-		notifier->showMsgAndHideAfter(lang->getString(PLAYER_SETUP_TXT), 1.5f);
+		notifier->showMsg(lang->getString(PLAYER_SETUP_TXT));
 	
 		auto hand = btlScn->getHand(pid);
 		hand->setEnableDragSetupActive(true);

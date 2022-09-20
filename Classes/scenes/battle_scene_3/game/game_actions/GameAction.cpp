@@ -722,7 +722,6 @@ vector<shared_ptr<PlayerAction>> PlayerChooseTurnAction::getPossibleMoves(GameSt
 			break;
 		}
 		case Card::Type::Energy: {
-			break;
 			auto eCard = dynamic_pointer_cast<const EnergyCard>(card);
 			if (eCard) {
 				auto eData = eCard->getEnergyData();
