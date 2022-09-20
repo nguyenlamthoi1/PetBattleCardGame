@@ -1,6 +1,7 @@
 #include "BSBoard.h"
 #include "CardHolder.h"
 #include "BattleScene.h"
+#include "BSCard.h"
 
 #include "common/Utilize.h"
 #include <new>
@@ -95,7 +96,9 @@ void BSBoard::alignHoldersOnBenchBoard(bool forceDoLayout) {
 		layout->requestDoLayout();
 }
 
-bool BSBoard::checkCanAddPetCard(PetCard *card, cocos2d::Node* dest) const {
+bool BSBoard::checkCanAddBasicPetCard(PetCard *card, cocos2d::Node* dest) const {
+	if (!card || !card->isBasic())
+		return false;
 	return (activeBoard == dest && !hasActivePet()) || (benchBoard == dest && !isBenchFull());
 }
 

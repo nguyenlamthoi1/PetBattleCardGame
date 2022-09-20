@@ -133,6 +133,14 @@ void GameState::startGame() {
 void GameState::onTurnStart(unsigned int playerIdx) {
 	phase = Phase::PlayerTurn;
 	turnCount += 1;
+
+	if (updateTurnCountAfterSetup) {
+		turnCount = 0;
+		updateTurnCountAfterSetup = false;
+	}
+	else
+		turnCount += 1;
+
 	curPlayer = playerIdx;
 	auto curPlayerId = pids[curPlayer];
 	auto player = players.at(curPlayerId);
@@ -188,6 +196,7 @@ void GameState::startSetup() {
 
 void GameState::endSetup() {
 	turnCount = 0;
+	updateTurnCountAfterSetup = true;
 }
 
 

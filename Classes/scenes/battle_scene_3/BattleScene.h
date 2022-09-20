@@ -69,6 +69,8 @@ public:
 
 	cocos2d::Node* getScnRoot() const { return root; } // * Root node load tu file csb
 
+	PlayerIdType getCurTurnId() const { return curPlayerId; }
+
 	const std::vector<PlayerIdType>& getPids() const;
 	std::shared_ptr<PlayerData> getPlayerData(const PlayerIdType &id) const;
 	std::shared_ptr<BSHand> getHand(const PlayerIdType &id) const;
@@ -93,6 +95,7 @@ public:
 
 	unsigned int getTurnCount() const { return turnCount; }
 
+	void onEndSetup();
 	void onTurnStart(const PlayerIdType &id);
 	void enablePlayerChooseTurnAction(const PlayerIdType &id);
 private:
@@ -114,7 +117,8 @@ private:
 
 	Phase phase = Phase::None;
 	unsigned int turnCount = 0;
-	unsigned int curPlayer = 0;
+
+	PlayerIdType curPlayerId;
 	std::vector<PlayerIdType> pids;
 
 	PlayerIdType pid = PlayerIdInvalid; // Id cua nguoi choi

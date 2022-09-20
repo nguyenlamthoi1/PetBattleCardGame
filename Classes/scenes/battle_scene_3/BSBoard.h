@@ -28,7 +28,7 @@ public:
 
 	bool init();
 
-	bool checkCanAddPetCard(PetCard *card, cocos2d::Node* dest) const;
+	bool checkCanAddBasicPetCard(PetCard *card, cocos2d::Node* dest) const;
 
 	PlayerIdType ownerId = PlayerIdInvalid;
 	BattleScene *btlScn = nullptr;

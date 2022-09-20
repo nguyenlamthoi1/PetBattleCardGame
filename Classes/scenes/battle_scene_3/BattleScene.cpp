@@ -573,6 +573,13 @@ void BattleScene::func2(Ref *sender) {
 }
 
 void BattleScene::onTurnStart(const PlayerIdType &id) {
+	phase = Phase::PlayerTurn;
+	turnCount += 1;
+	curPlayerId = id;
 	players.at(id)->resetDoneCount();
+}
+
+void BattleScene::onEndSetup() {
+	turnCount = 0;
 }
 BATTLE_SCENE_NS_END

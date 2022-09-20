@@ -495,6 +495,8 @@ void DoEndSetup::executeOn(BattleScene *btlScn) {
 	for(auto holder : benchHolders)
 		holder->setFlipPetCard(true);
 
+	btlScn->onEndSetup();
+
 	state = State::Done;
 }
 
@@ -660,8 +662,8 @@ void PlayerEnergyCard::executeOn(BattleScene *btlScn) {
 			});
 	}
 
-	//auto player = btlScn->getBSPlayer(pid);
-	//player->updateActionCount(BSPlayer::TurnAction::AttachEnergy, 1);
+	auto player = btlScn->getBSPlayer(pid);
+	player->updateActionCount(BSPlayer::TurnAction::AttachEnergy, 1);
 }
 
 /*
@@ -676,19 +678,19 @@ void PlayEvPetCard::executeOn(BattleScene *btlScn) {
 
 	if (btlScn->getPlayerId() == pid) { // Player Action
 		auto hand = btlScn->getHand(pid);
-		hand->playEnergyCardFromHandToPet(hIdx, isActive, benchIdx, [this]() {
+		hand->playEvCardFromHandToPet(hIdx, isActive, benchIdx, [this]() {
 			state = State::Done;
 			});
 	}
 	else { // Opponent Action
 		auto hand = btlScn->getHand(pid);
-		hand->playEnergyCardFromHandToPet(hIdx, isActive, benchIdx, [this]() {
+		hand->playEvCardFromHandToPet(hIdx, isActive, benchIdx, [this]() {
 			state = State::Done;
 			});
 	}
 
-	//auto player = btlScn->getBSPlayer(pid);
-	//player->updateActionCount(BSPlayer::TurnAction::EvolvePet, 1);
+	auto player = btlScn->getBSPlayer(pid);
+	player->updateActionCount(BSPlayer::TurnAction::EvolvePet, 1);
 }
 
 

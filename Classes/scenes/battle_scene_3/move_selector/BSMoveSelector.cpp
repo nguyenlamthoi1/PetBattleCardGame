@@ -225,7 +225,7 @@ void BSMoveSelector::showInfoHolder(CardHolder *holder) {
 	}
 
 	std::vector<CardId> preEvIds;
-	auto evCards = holder->getAttachedEnergyCards();
+	auto evCards = holder->getPrevEvCards();
 	for (const auto &petCard : evCards) {
 		preEvIds.push_back(petCard->getData()->id);
 	}

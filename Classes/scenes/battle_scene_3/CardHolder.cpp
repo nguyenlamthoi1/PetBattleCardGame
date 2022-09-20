@@ -98,6 +98,7 @@ bool CardHolder::init() {
 
 	cardMarker = panel->getChildByName("Holder_CardMaker");
 	energyCardMarker = panel->getChildByName("Energy_Cards_Marker");
+	evCardMarker = panel->getChildByName("Ev_Marker");
 
 	flyingText = dynamic_cast<ui::Text*>(panel->getChildByName("Flying_Text"));
 	flyingText->setVisible(false);
@@ -183,8 +184,8 @@ bool CardHolder::tryEvolveTo(PetCard *toCard, const std::function<void()> &onDon
 		return false;
 
 	auto player = btlScn->getBSPlayer(ownerId);
-	if (player->actionExceedsLimit(BSPlayer::TurnAction::AttachEnergy)) // * Check 2
-		return false;
+	//if (player->actionExceedsLimit(BSPlayer::TurnAction::EvolvePet)) // * Check 2
+	//	return false;
 
 	bool suc = false;
 
@@ -204,7 +205,24 @@ bool CardHolder::tryEvolveTo(PetCard *toCard, const std::function<void()> &onDon
 		
 		toCard->setFlip(false);
 
+		constexpr float CardMoveSpeed = 400.0f;
 		auto destPosition = Vec2(0, 0);
+		auto dist = destPosition.distance(startPosition);
+		toCard->setPosition(startPosition);
+
+		toCard->runAction(
+			Sequence::create(
+				MoveTo::create(dist / CardMoveSpeed, destPosition),
+				CallFunc::create([this, onDone]() {
+					showFlyingText("Evolved");
+					if (onDone)
+						onDone();
+					}),
+				nullptr
+						));
+		WidgetTouchNS::setEnableDragComponent(toCard, false);
+
+		/*auto destPosition = Vec2(0, 0);
 		auto dist = destPosition.distance(startPosition);
 		toCard->setPosition(startPosition);
 		constexpr float CardMoveSpeed = 420.0f;
@@ -218,13 +236,13 @@ bool CardHolder::tryEvolveTo(PetCard *toCard, const std::function<void()> &onDon
 					if (onDone)
 						onDone();
 					}),
-				nullptr));
+				nullptr));*/
 
 		// * Cap nhat thong tin holder
 		playedTurn = btlScn->getTurnCount();
 		maxHp = toPetData->hp;
-		player->updateActionCount(BSPlayer::TurnAction::EvolvePet, 1);
 		updateInfoPanel(true); // * Cap nhat Hp UI
+		//player->updateActionCount(BSPlayer::TurnAction::EvolvePet, 1);
 	}
 
 	return suc;
@@ -235,8 +253,8 @@ bool CardHolder::tryAddEnergyCard(EnergyCard *energyCard, const function<void()>
 		return false;
 	
 	auto player = btlScn->getBSPlayer(ownerId);
-	if (player->actionExceedsLimit(BSPlayer::TurnAction::AttachEnergy))
-		return false;
+	//if (player->actionExceedsLimit(BSPlayer::TurnAction::AttachEnergy))
+	//	return false;
 
 	auto energyData = dynamic_pointer_cast<const EnergyCardData>(energyCard->getData());
 	// Cap nhat EnergyPanel
@@ -289,7 +307,7 @@ bool CardHolder::tryAddEnergyCard(EnergyCard *energyCard, const function<void()>
 				}),
 			nullptr));
 
-	player->updateActionCount(BSPlayer::TurnAction::AttachEnergy, 1);
+	//player->updateActionCount(BSPlayer::TurnAction::AttachEnergy, 1);
 	return true;
 }
 
@@ -328,17 +346,14 @@ bool CardHolder::isActiveSpot() {
 }
 
 bool CardHolder::canEvolveTo(PetCard *card) {
-	//if (!card || !hasPetCard()) // Kiem tra petCard == Null
-	//	return false;
+	if (!card || !petCard)
+		return false;
 
-	//auto toPetData = dynamic_pointer_cast<const PetCardData>(card->getData());
-	//auto fromPetData = dynamic_pointer_cast<const PetCardData>(petCard->getData()); // Loi khi petCard == null
+	auto toPetData = dynamic_pointer_cast<const PetCardData>(card->getData());
+	auto fromPetData = dynamic_pointer_cast<const PetCardData>(petCard->getData());
 
-	//auto btlMgr = btlScn->getBattleManager();
-
-	//return  btlMgr->getCurTurn() > playedTurn && // Tai luot nay co the tien hoa
-	//	toPetData->evolveFrom == fromPetData->name; // Co the tien hoa len Pokemon duoc check
-	return false;
+	return  btlScn->getTurnCount() > playedTurn && // Tai luot nay co the tien hoa
+			toPetData->evolveFrom == fromPetData->name; // Co the tien hoa len Pokemon duoc check
 }
 
 void CardHolder::setFlipPetCard(bool flip) {

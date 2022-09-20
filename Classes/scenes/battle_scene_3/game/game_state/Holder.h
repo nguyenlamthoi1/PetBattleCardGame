@@ -28,6 +28,7 @@ public:
 	virtual bool init();
 	void setGameState(GameState *gameState) { gstate = gameState; }
 
+	unsigned int getPlayedTurn() const { return onPlayedTurn; }
 	PetCardPtr getPetCard() const { return petCard; }
 	bool hasPet() const { return petCard != nullptr; }
 	bool addBasicPetCard(const std::shared_ptr<PetCard> &petCard);

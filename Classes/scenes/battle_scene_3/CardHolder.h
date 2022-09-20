@@ -84,7 +84,9 @@ protected:
 	std::vector<EnergyCard*> energyCardVec;
 
 	cocos2d::Node *cardMarker = nullptr;
+	cocos2d::Node *evCardMarker = nullptr;
 	cocos2d::Node *energyCardMarker = nullptr;
+
 
 	cocos2d::ui::Text *flyingText = nullptr;
 	void showFlyingText(const std::string &s);

@@ -683,7 +683,6 @@ vector<shared_ptr<PlayerAction>> PlayerChooseTurnAction::getPossibleMoves(GameSt
 		switch (card->getType()) {
 		case Card::Type::Pet:
 		{
-			break;
 			auto pCard = dynamic_pointer_cast<const PetCard>(card);
 			if (pCard) {
 				auto pData = pCard->getPetData();
@@ -692,19 +691,21 @@ vector<shared_ptr<PlayerAction>> PlayerChooseTurnAction::getPossibleMoves(GameSt
 					// TODO: Them action: play Basic
 				}
 				else { // Check Evolution
-					if (!player->actionExceedsLimit(Player::TurnAction::EvolvePet))
+					if (!player->actionExceedsLimit(Player::TurnAction::EvolvePet)) {
 						for (unsigned int i = 0; i < allHolders.size(); ++i) {
 							auto holder = allHolders[i];
 							bool isHolderActive = i <= 0;
 							unsigned int benchIdx = isHolderActive ? 0 : i - 1;
-							if (holder->canEvolveTo(pCard))
+							if (holder->canEvolveTo(pCard) && holder->getPlayedTurn() < gstate->getTurnCount())
 								ret.push_back(make_shared<PA_EvPetCard>(pid, handIdx, isHolderActive, benchIdx));
 						}
+					}
 				}
 			}
 			break;
 		}
 		case Card::Type::Energy: {
+			break;
 			auto eCard = dynamic_pointer_cast<const EnergyCard>(card);
 			if (eCard) {
 				auto eData = eCard->getEnergyData();
@@ -789,8 +790,10 @@ ActionError PlayerChooseTurnAction::onReceiveInput(GameState *gstate, const std:
 		auto pCard = dynamic_pointer_cast<PetCard>(card);
 		if (pCard) {
 			auto player = gstate->getPlayer(pid);
-			bool check = !player->actionExceedsLimit(Player::TurnAction::AttachEnergy);
-			if (check) {
+			bool check1 = !player->actionExceedsLimit(Player::TurnAction::EvolvePet);
+			auto holder = pMove->isActive ? board->getActiveHolder() : board->getBenchHolder(pMove->benchIdx);
+			bool check2 = holder->getPlayedTurn() < gstate->getTurnCount();
+			if (check1 && check2) {
 				if (pMove->isActive) {
 					gstate->replaceCurActionWith({
 						make_shared<PlayEvPetCard>(pMove->pid, pMove->hidx, pMove->isActive),

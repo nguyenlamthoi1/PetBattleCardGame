@@ -329,48 +329,70 @@ void BSHand::setDragForCard(BSCard* card, unsigned int handIdx) {
 void BSHand::setDragForPetCard(PetCard *petCard, unsigned int handIdx) {
 	if (!petCard)
 		return;
-	
+
+	auto pData = petCard->getPetData();
+	auto isBasic = pData->isBasicCard();
+
 	auto btlScn = BattleScene::getScene();
 	auto board = btlScn->getBoard(pid);
-
-	vector<Node*> dests;
-	dests.push_back(board->getActiveBoard());
-	dests.push_back(board->getBenchBoard());
-
-	// Them Drag component
-	petCard->setDragHandler(dests,
-		[this, btlScn](Node * cardNode, Node *dest) { // Drag Begin Callback
-			btlScn->hideCardDetail();
-			// TODO: Hien thi Selectable Dest
-		},
-		[this, board, btlScn, handIdx](Node *cardNode, Node *dest) { // Drag End Callback
-			auto petCard = dynamic_cast<PetCard*>(cardNode);
-			if (!dest || !petCard) {
-				auto comp = DragComponent::getComp(cardNode);
-				onDragBack(petCard);
-			}
-			else {
-				auto petData = petCard->getPetData();
-				bool isBasic = petData->isBasicCard();
-
-				if (isBasic) {
-					bool dragOnActive = board->isActiveBoard(dest);
-					bool check = board->checkCanAddPetCard(petCard, dest) &&
-						btlScn->onPlayerPetCard(pid, handIdx, dragOnActive ? BattleScene::PlaceType::Active : BattleScene::PlaceType::Bench);
-					if (!check)
+	auto player = btlScn->getBSPlayer(pid);
+	if (isBasic) {
+		// Dich den cua Basic Card la Active hoac Bench
+		vector<Node*> dests;
+		dests.push_back(board->getActiveBoard());
+		dests.push_back(board->getBenchBoard());
+		if (!player->actionExceedsLimit(BSPlayer::TurnAction::PlayPetCard))
+			petCard->setDragHandler(dests,
+				[this, btlScn](Node * cardNode, Node *dest) { // Drag Begin Callback
+					btlScn->hideCardDetail();
+				},
+				[this, board, btlScn, handIdx](Node *cardNode, Node *dest) { // Drag End Callback
+					auto petCard = dynamic_cast<PetCard*>(cardNode);
+					if (!dest || !petCard) {
+						auto comp = DragComponent::getComp(cardNode);
 						onDragBack(petCard);
-				}
-				else {
-					/*if (dragOnActive)
-						board->addPetOnActive(petCard);
-					else
-						board->addPetOnBoard(petCard);*/
-					//updateCardPositions();
-				}
-			}
-			//onDragBack(petCard);
-		}
-		);
+					}
+					else {
+						bool dragOnActive = board->isActiveBoard(dest);
+						bool check = board->checkCanAddBasicPetCard(petCard, dest) &&
+							btlScn->onPlayerPetCard(pid, handIdx, dragOnActive ? BattleScene::PlaceType::Active : BattleScene::PlaceType::Bench);
+						if (!check)
+							onDragBack(petCard);
+					}
+				});
+		/*else
+			petCard->setDragEnabled(false);*/
+	}
+	else {
+		// Dich den cua Basic Card la Active hoac Bench
+		vector<Node*> dests = board->getAllHolders();
+		if (!player->actionExceedsLimit(BSPlayer::TurnAction::EvolvePet))
+			petCard->setDragHandler(dests,
+				[this, btlScn](Node * cardNode, Node *dest) { // Drag Begin Callback
+					btlScn->hideCardDetail();
+				},
+				[this, board, btlScn, handIdx](Node *cardNode, Node *dest) { // Drag End Callback
+					auto petCard = dynamic_cast<PetCard*>(cardNode);
+					auto holder = dynamic_cast<CardHolder*>(dest);
+					if (!holder || !petCard) {
+						auto comp = DragComponent::getComp(cardNode);
+						onDragBack(petCard);
+					}
+					else {
+						bool isActiveHolder = holder->isType(CardHolder::HolderType::Active);
+						bool check = holder->canEvolveTo(petCard); // Kiem tra ben phia Scene
+						if (check) { 
+							auto benchIdx = holder->getHolderIdx();
+							auto pAction = make_shared<MGame::PA_EvPetCard>(pid, handIdx, isActiveHolder, benchIdx);
+							check = btlScn->onPlayerDoAction(pAction); // Kiem tra ben phia GameState, Neu OK thi lam
+						}
+						if (!check)
+							onDragBack(petCard);
+					}
+				});
+		/*else
+			petCard->setDragEnabled(false);*/
+	}
 }
 
 void BSHand::setDragForEnergyCard(EnergyCard *energyCard, unsigned int handIdx) {
@@ -382,8 +404,12 @@ void BSHand::setDragForEnergyCard(EnergyCard *energyCard, unsigned int handIdx) 
 
 	auto player = btlScn->getBSPlayer(pid);
 	vector<Node*> dests;
+
 	if (player->actionExceedsLimit(BSPlayer::TurnAction::AttachEnergy)) // Khong the attach
+	{
+		//energyCard->setDragEnabled(false);
 		return;
+	}
 	
 	dests = board->getAllHolders();
 	// Them Drag component
@@ -400,19 +426,17 @@ void BSHand::setDragForEnergyCard(EnergyCard *energyCard, unsigned int handIdx) 
 			}
 			else {
 				bool isActiveHolder = holder->isType(CardHolder::HolderType::Active);
-				bool check1 = holder->hasPetCard();
+				bool check = holder->hasPetCard();
 				
-				auto placeType = isActiveHolder ? MGame::PA_AttachEnergy::PlaceType::Active : MGame::PA_AttachEnergy::PlaceType::Bench;
-				auto benchIdx = holder->getHolderIdx();
-				auto pAction = make_shared<MGame::PA_AttachEnergy>(pid, handIdx, placeType, benchIdx);
-				bool check2 = btlScn->onPlayerDoAction(pAction);
+				if (check) {
+					auto placeType = isActiveHolder ? MGame::PA_AttachEnergy::PlaceType::Active : MGame::PA_AttachEnergy::PlaceType::Bench;
+					auto benchIdx = holder->getHolderIdx();
+					auto pAction = make_shared<MGame::PA_AttachEnergy>(pid, handIdx, placeType, benchIdx);
+					check = btlScn->onPlayerDoAction(pAction);
+				}
 
-				bool check = check1 && check2;
 				if (!check)
 					onDragBack(eCard);
-				else {
-				
-				}
 			}
 		}
 		);

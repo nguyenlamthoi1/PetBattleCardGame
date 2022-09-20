@@ -120,6 +120,7 @@ protected:
 	unsigned int turnCount = 0; //GameState_TAG_CLONE // Phan biet giua cac luot tang truong: luot 1(P1), luot 2(P2), luot 3(P1) 
 	PlayerIdType winnerId; //GameState_TAG_CLONE
 	bool gameOver = false; //GameState_TAG_CLONE
+	bool updateTurnCountAfterSetup = false; //GameState_TAG_CLONE
 
 	bool paused = false; // Gameloop dang doi (input) hay 1 cai gi do
 public:
