@@ -520,12 +520,16 @@ void CardHolder::switchWithHolder(CardHolder *withHolder, const std::function<vo
 	withHolder->updateInfoPanel(withHolder->hasPetCard());
 	withHolder->updateDmgImg(false);
 	
+	/*oldNode->removeFromParent();
+	withHolder->addChild(oldNode);
 	oldNode->setPosition(oldPos1);
 	oldNode->runAction(Sequence::create(
 		MoveTo::create(0.5f, Vec2(0, 0)),
 		nullptr
-	));
+	));*/
 	
+	newNode->removeFromParent();
+	this->addChild(newNode);
 	newNode->setPosition(oldPos2);
 	newNode->runAction(Sequence::create(
 		MoveTo::create(0.5f, Vec2(0, 0)),
