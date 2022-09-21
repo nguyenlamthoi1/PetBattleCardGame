@@ -131,5 +131,376 @@
         ]
       }
     ]
-  } 
+  },
+  "P4":{
+    "Type": "Fire",
+    "Name": "Growlithe",
+    "Hp": 60,
+    "Image": "pet_collection_1/058_0.png",
+    "OuterImage" : "card_outer_background/card_outer_bg_8.png",
+    "Retreat":{
+      "Normal" : 1
+    },
+    "Weakness":[
+      "Water"
+    ],
+    "Moves":[
+      {
+        "Name" : "Flare",
+        "DamageText" : "20",
+        "Cost" : {
+          "Normal" : 1
+        },
+        "ContentText" : "",
+        "Actions" : [
+          {
+            "id" : "Attack_Default",
+            "override" : { "0" :20 }
+          }
+        ]
+      }
+    ]
+  },
+  "P5":{
+    "Type": "Fire",
+    "Name": "Arcanine",
+    "Hp": 100,
+    "Image": "pet_collection_1/059_0.png",
+    "OuterImage" : "card_outer_background/card_outer_bg_8.png",
+    "Evolve":{
+      "FromName" : "Growlithe",
+      "Image": "mini_pokemon/growlithe.png",
+      "Stage" : 1
+    },
+    "Retreat":{
+      "Normal" : 3
+    },
+    "Weakness":[
+      "Water"
+    ],
+    "Moves":[
+      {
+        "Name" : "Flamethrower",
+        "DamageText" : "50",
+        "Cost" : {
+          "Fire" : 2,
+          "Normal" : 1
+        },
+        "ContentText" : "",
+        "Actions" : [
+          {
+            "id" : "Attack_Default",
+            "override" : { "0" :50 }
+          }
+        ]
+      },
+      {
+        "Name" : "Take Down",
+        "DamageText" : "80",
+        "Cost" : {
+          "Fire" : 2,
+          "Normal" : 2
+        },
+        "ContentText" : "",
+        "Actions" : [
+          {
+            "id" : "Attack_Default",
+            "override" : { "0" :80 }
+          }
+        ]
+      }
+    ]
+  },
+  "P6":{
+    "Type": "Fire",
+    "Name": "Ponyta",
+    "Hp": 40,
+    "Image": "pet_collection_1/077_0.png",
+    "OuterImage" : "card_outer_background/card_outer_bg_8.png",
+    "Retreat":{
+      "Normal" : 1
+    },
+    "Weakness":[
+      "Water"
+    ],
+    "Moves":[
+      {
+        "Name" : "Smash Kick",
+        "DamageText" : "20",
+        "Cost" : {
+          "Normal" : 2
+        },
+        "ContentText" : "",
+        "Actions" : [
+          {
+            "id" : "Attack_Default",
+            "override" : { "0" :20 }
+          }
+        ]
+      },
+      {
+        "Name" : "Flame Tail",
+        "DamageText" : "30",
+        "Cost" : {
+          "Fire" : 2
+        },
+        "ContentText" : "",
+        "Actions" : [
+          {
+            "id" : "Attack_Default",
+            "override" : { "0" :30 }
+          }
+        ]
+      }
+    ]
+  },
+  "P7":{
+    "Type": "Fire",
+    "Name": "Rapidash",
+    "Hp": 70,
+    "Image": "pet_collection_1/078_0.png",
+    "OuterImage" : "card_outer_background/card_outer_bg_8.png",
+    "Evolve":{
+      "FromName" : "Ponyta",
+      "Image": "mini_pokemon/ponyta.png",
+      "Stage" : 1
+    },
+    "Weakness":[
+      "Water"
+    ],
+    "Moves":[
+      {
+        "Name" : "Stomp",
+        "DamageText" : "20",
+        "Cost" : {
+          "Normal" : 2
+        },
+        "ContentText" : "",
+        "Actions" : [
+          {
+            "id" : "Attack_Default",
+            "override" : { "0" :20 }
+          }
+        ]
+      },
+      {
+        "Name" : "Agility",
+        "DamageText" : "30",
+        "Cost" : {
+          "Fire" : 2,
+          "Normal" : 1
+        },
+        "ContentText" : "",
+        "Actions" : [
+          {
+            "id" : "Attack_Default",
+            "override" : { "0" :30 }
+          }
+        ]
+      }
+    ]
+  },
+  "P8":{
+    "Type": "Grass",
+    "Name": "Nidoran-f",
+    "Hp": 40,
+    "Image": "pet_collection_1/032_0.png",
+    "OuterImage" : "card_outer_background/card_outer_bg_4.png",
+    "Retreat":{
+      "Normal" : 1
+    },
+    "Weakness":[
+      "Fire"
+    ],
+    "Moves":[
+      {
+        "Name" : "Horn Hazard",
+        "DamageText" : "30",
+        "Cost" : {
+          "Grass" : 1
+        },
+        "ContentText" : "",
+        "Actions" : [
+          {
+            "id" : "Attack_Default",
+            "override" : { "0" :30 }
+          }
+        ]
+      }
+    ]
+  },
+  "P9":{
+    "Type": "Grass",
+    "Name": "Nidorino",
+    "Hp": 60,
+    "Image": "pet_collection_1/033_0.png",
+    "OuterImage" : "card_outer_background/card_outer_bg_4.png",
+    "Evolve":{
+      "FromName" : "Nidoran-f",
+      "Image": "mini_pokemon/nidoran_m.png",
+      "Stage" : 1
+    },
+    "Weakness":[
+      "Water"
+    ],
+    "Moves":[
+      {
+        "Name" : "Double Kick",
+        "DamageText" : "30",
+        "Cost" : {
+          "Grass" : 1,
+          "Normal" : 2
+        },
+        "ContentText" : "",
+        "Actions" : [
+          {
+            "id" : "Attack_Default",
+            "override" : { "0" :30 }
+          }
+        ]
+      },
+      {
+        "Name" : "Horn Drill",
+        "DamageText" : "50",
+        "Cost" : {
+          "Grass" : 2,
+          "Normal" : 2
+        },
+        "ContentText" : "",
+        "Actions" : [
+          {
+            "id" : "Attack_Default",
+            "override" : { "0" :50 }
+          }
+        ]
+      }
+    ]
+  },
+  "P10":{
+    "Type": "Grass",
+    "Name": "Nidoking",
+    "Hp": 90,
+    "Image": "pet_collection_1/034_0.png",
+    "OuterImage" : "card_outer_background/card_outer_bg_4.png",
+    "Evolve":{
+      "FromName" : "Nidorino",
+      "Image": "mini_pokemon/nidorino.png",
+      "Stage" : 1
+    },
+    "Weakness":[
+      "Fire"
+    ],
+    "Moves":[
+      {
+        "Name" : "Thrash",
+        "DamageText" : "30",
+        "Cost" : {
+          "Grass" : 1,
+          "Normal" : 2
+        },
+        "ContentText" : "",
+        "Actions" : [
+          {
+            "id" : "Attack_Default",
+            "override" : { "0" :30 }
+          }
+        ]
+      },
+      {
+        "Name" : "Toxic",
+        "DamageText" : "50",
+        "Cost" : {
+          "Grass" : 3
+        },
+        "ContentText" : "",
+        "Actions" : [
+          {
+            "id" : "Attack_Default",
+            "override" : { "0" :50 }
+          }
+        ]
+      }
+    ]
+  },
+  "P11":{
+    "Type": "Grass",
+    "Name": "Scyther",
+    "Hp": 70,
+    "Image": "pet_collection_1/123_0.png",
+    "OuterImage" : "card_outer_background/card_outer_bg_4.png",
+    "Weakness":[
+      "Fire"
+    ],
+    "Moves":[
+      {
+        "Name" : "Swords Dance",
+        "DamageText" : "10",
+        "Cost" : {
+          "Grass" : 1
+        },
+        "ContentText" : "",
+        "Actions" : [
+          {
+            "id" : "Attack_Default",
+            "override" : { "0" :10 }
+          }
+        ]
+      },
+      {
+        "Name" : "Slash",
+        "DamageText" : "30",
+        "Cost" : {
+          "Normal" : 3
+        },
+        "ContentText" : "",
+        "Actions" : [
+          {
+            "id" : "Attack_Default",
+            "override" : { "0" :30 }
+          }
+        ]
+      }
+    ]
+  },
+  "P12":{
+    "Type": "Grass",
+    "Name": "Tangela",
+    "Hp": 50,
+    "Image": "pet_collection_1/114_0.png",
+    "OuterImage" : "card_outer_background/card_outer_bg_4.png",
+    "Weakness":[
+      "Fire"
+    ],
+    "Moves":[
+      {
+        "Name" : "Stun Spore",
+        "DamageText" : "10",
+        "Cost" : {
+          "Grass" : 1
+        },
+        "ContentText" : "",
+        "Actions" : [
+          {
+            "id" : "Attack_Default",
+            "override" : { "0" :10 }
+          }
+        ]
+      },
+      {
+        "Name" : "Poison Whip",
+        "DamageText" : "30",
+        "Cost" : {
+          "Grass" : 2,
+          "Normal" : 1
+        },
+        "ContentText" : "",
+        "Actions" : [
+          {
+            "id" : "Attack_Default",
+            "override" : { "0" :30 }
+          }
+        ]
+      }
+    ]
+  }
 }

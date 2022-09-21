@@ -176,16 +176,20 @@ void PetKnockedOut::executeOn(GameState *gstate) {
 
 	}
 	else {
-		gstate->replaceCurActionWith({ make_shared<GameOverAction>(pid) });
+		gstate->replaceCurActionWith({ make_shared<GameOverAction>(gstate->getOpponentOf(pid)) });
 	}
 
 	state = State::Done;
 }
 shared_ptr<GameAction> PetKnockedOut::clone() const {
+	
 	return make_shared<PetKnockedOut>(pid, isActive, bIdx);
 }
 shared_ptr<BattleSceneNS::BSAction> PetKnockedOut::getBSAction() const {
-	return make_shared<BattleSceneNS::DoPetKnockedOut>(pid, isActive, bIdx);
+	return BattleSceneNS::SequenceAction::create({
+	make_shared<BattleSceneNS::WaitAction>(0.5f),
+	make_shared<BattleSceneNS::DoPetKnockedOut>(pid, isActive, bIdx)
+		});
 }
 
 

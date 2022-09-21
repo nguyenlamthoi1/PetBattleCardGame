@@ -3,11 +3,11 @@
     "OwnedCards" : {},
     "DeckList":[
       {
+        "P1" : 1,
         "E1" : 6,
         "E2" : 6,
-        "P1" : 6,
-        "P2" : 4,
-        "P3" : 4
+        "P2" : 1,
+        "P3" : 1
       }
     ],
     "CurrentDeckIdx" : 0,

@@ -61,7 +61,7 @@ void FirstDrawAction::executeOn(GameState *gstate) {
 	state = State::Process;
 
 	auto deck = gstate->getDeck(pid);
-
+	//deck->shuffleDeck();
 	cardIdsVec.clear();
 	auto tempDrawnNum = drawnNum;
 	if (drawnNum > 0) {

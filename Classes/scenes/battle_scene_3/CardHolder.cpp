@@ -369,6 +369,7 @@ void CardHolder::launchFlyingMsg(const std::string &msg, cocos2d::Color4B color,
 
 void CardHolder::removePetAndAllCards(std::vector<BSCard*> &vec) {
 	vec.push_back(petCard);
+	petCard->removeFromParent();
 	petCard = nullptr;
 
 	for (const auto &pCard : preEvCardVec) {

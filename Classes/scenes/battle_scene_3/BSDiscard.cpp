@@ -165,6 +165,8 @@ void BSDiscardPile::pushCardsFromHolder(const std::vector<BSCard*> &addedVec, Ca
 			card->runAction(MoveTo::create(delay * i, destPos));
 
 		card->removeFromParent();
+		card->setScale(1.0f);
+		//cardMarker->setScale(CardScale);
 		cardMarker->addChild(card);
 		cardVec.push_back(card);
 		++i;
