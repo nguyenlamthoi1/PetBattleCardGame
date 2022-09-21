@@ -472,6 +472,7 @@ void BSMoveSelector::onClickUseMove(CardHolder * cHolder, MoveHolder *mHolder, u
 	bool suc = btlScn->onPlayerDoAction(pMove);
 	if (suc) {
 		hide();
+		btlScn->setEnableEndTurnButton(false);
 	}
 }
 

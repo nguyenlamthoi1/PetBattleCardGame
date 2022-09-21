@@ -385,7 +385,7 @@
     "Evolve":{
       "FromName" : "Nidorino",
       "Image": "mini_pokemon/nidorino.png",
-      "Stage" : 1
+      "Stage" : 2
     },
     "Weakness":[
       "Fire"
@@ -468,6 +468,9 @@
     "Hp": 50,
     "Image": "pet_collection_1/114_0.png",
     "OuterImage" : "card_outer_background/card_outer_bg_4.png",
+    "Retreat":{
+      "Normal" : 1
+    },
     "Weakness":[
       "Fire"
     ],
@@ -491,6 +494,172 @@
         "DamageText" : "30",
         "Cost" : {
           "Grass" : 2,
+          "Normal" : 1
+        },
+        "ContentText" : "",
+        "Actions" : [
+          {
+            "id" : "Attack_Default",
+            "override" : { "0" :30 }
+          }
+        ]
+      }
+    ]
+  },
+  "P13":{
+    "Type": "Water",
+    "Name": "Magikarp",
+    "Hp": 30,
+    "Image": "pet_collection_1/129_0.png",
+    "OuterImage" : "card_outer_background/card_outer_bg_5.png",
+    "Retreat":{
+      "Normal" : 1
+    },
+    "Weakness":[
+      "Grass"
+    ],
+    "Moves":[
+      {
+        "Name" : "Tackle",
+        "DamageText" : "10",
+        "Cost" : {
+          "Normal" : 1
+        },
+        "ContentText" : "",
+        "Actions" : [
+          {
+            "id" : "Attack_Default",
+            "override" : { "0" :10 }
+          }
+        ]
+      },
+      {
+        "Name" : "Flail",
+        "DamageText" : "10",
+        "Cost" : {
+          "Water" : 1
+        },
+        "ContentText" : "",
+        "Actions" : [
+          {
+            "id" : "Attack_Default",
+            "override" : { "0" :10 }
+          }
+        ]
+      }
+    ]
+  },
+  "P14":{
+    "Type": "Water",
+    "Name": "Gyarados",
+    "Hp": 100,
+    "Image": "pet_collection_1/130_0.png",
+    "OuterImage" : "card_outer_background/card_outer_bg_5.png",
+    "Evolve":{
+      "FromName" : "Magikarp",
+      "Image": "mini_pokemon/magikarp.png",
+      "Stage" : 1
+    },
+    "Retreat":{
+      "Normal" : 3
+    },
+    "Weakness":[
+      "Grass"
+    ],
+    "Moves":[
+      {
+        "Name" : "Dragon Rage",
+        "DamageText" : "40",
+        "Cost" : {
+          "Water" : 3
+        },
+        "ContentText" : "",
+        "Actions" : [
+          {
+            "id" : "Attack_Default",
+            "override" : { "0" :40 }
+          }
+        ]
+      },
+      {
+        "Name" : "Bubblebeam",
+        "DamageText" : "50",
+        "Cost" : {
+          "Water" : 4
+        },
+        "ContentText" : "",
+        "Actions" : [
+          {
+            "id" : "Attack_Default",
+            "override" : { "0" :50 }
+          }
+        ]
+      }
+    ]
+  },
+  "P15":{
+    "Type": "Water",
+    "Name": "Goldeen",
+    "Hp": 40,
+    "Image": "pet_collection_1/118_0.png",
+    "OuterImage" : "card_outer_background/card_outer_bg_5.png",
+    "Weakness":[
+      "Grass"
+    ],
+    "Moves":[
+      {
+        "Name" : "Horn Attack",
+        "DamageText" : "10",
+        "Cost" : {
+          "Water" : 1
+        },
+        "ContentText" : "",
+        "Actions" : [
+          {
+            "id" : "Attack_Default",
+            "override" : { "0" :10 }
+          }
+        ]
+      }
+    ]
+  },
+  "P16":{
+    "Type": "Water",
+    "Name": "Seaking",
+    "Hp": 60,
+    "Image": "pet_collection_1/119_0.png",
+    "OuterImage" : "card_outer_background/card_outer_bg_5.png",
+    "Evolve":{
+      "FromName" : "Goldeen",
+      "Image": "mini_pokemon/goldeen.png",
+      "Stage" : 1
+    },
+    "Retreat":{
+      "Normal" : 1
+    },
+    "Weakness":[
+      "Grass"
+    ],
+    "Moves":[
+      {
+        "Name" : "Horn Attack",
+        "DamageText" : "10",
+        "Cost" : {
+          "Water" : 1
+        },
+        "ContentText" : "",
+        "Actions" : [
+          {
+            "id" : "Attack_Default",
+            "override" : { "0" :10 }
+          }
+        ]
+      },
+      {
+        "Name" : "Waterfall",
+        "DamageText" : "30",
+        "Cost" : {
+          "Water" : 1,
           "Normal" : 1
         },
         "ContentText" : "",

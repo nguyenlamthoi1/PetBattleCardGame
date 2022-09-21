@@ -268,7 +268,7 @@ bool PetCard::initWithData(const std::shared_ptr<const CardData> &dta) {
 	}
 	evArrow->setVisible(evolved);
 	evSquare->setVisible(evolved);
-
+	evFromText->setVisible(evolved);
 	// Retreat Panel
 	auto &retreatMap = data->retreatMap;
 	for (const auto itr : retreatMap) {

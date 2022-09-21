@@ -347,22 +347,29 @@ void CardHolder::onTakeDamage(unsigned int totalDmg, bool triggerWeak, bool trig
 	updateInfoPanel(true);
 
 	// Do animation
-	launchFlyingMsg(to_string(totalDmg), Color4B::ORANGE);
-	launchFlyingMsg(to_string(totalDmg), Color4B::RED, 0.2f);
-	launchFlyingMsg(to_string(totalDmg), Color4B::BLUE, 0.4f);
+	launchFlyingMsg(to_string(totalDmg), Color3B::ORANGE);
+	float delay = 0.2f;
+	if (triggerWeak) {
+		launchFlyingMsg("Weakness", Color3B::RED, delay);
+		delay += 0.2f;
+	}
+	if (triggerResist)
+		launchFlyingMsg("Resistance", Color3B::BLUE, delay);
+
 	updateDmgImg(true);
 }
 
-void CardHolder::launchFlyingMsg(const std::string &msg, cocos2d::Color4B color, float delay) {
+void CardHolder::launchFlyingMsg(const std::string &msg, cocos2d::Color3B color, float delay) {
 	auto flyingTextParent = flyingText->getParent();
 	auto cloned = dynamic_cast<ui::Text*>(flyingText->clone());
 	flyingTextParent->addChild(cloned);
 	cloned->setString(msg);
-	cloned->setColor(Color3B::RED);
+	cloned->setColor(color);
 	cloned->setVisible(true);
 	Vec2 pos = Vec2(45, 67);
 	cloned->runAction(Sequence::create(
-		MoveTo::create(0.8f, pos + Vec2(0, 30)),
+		DelayTime::create(delay),
+		MoveTo::create(0.1f, pos + Vec2(0, 30)),
 		RemoveSelf::create(),
 		nullptr));
 }

@@ -25,7 +25,7 @@
 #include "move_selector/BSMoveSelector.h"
 
 #include <stdlib.h>
-
+#include <ctime>
 //#include "BattleManager.h"
 //
 //#include "BSHand.h"
@@ -113,9 +113,12 @@ void BattleScene::checkClean() {
 bool BattleScene::init() {
 	if (!Scene::init())
 		return false;
+	srand(time(NULL));
+	std::vector<string> oppVec = { "OPP_0", "OPP_1" };
+	int randIdx = rand() % oppVec.size();
 
 	pid = "Player";
-	oid = "OPP_0";
+	oid = oppVec[randIdx];
 	pids.clear();
 	pids.push_back(pid);
 	pids.push_back(oid);

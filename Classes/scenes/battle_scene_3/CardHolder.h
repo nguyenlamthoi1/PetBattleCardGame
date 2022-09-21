@@ -58,7 +58,7 @@ public:
 	void updateDmgImg(bool anim = false);
 
 	void addEnergyItem(const std::string eType, unsigned int eNum);
-	void launchFlyingMsg(const std::string &msg, cocos2d::Color4B color, float delay = 0.0f);
+	void launchFlyingMsg(const std::string &msg, cocos2d::Color3B color, float delay = 0.0f);
 	
 	void removePetAndAllCards(std::vector<BSCard*> &vec);
 	// Checker

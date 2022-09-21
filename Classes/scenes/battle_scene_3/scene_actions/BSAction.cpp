@@ -290,7 +290,7 @@ void DoPetKnockedOut::executeOn(BattleScene *btlScn) {
 	auto holder = isActive ? btlScn->getBoard(pid)->getActiveHolder() : btlScn->getBoard(pid)->getBenchHolder(bIdx);
 	
 	std::vector<BSCard*> discardedVec;
-	holder->launchFlyingMsg("Knocked Out", Color4B::ORANGE);
+	holder->launchFlyingMsg("Knocked Out", Color3B::ORANGE);
 	holder->removePetAndAllCards(discardedVec);
 
 	auto discardPile = btlScn->getDiscardPile(pid);
