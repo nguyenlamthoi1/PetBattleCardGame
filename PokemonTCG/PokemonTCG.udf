@@ -28,5 +28,19 @@
         <LastRunType Value="Windows" />
       </Value>
     </Item>
+    <Item Key="TabsParamsKey">
+      <Value ctype="TabsInfo">
+        <OpenedDocuments>
+          <FilePathData Path="ccstd_csb/battle_scene/attack_layer.csd" />
+          <FilePathData Path="ccstd_csb/cards/pokemon_card.csd" />
+          <FilePathData Path="ccstd_csb/battle_scene/card_holder.csd" />
+          <FilePathData Path="ccstd_csb/battle_scene/battle_scene.csd" />
+          <FilePathData Path="ccstd_csb/battle_scene/prefabs/CardMoveInfo.csd" />
+          <FilePathData Path="ccstd_csb/battle_scene/prefabs/MoveInfo.csd" />
+          <FilePathData Path="ccstd_csb/battle_scene/prefabs/energy_item.csd" />
+        </OpenedDocuments>
+        <ActiveDocument Path="ccstd_csb/cards/pokemon_card.csd" />
+      </Value>
+    </Item>
   </Properties>
 </UserData>

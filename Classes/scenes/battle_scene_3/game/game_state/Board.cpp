@@ -120,6 +120,11 @@ Board::HolderPtr Board::getFirstBenchHolderHasActive() const {
 	return nullptr;
 }
 
+const std::vector<Board::HolderPtr>& Board::getBenchHolders() const {
+	return bench;
+}
+
+
 
 
 NS_GAME_END

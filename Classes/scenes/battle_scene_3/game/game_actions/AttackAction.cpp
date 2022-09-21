@@ -168,12 +168,22 @@ void PetKnockedOut::executeOn(GameState *gstate) {
 	discard->pushCards(discardedVec);
 	auto oppId = gstate->getOpponentOf(pid);
 	if (board->benchHasPet()) {
-		auto benchHolders = board->getFirstBenchHolderHasActive();
-		gstate->replaceCurActionWith({ 
-			make_shared<SelectPrizeCards>(oppId, 1),
-			make_shared<GetPrizeCards>(oppId),
-			make_shared<SwitchActiveWithBench>(pid, bIdx)
-			});
+		const auto &benchVec =  board->getBenchHolders();
+		bool suc = false;
+		unsigned int holderIdx = 0;
+		for (holderIdx = 0; holderIdx < benchVec.size(); ++holderIdx) {
+			const auto bHolder = benchVec[holderIdx];
+			if (bHolder->hasPet()) {
+				suc = true;
+				break;
+			}
+		}
+		if(suc)
+			gstate->replaceCurActionWith({ 
+				make_shared<SelectPrizeCards>(oppId, 1),
+				make_shared<GetPrizeCards>(oppId),
+				make_shared<SwitchActiveWithBench>(pid, holderIdx)
+				});
 
 	}
 	else {
