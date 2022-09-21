@@ -110,5 +110,16 @@ Board::HolderPtr Board::getBenchHolder(unsigned int idx) const {
 	return bench.at(idx);
 }
 
+Board::HolderPtr Board::getFirstBenchHolderHasActive() const {
+	for (const auto &holder : bench) {
+		if (holder->hasPet())
+		{
+			return holder;
+		}
+	}
+	return nullptr;
+}
+
+
 
 NS_GAME_END

@@ -759,5 +759,20 @@ void DoPlayPetFromHand::executeOn(BattleScene *btlScn) {
 	}
 }
 
+void DoSwitchActiveWithBench::executeOn(BattleScene *btlScn) {
+	if (state != State::Wait)
+		return;
+
+	state = State::Processed;
+	auto board = btlScn->getBoard(pid);
+	auto activeHolder = board->getActiveHolder();
+	auto benchHolder = board->getBenchHolder(bIdx);
+	if (benchHolder) {
+		activeHolder->switchWithHolder(benchHolder, [this]() {
+			state = State::Done;
+			});
+	}
+}
+
 
 BATTLE_SCENE_NS_END

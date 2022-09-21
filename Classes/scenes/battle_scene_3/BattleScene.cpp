@@ -24,6 +24,8 @@
 #include "card_selector/BSCardSelector.h"
 #include "move_selector/BSMoveSelector.h"
 
+#include "scenes/title_scene/TitleScene.h"
+
 #include <stdlib.h>
 #include <ctime>
 //#include "BattleManager.h"
@@ -658,11 +660,13 @@ void BattleScene::showEndLayout(const PlayerIdType &winnerId) {
 }
 
 void BattleScene::continueGame() {
-
+	auto gm = GameManager::getInstance();
+	gm->changeSceneFade(BattleSceneNS::BattleScene::create());
 }
 
 void BattleScene::backHome() {
-
+	auto gm = GameManager::getInstance();
+	gm->playTitleSceneFade();
 }
 
 BATTLE_SCENE_NS_END

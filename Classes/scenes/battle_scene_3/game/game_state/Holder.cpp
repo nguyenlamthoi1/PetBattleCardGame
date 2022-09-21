@@ -129,5 +129,66 @@ void Holder::removePetAndAllCards(std::vector<std::shared_ptr<const Card>> &vec)
 	dmgCounter = 0;
 	maxHp = 0;
 }
+std::shared_ptr<const PetCard> Holder::removePetCard() {
+	auto ret = petCard;
+	petCard = nullptr;
+
+	dmgCounter = 0;
+	onPlayedTurn = 0;
+	maxHp = 0;
+
+	return ret;
+}
+void Holder::removeAllEvPetCards(std::vector<std::shared_ptr<const PetCard>> &vec) {
+	vec.insert(vec.cend(), evPetCards.begin(), evPetCards.end());
+	evPetCards.clear();
+}
+void Holder::removeAllEnergyCards(std::vector<std::shared_ptr<const EnergyCard>> &vec) {
+	vec.insert(vec.cend(), energyCards.begin(), energyCards.end());
+	energyCards.clear();
+	totalEnergy.clear();
+}
+
+void Holder::switchWithHolder(const std::shared_ptr<Holder> &withHolder) {
+	if (!withHolder->hasPet())
+		return;
+
+	// Luu thong tin cu
+	HolderData oldData1;
+	oldData1.petCard = petCard;
+	oldData1.evPetCards = evPetCards;
+	oldData1.energyCards = energyCards;
+	oldData1.totalEnergy = totalEnergy;
+	oldData1.onPlayedTurn = onPlayedTurn;
+	oldData1.dmgCounter = dmgCounter;
+	oldData1.maxHp = maxHp;
+
+	// Cap nhat thong tin moi
+	petCard = withHolder->petCard;
+	evPetCards = withHolder->evPetCards;
+	energyCards = withHolder->energyCards;
+	totalEnergy = withHolder->totalEnergy;
+	onPlayedTurn = withHolder->onPlayedTurn;
+	dmgCounter = withHolder->dmgCounter;
+	maxHp = withHolder->maxHp;
+
+	if (oldData1.petCard != nullptr) {
+		withHolder->updateWithNewHolderData(oldData1);
+	}
+	
+}
+
+void Holder::updateWithNewHolderData(const HolderData &data) {
+	// Cap nhat thong tin moi
+	petCard = data.petCard;
+	evPetCards = data.evPetCards;
+	energyCards = data.energyCards;
+	totalEnergy = data.totalEnergy;
+	onPlayedTurn = data.onPlayedTurn;
+	dmgCounter = data.dmgCounter;
+	maxHp = data.maxHp;
+}
+
+
 
 NS_GAME_END

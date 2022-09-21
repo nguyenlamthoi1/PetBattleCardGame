@@ -6,6 +6,7 @@
 #include "data/MoveData.h"
 #include "BSPlayer.h"
 #include "BattleScene.h"
+#include "common/Utilize.h"
 
 #include "prefabs/BSPrefabs.h"
 #include "common/ResourcePool.h"
@@ -478,6 +479,93 @@ bool CardHolder::checkCanUseMove(unsigned int moveIdx) const {
 	return true;
 }
 
+void CardHolder::switchWithHolder(CardHolder *withHolder, const std::function<void()> &onDone) {
+	if (!withHolder || !withHolder->hasPetCard())
+		return;
+	auto oldPos1 = Utilize::mnode::getLocalPos(node, withHolder);
+	auto oldPos2 = Utilize::mnode::getLocalPos(withHolder->node, this);
+
+	auto newNode = withHolder->node;
+	auto oldNode = node;
+
+	// Luu thong tin cu
+	HolderData data;
+	data.dmgCounter = dmgCounter;
+	data.maxHp = maxHp;
+	data.playedTurn = playedTurn;
+	data.petCard = petCard;
+	data.preEvCardVec = preEvCardVec;
+	data.energyCardVec = energyCardVec;
+
+	// Cap nhat thong tin moi
+	dmgCounter = withHolder->dmgCounter;
+	maxHp = withHolder->maxHp;
+	playedTurn = withHolder->playedTurn;
+	petCard = withHolder->petCard;
+	preEvCardVec = withHolder->preEvCardVec;
+	energyCardVec = withHolder->energyCardVec;
+	replaceWithNewNode(newNode);
+	updateInfoPanel(hasPetCard());
+	updateDmgImg(false);
 
 
+	withHolder->dmgCounter = data.dmgCounter;
+	withHolder->maxHp = data.maxHp;
+	withHolder->playedTurn = data.playedTurn;
+	withHolder->petCard = data.petCard;
+	withHolder->preEvCardVec = data.preEvCardVec;
+	withHolder->energyCardVec = data.energyCardVec;
+	withHolder->replaceWithNewNode(oldNode);
+	withHolder->updateInfoPanel(withHolder->hasPetCard());
+	withHolder->updateDmgImg(false);
+	
+	oldNode->setPosition(oldPos1);
+	oldNode->runAction(Sequence::create(
+		MoveTo::create(0.5f, Vec2(0, 0)),
+		nullptr
+	));
+	
+	newNode->setPosition(oldPos2);
+	newNode->runAction(Sequence::create(
+		MoveTo::create(0.5f, Vec2(0, 0)),
+		CallFunc::create([onDone]() {
+			if (onDone)
+				onDone();
+			}),
+		nullptr));
+}
+
+void CardHolder::replaceWithNewNode(Node *newNode) {
+	node->removeFromParent();
+	node = newNode;
+
+	this->addChild(node);
+	node->setPosition(Vec2::ZERO);
+	auto panel = node->getChildByName("PanelHolder");
+	showInfoPanel = dynamic_cast<ui::Layout*>(panel->getChildByName("ShowInfoPanel"));
+	showInfoPanel->addTouchEventListener([this](Ref *sender, ui::Widget::TouchEventType ev) {
+		switch (ev) {
+		case ui::Widget::TouchEventType::ENDED:
+			onTouchHolder();
+		}
+		});
+	cardMarker = panel->getChildByName("Holder_CardMaker");
+	energyCardMarker = panel->getChildByName("Energy_Cards_Marker");
+
+	flyingText = dynamic_cast<ui::Text*>(panel->getChildByName("Flying_Text"));
+	flyingText->setVisible(false);
+
+	auto layout = node->getChildByName("PanelHolder");
+	this->setContentSize(layout->getContentSize());
+
+	hpPanel = dynamic_cast<ui::Layout*>(panel->getChildByName("Hd_HpPanel"));
+	hpText = dynamic_cast<ui::Text*>(hpPanel->getChildByName("Hd_HpPanel_Text"));
+	petTypeImg = dynamic_cast<ui::ImageView*>(hpPanel->getChildByName("Hd_HpPanel_Energy"));
+
+	energyPanel = dynamic_cast<ui::Layout*>(panel->getChildByName("Energy_Panel"));
+
+	dmgImg = dynamic_cast<ui::ImageView*>(layout->getChildByName("Dmg_Img"));
+	dmgTxt = dynamic_cast<ui::Text*>(dmgImg->getChildByName("Dmg_Lb"));
+	dmgImg->setVisible(false);
+}
 BATTLE_SCENE_NS_END

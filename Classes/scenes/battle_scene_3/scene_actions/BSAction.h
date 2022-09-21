@@ -49,6 +49,7 @@ public:
 		PlayBasicPet,
 		DoAttack,
 		OnKnockedOut,
+		SwitchWithBench,
 
 		Select_Prize,
 		Get_Prize_Cards
@@ -457,6 +458,20 @@ public:
 protected:
 	PlayerIdType pid;
 	bool isActive;
+	unsigned int bIdx;
+};
+
+class DoSwitchActiveWithBench : public BSAction {
+public:
+	DoSwitchActiveWithBench(const PlayerIdType &id, unsigned int benchIdx) :
+		pid(id),
+		bIdx(benchIdx) {}
+	virtual ~DoSwitchActiveWithBench() = default;
+
+	virtual void executeOn(BattleScene *btlScn) override;
+	virtual ActionType getType() const override { return ActionType::SwitchWithBench; }
+protected:
+	PlayerIdType pid;
 	unsigned int bIdx;
 };
 

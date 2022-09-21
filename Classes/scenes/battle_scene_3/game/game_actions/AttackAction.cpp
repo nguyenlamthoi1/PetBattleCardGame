@@ -168,11 +168,12 @@ void PetKnockedOut::executeOn(GameState *gstate) {
 	discard->pushCards(discardedVec);
 
 	if (board->benchHasPet()) {
-	/*	gstate->replaceCurActionWith(
-			{ 
-				make_shared<GameOverAction>(gstate->getOpponentOf(pid)) 
-			}
-		);*/
+		auto benchHolders = board->getFirstBenchHolderHasActive();
+		gstate->replaceCurActionWith({ 
+			make_shared<SelectPrizeCards>(pid, 1),
+			make_shared<GetPrizeCards>(pid),
+			make_shared<SwitchActiveWithBench>(pid, bIdx)
+			});
 
 	}
 	else {
@@ -190,6 +191,26 @@ shared_ptr<BattleSceneNS::BSAction> PetKnockedOut::getBSAction() const {
 	make_shared<BattleSceneNS::WaitAction>(0.5f),
 	make_shared<BattleSceneNS::DoPetKnockedOut>(pid, isActive, bIdx)
 		});
+}
+
+void SwitchActiveWithBench::executeOn(GameState *gstate) {
+	state = State::Process;
+
+	auto activeHolder = gstate->getBoard(pid)->getActiveHolder();
+	auto benchHolder = gstate->getBoard(pid)->getBenchHolder(benchIdx);
+	activeHolder->switchWithHolder(benchHolder);
+	state = State::Done;
+}
+
+shared_ptr<BattleSceneNS::BSAction> SwitchActiveWithBench::getBSAction() const {
+	return BattleSceneNS::SequenceAction::create({
+	make_shared<BattleSceneNS::WaitAction>(0.5f),
+	make_shared<BattleSceneNS::DoSwitchActiveWithBench>(pid, benchIdx)
+		});
+}
+
+shared_ptr<GameAction> SwitchActiveWithBench::clone() const {
+	return make_shared<SwitchActiveWithBench>(pid, benchIdx);
 }
 
 

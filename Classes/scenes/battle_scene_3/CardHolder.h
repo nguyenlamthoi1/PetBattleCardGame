@@ -74,6 +74,8 @@ public:
 	unsigned int getDmgCounter() const { return dmgCounter; }
 	std::vector<PetCard*>& getPrevEvCards() { return preEvCardVec; }
 	std::vector<EnergyCard*>& getAttachedEnergyCards() { return energyCardVec; }
+
+	void switchWithHolder(CardHolder *holder, const std::function<void()> &onDone = nullptr);
 protected:
 	virtual void clear();
 
@@ -90,6 +92,7 @@ protected:
 	PetCard *petCard = nullptr;
 	std::vector<PetCard*> preEvCardVec;
 	std::vector<EnergyCard*> energyCardVec;
+
 
 	cocos2d::Node *cardMarker = nullptr;
 	//cocos2d::Node *evCardMarker = nullptr;
@@ -114,6 +117,19 @@ protected:
 	// Utilize functions
 
 	void onTouchHolder();
+
+	struct HolderData {
+		// Thong tin cua pet trong tran dau
+		unsigned int dmgCounter = 0;
+		unsigned int maxHp = 0;
+		int playedTurn = 0;
+		PetCard *petCard = nullptr;
+		std::vector<PetCard*> preEvCardVec;
+		std::vector<EnergyCard*> energyCardVec;
+	};
+
+	void replaceWithNewNode(cocos2d::Node *);
+
 };
 
 

@@ -31,6 +31,7 @@ public:
 
 	HolderPtr getActiveHolder() const { return active; }
 	HolderPtr getBenchHolder(unsigned int idx) const;
+	HolderPtr getFirstBenchHolderHasActive() const;
 	std::vector<HolderPtr> getAllHolders() const;
 
 	bool benchHasPet() const;

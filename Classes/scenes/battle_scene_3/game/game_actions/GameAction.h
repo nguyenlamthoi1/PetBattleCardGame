@@ -45,6 +45,8 @@ public:
 		PlayEvolvePet,
 		PlayEnergyCard,
 
+		SwitchToBench,
+
 		flipCoin,
 		FirstDrawCard,
 		DrawFromDeck,
@@ -570,6 +572,25 @@ public:
 	PlayerIdType pid;
 	bool isActive = false;
 	unsigned int bIdx;
+};
+
+class SwitchActiveWithBench : public GameAction {
+public:
+	SwitchActiveWithBench(const PlayerIdType &id, unsigned int bIdx) :
+		pid(id),
+		benchIdx(bIdx)
+	{}
+	virtual ~SwitchActiveWithBench() = default;
+
+	virtual Type getType() const override { return Type::SwitchToBench; }
+	virtual void executeOn(GameState *gameState) override;
+	virtual std::shared_ptr<BattleSceneNS::BSAction> getBSAction() const override;
+	virtual std::shared_ptr<GameAction> clone() const override;
+
+	PlayerIdType pid;
+	unsigned int benchIdx;
+protected:
+	bool suc = false;
 };
 
 

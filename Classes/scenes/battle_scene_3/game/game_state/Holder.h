@@ -48,6 +48,25 @@ public:
 	unsigned int getCurDmg() const { return dmgCounter; }
 
 	void removePetAndAllCards(std::vector<std::shared_ptr<const Card>> &vec);
+	
+	std::shared_ptr<const PetCard> removePetCard();
+	void removeAllEvPetCards(std::vector<std::shared_ptr<const PetCard>> &vec);
+	void removeAllEnergyCards(std::vector<std::shared_ptr<const EnergyCard>> &vec);
+	
+	struct HolderData{
+		PetCardPtr petCard;
+		std::vector<PetCardPtr> evPetCards; // Danh sach card tien hoa cua petCard
+		std::vector<EnergyCardPtr> energyCards;
+		std::unordered_map<std::string, unsigned int> totalEnergy;
+
+		unsigned int onPlayedTurn = 0;
+		unsigned int dmgCounter = 0;
+		unsigned int maxHp = 0;
+	};
+	
+	void switchWithHolder(const std::shared_ptr<Holder> &withHolder);
+	void updateWithNewHolderData(const HolderData &data);
+	
 	void onKnockedOut();
 protected:
 	GameState *gstate = nullptr;
