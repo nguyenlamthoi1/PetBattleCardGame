@@ -504,6 +504,7 @@ void CardHolder::switchWithHolder(CardHolder *withHolder, const std::function<vo
 	petCard = withHolder->petCard;
 	preEvCardVec = withHolder->preEvCardVec;
 	energyCardVec = withHolder->energyCardVec;
+	newNode->removeFromParent();
 	replaceWithNewNode(newNode);
 	updateInfoPanel(hasPetCard());
 	updateDmgImg(false);
@@ -538,7 +539,6 @@ void CardHolder::switchWithHolder(CardHolder *withHolder, const std::function<vo
 void CardHolder::replaceWithNewNode(Node *newNode) {
 	node->removeFromParent();
 	node = newNode;
-
 	this->addChild(node);
 	node->setPosition(Vec2::ZERO);
 	auto panel = node->getChildByName("PanelHolder");

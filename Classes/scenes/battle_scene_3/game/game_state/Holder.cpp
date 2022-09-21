@@ -172,9 +172,15 @@ void Holder::switchWithHolder(const std::shared_ptr<Holder> &withHolder) {
 	dmgCounter = withHolder->dmgCounter;
 	maxHp = withHolder->maxHp;
 
-	if (oldData1.petCard != nullptr) {
-		withHolder->updateWithNewHolderData(oldData1);
-	}
+	withHolder->petCard = oldData1.petCard;
+	withHolder->evPetCards = oldData1.evPetCards;
+	withHolder->energyCards = oldData1.energyCards;
+	withHolder->totalEnergy = oldData1.totalEnergy;
+	withHolder->onPlayedTurn = oldData1.onPlayedTurn;
+	withHolder->dmgCounter = oldData1.dmgCounter;
+	withHolder->maxHp = oldData1.maxHp;
+
+	//withHolder->updateWithNewHolderData(oldData1);
 	
 }
 

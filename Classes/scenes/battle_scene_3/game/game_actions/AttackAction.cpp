@@ -166,12 +166,12 @@ void PetKnockedOut::executeOn(GameState *gstate) {
 
 	auto discard = gstate->getDiscardPile(pid);
 	discard->pushCards(discardedVec);
-
+	auto oppId = gstate->getOpponentOf(pid);
 	if (board->benchHasPet()) {
 		auto benchHolders = board->getFirstBenchHolderHasActive();
 		gstate->replaceCurActionWith({ 
-			make_shared<SelectPrizeCards>(pid, 1),
-			make_shared<GetPrizeCards>(pid),
+			make_shared<SelectPrizeCards>(oppId, 1),
+			make_shared<GetPrizeCards>(oppId),
 			make_shared<SwitchActiveWithBench>(pid, bIdx)
 			});
 

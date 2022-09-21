@@ -228,13 +228,13 @@
         "Name" : "Smash Kick",
         "DamageText" : "20",
         "Cost" : {
-          "Normal" : 2
+          "Normal" : 1
         },
         "ContentText" : "",
         "Actions" : [
           {
             "id" : "Attack_Default",
-            "override" : { "0" :20 }
+            "override" : { "0" :120 }
           }
         ]
       },
