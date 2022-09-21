@@ -75,9 +75,9 @@ bool CardHolder::init() {
 
 	this->setAnchorPoint(Vec2::ZERO);
 	this->setContentSize(Size(95, 137));
-	this->setBackGroundColorType(ui::Layout::BackGroundColorType::SOLID);
-	this->setBackGroundColor(Color3B::BLUE);
-	this->setBackGroundColorOpacity(255 / 3);
+	//this->setBackGroundColorType(ui::Layout::BackGroundColorType::SOLID);
+	//this->setBackGroundColor(Color3B::BLUE);
+	//this->setBackGroundColorOpacity(255 / 3);
 	auto dir = Director::getInstance();
 	auto pool = GM_POOL;
 	

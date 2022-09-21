@@ -111,7 +111,7 @@
                 <EndColor A="255" R="255" G="255" B="255" />
                 <ColorVector ScaleY="1.0000" />
               </AbstractNodeData>
-              <AbstractNodeData Name="Energy_Panel" ActionTag="522181739" Tag="41" IconVisible="False" TopMargin="97.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ComboBoxIndex="1" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
+              <AbstractNodeData Name="Energy_Panel" ActionTag="522181739" Tag="41" IconVisible="False" TopMargin="97.0000" TouchEnable="True" ClipAble="False" BackColorAlpha="102" ColorAngle="90.0000" Scale9Width="1" Scale9Height="1" ctype="PanelObjectData">
                 <Size X="95.0000" Y="40.0000" />
                 <AnchorPoint />
                 <Position />
