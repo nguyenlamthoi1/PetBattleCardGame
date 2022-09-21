@@ -36,6 +36,7 @@ bool BSBoard::init() {
 	if (!pPanel)
 		return false;
 
+
 	activeBoard = dynamic_cast<ui::Layout*>(pPanel->getChildByName("Active_Board"));
 	// Them holder vao active board
 	activeHolder = CardHolder::createActive(btlScn, ownerId);
