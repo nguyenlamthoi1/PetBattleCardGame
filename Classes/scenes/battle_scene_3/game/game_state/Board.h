@@ -34,6 +34,7 @@ public:
 	HolderPtr getFirstBenchHolderHasActive() const;
 	std::vector<HolderPtr> getAllHolders() const;
 	const std::vector<HolderPtr>& getBenchHolders() const;
+	unsigned int getFreeBenchCount() const;
 
 	bool benchHasPet() const;
 	bool hasActivePet() const;

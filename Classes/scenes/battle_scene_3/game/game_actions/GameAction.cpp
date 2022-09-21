@@ -697,6 +697,7 @@ vector<shared_ptr<PlayerAction>> PlayerChooseTurnAction::getPossibleMoves(GameSt
 	
 	// Play Basic Pet, Play Evolve Peet, Play Energy
 	unsigned int handIdx = 0;
+	auto isBenchFull = board->isBenchFull();
 	for (const auto &card : cards) {
 		switch (card->getType()) {
 		case Card::Type::Pet:
@@ -705,8 +706,8 @@ vector<shared_ptr<PlayerAction>> PlayerChooseTurnAction::getPossibleMoves(GameSt
 			if (pCard) {
 				auto pData = pCard->getPetData();
 				bool isBasic = pData->evStage < 1;
-				if (isBasic) {// Check Basic
-					// TODO: Them action: play Basic
+				if (isBasic && !isBenchFull) {// Check Basic
+					ret.push_back(make_shared<PA_PlayPetCardToBench>(pid, handIdx));
 				}
 				else { // Check Evolution
 					if (!player->actionExceedsLimit(Player::TurnAction::EvolvePet)) {
@@ -744,6 +745,24 @@ vector<shared_ptr<PlayerAction>> PlayerChooseTurnAction::getPossibleMoves(GameSt
 		}
 		++handIdx;
 	}
+
+	// Them action tan cong
+	auto activeHolder = board->getActiveHolder();
+	if (activeHolder->hasPet())
+	{
+		auto petCard = activeHolder->getPetCard();
+		auto petData = petCard->getPetData();
+		const auto &moveVec = petData->moveVec;
+		for (unsigned int i = 0; i < moveVec.size(); ++i) {
+			auto moveData = moveVec[i];
+			const auto &costMap = moveData->costMap;
+			bool haveEnoughEnergy = activeHolder->enoughEnergies(costMap); // Kiem tra nang luong
+			if (haveEnoughEnergy) {
+				ret.push_back(make_shared<PA_UseMove>(pid, i));
+			}
+		}
+	}
+
 	return ret;
 }
 

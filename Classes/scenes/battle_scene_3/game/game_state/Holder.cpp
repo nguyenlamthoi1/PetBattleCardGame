@@ -101,7 +101,8 @@ bool Holder::enoughEnergies(const std::map<std::string, unsigned int> &rqMap) co
 	for (const auto & itr : rqMap) {
 		auto eType = itr.first;
 		auto eNum = itr.second;
-		enough &= totalEnergy.at(eType) >= eNum;
+		auto itr = totalEnergy.find(eType);
+		enough &= (itr!= totalEnergy.cend()) && (totalEnergy.at(eType) >= eNum);
 	}
 	return enough;
 }

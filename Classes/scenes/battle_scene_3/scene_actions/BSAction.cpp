@@ -8,7 +8,7 @@
 #include "../BSPrizePile.h"
 #include "../BSPlayer.h"
 #include "../BSDiscard.h"
-
+#include "../BSCard.h"
 #include "../prize_selector/BSPrizeSelector.h"
 
 #include "../game/BattleMaster.h"
@@ -753,8 +753,12 @@ void DoPlayPetFromHand::executeOn(BattleScene *btlScn) {
 	}
 	else { // Opponent Action
 		auto hand = btlScn->getHand(pid);
-		hand->playPetCardFromHandToBench(handIdx, [this]() {
+		auto bscard = hand->getCardAt(handIdx);
+		bscard->setFlip(false);
+		hand->playPetCardFromHandToBench(handIdx,  [this, bscard]() {
 			state = State::Done;
+		/*	if (bscard)
+				bscard->setFlip(false, true);*/
 			});
 	}
 }

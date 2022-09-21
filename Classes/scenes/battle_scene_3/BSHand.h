@@ -48,7 +48,7 @@ public:
 		Prize
 	};
 	void putToHand(const std::vector<BSCard*> &v, DrawFromType type, bool hideCards = false);
-
+	BSCard *getCardAt(unsigned int idx) const;
 	void setBtlScn(BattleScene *scn) { btlScn = scn; }
 
 	static HandPtr createShPtr(cocos2d::ui::Layout *layout, const PlayerIdType &id);

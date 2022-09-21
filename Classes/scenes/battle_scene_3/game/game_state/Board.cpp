@@ -124,6 +124,15 @@ const std::vector<Board::HolderPtr>& Board::getBenchHolders() const {
 	return bench;
 }
 
+unsigned int Board::getFreeBenchCount() const {
+	unsigned int ret = 0;
+	for (const auto &holder : bench) {
+		if (!holder->hasPet())
+			++ret;
+	}
+	return ret;
+}
+
 
 
 

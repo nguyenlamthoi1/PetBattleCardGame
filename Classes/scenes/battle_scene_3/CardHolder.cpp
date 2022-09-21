@@ -325,9 +325,14 @@ bool CardHolder::tryAttackActiveOpp(CardHolder* taker, unsigned int totalDmg, bo
 		return false;
 	}
 
+	auto atkDir = taker->getWorldPosition() - this->getWorldPosition();
+	atkDir.normalize();
+	atkDir = atkDir * 50;
+
 	petCard->runAction( // Action 1
 		Sequence::create(
-			EaseBackInOut::create(MoveBy::create(0.4f, Vec2(0, 50))),
+			//EaseBackInOut::create(MoveBy::create(0.4f, Vec2(0, 50))),
+			EaseBackInOut::create(MoveBy::create(0.4f, atkDir)),
 			MoveTo::create(0.6f, Vec2(0, 0)),
 			nullptr));
 

@@ -142,6 +142,12 @@ void BSHand::drawCards(const vector<CardId> &idVec, bool hideCards) {
 
 }
 
+BSCard * BSHand::getCardAt(unsigned int idx) const {
+	if (idx >= cards.size())
+		return nullptr;
+	return cards[idx];
+}
+
 void BSHand::putToHand(const vector<BSCard*> &drawnVec, DrawFromType fromPlace, bool hideCards) {
 	auto btlScn = BattleScene::getScn();
 
