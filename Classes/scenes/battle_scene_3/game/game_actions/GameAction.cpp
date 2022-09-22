@@ -762,6 +762,21 @@ vector<shared_ptr<PlayerAction>> PlayerChooseTurnAction::getPossibleMoves(GameSt
 				ret.push_back(make_shared<PA_UseMove>(pid, i));
 			}
 		}
+
+		// Them Retreat
+		if (!player->actionExceedsLimit(Player::TurnAction::Retreat)) {
+			const auto &costMap = petData->retreatMap;
+			bool enoughEnergy = activeHolder->enoughEnergies(costMap);
+			if (enoughEnergy) {
+				const vector<shared_ptr<Holder>> &bholders = board->getBenchHolders();
+				unsigned int holderIdx = 0;
+				for (const auto &holder : bholders) {
+					if (holder->hasPet()) {
+						ret.push_back(make_shared<PA_UseMove>(pid, holderIdx));
+					}
+				}
+			}
+		}
 	}
 
 	return ret;
@@ -909,8 +924,6 @@ ActionError PlayerChooseTurnAction::onReceiveInput(GameState *gstate, const std:
 		auto card = hand->getCardAt(pMove->handIdx);
 		auto pCard = dynamic_pointer_cast<PetCard>(card);
 		if (pCard && pCard->isBasicCard() && !board->isBenchFull()) {
-			//auto player = gstate->getPlayer(pid);
-			//bool check = !player->actionExceedsLimit(Player::TurnAction::PlayPetCard);
 			gstate->replaceCurActionWith({
 					make_shared<PlayerPlayPetCardToBench>(pMove->pid, pMove->handIdx),
 					make_shared<PlayerChooseTurnAction>(pid)
