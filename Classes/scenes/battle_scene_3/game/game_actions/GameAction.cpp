@@ -692,7 +692,7 @@ vector<shared_ptr<PlayerAction>> PlayerChooseTurnAction::getPossibleMoves(GameSt
 	// Lay tat ca vi tri Pet tren Board
 	auto board = gstate->getBoard(pid);
 	std::vector<std::shared_ptr<Holder>> allHolders = board->getAllHolders(); // * Active Holder co idx == 0 trong vector nay
-	
+	allHolders.erase(allHolders.begin() + 1, allHolders.end());
 	auto hand = gstate->getHand(pid);
 	auto cards = hand->getAllCards();
 	
@@ -772,7 +772,7 @@ vector<shared_ptr<PlayerAction>> PlayerChooseTurnAction::getPossibleMoves(GameSt
 				unsigned int holderIdx = 0;
 				for (const auto &holder : bholders) {
 					if (holder->hasPet()) {
-						ret.push_back(make_shared<PA_UseMove>(pid, holderIdx));
+						ret.push_back(make_shared<PA_RetreatWith>(pid, holderIdx));
 					}
 				}
 			}
