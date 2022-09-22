@@ -1154,7 +1154,7 @@ void RetreatWithBench::executeOn(GameState *gstate) {
 shared_ptr<BattleSceneNS::BSAction> RetreatWithBench::getBSAction() const {
 	return BattleSceneNS::SequenceAction::create({
 	make_shared<BattleSceneNS::WaitAction>(0.5f),
-	make_shared<BattleSceneNS::DoSwitchActiveWithBench>(pid, benchIdx)
+	make_shared<BattleSceneNS::DoRetreat>(pid, benchIdx)
 		});
 }
 shared_ptr<GameAction> RetreatWithBench::clone() const {
