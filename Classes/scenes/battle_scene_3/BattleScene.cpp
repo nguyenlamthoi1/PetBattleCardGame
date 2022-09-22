@@ -28,20 +28,8 @@
 
 #include <stdlib.h>
 #include <ctime>
-//#include "BattleManager.h"
-//
-//#include "BSHand.h"
-//#include "BSDeck.h"
-//#include "BSCoinFlipper.h"
-//
-//#include "actions/BSAction.h"
-//#include "players/BSPlayer.h"
-//
-//#include "common/Utilize.h"
-//#include "components/WidgetTouchComponent.h"
-//#include "define/CommonDefine.h"
+
 #include "data/PlayerData.h"
-//
 #include "ui/UIHelper.h"
 
 #include <new>
@@ -175,9 +163,6 @@ bool BattleScene::init() {
 	coinFlipper = shared_ptr<BSCoinFlipper>(BSCoinFlipper::create(this));
 	coinFlipper->getRoot()->setVisible(false);
 
-	// Khoi tao Move Selector
-
-
 	// Khoi tao du lieu player trong game
 	players[pid] = make_shared<BSPlayer>(this, pid);
 	players[oid] = make_shared<BSPlayer>(this, oid);
@@ -255,23 +240,6 @@ void BattleScene::initGame() {
 }
 
 void BattleScene::startGame() {
-
-	//pushActions({
-	//	shared_ptr<DrawPrizeCards>(new DrawPrizeCards(pid, {"P1", "E1", "P2", "E2", "P3", "E3"})),
-	//	//shared_ptr<DrawPrizeCards>(new DrawPrizeCards(oid, {"P1", "E1", "P2", "E2", "P3"})),
-	//	make_shared<WaitAction>(1.0f),
-	//	make_shared<SelectPrizeAction>(pid)
-	//	
-	//	});
-
-	/*vector<string> cids = { "E1", "P1", "P2", "P1", "E1", "P2", "P3", "E2" };
-	BSCardSelector::SelectMap selmap = {
-		{GConfig::SelectType::Basic_Energy_Any, 2},
-		{GConfig::SelectType::Pet_Any, 2},
-	};
-
-	cardSelector->showToSelect(cids, selmap, true);*/
-
 	startPipeline();
 
 	auto bm = MGame::BattleMaster::get();

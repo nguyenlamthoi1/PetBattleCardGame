@@ -1,4 +1,5 @@
 #include "GameAction.h"
+#include "GameAction.h"
 
 #include "../BattleMaster.h"
 #include "../game_state/GameState.h"
@@ -322,7 +323,8 @@ ActionError StartSetupActivePet::onReceiveInput(GameState *gstate, const std::sh
 
 void StartSetupBenchPet::executeOn(GameState *gstate) {
 	state = State::Process;
-	//state = State::Done;
+
+	auto board = gstate->getBoard(pid);
 }
 
 shared_ptr<BattleSceneNS::BSAction> StartSetupBenchPet::getBSAction() const {
@@ -346,15 +348,12 @@ vector<shared_ptr<PlayerAction>> StartSetupBenchPet::getPossibleMoves(GameState 
 		if (card->getType() == Card::Type::Pet) {
 			auto petCard = dynamic_pointer_cast<PetCard>(card);
 			auto data = petCard->getPetData();
-			if (petCard && data->isBasicCard())
+			if (petCard && data->isBasicCard()) // Chi xet la bai Basic Pet
 				ret.push_back(make_shared<PA_SetupBench>(pid, handIdx));
 		}
-
 		++handIdx;
 	}
-
 	ret.push_back(make_shared<PA_EndTurn>(pid));
-
 	return ret;
 }
 
@@ -362,23 +361,22 @@ ActionError StartSetupBenchPet::onReceiveInput(GameState *gstate, const std::sha
 	if (state != State::Process)
 		return ActionError::Failed;
 
-	// Xu ly Player Action thiet lap Bench Pet
 	if (move->getType() == PlayerAction::Type::SetupBenchPet) {
 		auto setupMove = dynamic_pointer_cast<PA_SetupBench>(move);
 		if (!setupMove || setupMove->pid != pid)
 			return ActionError::Failed;
 
+		
+		auto board = gstate->getBoard(pid);
+		if (board->isBenchFull())  // * Khi bench da full thi ep buoc chuyen sang endTurn
+			return onReceiveInput(gstate, make_shared<PA_EndTurn>(pid));
+
 		auto handIdx = setupMove->handIdx;
 		auto hand = gstate->getHand(pid);
 		auto card = hand->getCardAt(handIdx);
 		auto petCard = dynamic_pointer_cast<PetCard> (card);
-
 		if (petCard && petCard->isBasicCard()) {
 			state = State::Done;
-			/*gstate->pushActionsAtFront({ 
-				make_shared<SetupBenchPet>(pid, handIdx),
-				make_shared<StartSetupBenchPet>(pid),
-				});*/
 
 			gstate->replaceCurActionWith({
 				make_shared<SetupBenchPet>(pid, handIdx),
@@ -405,17 +403,12 @@ ActionError StartSetupBenchPet::onReceiveInput(GameState *gstate, const std::sha
 		}
 		else {
 			state = State::Done;
-			/*gstate->pushActionsAtFront({ 
-				make_shared<FlipCoinGetFirst>(),
-				make_shared<EndSetup>(),
-				});*/
 			gstate->replaceCurActionWith({
 				make_shared<FlipCoinGetFirst>(),
 				make_shared<EndSetup>(),
 				});
 			return ActionError::Succeeded;
 		}
-
 	}
 	else if (move->getType() == PlayerAction::Type::DoForMe) {
 		auto pMoves = getPossibleMoves(gstate);
@@ -616,6 +609,7 @@ void GetPrizeCards::executeOn(GameState *gstate) {
 	auto &selected = prizePile->selected;
 	auto &cardVec = prizePile->cardVec;
 
+	// Lay ra nhung la bai trong Prize Pile
 	vector<shared_ptr<Card>> drawnVec;
 	for (const auto &idx : selected) {
 		if (0 <= idx && idx < cardVec.size() && cardVec[idx]) {
@@ -625,8 +619,15 @@ void GetPrizeCards::executeOn(GameState *gstate) {
 		}
 	}
 
+	// Dat Prize Card vao trong hand
 	auto hand = gstate->getHand(pid);
 	hand->pushCards(drawnVec);
+
+	// Kiem tra lay het cac Prize Card thi End Game
+	if (prizePile->empty())
+	{
+		gstate->replaceCurActionWith({make_shared<GameOverAction>(pid)});
+	}
 
 	state = State::Done;
 }
@@ -919,6 +920,25 @@ ActionError PlayerChooseTurnAction::onReceiveInput(GameState *gstate, const std:
 		}
 		return ActionError::Failed;
 	}
+	else if (move->getType() == PlayerAction::Type::RetreatWith) {
+	auto pMove = dynamic_pointer_cast<PA_RetreatWith>(move);
+	if (!pMove || pMove->pid != pid)
+		return ActionError::Failed;
+
+	auto board = gstate->getBoard(pid);
+	auto holder = board->getBenchHolder(pMove->benchIdx);
+	auto player = gstate->getPlayer(pid);
+	if (holder && holder->hasPet() && !player->actionExceedsLimit(Player::TurnAction::Retreat)) { // Neu holder ton tai
+		gstate->replaceCurActionWith({
+				make_shared<RetreatWithBench>(pMove->pid, pMove->benchIdx),
+				make_shared<PlayerChooseTurnAction>(pid)
+			});
+		state = State::Done;
+		return ActionError::Succeeded;
+	}
+	return ActionError::Failed;
+	}
+
 	return ActionError::Failed;
 }
 
@@ -1049,13 +1069,120 @@ void PlayerPlayPetCardToBench::executeOn(GameState *gstate) {
 
 std::shared_ptr<BattleSceneNS::BSAction> PlayerPlayPetCardToBench::getBSAction() const {
 	return BattleSceneNS::SequenceAction::create({
-		make_shared<BattleSceneNS::WaitAction>(0.5f),
+		//make_shared<BattleSceneNS::WaitAction>(0.1f),
 		make_shared<BattleSceneNS::DoPlayPetFromHand>(pid, hIdx),
 		});
 }
 
 std::shared_ptr<GameAction> PlayerPlayPetCardToBench::clone() const {
 	return  make_shared<PlayerPlayPetCardToBench>(pid, hIdx);
+}
+
+
+/*
+	SelectBench Class
+*/
+
+void SelectBench::executeOn(GameState *gameState) {}
+
+shared_ptr<BattleSceneNS::BSAction> SelectBench::getBSAction() const {
+	return make_shared<BattleSceneNS::SelectBench>(pid);
+}
+shared_ptr<GameAction> SelectBench::clone() const {
+	return make_shared<SelectBench>(pid, selectNum);
+}
+
+vector<std::shared_ptr<PlayerAction>> SelectBench::getPossibleMoves(GameState *gstate) const {
+	vector<std::shared_ptr<PlayerAction>> ret;
+	auto board = gstate->getBoard(pid);
+	auto bench = board->getBenchHolders();
+	unsigned int i = 0;
+	for (const auto &holder : bench) {
+		if (holder->hasPet()) {
+			ret.push_back(make_shared<PA_SelectBench>(pid, i));
+		}
+		++i;
+	}
+	return ret;
+}
+
+ActionError SelectBench::onReceiveInput(GameState *gstate, const std::shared_ptr<PlayerAction> &move) {
+	if (state != State::Process)
+		return ActionError::Failed;
+
+	if (move->getType() == PlayerAction::Type::SelectBench) {
+		auto pMove = dynamic_pointer_cast<PA_SelectBench>(move);
+		if (!pMove || pMove->pid != pid)
+			return ActionError::Failed;
+
+		auto board = gstate->getBoard(pid);
+		auto holder = board->getBenchHolder(pMove->benchIdx);
+		if (holder->hasPet()) {
+			state = State::Done;
+			gstate->replaceCurActionWith({ make_shared<SwitchActiveWithBench>(pid, pMove->benchIdx)});
+			return ActionError::Succeeded;
+		}
+		return ActionError::Failed;
+	}
+	else if (move->getType() == PlayerAction::Type::DoForMe) {
+		auto pMoves = getPossibleMoves(gstate);
+		if (!pMoves.empty()) {
+			auto randIdx = cocos2d::RandomHelper::random_int(0, (int)pMoves.size() - 1);
+			return onReceiveInput(gstate, pMoves[randIdx]);
+		}
+	}
+	return ActionError::Failed;
+}
+
+/*
+	RetreatWithBench Class
+*/
+
+void RetreatWithBench::executeOn(GameState *gstate) {
+	state = State::Process;
+
+	auto activeHolder = gstate->getBoard(pid)->getActiveHolder();
+	auto benchHolder = gstate->getBoard(pid)->getBenchHolder(benchIdx);
+	bool suc = activeHolder->switchWithHolder(benchHolder);
+	
+	if (suc) {
+		auto player = gstate->getPlayer(pid);
+		player->updateActionCount(Player::TurnAction::Retreat, 1);
+	}
+	state = State::Done;
+}
+shared_ptr<BattleSceneNS::BSAction> RetreatWithBench::getBSAction() const {
+	return BattleSceneNS::SequenceAction::create({
+	make_shared<BattleSceneNS::WaitAction>(0.5f),
+	make_shared<BattleSceneNS::DoSwitchActiveWithBench>(pid, benchIdx)
+		});
+}
+shared_ptr<GameAction> RetreatWithBench::clone() const {
+	return make_shared<RetreatWithBench>(pid, benchIdx);
+}
+
+/*
+	SwitchActiveWithBench Class
+*/
+
+void SwitchActiveWithBench::executeOn(GameState *gstate) {
+	state = State::Process;
+
+	auto activeHolder = gstate->getBoard(pid)->getActiveHolder();
+	auto benchHolder = gstate->getBoard(pid)->getBenchHolder(benchIdx);
+	activeHolder->switchWithHolder(benchHolder);
+	state = State::Done;
+}
+
+shared_ptr<BattleSceneNS::BSAction> SwitchActiveWithBench::getBSAction() const {
+	return BattleSceneNS::SequenceAction::create({
+	make_shared<BattleSceneNS::WaitAction>(0.5f),
+	make_shared<BattleSceneNS::DoSwitchActiveWithBench>(pid, benchIdx)
+		});
+}
+
+shared_ptr<GameAction> SwitchActiveWithBench::clone() const {
+	return make_shared<SwitchActiveWithBench>(pid, benchIdx);
 }
 
 NS_GAME_END

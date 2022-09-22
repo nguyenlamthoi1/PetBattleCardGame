@@ -64,7 +64,7 @@ public:
 		unsigned int maxHp = 0;
 	};
 	
-	void switchWithHolder(const std::shared_ptr<Holder> &withHolder);
+	bool switchWithHolder(const std::shared_ptr<Holder> &withHolder);
 	void updateWithNewHolderData(const HolderData &data);
 	
 	void onKnockedOut();

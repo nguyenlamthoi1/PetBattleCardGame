@@ -50,9 +50,12 @@ public:
 		DoAttack,
 		OnKnockedOut,
 		SwitchWithBench,
+		Retreat,
 
 		Select_Prize,
-		Get_Prize_Cards
+		Get_Prize_Cards,
+		
+		SelectBench
 	};
 
 	enum class State{
@@ -487,6 +490,30 @@ protected:
 	PlayerIdType winnerId;
 };
 
+class SelectBench : public WaitInputPlayer {
+public:
+	SelectBench(const PlayerIdType &id) : pid(id) {};
+	virtual ~SelectBench() = default;
+	virtual ActionType getType() const override { return ActionType::SelectBench; }
+	virtual void executeOn(BattleScene *btlScn) override;
+	virtual bool onReceivePlayerInput(const std::shared_ptr<MGame::BattleMaster> &bm, const std::shared_ptr<MGame::PlayerAction> &pAction) override;
+protected:
+	PlayerIdType pid;
+};
+
+class DoRetreat : public BSAction {
+public:
+	DoRetreat(const PlayerIdType &id, unsigned int benchIdx) :
+		pid(id),
+		bIdx(benchIdx) {}
+	virtual ~DoRetreat() = default;
+
+	virtual void executeOn(BattleScene *btlScn) override;
+	virtual ActionType getType() const override { return ActionType::Retreat; }
+protected:
+	PlayerIdType pid;
+	unsigned int bIdx;
+};
 
 
 BATTLE_SCENE_NS_END

@@ -2,6 +2,10 @@
 #include "CardHolder.h"
 #include "BattleScene.h"
 #include "BSCard.h"
+#include "GameManager.h"
+#include "BSNotifier.h"
+
+#include "scenes/battle_scene_3/game/player_actions/PlayerAction.h"
 
 #include "common/Utilize.h"
 #include <new>
@@ -35,6 +39,8 @@ bool BSBoard::init() {
 	pPanel = dynamic_cast<ui::Layout*>(ui->getChildByName(prefix + "_Panel")); // P1_Panel or P2_Panel
 	if (!pPanel)
 		return false;
+
+	doneBtn = ownerId == PLAYER ? dynamic_cast<ui::Button*>(pPanel->getChildByName("BoardBtn")) : nullptr;
 
 
 	activeBoard = dynamic_cast<ui::Layout*>(pPanel->getChildByName("Active_Board"));
@@ -112,6 +118,13 @@ bool BSBoard::isBenchFull() const {
 	return curBenchNum >= maxBenchCapacity;
 }
 
+bool BSBoard::hasPetOnBoard() const {
+	for (const auto &holder : benchHolders) {
+		if (holder->hasPetCard())
+			return true;
+	}
+	return false;
+}
 
 
 /*
@@ -154,5 +167,62 @@ bool BSBoard::addPetOnBoard(PetCard *card, const function<void()> &onDone) {
 	}
 	return false;
 }
+
+void BSBoard::startSelectOneOfBench(const std::function<void(CardHolder*)> &onDone) {
+	unsigned int holderIdx = 0;
+	bool canStartSelect = false;
+	for (auto &holder : benchHolders) {
+		if (holder->hasPetCard()) {
+			canStartSelect = true;
+			holder->setSelectable(true);
+			holder->setOnSelectCallback([this](CardHolder *h) {
+				for (auto &holder : benchHolders) {
+					if (holder == h) {
+						holder->setSelected(true);
+					}
+					else {
+						holder->setSelected(false);
+					}
+				}
+				doneBtn->setVisible(true);
+			});
+		}
+		else {
+			holder->setSelectable(false);
+			holder->setOnSelectCallback(nullptr);
+		}
+		holder->setSelected(false);
+		
+		++holderIdx;
+	}
+	if (canStartSelect) {
+		auto lang = GM_LANG;
+		auto notifier = btlScn->getNotifier();
+		notifier->showMsg(StringUtils::format("Please choose 1 Pokemon on Bench"));
+		btlScn->setEnableEndTurnButton(false);
+		doneBtn->setVisible(false);
+		doneBtn->addClickEventListener([this, onDone, notifier](Ref *sender) {
+			unsigned int selectedNum = 0;
+			CardHolder *found = nullptr;
+			for (auto &holder : benchHolders) {
+				if (holder->checkSelected()) {
+					found = holder;
+					break;
+				}
+			}
+			if (found) {
+				for (auto &holder : benchHolders) 
+					holder->setSelectable(false);
+
+				if (onDone)
+					onDone(found);
+				notifier->hideMsg();
+				doneBtn->setVisible(false);
+				doneBtn->addClickEventListener(nullptr);
+			}
+			});
+	}
+}
+
 
 BATTLE_SCENE_NS_END

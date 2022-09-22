@@ -26,6 +26,8 @@ class EnergyCard;
 
 class CardHolder : public cocos2d::ui::Layout {
 public:
+	using OnSelectFunc = std::function<void(CardHolder *holder)>;
+
 	enum class HolderType {
 		Active,
 		Bench
@@ -76,8 +78,19 @@ public:
 	std::vector<EnergyCard*>& getAttachedEnergyCards() { return energyCardVec; }
 
 	void switchWithHolder(CardHolder *holder, const std::function<void()> &onDone = nullptr);
+
+	void setOnSelectCallback(const OnSelectFunc & func) { onSelectCb = func; }
+	void setSelectable(bool e);
+	void setSelected(bool selected);
+	bool checkSelected() const {return isSelected;}
 protected:
 	virtual void clear();
+
+	const static cocos2d::Color3B SELECTED_COLOR;
+	const static cocos2d::Color3B UNSELECTED_COLOR;
+	cocos2d::ui::Layout *selectLayout = nullptr;
+	OnSelectFunc onSelectCb;
+	bool isSelected = false;
 
 	HolderType type;
 	BattleScene *btlScn = nullptr;
@@ -126,6 +139,7 @@ protected:
 		PetCard *petCard = nullptr;
 		std::vector<PetCard*> preEvCardVec;
 		std::vector<EnergyCard*> energyCardVec;
+		std::map<EnergyId, BSPrefabNS::EnergyItem*> energyItemMap;
 	};
 
 	void replaceWithNewNode(cocos2d::Node *);

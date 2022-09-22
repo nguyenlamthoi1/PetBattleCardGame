@@ -146,124 +146,6 @@ void DrawCardAction::executeOn(BattleScene *btlScn) {
 	
 }
 
-
-/*
-	FlipCoinAction
-*/
-
-//FlipCoinAction* FlipCoinAction::createFlip1Coin(shared_ptr<BattleManager> &bm, PlayerIdType id) {
-//	auto ret = new FlipCoinAction(bm, id);
-//	ret->flipNum = 1;
-//	ret->flipType = FlipType::Flip_1;
-//	return ret;
-//}
-//
-//FlipCoinAction* FlipCoinAction::createFlipMulCoins(shared_ptr<BattleManager> &bm, PlayerIdType id, unsigned int count) {
-//	auto ret = new FlipCoinAction(bm, id);
-//	ret->flipNum = count;
-//	ret->flipType = FlipType::Flip_Mul;
-//	return ret;
-//}
-//
-//FlipCoinAction* FlipCoinAction::createFlipUntilTails(shared_ptr<BattleManager> &bm, PlayerIdType id) {
-//	return nullptr;
-//}
-//
-//FlipCoinAction::FlipCoinAction(shared_ptr<BattleManager> &bm, PlayerIdType id) : BSAction(bm), playerId(id) {}
-//
-//FlipCoinAction::~FlipCoinAction() {}
-//
-//void FlipCoinAction::start() {
-//	if (state != State::Wait)
-//		return;
-//
-//	state = State::Processed;
-//
-//	auto btlScn = btlMgr->getBattleScene();
-//	auto flipper = btlScn->getCoinFlipper();
-//
-//	flipper->registFlipEndCallbackOnce([this]() {state = State::Done; });
-//
-//	switch (flipType) {
-//	case FlipType::Flip_1:
-//		flipper->startFlip1Coin(playerId);
-//		break;
-//	case FlipType::Flip_Mul:
-//		flipper->startFlipMulCoins(playerId, flipNum);
-//		break;
-//	}
-//}
-//
-//void FlipCoinAction::end() {}
-//
-///*
-//	SetupAction Class
-//*/
-//
-//SetupAction::SetupAction(std::shared_ptr<BattleManager> &btlMgr, PlayerIdType id) : BSAction(btlMgr), playerId(id) {
-//	CCLOG("DrawCardAction::Ctor %p", this);
-//}
-//
-//SetupAction::~SetupAction(){
-//	CCLOG("DrawCardAction::Dtor %p", this);
-//}
-//
-//void SetupAction::start() {
-//	if (state != State::Wait)
-//		return;
-//
-//	state = State::Processed;
-//
-//	if (!btlMgr->playerStartSetup(playerId))
-//		return;
-//
-//	auto btlScn = btlMgr->getBattleScene();
-//	auto player = btlScn->getPlayer(playerId); // PLAYER or OPPONENT
-//
-//	if (playerId == PLAYER) {
-//		auto notifier = btlScn->getNotifier();
-//		notifier->showMsg("Drag a Pokemon to your Active Spot");
-//		player->startSetup();
-//
-//		if (playPetListener)
-//			playPetListener->release();
-//
-//		playPetListener = BattleManager::registEvt(BattleManager::PLAY_PET_CARD_EV, [this](EventCustom *evt) {
-//			auto data = static_cast<BattleManager::PlayPetEvData*>(evt->getUserData());
-//			if (data->suc) {
-//				auto btlScn = btlMgr->getBattleScene();
-//				auto notifier = btlScn->getNotifier();
-//				notifier->hideMsg(0.5f, [this, notifier]() {
-//					notifier->showMsgWithDone("You can play any basic pet card. Tap done button when you're ready",
-//						[]() -> bool {return true; },
-//						[this]() -> void {
-//							state = State::Done;
-//						},
-//						nullptr, true);
-//					});
-//			
-//
-//				auto evDispatcher = Director::getInstance()->getEventDispatcher();
-//				evDispatcher->removeEventListener(playPetListener);
-//				playPetListener->release();
-//				playPetListener = nullptr;
-//			}
-//			});
-//		playPetListener->retain();
-//	}
-//	else if (playerId == OPPONENT) {
-//		
-//	}
-//	
-//}
-//
-//bool SetupAction::checkSetup() {
-//	return btlMgr->getBattleScene()->getBoard(playerId)->hasActivePet();
-//}
-//
-//
-//void SetupAction::end(){}
-
 void DoAttackActive::executeOn(BattleScene *btlScn) {
 	if (state != State::Wait)
 		return;
@@ -530,10 +412,10 @@ void DoEndSetup::executeOn(BattleScene *btlScn) {
 	auto oppId = btlScn->getOpponentId();
 	auto board = btlScn->getBoard(oppId);
 	auto activeHolder = board->getActiveHolder();
-	activeHolder->setFlipPetCard(true);
+	activeHolder->setFlipPetCard(false);
 	const auto benchHolders = board->getBenchHolders();
 	for(auto holder : benchHolders)
-		holder->setFlipPetCard(true);
+		holder->setFlipPetCard(false);
 
 	btlScn->onEndSetup();
 
@@ -671,6 +553,7 @@ bool PlayerChooseTurnAction::onReceivePlayerInput(const shared_ptr<MGame::Battle
 		|| pAction->getType() == MGame::PlayerAction::Type::EvolvePet
 		|| pAction->getType() == MGame::PlayerAction::Type::PlayPetCardToBench
 		|| pAction->getType() == MGame::PlayerAction::Type::ActiveUseMove
+		|| pAction->getType() == MGame::PlayerAction::Type::RetreatWith
 		) {
 		auto error = bm->onPlayerChooseAction(pAction);
 		bool suc = error != ActionError::Failed;
@@ -763,6 +646,10 @@ void DoPlayPetFromHand::executeOn(BattleScene *btlScn) {
 	}
 }
 
+/*
+	DoSwitchActiveWithBench Class
+*/
+
 void DoSwitchActiveWithBench::executeOn(BattleScene *btlScn) {
 	if (state != State::Wait)
 		return;
@@ -776,6 +663,61 @@ void DoSwitchActiveWithBench::executeOn(BattleScene *btlScn) {
 			state = State::Done;
 			});
 	}
+}
+
+/*
+	SelectBench Class 
+*/
+
+void SelectBench::executeOn(BattleScene *btlScn) {
+	if (state != State::Wait)
+		return;
+
+	state = State::Processed;
+
+	auto board = btlScn->getBoard(pid);
+	if (btlScn->getPlayerId() == pid) { // Player Action
+		board->startSelectOneOfBench();
+	}
+	else { // Opponent Action
+		auto lang = GM_LANG;
+		auto notifier = btlScn->getNotifier();
+		notifier->showMsg(lang->getString("Opponent is selecting bench"));
+		btlScn->onPlayerDoAction(make_shared<MGame::PA_DoForMe>(pid));
+	}
+}
+bool SelectBench::onReceivePlayerInput(const std::shared_ptr<MGame::BattleMaster> &bm, const std::shared_ptr<MGame::PlayerAction> &pAction) {
+	if (pAction->getType() == MGame::PlayerAction::Type::SelectBench
+		|| pAction->getType() == MGame::PlayerAction::Type::DoForMe
+		) {
+		auto error = bm->onPlayerChooseAction(pAction);
+		bool suc = error != ActionError::Failed;
+		if (suc)
+			state = State::Done;
+		return suc;
+	}
+	return false;
+}
+
+/*
+	 DoRetreat Class
+*/
+
+void DoRetreat::executeOn(BattleScene *btlScn) {
+	if (state != State::Wait)
+		return;
+
+	state = State::Processed;
+	auto board = btlScn->getBoard(pid);
+	auto activeHolder = board->getActiveHolder();
+	auto benchHolder = board->getBenchHolder(bIdx);
+	if (benchHolder) {
+		activeHolder->switchWithHolder(benchHolder, [this]() {
+			state = State::Done;
+			});
+	}
+	auto player = btlScn->getBSPlayer(pid);
+	player->updateActionCount(BSPlayer::TurnAction::Retreat, 1);
 }
 
 

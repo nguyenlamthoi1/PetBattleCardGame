@@ -13,6 +13,7 @@
 #include "scenes/battle_scene_3/BSPrizePile.h"
 #include "scenes/battle_scene_3/CardHolder.h"
 #include "scenes/battle_scene_3/BSPlayer.h"
+#include "scenes/battle_scene_3/BSBoard.h"
 
 #include "scenes/battle_scene_3/prefabs/BSPrefabs.h"
 #include "scenes/battle_scene_3/game/player_actions/PlayerAction.h"
@@ -241,6 +242,8 @@ void BSMoveSelector::showInfoHolder(CardHolder *holder, bool allowUseMove, bool 
 
 	//auto activeData = dynamic_pointer_cast<const PetCardData>(dm->getCardData(activeId));
 	
+	bool isActiveCard = holder->isActiveSpot();
+
 	// PetNameLb
 	auto petName = activeData->name;
 	petNameLb->setString(petName);
@@ -273,7 +276,16 @@ void BSMoveSelector::showInfoHolder(CardHolder *holder, bool allowUseMove, bool 
 		enoughEnergyToRetreat &= attachedEnergyMap[eType] >= eNum;
 	}
 	updateRetreatEnergySpritePanel();
-	retreatBtn->setVisible(allowRetreat && enoughEnergyToRetreat);
+	auto ownerId = holder->getOwnerId();
+	auto player = btlScn->getBSPlayer(ownerId);
+	auto board = btlScn->getBoard(ownerId);
+	auto showRetreat = allowRetreat && isActiveCard &&
+		!player->actionExceedsLimit(BSPlayer::TurnAction::Retreat)
+		&& enoughEnergyToRetreat && board->hasPetOnBoard();
+	retreatBtn->setVisible(showRetreat);
+	retreatBtn->addClickEventListener([this, holder](Ref* sender) {
+		onClickRetreat(holder);
+		});
 
 	// Weakness Panel
 	auto &weakSet = activeData->weakSet;
@@ -324,7 +336,7 @@ void BSMoveSelector::showInfoHolder(CardHolder *holder, bool allowUseMove, bool 
 			auto eNum = itr.second;
 			enoughEnergy &= attachedEnergyMap[eType] >= eNum;
 		}
-		moveItem->setEnabledUseBtn(enoughEnergy);
+		moveItem->setEnabledUseBtn(isActiveCard && enoughEnergy);
 		moveItem->setClickUseBtnFunc([this, holder, moveIdx](MoveHolder *mHolder) {
 			onClickUseMove(holder, mHolder, moveIdx);
 			});
@@ -476,111 +488,32 @@ void BSMoveSelector::onClickUseMove(CardHolder * cHolder, MoveHolder *mHolder, u
 	}
 }
 
+void BSMoveSelector::onClickRetreat(CardHolder * holder) {
+	if (!holder) // Phai khac Nullptr
+		return;
 
-//void BSPrizeSelector::showPrizeCards(const PlayerIdType &pid) {
-//	root->setVisible(true);
-//	curPid = pid;
-//	auto prizePile = btlScn->getPrizePile(curPid);
-//	auto &prizeCards = prizePile->cardVec;
-//
-//	for (unsigned int idx = 0; idx < prizeCards.size(); ++idx) {
-//		auto card = prizeCards[idx];
-//		if (!card) // card == nullptr
-//			continue;
-//
-//		auto holder = holderVec[idx];
-//		holder->addCard(card);
-//		holder->setSelectable(false);
-//		holder->setOnTouched(nullptr);
-//		prizeCards[idx] = nullptr; // Clear vector trong prizePile
-//	}
-//
-//	doneBtn->setVisible(false);
-//}
+	bool isActive = holder->isActiveSpot();
+	if (!isActive) // Holder thi trien skill phai la active
+		return;
 
-//void BSPrizeSelector::showPrizeCardsToSelect(const PlayerIdType &pid, unsigned int num) {
-//	root->setVisible(true);
-//	curPid = pid;
-//	auto prizePile = btlScn->getPrizePile(curPid);
-//	auto &prizeCards = prizePile->cardVec;
-//
-//	for (unsigned int idx = 0; idx < prizeCards.size(); ++idx) {
-//		auto card = prizeCards[idx];
-//		if (!card) // card == nullptr
-//			continue;
-//
-//		auto holder = holderVec[idx];
-//		holder->addCard(card);
-//		holder->setOnTouched(bind(&BSPrizeSelector::onHolderTouched, this, placeholders::_1));
-//		holder->setSelectable(true);
-//		prizeCards[idx] = nullptr; // Clear vector trong prizePile
-//	}
-//	selectNum = num;
-//	selectedNum = 0;
-//	doneBtn->setVisible(true);
-//}
+	auto ownerId = holder->getOwnerId();
+	auto holderIdx = holder->getHolderIdx();
+	if (ownerId != PLAYER) // Khong phai nguoi choi thi khong duoc thuc thi
+		return;
 
-//void BSPrizeSelector::hidePrizeCard() {
-//	auto prizePile = btlScn->getPrizePile(curPid);
-//	for (unsigned int idx = 0; idx < holderVec.size(); ++idx) {
-//		auto holder = holderVec[idx];
-//		if (holder->hasCard()) {
-//			auto card = holder->removeCard();
-//			//prizePile->addCard(card, idx, 0.5f + idx * 0.2f);
-//			prizePile->addCard(card, idx, 0.0f);
-//		}
-//	}
-//	root->setVisible(false);
-//}
+	auto player = btlScn->getBSPlayer(ownerId);
+	if (player->actionExceedsLimit(BSPlayer::TurnAction::Retreat))
+		return;
 
-//const string BSPrizeSelector::ON_DONE_SELECT = "ON_DONE_SELECT";
+	auto board = btlScn->getBoard(ownerId);
+	if (board->hasPetOnBoard()) {
+		board->startSelectOneOfBench([this, ownerId, holderIdx](CardHolder *holder) {
+			auto pMove = make_shared<MGame::PA_RetreatWith>(ownerId, holder->getHolderIdx());
+			bool suc = btlScn->onPlayerDoAction(pMove);
+			});
+		hide();
+	}
 
-	//void BSPrizeSelector::onDoneBtnTouched(cocos2d::Ref* sender) {
-	//	// Tao moi ket qua lua chon
-	//	auto prizePile = btlScn->getPrizePile(curPid);
-	//	idxVec.clear(); // Clear ket qua truoc do
-	//
-	//	for (unsigned int idx = 0; idx < holderVec.size(); ++idx) {
-	//		auto holder = holderVec[idx];
-	//		if (holder->hasCard() &&holder->isSelected())
-	//				idxVec.push_back(idx);
-	//	}
-	//
-	//	if (idxVec.size() != selectNum)
-	//		return;
-	//
-	//	// Kiem tra ket qua lua chon
-	//	auto pAction = make_shared<MGame::PA_SelectPrizeCards>(curPid, idxVec);
-	//	bool checkAction = btlScn->onPlayerDoAction(pAction);
-	//
-	//	if (!checkAction)
-	//		return;
-	//	else {
-	//		hidePrizeCard();
-	//		dispatchEvent(ON_DONE_SELECT);
-	//	}
-	//}
-	//
-	//void BSPrizeSelector::onHolderTouched(BSPrizeHolder *holder) {
-	//	bool isSelected = holder->isSelected();
-	//	if (isSelected) {
-	//		holder->setSelected(!isSelected);
-	//		
-	//		if(selectedNum > 0)
-	//			selectedNum -= 1;
-	//	}
-	//	else { // Chua duoc chon
-	//		if (selectedNum < selectNum) {
-	//			holder->setSelected(!isSelected);
-	//			selectedNum += 1;
-	//		}
-	//	}
-	//	
-	//}
-	//
-	//void BSPrizeSelector::onShowMatchBtnTouched(cocos2d::Ref* sender) {
-	//	CCLOG("Show match touched");
-	//
-	//}
+}
 
 BATTLE_SCENE_NS_END

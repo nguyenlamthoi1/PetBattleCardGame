@@ -84,7 +84,7 @@ protected:
 	void updateCardPos();
 
 	void onClickUseMove(CardHolder * cHolder, MoveHolder *mHolder, unsigned int moveIdx);
-
+	void onClickRetreat(CardHolder * holder);
 	PlayerIdType curPid;
 };
 

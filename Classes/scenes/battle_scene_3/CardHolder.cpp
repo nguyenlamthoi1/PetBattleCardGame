@@ -75,10 +75,9 @@ bool CardHolder::init() {
 
 	this->setAnchorPoint(Vec2::ZERO);
 	this->setContentSize(Size(95, 137));
-	//this->setBackGroundColorType(ui::Layout::BackGroundColorType::SOLID);
-	//this->setBackGroundColor(Color3B::BLUE);
-	//this->setBackGroundColorOpacity(255 / 3);
-	auto dir = Director::getInstance();
+
+	
+
 	auto pool = GM_POOL;
 	
 	node = pool->tryGetNodeCsb("ccstd_csb/battle_scene/card_holder.csb");
@@ -117,6 +116,26 @@ bool CardHolder::init() {
 	dmgTxt = dynamic_cast<ui::Text*>(dmgImg->getChildByName("Dmg_Lb"));
 	dmgImg->setVisible(false);
 
+
+	selectLayout = ui::Layout::create();
+	selectLayout->setBackGroundColorType(ui::Layout::BackGroundColorType::SOLID);
+	//selectLayout->setBackGroundColor(Color3B::BLUE);
+	selectLayout->setBackGroundColor(UNSELECTED_COLOR);
+	selectLayout->setBackGroundColorOpacity(255 * 0.4f);
+	selectLayout->setContentSize(this->getContentSize());
+	selectLayout->addTouchEventListener([this](Ref *sender, ui::Widget::TouchEventType ev) {
+		switch (ev) {
+		case ui::Widget::TouchEventType::ENDED:
+			if (onSelectCb)
+				onSelectCb(this);
+		}
+		});
+	selectLayout->setTouchEnabled(true);
+	selectLayout->setSwallowTouches(true);
+	selectLayout->setVisible(false);
+	selectLayout->setLocalZOrder(9999);
+	this->addChild(selectLayout);
+
 	return true;
 }
 
@@ -128,6 +147,7 @@ void CardHolder::setHolderSizeH(float h) {
 
 	auto newThisSize = Size(thisSize.width * s, thisSize.height * s);
 	setContentSize(newThisSize);
+	selectLayout->setContentSize(newThisSize);
 	node->setScale(s);
 }
 
@@ -139,6 +159,7 @@ void CardHolder::setHolderSizeW(float w) {
 
 	auto newThisSize = Size(thisSize.width * s, thisSize.height * s);
 	setContentSize(newThisSize);
+	selectLayout->setContentSize(newThisSize);
 	node->setScale(s);
 }
 
@@ -466,6 +487,8 @@ void CardHolder::setFlipPetCard(bool flip) {
 }
 
 void CardHolder::onTouchHolder() {
+	if (!petCard || petCard->isFlippedDown())
+		return;
 	auto moveSelector = btlScn->getMoveSelector();
 	btlScn->showHolderInfo(this);
 }
@@ -505,6 +528,7 @@ void CardHolder::switchWithHolder(CardHolder *withHolder, const std::function<vo
 	data.petCard = petCard;
 	data.preEvCardVec = preEvCardVec;
 	data.energyCardVec = energyCardVec;
+	data.energyItemMap = energyItemMap;
 
 	// Cap nhat thong tin moi
 	dmgCounter = withHolder->dmgCounter;
@@ -513,6 +537,7 @@ void CardHolder::switchWithHolder(CardHolder *withHolder, const std::function<vo
 	petCard = withHolder->petCard;
 	preEvCardVec = withHolder->preEvCardVec;
 	energyCardVec = withHolder->energyCardVec;
+	energyItemMap = withHolder->energyItemMap;
 	newNode->removeFromParent();
 	replaceWithNewNode(newNode);
 	updateInfoPanel(hasPetCard());
@@ -525,6 +550,7 @@ void CardHolder::switchWithHolder(CardHolder *withHolder, const std::function<vo
 	withHolder->petCard = data.petCard;
 	withHolder->preEvCardVec = data.preEvCardVec;
 	withHolder->energyCardVec = data.energyCardVec;
+	withHolder->energyItemMap = data.energyItemMap;
 	withHolder->replaceWithNewNode(oldNode);
 	withHolder->updateInfoPanel(withHolder->hasPetCard());
 	withHolder->updateDmgImg(false);
@@ -584,4 +610,18 @@ void CardHolder::replaceWithNewNode(Node *newNode) {
 	dmgTxt = dynamic_cast<ui::Text*>(dmgImg->getChildByName("Dmg_Lb"));
 	dmgImg->setVisible(false);
 }
+
+void CardHolder::setSelectable(bool e) {
+	selectLayout->setVisible(e);
+}
+
+const cocos2d::Color3B CardHolder::UNSELECTED_COLOR = Color3B(150, 200, 255);
+const cocos2d::Color3B CardHolder::SELECTED_COLOR = Color3B(144, 238, 144);
+
+void CardHolder::setSelected(bool selected) {
+	isSelected = selected;
+	selectLayout->setBackGroundColor(isSelected ? SELECTED_COLOR : UNSELECTED_COLOR);
+}
+
+
 BATTLE_SCENE_NS_END

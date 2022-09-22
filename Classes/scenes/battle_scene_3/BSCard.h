@@ -43,7 +43,9 @@ public:
 
 	// Getters and Setters
 	virtual Type getType() const = 0;
-	virtual bool isFlippedDown() const { return flippedDown; }
+	virtual bool isFlippedDown() const { 
+		return flippedDown; 
+	}
 	virtual void setFlip(bool flip, bool anim = false) = 0; // Flip card ap xuong khi card dang ngua, va nguoc lai
 	virtual float getFliptime() const { return flipTime; }
 	//virtual void updateWithData(const std::shared_ptr<const CardData> &data);

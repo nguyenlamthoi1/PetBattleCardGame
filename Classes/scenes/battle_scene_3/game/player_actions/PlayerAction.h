@@ -15,16 +15,17 @@ class PlayerAction {
 public:
 	enum class Type {
 		None,
-		DoForMe, // OK
-		SetupActivePet, // OK
-		SetupBenchPet, // OK
-		EndTurn, // OK
-		ActiveUseMove, // NOT OK
-		AttachEnergy, //OK
-		EvolvePet, // OK
-		Select_Prize_Cards, // OK
-		PlayPetCardToBench, //NOT OK
-		SelectPetAt // NOT OK
+		DoForMe,
+		SetupActivePet,
+		SetupBenchPet,
+		EndTurn,
+		ActiveUseMove,
+		AttachEnergy,
+		EvolvePet,
+		Select_Prize_Cards,
+		PlayPetCardToBench,
+		SelectBench,
+		RetreatWith
 	};
 
 	PlayerAction(Type t, const PlayerIdType &id) : type(t), pid(id) {}
@@ -135,11 +136,6 @@ public:
 	unsigned int handIdx = 0;
 };
 
-
-/*
-	Player lua chon
-*/
-
 class PA_SelectPrizeCards : public PlayerAction {
 public:
 
@@ -153,43 +149,27 @@ public:
 	std::vector<unsigned int> idxVec;
 };
 
+class PA_SelectBench : public PlayerAction {
+public:
 
+	PA_SelectBench(const PlayerIdType &id, unsigned int bIdx) : pid(id), benchIdx(bIdx) {}
+	virtual ~PA_SelectBench() = default;
+	virtual Type getType() const override { return Type::SelectBench; }
 
+	PlayerIdType pid;
+	unsigned int benchIdx = 0;
+};
 
-//class PA_PlayPetCardFromHand : public PlayerAction {
-//
-//};
-//
-//class PA_AttachEnergyFromHand : public PlayerAction {
-//
-//};
-//
-//class PA_PlayItemCardFromHand : public PlayerAction {
-//
-//};
-//
-//class PA_AttachItemCardFromHand : public PlayerAction {
-//
-//};
-//
-//class PA_PlaySupporterCardFromHand : public PlayerAction {
-//
-//};
-//
-//class PA_SelectCardsFromHand : public PlayerAction {
-//
-//};
-//
-//class PA_SelectCardsFromDiscard : public PlayerAction {
-//
-//};
-//
-//class PA_SelectCardsFromDeck : public PlayerAction {
-//
-//};
-//
-//class PA_SelectPetOnBoard : public PlayerAction {
-//
-//};
+class PA_RetreatWith : public PlayerAction {
+public:
+
+	PA_RetreatWith(const PlayerIdType &id, unsigned int bIdx) : pid(id), benchIdx(bIdx) {}
+	virtual ~PA_RetreatWith() = default;
+	virtual Type getType() const override { return Type::RetreatWith; }
+
+	PlayerIdType pid;
+	unsigned int benchIdx = 0;
+};
+
 
 NS_GAME_END

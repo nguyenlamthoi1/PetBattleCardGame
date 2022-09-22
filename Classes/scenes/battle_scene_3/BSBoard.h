@@ -5,6 +5,7 @@
 #include "cocos2d.h"
 #include "ui/UILayout.h"
 #include "ui/UIText.h"
+#include "ui/UIButton.h"
 
 #include <initializer_list>
 #include <functional>
@@ -63,14 +64,16 @@ public:
 
 	bool hasActivePet() const;
 	bool isBenchFull() const;
+	bool hasPetOnBoard() const;
 
 	bool addPetOnActive(PetCard *card, const std::function<void()> &onDone = nullptr);
 	bool addPetOnBoard(PetCard *card, const std::function<void()> &onDone = nullptr);
 
 	// Utilize functions
 	void alignHoldersOnBenchBoard(bool forceDoLayout);
+	cocos2d::ui::Button *doneBtn = nullptr;
 
-	// Checker
+	void startSelectOneOfBench(const std::function<void(CardHolder*)> &onDone = nullptr);
 };
 
 BATTLE_SCENE_NS_END

@@ -43,7 +43,11 @@ void PrizePile::clear() {
 
 /// Getters, Setters & Checker
 bool PrizePile::empty() const {
-	return cardVec.empty();
+	for (const auto &card : cardVec) {
+		if (card)
+			return false;
+	}
+	return true;
 }
 
 

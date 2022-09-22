@@ -203,46 +203,4 @@ shared_ptr<BattleSceneNS::BSAction> PetKnockedOut::getBSAction() const {
 		});
 }
 
-void SwitchActiveWithBench::executeOn(GameState *gstate) {
-	state = State::Process;
-
-	auto activeHolder = gstate->getBoard(pid)->getActiveHolder();
-	auto benchHolder = gstate->getBoard(pid)->getBenchHolder(benchIdx);
-	activeHolder->switchWithHolder(benchHolder);
-	state = State::Done;
-}
-
-shared_ptr<BattleSceneNS::BSAction> SwitchActiveWithBench::getBSAction() const {
-	return BattleSceneNS::SequenceAction::create({
-	make_shared<BattleSceneNS::WaitAction>(0.5f),
-	make_shared<BattleSceneNS::DoSwitchActiveWithBench>(pid, benchIdx)
-		});
-}
-
-shared_ptr<GameAction> SwitchActiveWithBench::clone() const {
-	return make_shared<SwitchActiveWithBench>(pid, benchIdx);
-}
-
-
-
-
-
-
-
-
-
-
-
-void TakeDamage::executeOn(GameState *gameState) {
-
-}
-
-shared_ptr<GameAction> TakeDamage::clone() const {
-	return nullptr;
-}
-
-shared_ptr<BattleSceneNS::BSAction> getBSAction() {
-	return nullptr;
-}
-
 NS_GAME_END

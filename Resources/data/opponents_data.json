@@ -3,13 +3,8 @@
     "OwnedCards" : {},
     "DeckList":[
       {
-      "E3" : 4,
-      "P13" : 20,
-      "P14" : 4,
-      "P15" : 3,
-      "P16" : 3,
-      "E1" : 4
-      }
+      "P13" : 26
+     }
     ],
     "CurrentDeckIdx" : 0,
     "UsedCoin" : "GR",
@@ -20,13 +15,7 @@
     "OwnedCards" : {},
     "DeckList":[
       {
-        "P11" : 10,
-        "P8" : 4,
-        "P9" : 4,
-        "E4" : 6,
-        "P10" : 4,
-        "E1" : 4,
-        "P12" : 4
+        "P11" : 26
       }
     ],
     "CurrentDeckIdx" : 0,

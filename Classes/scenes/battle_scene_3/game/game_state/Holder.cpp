@@ -150,9 +150,9 @@ void Holder::removeAllEnergyCards(std::vector<std::shared_ptr<const EnergyCard>>
 	totalEnergy.clear();
 }
 
-void Holder::switchWithHolder(const std::shared_ptr<Holder> &withHolder) {
+bool Holder::switchWithHolder(const std::shared_ptr<Holder> &withHolder) {
 	if (!withHolder->hasPet())
-		return;
+		return false;
 
 	// Luu thong tin cu
 	HolderData oldData1;
@@ -181,8 +181,7 @@ void Holder::switchWithHolder(const std::shared_ptr<Holder> &withHolder) {
 	withHolder->dmgCounter = oldData1.dmgCounter;
 	withHolder->maxHp = oldData1.maxHp;
 
-	//withHolder->updateWithNewHolderData(oldData1);
-	
+	return true;
 }
 
 void Holder::updateWithNewHolderData(const HolderData &data) {

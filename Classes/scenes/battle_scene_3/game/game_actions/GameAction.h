@@ -41,11 +41,13 @@ public:
 		GetPrizeCards,
 		PlayBasicPet,
 
-		RetreatPet,
+		Retreat,
+		SelectBench,
+		SwitchToBench,
+
 		PlayEvolvePet,
 		PlayEnergyCard,
 
-		SwitchToBench,
 
 		flipCoin,
 		FirstDrawCard,
@@ -182,7 +184,9 @@ protected:
 	std::vector<CardId> cardIdsVec;
 };
 
-//--Setup Flow--//
+////////////////
+// Setup Flow //
+////////////////
 
 class StartSetupAction: public GameAction {
 public:
@@ -284,7 +288,10 @@ public:
 protected:
 };
 
-//--------------//
+////////////////
+////////////////
+////////////////
+
 
 class FlipCoinGetFirst : public GameAction {
 public:
@@ -320,6 +327,11 @@ public:
 	unsigned int pidx;
 };
 
+
+////////////////////////////////////////////
+// Player start choose Action every turn //
+///////////////////////////////////////////
+
 class PlayerChooseTurnAction : public WaitInputAction {
 public:
 
@@ -335,25 +347,16 @@ public:
 	virtual ActionError onReceiveInput(GameState *gameState, const std::shared_ptr<PlayerAction> &move);
 
 	PlayerIdType pid;
-protected:
 };
 
 
-class GameOverAction : public GameAction {
-public:
-	GameOverAction(const PlayerIdType &pid = "");
-	virtual ~GameOverAction();
+////////////////////////
+// About Prize Cards ///
+////////////////////////
 
-	virtual void executeOn(GameState *state) override;
-	virtual Type getType() const override { return Type::GameOver; }
-	virtual std::shared_ptr<BattleSceneNS::BSAction> getBSAction() const override;
-	virtual std::shared_ptr<GameAction> clone() const override;
-
-	bool isWinnerFound() const;
-	bool isDrawnGame() const;
-
-	const PlayerIdType winnerId;
-};
+////////////////////////
+// About Prize Cards ///
+////////////////////////
 
 class DrawFirstPrizeCards : public GameAction {
 public:
@@ -405,8 +408,15 @@ public:
 	virtual std::shared_ptr<GameAction> clone() const override;
 
 	PlayerIdType pid;
+
+protected:
 	std::vector<unsigned int> idxVec;
 };
+
+////////////////////////
+////////////////////////
+////////////////////////
+
 
 ////////////////////////////////////
 // Play Basic Pet Card From Hand ///
@@ -556,6 +566,11 @@ protected:
 	unsigned int totalDmg = 0;
 };
 
+
+/////////////////
+// Knocked Out //
+/////////////////
+
 class PetKnockedOut : public AttackAction { // Active Attack Active
 public:
 	PetKnockedOut(const PlayerIdType &id, bool active, unsigned int benchIdx) :
@@ -573,6 +588,15 @@ public:
 	bool isActive = false;
 	unsigned int bIdx;
 };
+
+/////////////////
+/////////////////
+/////////////////
+
+
+///////////////////
+// About Switch //
+//////////////////
 
 class SwitchActiveWithBench : public GameAction {
 public:
@@ -593,40 +617,70 @@ protected:
 	bool suc = false;
 };
 
-
-class TakeDamage : public GameAction {
+class SelectBench : public WaitInputAction {
 public:
-	TakeDamage(const std::shared_ptr<Holder> &taker, 
-		int total, 
-		int base,
-		bool weakEnable,
-		bool resistEnable) 
-		: 
-		dmgTaker(taker), 
-		totalDmg(total), 
-		baseDmg(base), 
-		triggerWeak(weakEnable), 
-		triggerResistance(resistEnable)
-	{
 
-	}
+	SelectBench(const PlayerIdType &id, unsigned int num) : pid(id) {}
+	virtual ~SelectBench() = default;
 
-	virtual ~TakeDamage() = default;
-
+	virtual Type getType() const override { return Type::SelectBench; }
 	virtual void executeOn(GameState *gameState) override;
-	virtual std::shared_ptr<GameAction> clone() const override;
 	virtual std::shared_ptr<BattleSceneNS::BSAction> getBSAction() const override;
+	virtual std::shared_ptr<GameAction> clone() const override;
+	virtual std::vector<std::shared_ptr<PlayerAction>> getPossibleMoves(GameState *gameState) const override;
+	virtual ActionError onReceiveInput(GameState *gameState, const std::shared_ptr<PlayerAction> &move);
 
-	std::shared_ptr<Holder> dmgTaker;
-	int totalDmg = 0;
-	int baseDmg = 0;
-	bool triggerWeak = false;
-	bool triggerResistance = false;
+	PlayerIdType pid;
+	unsigned int selectNum = 0;
 };
 
-/////////////////////////
-/////////////////////////
-/////////////////////////
+class RetreatWithBench : public GameAction {
+public:
+	RetreatWithBench(const PlayerIdType &id, unsigned int bIdx) :
+		pid(id),
+		benchIdx(bIdx)
+	{}
+	virtual ~RetreatWithBench() = default;
+
+	virtual Type getType() const override { return Type::Retreat; }
+	virtual void executeOn(GameState *gameState) override;
+	virtual std::shared_ptr<BattleSceneNS::BSAction> getBSAction() const override;
+	virtual std::shared_ptr<GameAction> clone() const override;
+
+	PlayerIdType pid;
+	unsigned int benchIdx;
+protected:
+	bool suc = false;
+};
+
+//////////////////
+//////////////////
+//////////////////
+
+
+///////////////
+// Game Over //
+///////////////
+
+class GameOverAction : public GameAction {
+public:
+	GameOverAction(const PlayerIdType &pid = "");
+	virtual ~GameOverAction();
+
+	virtual void executeOn(GameState *state) override;
+	virtual Type getType() const override { return Type::GameOver; }
+	virtual std::shared_ptr<BattleSceneNS::BSAction> getBSAction() const override;
+	virtual std::shared_ptr<GameAction> clone() const override;
+
+	bool isWinnerFound() const;
+	bool isDrawnGame() const;
+
+	const PlayerIdType winnerId;
+};
+
+///////////////
+///////////////
+///////////////
 
 
 NS_GAME_END

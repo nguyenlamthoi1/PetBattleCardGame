@@ -355,7 +355,7 @@ void PetCard::setFlip(bool flip, bool anim) {
 	flippedDown = flip;
 	flipTime = 0.5f;
 	if (anim) {
-		if (prevFlipped && flip) {
+		if (prevFlipped && !flip) {
 			cardBack->setVisible(true);
 			cardLayout->setVisible(false);
 
@@ -370,7 +370,7 @@ void PetCard::setFlip(bool flip, bool anim) {
 				ScaleTo::create(0.5f, orgScale),
 				nullptr));
 		}
-		else if (!prevFlipped && !flip) {
+		else if (!prevFlipped && flip) {
 			cardBack->setVisible(false);
 			cardLayout->setVisible(true);
 
@@ -387,8 +387,7 @@ void PetCard::setFlip(bool flip, bool anim) {
 		}
 	}
 	else {
-	
-		cardBack->setVisible(flip);
+		cardBack->setVisible(flip); // True la lat xuong, False la mo len
 	}
 }
 
