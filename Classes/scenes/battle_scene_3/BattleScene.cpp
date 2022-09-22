@@ -106,7 +106,7 @@ bool BattleScene::init() {
 	srand(time(NULL));
 	std::vector<string> oppVec = { "OPP_0", "OPP_1" };
 	int randIdx = rand() % oppVec.size();
-
+	randIdx = 1; //DELETE
 	pid = "Player";
 	oid = oppVec[randIdx];
 	pids.clear();

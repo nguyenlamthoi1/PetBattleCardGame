@@ -774,6 +774,7 @@ vector<shared_ptr<PlayerAction>> PlayerChooseTurnAction::getPossibleMoves(GameSt
 					if (holder->hasPet()) {
 						ret.push_back(make_shared<PA_RetreatWith>(pid, holderIdx));
 					}
+					++holderIdx;
 				}
 			}
 		}
@@ -785,7 +786,6 @@ vector<shared_ptr<PlayerAction>> PlayerChooseTurnAction::getPossibleMoves(GameSt
 ActionError PlayerChooseTurnAction::onReceiveInput(GameState *gstate, const std::shared_ptr<PlayerAction> &move) {
 	if (state != State::Process)
 		return ActionError::Failed;
-
 	// Xu ly Action Use Move
 	if (move->getType() == PlayerAction::Type::ActiveUseMove) {
 		auto pMove = dynamic_pointer_cast<PA_UseMove>(move);
@@ -825,6 +825,7 @@ ActionError PlayerChooseTurnAction::onReceiveInput(GameState *gstate, const std:
 		return ActionError::Failed;
 	}
 	else if (move->getType() == PlayerAction::Type::AttachEnergy) {
+
 		auto pMove = dynamic_pointer_cast<PA_AttachEnergy>(move);
 		if (!pMove || pMove->pid != pid)
 			return ActionError::Failed;
@@ -859,6 +860,7 @@ ActionError PlayerChooseTurnAction::onReceiveInput(GameState *gstate, const std:
 		return ActionError::Failed;
 	}
 	else if (move->getType() == PlayerAction::Type::EvolvePet) {
+
 		auto pMove = dynamic_pointer_cast<PA_EvPetCard>(move);
 		if (!pMove || pMove->pid != pid)
 			return ActionError::Failed;
@@ -895,23 +897,25 @@ ActionError PlayerChooseTurnAction::onReceiveInput(GameState *gstate, const std:
 		return ActionError::Failed;
 	}
 	else if (move->getType() == PlayerAction::Type::EndTurn) {
+
 		auto pMove = dynamic_pointer_cast<PA_EndTurn>(move);
 		if (!pMove || pMove->pid != pid)
 			return ActionError::Failed;
 
 		auto nextIdx = gstate->getNextTurnIdx();
 		auto nextId = gstate->getPlayerIdAt(nextIdx);
-		state = State::Done;
-		
-		//gstate->pushActionsAtFront({make_shared<OnTurnStart>(nextIdx, nextId)});
 		gstate->replaceCurActionWithVec({ make_shared<OnTurnStart>(nextIdx, nextId) });
+		state = State::Done;
 		return ActionError::Succeeded;
 	}
 	else if (move->getType() == PlayerAction::Type::DoForMe) {
+
 		auto pMoves = getPossibleMoves(gstate);
 		if (!pMoves.empty()) {
 			auto randIdx = cocos2d::RandomHelper::random_int(0, (int)pMoves.size() - 1);
 			return onReceiveInput(gstate, pMoves[randIdx]);
+		}
+		else {
 		}
 	}
 	else if (move->getType() == PlayerAction::Type::PlayPetCardToBench) {
@@ -941,6 +945,8 @@ ActionError PlayerChooseTurnAction::onReceiveInput(GameState *gstate, const std:
 	auto board = gstate->getBoard(pid);
 	auto holder = board->getBenchHolder(pMove->benchIdx);
 	auto player = gstate->getPlayer(pid);
+	bool check = holder && holder->hasPet();
+	bool check2 = !player->actionExceedsLimit(Player::TurnAction::Retreat);
 	if (holder && holder->hasPet() && !player->actionExceedsLimit(Player::TurnAction::Retreat)) { // Neu holder ton tai
 		gstate->replaceCurActionWith({
 				make_shared<RetreatWithBench>(pMove->pid, pMove->benchIdx),
