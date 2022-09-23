@@ -349,38 +349,50 @@ std::shared_ptr<GameState> GameState::clone() const {
 		clActionQueue.emplace_back(action->clone());
 
 	for (const auto &id : pids) {
-		// Clone Hand
-		auto handItr = hands.find(id);
-		if (handItr != hands.cend())
-			cloneState->hands.insert({ id, handItr->second->clone() });
 		// Clone Deck
 		auto deckItr = decks.find(id);
 		if (deckItr != decks.cend())
 			cloneState->decks.insert({ id, deckItr->second->clone() });
+
+		// Clone Hand
+		auto handItr = hands.find(id);
+		if (handItr != hands.cend())
+			cloneState->hands.insert({ id, handItr->second->clone() });
+
 		// Clone Board
 		auto boardItr = boards.find(id);
 		if (boardItr != boards.cend())
 			cloneState->boards.insert({ id, boardItr->second->clone() });
-		// Clone Player
-		auto playerItr = players.find(id);
-		if (playerItr != players.cend())
-			cloneState->players.insert({ id, playerItr->second->clone() });
+
 		// Clone Discard Pile
 		auto discardItr = discardPiles.find(id);
 		if (discardItr != discardPiles.cend())
 			cloneState->discardPiles.insert({ id, discardItr->second->clone() });
+
+		// Clone Player
+		auto playerItr = players.find(id);
+		if (playerItr != players.cend())
+			cloneState->players.insert({ id, playerItr->second->clone() });
+
 		// Clone Prize Pile
 		auto prizeItr = prizePiles.find(id);
 		if (prizeItr != prizePiles.cend())
 			cloneState->prizePiles.insert({ id, prizeItr->second->clone() });
+
+		// Clone Flipper
+		auto flipperItr = flippers.find(id);
+		if (flipperItr != flippers.cend())
+			cloneState->flippers.insert({ id, flipperItr->second->clone() });
 	}
 
+	cloneState->firstPlayerIdx = 0;
 	cloneState->phase = phase;
 	cloneState->turnCount = turnCount;
 	cloneState->winnerId = winnerId;
+	cloneState->updateTurnCountAfterSetup = updateTurnCountAfterSetup;
 	cloneState->gameOver = gameOver;
 
-	return nullptr;
+	return cloneState;
 }
 
 int GameState::getIdxOfPlayer(const PlayerIdType &id) {

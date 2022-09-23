@@ -34,8 +34,9 @@ bool Player::init() {
 }
 
 Player::PlayerPtr Player::clone() const {
-	//TODO
-	return nullptr;
+	auto ret = make_shared<Player>(pid);
+	ret->limitTurnActionMap = limitTurnActionMap;
+	return ret;
 }
 
 void Player::resetDoneCount() {

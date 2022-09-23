@@ -23,7 +23,7 @@ bool Holder::init() {
 	return true;
 }
 
-bool Holder::addBasicPetCard(const std::shared_ptr<PetCard> &pcard) {
+bool Holder::addBasicPetCard(const std::shared_ptr<PetCard> &pcard, unsigned int tCount) {
 	if (!pcard || petCard)
 		return false;
 
@@ -36,12 +36,9 @@ bool Holder::addBasicPetCard(const std::shared_ptr<PetCard> &pcard) {
 	}
 	
 	if (suc) {
-		onPlayedTurn = gstate->getTurnCount();
+		onPlayedTurn = tCount;
 		dmgCounter = 0;
 		maxHp = data->hp;
-
-		// Dispatach Event OnPlay
-		// TODO
 	}
 	return suc;
 }
@@ -56,7 +53,7 @@ bool Holder::canEvolveTo(const std::shared_ptr<const PetCard> &toCard) const {
 	return true;
 }
 
-bool Holder::evolvePetCardTo(const std::shared_ptr<const PetCard> &toCard) {
+bool Holder::evolvePetCardTo(const std::shared_ptr<const PetCard> &toCard, unsigned int tCount) {
 	if(!toCard || !petCard)
 		return false;
 
@@ -73,7 +70,8 @@ bool Holder::evolvePetCardTo(const std::shared_ptr<const PetCard> &toCard) {
 
 	if (suc)
 	{
-		onPlayedTurn = gstate->getTurnCount();
+		//onPlayedTurn = gstate->getTurnCount();
+		onPlayedTurn = tCount;
 		maxHp = toCardData->hp;
 	}
 
@@ -194,6 +192,31 @@ void Holder::updateWithNewHolderData(const HolderData &data) {
 	dmgCounter = data.dmgCounter;
 	maxHp = data.maxHp;
 }
+
+Holder::HolderPtr Holder::clone() const {
+	auto ret = make_shared<Holder>(pid);
+	ret->petCard = petCard;
+	ret->evPetCards = evPetCards;
+	ret->energyCards = energyCards;
+	ret->totalEnergy = totalEnergy;
+	ret->onPlayedTurn = onPlayedTurn;
+	ret->dmgCounter = dmgCounter;
+	ret->maxHp = maxHp;
+
+	return ret;
+}
+
+void Holder::copyFrom(const std::shared_ptr<Holder> &withHolder) {
+	pid = withHolder->pid;
+	petCard = withHolder->petCard;
+	evPetCards = withHolder->evPetCards;
+	energyCards = withHolder->energyCards;
+	totalEnergy = withHolder->totalEnergy;
+	onPlayedTurn = withHolder->onPlayedTurn;
+	dmgCounter = withHolder->dmgCounter;
+	maxHp = withHolder->maxHp;
+}
+
 
 
 

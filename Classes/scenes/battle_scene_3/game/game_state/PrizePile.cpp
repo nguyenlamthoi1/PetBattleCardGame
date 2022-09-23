@@ -52,8 +52,10 @@ bool PrizePile::empty() const {
 
 
 PrizePile::PrizePtr PrizePile::clone() const {
-	//TODO
-	return nullptr;
+	auto ret = make_shared<PrizePile>(pid);
+	ret->cardVec = cardVec;
+	ret->selected = selected;
+	return ret;
 }
 
 

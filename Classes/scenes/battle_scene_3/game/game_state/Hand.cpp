@@ -52,8 +52,9 @@ bool Hand::isEmpty() const {
 }
 
 Hand::HandPtr Hand::clone() const {
-	//TODO
-	return nullptr;
+	auto ret = make_shared<Hand>(pid);
+	ret->cardVec = cardVec;
+	return ret;
 }
 
 bool Hand::checkPetCard(unsigned int idx) const {

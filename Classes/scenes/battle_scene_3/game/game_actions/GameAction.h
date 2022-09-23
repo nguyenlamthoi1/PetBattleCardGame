@@ -306,7 +306,6 @@ public:
 
 protected:
 	//Result
-	//unsigned int firstIdx;
 	PlayerIdType firstId;
 };
 
@@ -546,10 +545,8 @@ class DefaultAttack: public AttackAction{ // Active Attack Active
 public:
 	DefaultAttack(
 		const PlayerIdType &atkOwner, 
-		//const PlayerIdType &defOwner, 
 		unsigned int dmg) :
 		attacker(atkOwner),
-		//defender(defOwner),
 		baseDmg(dmg) {}
 
 	virtual ~DefaultAttack() = default;

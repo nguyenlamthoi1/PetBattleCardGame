@@ -16,11 +16,8 @@
 
 #include "GameManager.h"
 
-//#include "../BattleManager.h"
-//#include "../BSCoinFlipper.h"
-//#include "../BSBoard.h"
-
-//#include "../players/BSPlayer.h"
+#include "../ai/AIPlayer.h"
+#include "../game/BattleMaster.h"
 
 
 #include <algorithm>
@@ -223,7 +220,6 @@ void StartSetupAction::executeOn(BattleScene *btlScn) {
 	auto lang = GM_LANG;
 	auto notifier = btlScn->getNotifier();
 	notifier->showMsgAndHideAfter(lang->getString(START_SETUP_TXT), 1.5f);
-	//notifier->showMsg(lang->getString(START_SETUP_TXT));
 
 	state = State::Done;
 }
@@ -251,9 +247,11 @@ void StartSetupActive::executeOn(BattleScene *btlScn) {
 	else { // Opponent Action
 		auto notifier = btlScn->getNotifier();
 		notifier->showMsg(lang->getString(OPP_SETUP_TXT));
-		btlScn->onPlayerDoAction(make_shared<MGame::PA_DoForMe>(pid));
 		
-		//TODO: AI_MAKE_DECISION
+		//btlScn->onPlayerDoAction(make_shared<MGame::PA_DoForMe>(pid));
+		auto ai = btlScn->getAI();
+		auto bm = MGame::BattleMaster::get();
+		ai->startThinking(btlScn, bm->getGameState());
 	}
 
 	//state = State::Done; // Doi den khi co Player Input

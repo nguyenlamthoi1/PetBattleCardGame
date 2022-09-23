@@ -30,7 +30,9 @@ void CoinFlipper::clear() {
 }
 
 CoinFlipper::CFlipperPtr CoinFlipper::clone() const {
-	return nullptr;
+	auto ret = make_shared<CoinFlipper>(pid);
+	ret->resVec = resVec;
+	return ret;
 }
 
 vector<CoinFlipper::SideType> CoinFlipper::doFlip(unsigned int flipCount) {

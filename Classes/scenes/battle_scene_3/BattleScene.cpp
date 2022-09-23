@@ -35,6 +35,8 @@
 #include <new>
 #include <algorithm>
 
+#include "ai/AIMinimax.h"
+
 USING_NS_CC;
 //WIDGET_TOUCH_USE_NS;
 using namespace std;
@@ -198,6 +200,9 @@ bool BattleScene::init() {
 	// Khoi tao ending layout
 	endLayout = dynamic_cast<ui::Layout*>(root->getChildByName("End_Layout"));
 	endLayout->setVisible(false);
+
+	// Khoi tao AI
+	playerAI = make_shared<AIMinimax>();
 
 	// Khoi tao Loading Layout
 	loadingLayout = dynamic_cast<ui::Layout*>(root->getChildByName("Loading_Layout"));

@@ -25,7 +25,6 @@ public:
 private:
 	PlayerIdType pid;
 	std::vector<SideType> resVec; // Vector ket qua cua tat ca cac lan toss coin
-	//std::unordered_map<SideType, unsigned int> result; // Ket qua bao nhieu lan heads, bao nhieu lan tails
 };
 
 NS_GAME_END

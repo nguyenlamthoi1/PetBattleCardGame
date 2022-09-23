@@ -43,8 +43,8 @@ public:
 	DeckPtr clone() const;
 private:
 
-	PlayerIdType pid = PlayerIdInvalid; // Id cua player so huu Deck
-	CardVector cardVec; // Vector cac la bai co trong Deck cua nguoi choi
+	PlayerIdType pid = PlayerIdInvalid;  /// TAG_CLONE - OK
+	CardVector cardVec; /// TAG_CLONE - OK
 };
 
 NS_GAME_END

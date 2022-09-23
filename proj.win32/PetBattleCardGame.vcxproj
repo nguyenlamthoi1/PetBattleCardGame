@@ -170,6 +170,10 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClCompile Include="..\Classes\data\PlayerData.cpp" />
     <ClCompile Include="..\Classes\GameManager.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\ai\AIMinimax.cpp" />
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\ai\AIPlayer.cpp" />
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\ai\GameTree.cpp" />
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\ai\TreeNode.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene_3\BattleScene.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene_3\BSBoard.cpp" />
     <ClCompile Include="..\Classes\scenes\battle_scene_3\BSCard.cpp" />
@@ -279,6 +283,10 @@ xcopy "$(ProjectDir)..\Resources" "$(OutDir)" /D /E /I /F /Y
     <ClInclude Include="..\Classes\include\rapidjson\stringbuffer.h" />
     <ClInclude Include="..\Classes\include\rapidjson\uri.h" />
     <ClInclude Include="..\Classes\include\rapidjson\writer.h" />
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\ai\AIMinimax.h" />
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\ai\AIPlayer.h" />
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\ai\GameTree.h" />
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\ai\TreeNode.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene_3\BattleScene.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene_3\BSBoard.h" />
     <ClInclude Include="..\Classes\scenes\battle_scene_3\BSCard.h" />

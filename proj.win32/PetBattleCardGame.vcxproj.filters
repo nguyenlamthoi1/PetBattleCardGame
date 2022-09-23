@@ -94,6 +94,12 @@
     <Filter Include="src\scenes\battle_scene\move_selector">
       <UniqueIdentifier>{2b3fbd49-d7ce-4a26-ac74-bc69b0f9aba7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\scenes\battle_scene\ai">
+      <UniqueIdentifier>{4d9b8109-04cb-4030-9aec-9df27f674f03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\scenes\battle_scene\ai\GameTree">
+      <UniqueIdentifier>{4b5f8306-d659-47a8-8d7a-c392f7683534}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -293,6 +299,18 @@
     </ClCompile>
     <ClCompile Include="..\Classes\scenes\battle_scene_3\BSDiscard.cpp">
       <Filter>src\scenes\battle_scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\ai\AIMinimax.cpp">
+      <Filter>src\scenes\battle_scene\ai</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\ai\AIPlayer.cpp">
+      <Filter>src\scenes\battle_scene\ai</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\ai\GameTree.cpp">
+      <Filter>src\scenes\battle_scene\ai\GameTree</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\scenes\battle_scene_3\ai\TreeNode.cpp">
+      <Filter>src\scenes\battle_scene\ai\GameTree</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -607,6 +625,18 @@
     </ClInclude>
     <ClInclude Include="..\Classes\scenes\battle_scene_3\BSDiscard.h">
       <Filter>src\scenes\battle_scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\ai\AIMinimax.h">
+      <Filter>src\scenes\battle_scene\ai</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\ai\AIPlayer.h">
+      <Filter>src\scenes\battle_scene\ai</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\ai\GameTree.h">
+      <Filter>src\scenes\battle_scene\ai\GameTree</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\scenes\battle_scene_3\ai\TreeNode.h">
+      <Filter>src\scenes\battle_scene\ai\GameTree</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

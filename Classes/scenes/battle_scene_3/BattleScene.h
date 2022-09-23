@@ -24,6 +24,8 @@ namespace MGame {
 	class PlayerAction;
 }
 
+class AIPlayer;
+
 BATTLE_SCENE_NS_BEG
 
 class BSResources;
@@ -220,6 +222,9 @@ private:
 	void func2(cocos2d::Ref *sender);
 
 
+	std::shared_ptr<AIPlayer> playerAI;
+public:
+	std::shared_ptr<AIPlayer> getAI() const { return playerAI; }
 };
 
 BATTLE_SCENE_NS_END

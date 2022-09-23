@@ -25,7 +25,7 @@ public:
 	virtual ~Board();
 	virtual bool init();
 
-	void setGameState(GameState* gameState);
+	//void setGameState(GameState* gameState);
 
 	BoardPtr clone() const;
 
@@ -38,19 +38,15 @@ public:
 
 	bool benchHasPet() const;
 	bool hasActivePet() const;
-	bool addBasicPetCardToActive(const std::shared_ptr<PetCard> &petCard);
-	bool evolvePetAtActive(const std::shared_ptr<PetCard> &petCard);
-	bool addBasicPetCardToBench(const std::shared_ptr<PetCard> &petCard);
+	bool addBasicPetCardToActive(const std::shared_ptr<PetCard> &petCard, unsigned int tCount);
+	bool addBasicPetCardToBench(const std::shared_ptr<PetCard> &petCard, unsigned int tCount);
 	bool isBenchFull() const;
 	bool evolvePetAtBench(const std::shared_ptr<PetCard> &petCard, unsigned int benchIdx);
 protected:
-	GameState* gstate = nullptr; // weak pointer
-	PlayerIdType pid = PlayerIdInvalid;
-
-	HolderPtr active;
-	unsigned int benchCapacity = 5;
-	//unsigned int curBench = 0;
-	HolderPtrVec bench;
+	PlayerIdType pid = PlayerIdInvalid; /// TAG_CLONE - OK
+	HolderPtr active; /// TAG_CLONE - OK
+	unsigned int benchCapacity = 5; /// TAG_CLONE - OK
+	HolderPtrVec bench; /// TAG_CLONE - OK
 };
 
 NS_GAME_END

@@ -182,7 +182,7 @@ void SetupActivePet::executeOn(GameState *gstate) {
 	suc = false;
 	// Kiem tra handIdx co phai basic pet card
 	auto petCard = dynamic_pointer_cast<PetCard>(hand->getCardAt(handIdx));
-	suc = board->addBasicPetCardToActive(petCard);
+	suc = board->addBasicPetCardToActive(petCard, gstate->getTurnCount());
 	if (suc)
 		hand->removeCard(handIdx);
 	
@@ -209,7 +209,7 @@ void SetupBenchPet::executeOn(GameState *gstate) {
 	suc = false;
 	// Kiem tra handIdx co phai basic pet card
 	auto petCard = dynamic_pointer_cast<PetCard>(hand->getCardAt(handIdx));
-	suc = board->addBasicPetCardToBench(petCard);
+	suc = board->addBasicPetCardToBench(petCard, gstate->getTurnCount());
 	if (suc)
 		hand->removeCard(handIdx);
 
@@ -1010,7 +1010,7 @@ void PlayEvPetCard::executeOn(GameState *gstate) {
 		auto board = gstate->getBoard(pid);
 		shared_ptr<Holder> holder = isActive ? board->getActiveHolder() : board->getBenchHolder(bIdx);
 		if (holder) // * Holder khoong NULL
-			suc = holder->evolvePetCardTo(pCard);
+			suc = holder->evolvePetCardTo(pCard, gstate->getTurnCount());
 	}
 
 	if (suc) {
@@ -1079,7 +1079,7 @@ void PlayerPlayPetCardToBench::executeOn(GameState *gstate) {
 	suc = false;
 	// Kiem tra handIdx co phai basic pet card
 	auto petCard = dynamic_pointer_cast<PetCard>(hand->getCardAt(hIdx));
-	suc = board->addBasicPetCardToBench(petCard);
+	suc = board->addBasicPetCardToBench(petCard, gstate->getTurnCount());
 	if (suc)
 		hand->removeCard(hIdx);
 

@@ -156,8 +156,9 @@ bool Deck::isEmpty() {
 
 
 Deck::DeckPtr Deck::clone() const {
-	//TODO
-	return nullptr;
+	auto ret = make_shared<Deck>(pid);
+	ret->cardVec = cardVec;
+	return ret;
 }
 
 void Deck::shuffleDeck() {

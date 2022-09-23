@@ -69,7 +69,7 @@ public:
 	std::shared_ptr<DiscardPile> getDiscardPile(const PlayerIdType &pid) const;
 	std::shared_ptr<PrizePile> getPrizePile(const PlayerIdType &pid) const;
 	std::shared_ptr<CoinFlipper> getFlipper(const PlayerIdType &pid) const;
-	std::list<std::shared_ptr<GameAction>>& getActionQueue() { return actionQueue; }
+	const std::list<std::shared_ptr<GameAction>>& getActionQueue() const { return actionQueue; }
 
 	std::shared_ptr<GameState> clone() const; // * Clone Game State moi, doc lap voi State duoc clone
 	
@@ -103,26 +103,25 @@ protected:
 	bool initPrize(const PlayerIdType &id);
 	bool initFlipper(const PlayerIdType &id);
 protected:
-	std::unordered_map<PlayerIdType, std::shared_ptr<Deck>> decks; //GameState_TAG_CLONE
-	std::unordered_map<PlayerIdType, std::shared_ptr<Hand>> hands; //GameState_TAG_CLONE
-	std::unordered_map<PlayerIdType, std::shared_ptr<Board>> boards; //GameState_TAG_CLONE
-	std::unordered_map<PlayerIdType, std::shared_ptr<DiscardPile>> discardPiles; //GameState_TAG_CLONE
-	std::unordered_map<PlayerIdType, std::shared_ptr<PrizePile>> prizePiles; //GameState_TAG_CLONE
-	std::unordered_map<PlayerIdType, std::shared_ptr<Player>> players; //GameState_TAG_CLONE
-	std::unordered_map<PlayerIdType, std::shared_ptr<CoinFlipper>> flippers; //GameState_TAG_CLONE
+	unsigned int curPlayer; /// TAG_CLONE - OK
+	std::vector<PlayerIdType> pids; /// TAG_CLONE - OK
+	std::list<std::shared_ptr<GameAction>> actionQueue; /// TAG_CLONE - OK
 
-	std::list<std::shared_ptr<GameAction>> actionQueue; //GameState_TAG_CLONE
-	std::list<std::shared_ptr<GameAction>> removedQueue;
-	std::vector<PlayerIdType> pids; //GameState_TAG_CLONE // vector gom cac player id
-	unsigned int curPlayer; //GameState_TAG_CLONE // Actor hien tai dang thuc hien hanh dong 
-	unsigned int firstPlayerIdx = 0;
-	Phase phase = Phase::None; //GameState_TAG_CLONE
-	unsigned int turnCount = 0; //GameState_TAG_CLONE // Phan biet giua cac luot tang truong: luot 1(P1), luot 2(P2), luot 3(P1) 
-	PlayerIdType winnerId; //GameState_TAG_CLONE
-	bool gameOver = false; //GameState_TAG_CLONE
-	bool updateTurnCountAfterSetup = false; //GameState_TAG_CLONE
+	std::unordered_map<PlayerIdType, std::shared_ptr<Deck>> decks; /// TAG_CLONE - OK
+	std::unordered_map<PlayerIdType, std::shared_ptr<Hand>> hands; /// TAG_CLONE - OK
+	std::unordered_map<PlayerIdType, std::shared_ptr<Board>> boards; /// TAG_CLONE - OK
+	std::unordered_map<PlayerIdType, std::shared_ptr<DiscardPile>> discardPiles; // TAG_CLONE - OK
+	std::unordered_map<PlayerIdType, std::shared_ptr<Player>> players; /// TAG_CLONE - OK
+	std::unordered_map<PlayerIdType, std::shared_ptr<PrizePile>> prizePiles; /// TAG_CLONE - OK
+	std::unordered_map<PlayerIdType, std::shared_ptr<CoinFlipper>> flippers; /// TAG_CLONE - OK
 
-	bool paused = false; // Gameloop dang doi (input) hay 1 cai gi do
+	unsigned int firstPlayerIdx = 0; /// TAG_CLONE - OK
+	Phase phase = Phase::None; /// TAG_CLONE - OK
+	unsigned int turnCount = 0; /// TAG_CLONE - OK // Phan biet giua cac luot tang truong: luot 1(P1), luot 2(P2), luot 3(P1) 
+	PlayerIdType winnerId; /// TAG_CLONE - OK
+	bool updateTurnCountAfterSetup = false; /// TAG_CLONE - OK
+	bool gameOver = false; /// TAG_CLONE - OK
+
 public:
 	/// Nhung action la thay doi game state ///
 	ActionError onPlayerTakeAction(const std::shared_ptr<PlayerAction> &pa);

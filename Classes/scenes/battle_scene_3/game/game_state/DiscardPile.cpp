@@ -42,8 +42,9 @@ bool DiscardPile::empty() const {
 
 
 DiscardPile::DiscardPtr DiscardPile::clone() const {
-	//TODO
-	return nullptr;
+	auto ret = make_shared<DiscardPile>(pid);
+	ret->cardVec = cardVec;
+	return ret;
 }
 
 void DiscardPile::popCards(std::initializer_list<DiscardIdx> idxs, CardVector &cVec) {
