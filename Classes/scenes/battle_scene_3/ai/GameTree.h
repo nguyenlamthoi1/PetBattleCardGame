@@ -42,6 +42,6 @@ public:
 	};
 	Result minimax(const std::shared_ptr<const TreeNode> &curNode, bool isMax, unsigned int floor);
 
-	void getNextNodes(const std::shared_ptr<TreeNode> &curNode);
+	void genNextNodes(const std::shared_ptr<TreeNode> &curNode);
 
 };

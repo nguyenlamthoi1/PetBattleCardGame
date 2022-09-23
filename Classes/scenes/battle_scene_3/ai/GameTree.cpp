@@ -32,7 +32,7 @@ void GameTree::setMaxFloorToGen(unsigned int n) {
 }
 
 void GameTree::gen() {
-
+	genNextNodes(rootNode);
 }
 
 void GameTree::genNextNodes(const std::shared_ptr<TreeNode> &curNode) {
@@ -43,7 +43,20 @@ void GameTree::genNextNodes(const std::shared_ptr<TreeNode> &curNode) {
 	const auto &firstAction = actionQueue.front();
 	auto waitInputAction = dynamic_pointer_cast<MGame::WaitInputAction>(firstAction);
 	if (waitInputAction && waitInputAction->state != MGame::GameAction::State::Done) { // Kiem tra co phai input khong
-
+		/// *Chi xet cac action can AI dua ra quyet dinh
+		auto gstatePtr = (MGame::GameState*) curNode->gamestate.get();
+		auto possibleMoves = waitInputAction->getPossibleMoves(gstatePtr);
+		for (const auto &move : possibleMoves) {
+			// Tao node moi
+			auto gstateCloned = curNode->gamestate->clone();
+			auto suc = gstateCloned->onPlayerTakeAction(move) == ActionError::Succeeded;
+			if (suc) {
+				auto newNextNode = make_shared<TreeNode>(gstateCloned); // GameState sau khi thuc hien move
+				newNextNode->prevMove = move;
+				newNextNode->tryToRunActionQueue(); // * Co gang chay gstate den action GameOver hoac EmptyAction
+				curNode->nexts.push_back(newNextNode); // Bo newNextNode vao danh sach node con
+			}
+		}
 	}
 }
 

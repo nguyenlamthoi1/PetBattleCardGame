@@ -19,7 +19,7 @@ class GameTree;
 class TreeNode {
 public:
 	friend class GameTree;
-	TreeNode(const std::shared_ptr<const MGame::GameState> & gamestate);
+	TreeNode(const std::shared_ptr<MGame::GameState> & gamestate);
 	virtual ~TreeNode();
 
 	friend class GameTree;
@@ -29,9 +29,9 @@ public:
 	std::shared_ptr<MGame::PlayerAction> getPreMove() const {
 		return prevMove;
 	}
-	
+	void tryToRunActionQueue();
 protected:
-	std::shared_ptr<const MGame::GameState> gamestate;
+	std::shared_ptr<MGame::GameState> gamestate;
 	std::shared_ptr<MGame::PlayerAction> prevMove;
 	std::vector<std::shared_ptr<TreeNode>> nexts;
 
