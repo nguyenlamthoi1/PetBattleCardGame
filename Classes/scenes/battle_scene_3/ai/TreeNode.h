@@ -25,6 +25,7 @@ public:
 	friend class GameTree;
 	int calValue() const; // * Ham heuristic
 	bool isLeaf() const;
+	bool hasNextNodes() const;
 	std::string getCurPid() const; // Lay thong tin nguoi choi dang thuc thi luot
 	std::shared_ptr<MGame::PlayerAction> getPreMove() const {
 		return prevMove;

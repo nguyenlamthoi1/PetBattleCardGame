@@ -28,7 +28,7 @@ public:
 	virtual ~AIPlayer() = default;
 
 	// Ham nay se duoc goi boi BattleScene, de co the chuyen nhung decision thuc hien boi AI cho BattleMaster
-	virtual void startThinking(BattleSceneNS::BattleScene *btlScn, const std::shared_ptr<const MGame::GameState> &gamestate) = 0;
+	virtual void startThinking(BattleSceneNS::BattleScene *btlScn, const std::shared_ptr<MGame::GameState> &gamestate) = 0;
 
 	BattleSceneNS::BattleScene *btlScn = nullptr;
 	std::shared_ptr<MGame::PlayerAction> chosenMove; // Nuoc di ma AI chon

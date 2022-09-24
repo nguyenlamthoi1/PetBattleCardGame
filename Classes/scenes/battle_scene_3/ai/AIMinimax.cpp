@@ -20,7 +20,7 @@ AIMinimax::~AIMinimax() {
 
 const string AIMinimax::AI_SCHEDULER = "AI_SCHEDULER";
 
-void AIMinimax::startThinking(BattleSceneNS::BattleScene *scn, const std::shared_ptr<const MGame::GameState> &gamestate) {
+void AIMinimax::startThinking(BattleSceneNS::BattleScene *scn, const std::shared_ptr<MGame::GameState> &gamestate) {
 	btlScn = scn;
 	orgGamestate = gamestate->clone();
 	chosenMove.reset(); // Reset ve Nullptr
@@ -49,8 +49,7 @@ void AIMinimax::thinkLoop(float dt) {
 	}
 
 	if (curState == State::UPDATE_TREE) {
-		if (!tree->isReachMaxDepth()) { // Chua Gen du cac node de tinh toan
-			tree->setMaxFloorToGen(3);
+		if (!tree->canGenMore()) { // Chua Gen du cac node de tinh toan
 			tree->gen(); // Tao cac cac node con
 		}
 		else { // Da gen du tat ca cac node co the duyet

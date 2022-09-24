@@ -5,6 +5,7 @@
 #include <functional>
 #include <utility>
 #include <vector>
+#include <deque>
 #include <unordered_map>
 #include <memory>
 
@@ -21,16 +22,18 @@ class TreeNode;
 
 class GameTree {
 public:
-	void gen();
+	bool gen();
 	
 	std::shared_ptr<const TreeNode> getBestNextNode(unsigned int maxFloor); // Duyet cay 3 tang
 	void setMaxFloorToGen(unsigned int n);
 	void setMaxTurnCount(unsigned int n);
 	bool isReachMaxDepth() const;
 	void clear();
-	void initWithRoot(const std::shared_ptr<const MGame::GameState> &gstate);
+	void initWithRoot(const std::shared_ptr<MGame::GameState> &gstate);
 	
 	std::shared_ptr<TreeNode> rootNode;
+	std::deque<std::shared_ptr<TreeNode>> internalNodes;
+
 	unsigned int turnCount = 0;
 	unsigned int maxTurnCount = 0;
 	unsigned int maxFloorToGenEachFrame = 0;
@@ -42,6 +45,7 @@ public:
 	};
 	Result minimax(const std::shared_ptr<const TreeNode> &curNode, bool isMax, unsigned int floor);
 
-	void genNextNodes(const std::shared_ptr<TreeNode> &curNode);
+	bool canGenMore() const;
+	bool genNextNodes(); // Ham nay tao ra nhung node cua tang tiep theo
 
 };

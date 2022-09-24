@@ -22,6 +22,22 @@ bool TreeNode::isLeaf() const {
 	return nexts.empty();
 }
 
+bool TreeNode::hasNextNodes() const {
+	if (gamestate == nullptr)
+		return false;
+
+	//bool isGameOver = gamestate->isGameOver(); // Tro choi ket thuc
+	//if(isGameOver)
+	//	return false;
+
+	//bool emptyQueue = gamestate->actionQueueEmpty(); // Action Queue trong
+	//if (emptyQueue)
+	//	return false;
+
+	bool waitInput = gamestate->isWaitingInput();
+	return waitInput;
+}
+
 
 std::string TreeNode::getCurPid() const {
 	return gamestate->getCurrentId();
@@ -34,17 +50,16 @@ void TreeNode::tryToRunActionQueue() {
 	while (true) {
 		bool shouldStop = false;
 
-		bool isGameOver = gamestate->isGameOver(); // Tro choi ket thuc
-		shouldStop &= isGameOver;
+		bool isGameOver = gamestate->isGameOver(); 
+		shouldStop &= isGameOver; // Tro choi ket thuc
 
-		auto &actionQueue = gamestate->getActionQueue(); // Action Queue trong
-		shouldStop &= actionQueue.empty();
+		bool emptyQueue = gamestate->actionQueueEmpty(); 
+		shouldStop &= emptyQueue; // Action Queue empty
 
-		auto firstAction = actionQueue.front();
-		auto waitInputAction = dynamic_pointer_cast<MGame::WaitInputAction>(firstAction);
-		shouldStop &= waitInputAction != nullptr; // Den luc make decision tiep theo
+		bool notWaitInput = !gamestate->isWaitingInput();
+		shouldStop &= notWaitInput; // Khong dang doi input
 
-		shouldStop &= i >= max;
+		shouldStop &= i >= max; // Lap lai qua nhieu action gan nhu vo tan
 
 		if (shouldStop)
 			break;

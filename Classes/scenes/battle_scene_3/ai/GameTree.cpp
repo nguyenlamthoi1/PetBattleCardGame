@@ -10,12 +10,18 @@ using namespace std;
 
 void GameTree::clear() {
 	rootNode = nullptr;
+	internalNodes.clear();
+
 	turnCount = 0;
 	maxTurnCount = 0;
 }
 
-void GameTree::initWithRoot(const std::shared_ptr<const MGame::GameState> &gstate) {
+void GameTree::initWithRoot(const std::shared_ptr<MGame::GameState> &gstate) {
 	rootNode = make_shared<TreeNode>(gstate);
+
+	internalNodes.clear();
+	if (!rootNode->hasNextNodes())
+		internalNodes.push_back(rootNode);
 }
 
 
@@ -31,33 +37,101 @@ void GameTree::setMaxFloorToGen(unsigned int n) {
 	maxFloorToGenEachFrame = n;
 }
 
-void GameTree::gen() {
-	genNextNodes(rootNode);
+
+bool GameTree::canGenMore() const {
+	return !internalNodes.empty();
 }
 
-void GameTree::genNextNodes(const std::shared_ptr<TreeNode> &curNode) {
-	auto &actionQueue = curNode->gamestate->getActionQueue();
-	if (actionQueue.empty());
-		return;
+bool GameTree::gen() {
+	if(canGenMore())
+		return genNextNodes();
+	return false;
+}
 
-	const auto &firstAction = actionQueue.front();
-	auto waitInputAction = dynamic_pointer_cast<MGame::WaitInputAction>(firstAction);
-	if (waitInputAction && waitInputAction->state != MGame::GameAction::State::Done) { // Kiem tra co phai input khong
-		/// *Chi xet cac action can AI dua ra quyet dinh
-		auto gstatePtr = (MGame::GameState*) curNode->gamestate.get();
-		auto possibleMoves = waitInputAction->getPossibleMoves(gstatePtr);
-		for (const auto &move : possibleMoves) {
-			// Tao node moi
-			auto gstateCloned = curNode->gamestate->clone();
-			auto suc = gstateCloned->onPlayerTakeAction(move) == ActionError::Succeeded;
-			if (suc) {
-				auto newNextNode = make_shared<TreeNode>(gstateCloned); // GameState sau khi thuc hien move
-				newNextNode->prevMove = move;
-				newNextNode->tryToRunActionQueue(); // * Co gang chay gstate den action GameOver hoac EmptyAction
-				curNode->nexts.push_back(newNextNode); // Bo newNextNode vao danh sach node con
+bool GameTree::genNextNodes() {
+	std::vector<unsigned int > rmvIdxVec;
+	
+	unsigned int i = 0;
+	unsigned int n = internalNodes.size();
+
+	while (i < n) {
+		auto curNode = internalNodes[i];
+		internalNodes.pop_front();
+
+		// Chi de kiem tra cho chac chan, Khong qua can thiet //
+		if (!curNode->isLeaf()) {
+			rmvIdxVec.push_back(i);
+			continue;
+		}
+		//----------------------------------------------------//
+		auto gstate = curNode->gamestate;
+		if (curNode->hasNextNodes()) { // Co node tiep theo -> dang wait input
+			const auto &actionQueue = gstate->getActionQueue();
+
+			/// *Chi xet cac action can AI dua ra quyet dinh
+			auto gstatePtr = (MGame::GameState*) curNode->gamestate.get();
+			const auto waitInputAction = dynamic_pointer_cast<MGame::WaitInputAction>(actionQueue.front());
+			auto possibleMoves = waitInputAction->getPossibleMoves(gstatePtr);
+			for (const auto &move : possibleMoves) {
+				// Tao node moi
+				auto gstateCloned = curNode->gamestate->clone();
+				auto suc = gstateCloned->onPlayerTakeAction(move) == ActionError::Succeeded;
+				if (suc) {
+					auto newNextNode = make_shared<TreeNode>(gstateCloned); // GameState sau khi thuc hien move
+					newNextNode->prevMove = move;
+					newNextNode->tryToRunActionQueue(); // * Co gang chay gstate den action GameOver hoac EmptyAction hoac WaitInput
+					curNode->nexts.push_back(newNextNode); // Bo newNextNode vao danh sach node con
+
+					if (!newNextNode->hasNextNodes())
+						internalNodes.push_back(newNextNode);
+				}
 			}
 		}
+
+		++i;
 	}
+
+	//for (auto &curNode : internalNodes) {
+	//	// Chi de kiem tra cho chac chan, Khong qua can thiet //
+	//	if (!curNode->isLeaf()) { 
+	//		rmvIdxVec.push_back(i);
+	//		continue;
+	//	}
+	//	//----------------------------------------------------//
+	//	auto gstate = curNode->gamestate;
+	//	if (curNode->hasNextNodes()) { // Co node tiep theo -> dang wait input
+	//		const auto &actionQueue = gstate->getActionQueue();
+
+	//		/// *Chi xet cac action can AI dua ra quyet dinh
+	//		auto gstatePtr = (MGame::GameState*) curNode->gamestate.get();
+	//		const auto waitInputAction = dynamic_pointer_cast<MGame::WaitInputAction>(actionQueue.front());
+	//		auto possibleMoves = waitInputAction->getPossibleMoves(gstatePtr);
+	//		for (const auto &move : possibleMoves) {
+	//			// Tao node moi
+	//			auto gstateCloned = curNode->gamestate->clone();
+	//			auto suc = gstateCloned->onPlayerTakeAction(move) == ActionError::Succeeded;
+	//			if (suc) {
+	//				auto newNextNode = make_shared<TreeNode>(gstateCloned); // GameState sau khi thuc hien move
+	//				newNextNode->prevMove = move;
+	//				newNextNode->tryToRunActionQueue(); // * Co gang chay gstate den action GameOver hoac EmptyAction hoac WaitInput
+	//				curNode->nexts.push_back(newNextNode); // Bo newNextNode vao danh sach node con
+
+	//				if (!newNextNode->hasNextNodes())
+	//					internalNodes.push_back(newNextNode);
+	//			}
+	//		}
+	//	}
+	//	++i;
+	//}
+
+	bool ret = rmvIdxVec.size() == n;
+
+	for (const auto &idx : rmvIdxVec) {
+		internalNodes.erase(internalNodes.begin() + idx);
+	}
+	
+	return ret;
+	
 }
 
 

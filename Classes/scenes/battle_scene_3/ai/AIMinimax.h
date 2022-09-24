@@ -18,7 +18,7 @@ public:
 	AIMinimax();
 	virtual ~AIMinimax();
 
-	virtual void startThinking(BattleSceneNS::BattleScene *btlScn, const std::shared_ptr<const MGame::GameState> &gamestate) override;
+	virtual void startThinking(BattleSceneNS::BattleScene *btlScn, const std::shared_ptr<MGame::GameState> &gamestate) override;
 	virtual void onDoneThinking();
 protected:
 	enum class State {

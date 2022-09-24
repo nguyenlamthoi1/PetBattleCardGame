@@ -70,9 +70,8 @@ public:
 	std::shared_ptr<PrizePile> getPrizePile(const PlayerIdType &pid) const;
 	std::shared_ptr<CoinFlipper> getFlipper(const PlayerIdType &pid) const;
 	const std::list<std::shared_ptr<GameAction>>& getActionQueue() const { return actionQueue; }
-
+	bool actionQueueEmpty() const { return actionQueue.empty(); }
 	std::shared_ptr<GameState> clone() const; // * Clone Game State moi, doc lap voi State duoc clone
-	
 	bool isWaitingInput();
 
 	std::shared_ptr<BattleSceneNS::BSAction> progressGame();
