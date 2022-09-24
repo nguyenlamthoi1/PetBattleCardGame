@@ -29,7 +29,7 @@ void AIMinimax::startThinking(BattleSceneNS::BattleScene *scn, const std::shared
 	curState = State::UPDATE_TREE;
 	tree->clear(); // Xoa Tree Cu
 	tree->initWithRoot(gamestate); // Khoi tao Node Root
-	tree->setMaxTurnCount(3); // Xet So luot di tinh
+	tree->setMaxTurnCount(gamestate->getTurnCount() + 3); // Xet So luot di tinh
 	thinkTime = 0; // Thoi gian da suy nghi
 	maxThinkTime = 5.0f; // Thoi gian suy nghi toi da
 
