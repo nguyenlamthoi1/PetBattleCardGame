@@ -150,7 +150,7 @@ void GameState::onTurnStart(unsigned int playerIdx) {
 
 void GameState::progressGameNoAnimation() {
 	// Lay ra 1 action de thuc thi
-	if (!isGameOver())
+	if (isGameOver())
 		return;
 
 	if (!actionQueue.empty()) {

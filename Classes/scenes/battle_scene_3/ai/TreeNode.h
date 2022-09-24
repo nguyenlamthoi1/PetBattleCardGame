@@ -1,5 +1,6 @@
 #pragma once
 
+#include "cocos2d.h"
 #include <initializer_list>
 #include <functional>
 #include <utility>

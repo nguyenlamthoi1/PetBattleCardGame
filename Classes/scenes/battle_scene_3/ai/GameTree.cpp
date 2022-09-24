@@ -20,7 +20,7 @@ void GameTree::initWithRoot(const std::shared_ptr<MGame::GameState> &gstate) {
 	rootNode = make_shared<TreeNode>(gstate);
 
 	internalNodes.clear();
-	if (!rootNode->hasNextNodes())
+	if (rootNode->hasNextNodes())
 		internalNodes.push_back(rootNode);
 }
 
@@ -75,6 +75,8 @@ bool GameTree::genNextNodes() {
 			for (const auto &move : possibleMoves) {
 				// Tao node moi
 				auto gstateCloned = curNode->gamestate->clone();
+				//tempfix
+				
 				auto suc = gstateCloned->onPlayerTakeAction(move) == ActionError::Succeeded;
 				if (suc) {
 					auto newNextNode = make_shared<TreeNode>(gstateCloned); // GameState sau khi thuc hien move
@@ -82,8 +84,11 @@ bool GameTree::genNextNodes() {
 					newNextNode->tryToRunActionQueue(); // * Co gang chay gstate den action GameOver hoac EmptyAction hoac WaitInput
 					curNode->nexts.push_back(newNextNode); // Bo newNextNode vao danh sach node con
 
-					if (!newNextNode->hasNextNodes())
+					if (newNextNode->hasNextNodes())
 						internalNodes.push_back(newNextNode);
+				}
+				else {
+					CCASSERT(suc, "Why move not possible ?!");
 				}
 			}
 		}

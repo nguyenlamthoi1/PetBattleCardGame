@@ -49,7 +49,7 @@ void AIMinimax::thinkLoop(float dt) {
 	}
 
 	if (curState == State::UPDATE_TREE) {
-		if (!tree->canGenMore()) { // Chua Gen du cac node de tinh toan
+		if (tree->canGenMore()) { // Chua Gen du cac node de tinh toan
 			tree->gen(); // Tao cac cac node con
 		}
 		else { // Da gen du tat ca cac node co the duyet

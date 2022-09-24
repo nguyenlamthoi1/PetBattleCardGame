@@ -211,7 +211,7 @@ public:
 	virtual std::shared_ptr<GameAction> clone() const override;
 	
 	virtual std::vector<std::shared_ptr<PlayerAction>> getPossibleMoves(GameState *gameState) const override;
-	virtual ActionError onReceiveInput(GameState *gameState, const std::shared_ptr<PlayerAction> &move);
+	virtual ActionError onReceiveInput(GameState *gameState, const std::shared_ptr<PlayerAction> &move); // OK
 
 	PlayerIdType pid;
 	unsigned int handIdx = 0;

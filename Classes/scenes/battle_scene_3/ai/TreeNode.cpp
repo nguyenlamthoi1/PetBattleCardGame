@@ -51,19 +51,21 @@ void TreeNode::tryToRunActionQueue() {
 		bool shouldStop = false;
 
 		bool isGameOver = gamestate->isGameOver(); 
-		shouldStop &= isGameOver; // Tro choi ket thuc
+		shouldStop |= isGameOver; // Tro choi ket thuc
 
 		bool emptyQueue = gamestate->actionQueueEmpty(); 
-		shouldStop &= emptyQueue; // Action Queue empty
+		shouldStop |= emptyQueue; // Action Queue empty
 
-		bool notWaitInput = !gamestate->isWaitingInput();
-		shouldStop &= notWaitInput; // Khong dang doi input
+		bool waitInput = gamestate->isWaitingInput();
+		shouldStop |= waitInput; // Khong dang doi input
 
-		shouldStop &= i >= max; // Lap lai qua nhieu action gan nhu vo tan
+		shouldStop |= i >= max; // Lap lai qua nhieu action gan nhu vo tan
 
-		if (shouldStop)
+		if (shouldStop) {
+			CCASSERT(i < max, "Why run forever");
 			break;
-
+		}
+		
 		gamestate->progressGameNoAnimation();
 		++i;
 	}

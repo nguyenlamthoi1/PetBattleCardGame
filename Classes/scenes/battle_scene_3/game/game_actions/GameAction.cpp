@@ -257,7 +257,10 @@ shared_ptr<BattleSceneNS::BSAction> StartSetupActivePet::getBSAction() const {
 }
 
 shared_ptr<GameAction> StartSetupActivePet::clone() const {
-	return make_shared<StartSetupAction>();
+	auto ret = make_shared<StartSetupActivePet>(pid);
+	ret->state = state;
+	ret->suc = suc;
+	return ret;
 }
 
 vector<shared_ptr<PlayerAction>> StartSetupActivePet::getPossibleMoves(GameState *gstate) const {
@@ -335,7 +338,12 @@ shared_ptr<BattleSceneNS::BSAction> StartSetupBenchPet::getBSAction() const {
 }
 
 shared_ptr<GameAction> StartSetupBenchPet::clone() const {
-	return make_shared<StartSetupBenchPet>(pid);
+	auto ret = make_shared<StartSetupBenchPet>(pid);
+	ret->state = state;
+	ret->suc = suc;
+	return ret;
+
+	//return make_shared<StartSetupBenchPet>(pid);
 }
 
 vector<shared_ptr<PlayerAction>> StartSetupBenchPet::getPossibleMoves(GameState *gstate) const {
@@ -555,7 +563,12 @@ shared_ptr<BattleSceneNS::BSAction> SelectPrizeCards::getBSAction() const {
 }
 
 shared_ptr<GameAction> SelectPrizeCards::clone() const {
-	return make_shared<SelectPrizeCards>(pid, num);
+	auto ret = make_shared<SelectPrizeCards>(pid, num);
+	ret->suc = suc;
+	ret->state = state;
+	return ret;
+
+	//return make_shared<SelectPrizeCards>(pid, num);
 }
 
 vector<shared_ptr<PlayerAction>> SelectPrizeCards::getPossibleMoves(GameState *gstate) const {
@@ -679,7 +692,11 @@ shared_ptr<BattleSceneNS::BSAction> PlayerChooseTurnAction::getBSAction() const 
 }
 
 shared_ptr<GameAction> PlayerChooseTurnAction::clone() const {
-	return make_shared<PlayerChooseTurnAction>(pid);
+	auto ret = make_shared<PlayerChooseTurnAction>(pid);
+	ret->suc = suc;
+	ret->state = state;
+	return ret;
+	//return make_shared<PlayerChooseTurnAction>(pid);
 }
 
 vector<shared_ptr<PlayerAction>> PlayerChooseTurnAction::getPossibleMoves(GameState *gstate) const {
@@ -1108,7 +1125,12 @@ shared_ptr<BattleSceneNS::BSAction> SelectBench::getBSAction() const {
 	return make_shared<BattleSceneNS::SelectBench>(pid);
 }
 shared_ptr<GameAction> SelectBench::clone() const {
-	return make_shared<SelectBench>(pid, selectNum);
+	auto ret = make_shared<SelectBench>(pid, selectNum);
+	ret->suc = suc;
+	ret->state = state;
+	return ret;
+
+	//return make_shared<SelectBench>(pid, selectNum);
 }
 
 vector<std::shared_ptr<PlayerAction>> SelectBench::getPossibleMoves(GameState *gstate) const {
