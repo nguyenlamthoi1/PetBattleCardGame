@@ -31,7 +31,7 @@ void AIMinimax::startThinking(BattleSceneNS::BattleScene *scn, const std::shared
 	tree->initWithRoot(gamestate); // Khoi tao Node Root
 	tree->setMaxTurnCount(3); // Xet So luot di tinh
 	thinkTime = 0; // Thoi gian da suy nghi
-	maxThinkTime = 2.0f; // Thoi gian suy nghi toi da
+	maxThinkTime = 5.0f; // Thoi gian suy nghi toi da
 
 	numFloorToTraversed = 5;
 	numFloorInc = 1;
@@ -49,26 +49,30 @@ void AIMinimax::thinkLoop(float dt) {
 	}
 
 	if (curState == State::UPDATE_TREE) {
-		if (thinkTime > 0.01f) {
-			curState == State::TRAVERSE_TREE;
+		if (thinkTime > maxThinkTime / 2.0f) {
+			curState = State::TRAVERSE_TREE;
 		}
-		if (tree->canGenMore()) { // Chua Gen du cac node de tinh toan
+		else if (tree->canGenMore()) { // Chua Gen du cac node de tinh toan
 			tree->gen(); // Tao cac cac node con
 		}
 		else { // Da gen du tat ca cac node co the duyet
-			curState == State::TRAVERSE_TREE;
+			curState = State::TRAVERSE_TREE;
 		}
 	}
 	else if (curState == State::TRAVERSE_TREE)
 	{
-		if (numFloorToTraversed <= tree->maxFloorGened) {
-			auto node = tree->getBestNextNode(numFloorToTraversed);
-			chosenMove = node->getPreMove();
-			numFloorToTraversed += numFloorInc; // Tang dan do sau
-		}
-		else {
-			curState = State::DONE;
-		}
+		//if (numFloorToTraversed <= tree->maxFloorGened) {
+		//	auto node = tree->getBestNextNode(numFloorToTraversed);
+		//	chosenMove = node->getPreMove();
+		//	numFloorToTraversed += numFloorInc; // Tang dan do sau
+		//}
+		//else {
+		//	curState = State::DONE;
+		//}
+
+		auto node = tree->getBestNextNode(numFloorToTraversed);
+		chosenMove = node->getPreMove();
+		numFloorToTraversed += numFloorInc; // Tang dan do sau
 	}
 	else if (curState == State::DONE) {
 		onDoneThinking();

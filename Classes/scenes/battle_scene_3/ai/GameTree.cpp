@@ -14,6 +14,8 @@ void GameTree::clear() {
 
 	turnCount = 0;
 	maxTurnCount = 0;
+	capacity = 1000;
+	genedNum = 0;
 }
 
 void GameTree::initWithRoot(const std::shared_ptr<MGame::GameState> &gstate) {
@@ -39,10 +41,10 @@ void GameTree::setMaxFloorToGen(unsigned int n) {
 
 
 bool GameTree::canGenMore() const {
-	return !internalNodes.empty();
+	return !internalNodes.empty() && genedNum < capacity;
 }
 
-bool GameTree::gen() {
+bool GameTree::gen(unsigned int numGen) {
 	if(canGenMore())
 		return genNextNodes();
 	return false;
@@ -53,17 +55,29 @@ bool GameTree::genNextNodes() {
 	
 	unsigned int i = 0;
 	unsigned int n = internalNodes.size();
+	unsigned int numToGen = 50;
+	unsigned int preGenNum = genedNum;
+	while (i < n && genedNum < capacity) {
+		if (genedNum - preGenNum >= numToGen)
+			break;
 
-	while (i < n) {
-		auto curNode = internalNodes[i];
+		auto curNode = internalNodes[0];
 		internalNodes.pop_front();
 
 		// Chi de kiem tra cho chac chan, Khong qua can thiet //
 		if (!curNode->hasNextNodes()) {
 			rmvIdxVec.push_back(i);
+			++i;
 			continue;
 		}
 		//----------------------------------------------------//
+
+		auto curTurn = curNode->gamestate->getTurnCount();
+		if (curTurn >= maxTurnCount){ // Khong can thiet tao them nua
+			++i;
+			continue;
+		}
+
 		auto gstate = curNode->gamestate;
 		if (curNode->hasNextNodes()) { // Co node tiep theo -> dang wait input
 			const auto &actionQueue = gstate->getActionQueue();
@@ -84,8 +98,7 @@ bool GameTree::genNextNodes() {
 					newNextNode->tryToRunActionQueue(); // * Co gang chay gstate den action GameOver hoac EmptyAction hoac WaitInput
 					curNode->nexts.push_back(newNextNode); // Bo newNextNode vao danh sach node con
 
-					auto curTurn = newNextNode->gamestate->getTurnCount();
-					if (newNextNode->hasNextNodes() && curTurn < maxTurnCount)
+					if (newNextNode->hasNextNodes())
 						internalNodes.push_back(newNextNode);
 
 					genedNum++;
@@ -98,39 +111,6 @@ bool GameTree::genNextNodes() {
 
 		++i;
 	}
-
-	//for (auto &curNode : internalNodes) {
-	//	// Chi de kiem tra cho chac chan, Khong qua can thiet //
-	//	if (!curNode->isLeaf()) { 
-	//		rmvIdxVec.push_back(i);
-	//		continue;
-	//	}
-	//	//----------------------------------------------------//
-	//	auto gstate = curNode->gamestate;
-	//	if (curNode->hasNextNodes()) { // Co node tiep theo -> dang wait input
-	//		const auto &actionQueue = gstate->getActionQueue();
-
-	//		/// *Chi xet cac action can AI dua ra quyet dinh
-	//		auto gstatePtr = (MGame::GameState*) curNode->gamestate.get();
-	//		const auto waitInputAction = dynamic_pointer_cast<MGame::WaitInputAction>(actionQueue.front());
-	//		auto possibleMoves = waitInputAction->getPossibleMoves(gstatePtr);
-	//		for (const auto &move : possibleMoves) {
-	//			// Tao node moi
-	//			auto gstateCloned = curNode->gamestate->clone();
-	//			auto suc = gstateCloned->onPlayerTakeAction(move) == ActionError::Succeeded;
-	//			if (suc) {
-	//				auto newNextNode = make_shared<TreeNode>(gstateCloned); // GameState sau khi thuc hien move
-	//				newNextNode->prevMove = move;
-	//				newNextNode->tryToRunActionQueue(); // * Co gang chay gstate den action GameOver hoac EmptyAction hoac WaitInput
-	//				curNode->nexts.push_back(newNextNode); // Bo newNextNode vao danh sach node con
-
-	//				if (!newNextNode->hasNextNodes())
-	//					internalNodes.push_back(newNextNode);
-	//			}
-	//		}
-	//	}
-	//	++i;
-	//}
 
 	CCASSERT(rmvIdxVec.empty(), "Tai sao lai remove node");
 
@@ -159,18 +139,27 @@ GameTree::Result GameTree::minimax(const std::shared_ptr<const TreeNode> &curNod
 
 	string curPid = curNode->getCurPid();
 
+	Result ret;
 	if (isMaxPlayer) {
-		int bestVal = -INT_MAX;
+		ret.val = -INT_MAX;
 		for (const auto node : curNode->nexts) {
-			auto ret = minimax(node, node->getCurPid() == curPid, floor + 1);
-			bestVal = max(bestVal, ret.val);
+			auto result = minimax(node, node->getCurPid() == curPid, floor + 1);
+			if (ret.val < result.val) {
+				ret.val = result.val;
+				ret.node = result.node;
+			}
 		}
 	}
 	else {
-		int bestVal = INT_MAX;
+		ret.val = -INT_MAX;
 		for (const auto node : curNode->nexts) {
-			auto ret = minimax(node, node->getCurPid() == curPid, floor + 1);
-			bestVal = min(bestVal, ret.val);
+			auto result = minimax(node, node->getCurPid() == curPid, floor + 1);
+			if (ret.val > result.val) {
+				ret.val = result.val;
+				ret.node = result.node;
+			}
 		}
 	}
+
+	return ret;
 }

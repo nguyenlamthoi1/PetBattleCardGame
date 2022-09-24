@@ -50,7 +50,7 @@ public:
 	bool empty() const;
 
 	bool isCurPlayer(const PlayerIdType &id) const { return pids[curPlayer] == id; }
-	
+	void setCurPlayer(unsigned int idx) { curPlayer = idx; }
 	void setFirstIdx(unsigned int idx) { firstPlayerIdx = idx; }
 	unsigned int getFirstIdx() const { return firstPlayerIdx; }
 	unsigned int getNextTurnIdx() const { return (curPlayer + 1) % pids.size(); }

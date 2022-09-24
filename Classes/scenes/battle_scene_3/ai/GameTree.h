@@ -22,7 +22,7 @@ class TreeNode;
 
 class GameTree {
 public:
-	bool gen();
+	bool gen(unsigned int numGen = 100);
 	
 	std::shared_ptr<const TreeNode> getBestNextNode(unsigned int maxFloor); // Duyet cay 3 tang
 	void setMaxFloorToGen(unsigned int n);
@@ -33,13 +33,15 @@ public:
 	
 	std::shared_ptr<TreeNode> rootNode;
 	std::deque<std::shared_ptr<TreeNode>> internalNodes;
-	unsigned int genedNum = 0;
 
 	unsigned int turnCount = 0;
 	unsigned int maxTurnCount = 0;
 	unsigned int maxFloorToGenEachFrame = 0;
 	unsigned int maxFloorGened = 0;
 	unsigned int maxTraverseFloor = 0;
+	unsigned int capacity = 0;
+	unsigned int genedNum = 0;
+
 	struct Result {
 		std::shared_ptr<const TreeNode> node;
 		int val = 0;

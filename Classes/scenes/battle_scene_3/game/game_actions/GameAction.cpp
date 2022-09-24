@@ -246,12 +246,12 @@ shared_ptr<GameAction> StartSetupAction::clone() const {
 
 void StartSetupActivePet::executeOn(GameState *gstate) {
 	state = State::Process;
-	//state = State::Done;
+	gstate->setCurPlayer(gstate->getIdxOfPlayer(pid));
 }
 
 shared_ptr<BattleSceneNS::BSAction> StartSetupActivePet::getBSAction() const {
 	return BattleSceneNS::SequenceAction::create({
-		make_shared<BattleSceneNS::WaitAction>(0.7f),
+		make_shared<BattleSceneNS::WaitAction>(0.5f),
 		make_shared<BattleSceneNS::StartSetupActive>(pid),
 		});
 }
