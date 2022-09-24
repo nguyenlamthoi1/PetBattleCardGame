@@ -132,6 +132,11 @@ shared_ptr<const TreeNode> GameTree::getBestNextNode(unsigned int maxFloor) {
 }
 
 GameTree::Result GameTree::minimax(const std::shared_ptr<const TreeNode> &curNode, bool isMaxPlayer, unsigned int floor) {
+	if (curNode == nullptr)
+	{
+		CCLOG("ERROR_1");
+	}
+	
 	if (floor == maxTraverseFloor || curNode->isLeaf()) {
 		auto res = Result({curNode, curNode->calValue()});
 		return res;
@@ -144,19 +149,25 @@ GameTree::Result GameTree::minimax(const std::shared_ptr<const TreeNode> &curNod
 		ret.val = -INT_MAX;
 		for (const auto node : curNode->nexts) {
 			auto result = minimax(node, node->getCurPid() == curPid, floor + 1);
-			if (ret.val < result.val) {
+			if (ret.val <= result.val) {
 				ret.val = result.val;
-				ret.node = result.node;
+				ret.node = node;
+				if (ret.node == nullptr) {
+					CCLOG("EMPTY_2");
+				}
 			}
 		}
 	}
 	else {
-		ret.val = -INT_MAX;
+		ret.val = INT_MAX;
 		for (const auto node : curNode->nexts) {
 			auto result = minimax(node, node->getCurPid() == curPid, floor + 1);
-			if (ret.val > result.val) {
+			if (ret.val >= result.val) {
 				ret.val = result.val;
-				ret.node = result.node;
+				ret.node = node;
+			}
+			if (ret.node == nullptr) {
+				CCLOG("EMPTY_3");
 			}
 		}
 	}
