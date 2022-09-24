@@ -18,7 +18,7 @@ void GameTree::clear() {
 
 void GameTree::initWithRoot(const std::shared_ptr<MGame::GameState> &gstate) {
 	rootNode = make_shared<TreeNode>(gstate);
-
+	genedNum = 0;
 	internalNodes.clear();
 	if (rootNode->hasNextNodes())
 		internalNodes.push_back(rootNode);
@@ -59,7 +59,7 @@ bool GameTree::genNextNodes() {
 		internalNodes.pop_front();
 
 		// Chi de kiem tra cho chac chan, Khong qua can thiet //
-		if (!curNode->isLeaf()) {
+		if (!curNode->hasNextNodes()) {
 			rmvIdxVec.push_back(i);
 			continue;
 		}
@@ -84,8 +84,11 @@ bool GameTree::genNextNodes() {
 					newNextNode->tryToRunActionQueue(); // * Co gang chay gstate den action GameOver hoac EmptyAction hoac WaitInput
 					curNode->nexts.push_back(newNextNode); // Bo newNextNode vao danh sach node con
 
-					if (newNextNode->hasNextNodes())
+					auto curTurn = newNextNode->gamestate->getTurnCount();
+					if (newNextNode->hasNextNodes() && curTurn < maxTurnCount)
 						internalNodes.push_back(newNextNode);
+
+					genedNum++;
 				}
 				else {
 					CCASSERT(suc, "Why move not possible ?!");
@@ -128,6 +131,8 @@ bool GameTree::genNextNodes() {
 	//	}
 	//	++i;
 	//}
+
+	CCASSERT(rmvIdxVec.empty(), "Tai sao lai remove node");
 
 	bool ret = rmvIdxVec.size() == n;
 

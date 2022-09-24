@@ -40,6 +40,7 @@ bool Holder::addBasicPetCard(const std::shared_ptr<PetCard> &pcard, unsigned int
 		dmgCounter = 0;
 		maxHp = data->hp;
 	}
+
 	return suc;
 }
 
@@ -75,6 +76,7 @@ bool Holder::evolvePetCardTo(const std::shared_ptr<const PetCard> &toCard, unsig
 		maxHp = toCardData->hp;
 	}
 
+
 	return suc;
 }
 
@@ -102,6 +104,7 @@ bool Holder::enoughEnergies(const std::map<std::string, unsigned int> &rqMap) co
 		auto itr = totalEnergy.find(eType);
 		enough &= (itr!= totalEnergy.cend()) && (totalEnergy.at(eType) >= eNum);
 	}
+
 	return enough;
 }
 
@@ -127,6 +130,7 @@ void Holder::removePetAndAllCards(std::vector<std::shared_ptr<const Card>> &vec)
 	onPlayedTurn = 0;
 	dmgCounter = 0;
 	maxHp = 0;
+
 }
 std::shared_ptr<const PetCard> Holder::removePetCard() {
 	auto ret = petCard;
@@ -178,6 +182,7 @@ bool Holder::switchWithHolder(const std::shared_ptr<Holder> &withHolder) {
 	withHolder->onPlayedTurn = oldData1.onPlayedTurn;
 	withHolder->dmgCounter = oldData1.dmgCounter;
 	withHolder->maxHp = oldData1.maxHp;
+
 
 	return true;
 }

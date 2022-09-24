@@ -31,11 +31,11 @@ void AIMinimax::startThinking(BattleSceneNS::BattleScene *scn, const std::shared
 	tree->initWithRoot(gamestate); // Khoi tao Node Root
 	tree->setMaxTurnCount(3); // Xet So luot di tinh
 	thinkTime = 0; // Thoi gian da suy nghi
-	maxThinkTime = 1.0f; // Thoi gian suy nghi toi da
+	maxThinkTime = 2.0f; // Thoi gian suy nghi toi da
 
 	numFloorToTraversed = 5;
 	numFloorInc = 1;
-
+	
 	// Bat dau suy nghi
 	Director::getInstance()->getScheduler()->schedule(bind(&AIMinimax::thinkLoop, this, placeholders::_1), this, 0.0f, false, AI_SCHEDULER);
 }
@@ -49,6 +49,9 @@ void AIMinimax::thinkLoop(float dt) {
 	}
 
 	if (curState == State::UPDATE_TREE) {
+		if (thinkTime > 0.01f) {
+			curState == State::TRAVERSE_TREE;
+		}
 		if (tree->canGenMore()) { // Chua Gen du cac node de tinh toan
 			tree->gen(); // Tao cac cac node con
 		}

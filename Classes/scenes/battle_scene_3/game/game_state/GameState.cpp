@@ -207,7 +207,9 @@ void GameState::clearState() {
 
 void GameState::setGameOver(const PlayerIdType & wid) {
 	winnerId = wid;
-	gameOver = false;
+	gameOver = true;
+	//Might delete
+	actionQueue.clear();
 }
 
 /// Getter, Setter & Checkers
@@ -279,8 +281,11 @@ PlayerIdType GameState::getOpponentOf(const PlayerIdType &pid) const {
 // Player Actions
 
 bool GameState::isWaitingInput() {
+	if (actionQueue.empty())
+		return false;
 	auto waitInputAction = dynamic_pointer_cast<WaitInputAction>(actionQueue.front());
-	return waitInputAction != nullptr && waitInputAction->state != GameAction::State::Done;
+	//return waitInputAction != nullptr && waitInputAction->state != GameAction::State::Done;
+	return waitInputAction != nullptr && waitInputAction->state == GameAction::State::Process;
 }
 
 ActionError GameState::onPlayerTakeAction(const shared_ptr<PlayerAction> &pa) {

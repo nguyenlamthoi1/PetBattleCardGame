@@ -33,6 +33,7 @@ public:
 	
 	std::shared_ptr<TreeNode> rootNode;
 	std::deque<std::shared_ptr<TreeNode>> internalNodes;
+	unsigned int genedNum = 0;
 
 	unsigned int turnCount = 0;
 	unsigned int maxTurnCount = 0;

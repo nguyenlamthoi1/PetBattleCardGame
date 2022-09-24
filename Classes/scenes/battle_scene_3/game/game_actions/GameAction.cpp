@@ -437,8 +437,7 @@ void EndSetup::executeOn(GameState *gstate) {
 	auto firstIdx = gstate->getFirstIdx();
 	auto firstId = gstate->getPlayerIdAt(gstate->getFirstIdx());
 
-	//gstate->pushActionsAtFront({make_shared<OnTurnStart>(firstIdx, firstId)}); //??? Why deleted
-	gstate->replaceCurActionWith({ make_shared<OnTurnStart>(firstIdx, firstId) }); //??? Why deleted
+	gstate->replaceCurActionWith({ make_shared<OnTurnStart>(firstIdx, firstId) });
 
 
 	state = State::Done;
@@ -766,6 +765,9 @@ vector<shared_ptr<PlayerAction>> PlayerChooseTurnAction::getPossibleMoves(GameSt
 
 	// Them action tan cong
 	auto activeHolder = board->getActiveHolder();
+	auto oppId = gstate->getOpponentOf(pid);
+	auto defHolder = gstate->getBoard(oppId)->getActiveHolder();
+	CCASSERT(defHolder != nullptr, "Why null here");
 	if (activeHolder->hasPet())
 	{
 		auto petCard = activeHolder->getPetCard();
@@ -827,6 +829,14 @@ ActionError PlayerChooseTurnAction::onReceiveInput(GameState *gstate, const std:
 				if (haveEnoughEnergy) {
 					auto nextIdx = gstate->getNextTurnIdx();
 					auto nextId = gstate->getPlayerIdAt(nextIdx);
+
+					/*auto oppId = gstate->getOpponentOf(pid);
+					auto oppActiveHolder = gstate->getBoard(oppId)->getActiveHolder();
+					auto tempPetCard = oppActiveHolder->getPetCard();
+					if (!tempPetCard) {
+						tempPetCard = nullptr;
+					}*/
+
 					gstate->replaceCurActionWithVec({ 
 						make_shared<UseActiveMove>(pid, moveIdx),
 						make_shared<OnTurnStart>(nextIdx, nextId) 
@@ -1211,7 +1221,15 @@ void SwitchActiveWithBench::executeOn(GameState *gstate) {
 
 	auto activeHolder = gstate->getBoard(pid)->getActiveHolder();
 	auto benchHolder = gstate->getBoard(pid)->getBenchHolder(benchIdx);
+
+	////delete
+	//if (!benchHolder->hasPet() && !activeHolder->hasPet()) {
+	//	CCLOG("ERROR");
+	//}
+
 	activeHolder->switchWithHolder(benchHolder);
+
+
 	state = State::Done;
 }
 

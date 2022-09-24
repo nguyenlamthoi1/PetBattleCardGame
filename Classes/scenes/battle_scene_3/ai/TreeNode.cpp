@@ -47,6 +47,8 @@ void TreeNode::tryToRunActionQueue() {
 	
 	unsigned int max = 100;
 	unsigned int i = 0;
+
+	auto temp = gamestate->getActionQueue();
 	while (true) {
 		bool shouldStop = false;
 
