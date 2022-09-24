@@ -50,6 +50,16 @@ bool PrizePile::empty() const {
 	return true;
 }
 
+unsigned int PrizePile::getCurCardsInPile() const {
+	unsigned int ret = 0;
+	for (const auto &card : cardVec) {
+		if (card)
+			ret += 1;
+	}
+	return ret;
+}
+
+
 
 PrizePile::PrizePtr PrizePile::clone() const {
 	auto ret = make_shared<PrizePile>(pid);

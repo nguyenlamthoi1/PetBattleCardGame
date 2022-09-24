@@ -10,8 +10,8 @@
 using namespace std;
 USING_NS_CC;
 
-AIMinimax::AIMinimax() {
-	tree = make_shared<GameTree>();
+AIMinimax::AIMinimax(const std::string &id) : pid(id) {
+	tree = make_shared<GameTree>(pid);
 }
 
 AIMinimax::~AIMinimax() {
@@ -72,7 +72,7 @@ void AIMinimax::thinkLoop(float dt) {
 
 		auto node = tree->getBestNextNode(numFloorToTraversed);
 		chosenMove = node->getPreMove();
-		numFloorToTraversed += numFloorInc; // Tang dan do sau
+		//numFloorToTraversed += numFloorInc; // Tang dan do sau
 	}
 	else if (curState == State::DONE) {
 		onDoneThinking();

@@ -22,6 +22,9 @@ class TreeNode;
 
 class GameTree {
 public:
+	GameTree(const std::string &id);
+	virtual ~GameTree();
+
 	bool gen(unsigned int numGen = 100);
 	
 	std::shared_ptr<const TreeNode> getBestNextNode(unsigned int maxFloor); // Duyet cay 3 tang
@@ -31,6 +34,7 @@ public:
 	void clear();
 	void initWithRoot(const std::shared_ptr<MGame::GameState> &gstate);
 	
+	std::string pid;
 	std::shared_ptr<TreeNode> rootNode;
 	std::deque<std::shared_ptr<TreeNode>> internalNodes;
 
@@ -50,5 +54,5 @@ public:
 
 	bool canGenMore() const;
 	bool genNextNodes(); // Ham nay tao ra nhung node cua tang tiep theo
-
+	int calVal(const std::shared_ptr<const TreeNode> &curNode);
 };

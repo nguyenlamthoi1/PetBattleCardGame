@@ -15,7 +15,7 @@ class AIMinimax : public AIPlayer{
 public:
 	static const std::string AI_SCHEDULER;
 
-	AIMinimax();
+	AIMinimax(const std::string &id);
 	virtual ~AIMinimax();
 
 	virtual void startThinking(BattleSceneNS::BattleScene *btlScn, const std::shared_ptr<MGame::GameState> &gamestate) override;
@@ -27,6 +27,8 @@ protected:
 		TRAVERSE_TREE,
 		DONE
 	};
+	std::string pid;
+
 	State curState = State::NONE;
 	std::shared_ptr<GameTree> tree;
 	unsigned int LimitMaxCount = 1; // Tree tao den duoc node tang Max thu 2 thi dung

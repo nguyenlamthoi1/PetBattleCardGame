@@ -46,7 +46,7 @@ public:
 
 	void clear();
 	bool empty() const;
-
+	unsigned int getCurCardsInPile() const;
 	PrizePtr clone() const;
 	
 protected:

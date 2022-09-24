@@ -33,6 +33,7 @@ public:
 	}
 	void tryToRunActionQueue();
 protected:
+
 	std::shared_ptr<MGame::GameState> gamestate;
 	std::shared_ptr<MGame::PlayerAction> prevMove;
 	std::vector<std::shared_ptr<TreeNode>> nexts;

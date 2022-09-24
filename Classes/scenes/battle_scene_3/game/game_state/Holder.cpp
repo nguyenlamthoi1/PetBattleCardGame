@@ -223,6 +223,12 @@ void Holder::copyFrom(const std::shared_ptr<Holder> &withHolder) {
 }
 
 
-
+unsigned int Holder::getTotalEnergy() const {
+	unsigned int ret = 0;
+	for (const auto &itr : totalEnergy) {
+		ret += itr.second;
+	}
+	return ret;
+}
 
 NS_GAME_END

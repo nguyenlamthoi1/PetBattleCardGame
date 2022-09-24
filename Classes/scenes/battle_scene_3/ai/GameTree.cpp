@@ -2,11 +2,22 @@
 #include "TreeNode.h"
 
 #include "../game/game_state/GameState.h"
+#include "../game/game_state/PrizePile.h"
+#include "../game/game_state/Board.h"
+#include "../game/game_state/Holder.h"
+
 #include "../game/game_actions/GameAction.h"
+
 
 #include <algorithm>
 
 using namespace std;
+
+GameTree::GameTree(const std::string &id) : pid(id) {
+
+}
+
+GameTree::~GameTree(){}
 
 void GameTree::clear() {
 	rootNode = nullptr;
@@ -132,13 +143,9 @@ shared_ptr<const TreeNode> GameTree::getBestNextNode(unsigned int maxFloor) {
 }
 
 GameTree::Result GameTree::minimax(const std::shared_ptr<const TreeNode> &curNode, bool isMaxPlayer, unsigned int floor) {
-	if (curNode == nullptr)
-	{
-		CCLOG("ERROR_1");
-	}
-	
 	if (floor == maxTraverseFloor || curNode->isLeaf()) {
-		auto res = Result({curNode, curNode->calValue()});
+		auto hVal = calVal(curNode);
+		auto res = Result({curNode, hVal });
 		return res;
 	}
 
@@ -152,9 +159,6 @@ GameTree::Result GameTree::minimax(const std::shared_ptr<const TreeNode> &curNod
 			if (ret.val <= result.val) {
 				ret.val = result.val;
 				ret.node = node;
-				if (ret.node == nullptr) {
-					CCLOG("EMPTY_2");
-				}
 			}
 		}
 	}
@@ -166,11 +170,44 @@ GameTree::Result GameTree::minimax(const std::shared_ptr<const TreeNode> &curNod
 				ret.val = result.val;
 				ret.node = node;
 			}
-			if (ret.node == nullptr) {
-				CCLOG("EMPTY_3");
-			}
 		}
 	}
 
 	return ret;
+}
+
+int GameTree::calVal(const std::shared_ptr<const TreeNode> &curNode) {
+	int val = 0;
+	
+	auto gstate = curNode->gamestate;
+	auto oppId = gstate->getOpponentOf(pid); 
+
+	if (gstate->isGameOver()) {
+		auto winnerId = gstate->getWinnerId();
+		if (winnerId == pid) {
+			val +=  1000;
+		}
+		else if (winnerId == oppId) {
+			val -= -100;
+		}
+	}
+
+	// Player Side(AI)
+	auto pPrizePile = gstate->getPrizePile(pid);
+	auto pActiveHolder = gstate->getBoard(pid)->getActiveHolder();
+	// Opp Side(Player
+	auto oPrizePile = gstate->getPrizePile(oppId);
+	auto oActiveHolder = gstate->getBoard(oppId)->getActiveHolder();
+
+	// Prize Card
+	int d1 = (int)pPrizePile->getCurCardsInPile() - (int) oPrizePile->getCurCardsInPile();
+	val += d1;
+	// Hp
+	int d2 = ((int)pActiveHolder->getCurHp() - (int)oActiveHolder->getCurHp()) / 10;
+	val += d2;
+	int d3 = (int)pActiveHolder->getTotalEnergy() -(int)oActiveHolder->getTotalEnergy();
+
+	return val;
+	// Energy
+
 }

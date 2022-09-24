@@ -48,7 +48,8 @@ public:
 	bool isKnockedOut() const { return dmgCounter >= maxHp; }
 	void setDmgCounter(unsigned int dmg) { dmgCounter = dmg; }
 	unsigned int getCurDmg() const { return dmgCounter; }
-
+	unsigned int getCurHp() const { return maxHp > dmgCounter ? maxHp - dmgCounter : 0; }
+	unsigned int getTotalEnergy() const;
 	void removePetAndAllCards(std::vector<std::shared_ptr<const Card>> &vec);
 	
 	std::shared_ptr<const PetCard> removePetCard();

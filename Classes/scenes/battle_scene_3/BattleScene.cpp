@@ -202,7 +202,7 @@ bool BattleScene::init() {
 	endLayout->setVisible(false);
 
 	// Khoi tao AI
-	playerAI = make_shared<AIMinimax>();
+	playerAI = make_shared<AIMinimax>(oid);
 
 	// Khoi tao Loading Layout
 	loadingLayout = dynamic_cast<ui::Layout*>(root->getChildByName("Loading_Layout"));

@@ -14,7 +14,6 @@ TreeNode::~TreeNode() {
 }
 
 int TreeNode::calValue() const  {
-
 	return 0;
 }
 

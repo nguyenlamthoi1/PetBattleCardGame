@@ -302,8 +302,11 @@ void StartSetupBench::executeOn(BattleScene *btlScn) {
 	else { // Opponent Action
 		auto notifier = btlScn->getNotifier();
 		notifier->showMsg(lang->getString(OPP_SETUP_TXT));
-		btlScn->onPlayerDoAction(make_shared<MGame::PA_DoForMe>(pid));
-		//TODO: AI_MAKE_DECISION
+		//btlScn->onPlayerDoAction(make_shared<MGame::PA_DoForMe>(pid));
+
+		auto ai = btlScn->getAI();
+		auto bm = MGame::BattleMaster::get();
+		ai->startThinking(btlScn, bm->getGameState());
 	}
 	//state = State::Done;
 }
@@ -462,7 +465,11 @@ void SelectPrizeAction::executeOn(BattleScene *btlScn) {
 		auto lang = GM_LANG;
 		auto notifier = btlScn->getNotifier();
 		notifier->showMsg(lang->getString("Opponent is Selecting"));
-		btlScn->onPlayerDoAction(make_shared<MGame::PA_DoForMe>(pid));
+		
+		//btlScn->onPlayerDoAction(make_shared<MGame::PA_DoForMe>(pid));
+		auto ai = btlScn->getAI();
+		auto bm = MGame::BattleMaster::get();
+		ai->startThinking(btlScn, bm->getGameState());
 	}
 }
 
@@ -541,7 +548,10 @@ void PlayerChooseTurnAction::executeOn(BattleScene *btlScn)  {
 		btlScn->enablePlayerChooseTurnAction(pid);
 	}
 	else { // Opponent Action
-		btlScn->onPlayerDoAction(make_shared<MGame::PA_DoForMe>(pid));
+		//btlScn->onPlayerDoAction(make_shared<MGame::PA_DoForMe>(pid));
+		auto ai = btlScn->getAI();
+		auto bm = MGame::BattleMaster::get();
+		ai->startThinking(btlScn, bm->getGameState());
 	}
 }
 bool PlayerChooseTurnAction::onReceivePlayerInput(const shared_ptr<MGame::BattleMaster> &bm, const shared_ptr<MGame::PlayerAction> &pAction) {
@@ -681,7 +691,10 @@ void SelectBench::executeOn(BattleScene *btlScn) {
 		auto lang = GM_LANG;
 		auto notifier = btlScn->getNotifier();
 		notifier->showMsg(lang->getString("Opponent is selecting bench"));
-		btlScn->onPlayerDoAction(make_shared<MGame::PA_DoForMe>(pid));
+		//btlScn->onPlayerDoAction(make_shared<MGame::PA_DoForMe>(pid));
+		auto ai = btlScn->getAI();
+		auto bm = MGame::BattleMaster::get();
+		ai->startThinking(btlScn, bm->getGameState());
 	}
 }
 bool SelectBench::onReceivePlayerInput(const std::shared_ptr<MGame::BattleMaster> &bm, const std::shared_ptr<MGame::PlayerAction> &pAction) {
