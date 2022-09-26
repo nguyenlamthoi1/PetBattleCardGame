@@ -25,6 +25,7 @@
     },
     {
       "P6" : 4,
+      "P7" : 4,
       "E1" : 8,
       "P3" : 2,
       "P1" : 4,
@@ -58,7 +59,7 @@
       "E7" : 4
     }
   ],
-  "CurrentDeckIdx" : 0,
+  "CurrentDeckIdx" : 1,
   "UsedCoin" : "Pikachu",
   "CoinList" :[
     "Horsea",
