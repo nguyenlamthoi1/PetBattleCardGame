@@ -106,7 +106,7 @@ bool BattleScene::init() {
 	if (!Scene::init())
 		return false;
 	srand(time(NULL));
-	std::vector<string> oppVec = { "OPP_0", "OPP_1" };
+	std::vector<string> oppVec = { "OPP_0", "OPP_1", "OPP_2" };
 	int randIdx = rand() % oppVec.size();
 	pid = "Player";
 	oid = oppVec[randIdx];
