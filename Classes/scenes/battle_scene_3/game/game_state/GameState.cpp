@@ -199,10 +199,24 @@ void GameState::endSetup() {
 
 
 void GameState::clearState() {
+	curPlayer = 0;
 	pids.clear();
+	actionQueue.clear();
+
 	decks.clear();
 	hands.clear();
 	boards.clear();
+	discardPiles.clear();
+	players.clear();
+	prizePiles.clear();
+	flippers.clear();
+
+	firstPlayerIdx = 0;
+	phase = Phase::None;
+	turnCount = 0;
+	winnerId = "";
+	updateTurnCountAfterSetup = false;
+	gameOver = false;
 }
 
 void GameState::setGameOver(const PlayerIdType & wid) {

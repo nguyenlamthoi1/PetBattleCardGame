@@ -82,7 +82,7 @@ bsres(make_shared<BSResources>())
 }
 
 BattleScene::~BattleScene(){
-	curBtlScn = nullptr;
+	//curBtlScn = nullptr;
 	removeAllChildren();
 	//clearPipeline();
 	//detailedCard = nullptr;
@@ -253,7 +253,7 @@ void BattleScene::startGame() {
 	phase = Phase::Start;
 
 	bm->initGame(pid, oid);
-	bm->startGame();
+	bm->startGame(this);
 }
 
 void BattleScene::initTopLayer() {
@@ -274,6 +274,7 @@ void BattleScene::initTopLayer() {
 
 void BattleScene::onExit() {
 	Scene::onExit();
+	MGame::BattleMaster::get()->endGame();
 }
 
 ///-------------------///
@@ -626,7 +627,7 @@ void BattleScene::showEndLayout(const PlayerIdType &winnerId) {
 		});
 
 	auto homeBtn = dynamic_cast<ui::Button*>(endLayout->getChildByName("HomeBtn"));
-	ctnBtn->addClickEventListener([this](Ref *sender) {
+	homeBtn->addClickEventListener([this](Ref *sender) {
 		backHome();
 		});
 }

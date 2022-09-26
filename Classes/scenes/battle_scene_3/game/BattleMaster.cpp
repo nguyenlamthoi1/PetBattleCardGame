@@ -52,7 +52,8 @@ void BattleMaster::clearGame() {
 
 const string BattleMaster::GAME_LOOP_SCHEDULER = "GAME_LOOP_SCHEDULER";
 
-bool BattleMaster::startGame() {
+bool BattleMaster::startGame(BattleSceneNS::BattleScene *scn) {
+	btlScn = scn;
 	gstate->startGame();
 	Director::getInstance()->getScheduler()->schedule(bind(&BattleMaster::gameLoop, this, placeholders::_1), this, 0, false, GAME_LOOP_SCHEDULER);
 	return true;
@@ -63,8 +64,8 @@ void BattleMaster::endGame() {
 }
 
 void BattleMaster::gameLoop(float t) {
-	/*if (gstate->isGameOver())
-		return;*/
+	if (gstate->isGameOver())
+		endGame();
 
 	//auto& actionQueue = gstate->actionQueue;
 	//auto btlScn = BattleSceneNS::BattleScene::getScene();
@@ -83,7 +84,7 @@ void BattleMaster::gameLoop(float t) {
 	//		actionQueue.pop_front();
 	//}
 
-	auto btlScn = BattleSceneNS::BattleScene::getScene();
+	//auto btlScn = BattleSceneNS::BattleScene::getScene();
 	auto bsAction = gstate->progressGame();
 	if (bsAction)
 		btlScn->pushAction(bsAction);

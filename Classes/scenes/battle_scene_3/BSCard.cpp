@@ -46,11 +46,9 @@ BSCard* BSCard::createWithData(const std::shared_ptr<const CardData> &data) {
 }
 
 BSCard::BSCard() {
-	CCLOG("BSCard::Ctor %p", this);
 }
 
 BSCard::~BSCard() {
-	CCLOG("BSCard::Dtor %p", this);
 }
 
 bool BSCard::init() {

@@ -6,6 +6,9 @@
 #include <string>
 
 class PlayerData;
+namespace BattleSceneNS {
+	class BattleScene;
+}
 
 NS_GAME_BEGIN
 
@@ -35,7 +38,7 @@ public:
 	/*
 	- Sau khi init, startGame duoc call se bat dau game
 	*/
-	bool startGame();
+	bool startGame(BattleSceneNS::BattleScene *);
 	void endGame();
 
 	/// Getters, Setters, Checkers
@@ -43,7 +46,7 @@ public:
 	
 private:
 	static BMPtr instance; // Singleton
-
+	BattleSceneNS::BattleScene *btlScn = nullptr;
 	std::unordered_map<PlayerIdType, std::shared_ptr<PlayerData>> playerData; // * Thong tin data cua moi nguoi choi, bao gom: deck, card back, loai coin duoc dung, avatar,..
 
 	unsigned int curTurn = 0;

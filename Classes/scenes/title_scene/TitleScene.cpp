@@ -175,6 +175,7 @@ void TitleScene::doContinue() {
 }
 void TitleScene::doQuitGame() {
 	CCLOG("TitleScene: quit game");
+	Director::getInstance()->end();
 }
 void TitleScene::doLangSet() {
 	CCLOG("TitleScene: set language");

@@ -14,7 +14,7 @@
     "Moves":[
       {
         "Name" : "Scratch",
-        "DamageText" : "100",
+        "DamageText" : "10",
         "Cost" : {
           "Normal" : 1
         },
@@ -226,7 +226,7 @@
     "Moves":[
       {
         "Name" : "Smash Kick",
-        "DamageText" : "20",
+        "DamageText" : "10",
         "Cost" : {
           "Normal" : 1
         },
@@ -234,7 +234,7 @@
         "Actions" : [
           {
             "id" : "Attack_Default",
-            "override" : { "0" :120 }
+            "override" : { "0" :10 }
           }
         ]
       },

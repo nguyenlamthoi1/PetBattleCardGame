@@ -551,7 +551,7 @@ void PlayerChooseTurnAction::executeOn(BattleScene *btlScn)  {
 		//btlScn->onPlayerDoAction(make_shared<MGame::PA_DoForMe>(pid));
 		auto ai = btlScn->getAI();
 		auto bm = MGame::BattleMaster::get();
-		ai->startThinking(btlScn, bm->getGameState());
+		ai->startThinking(btlScn, bm->getGameState()); // UNCOMMENT
 	}
 }
 bool PlayerChooseTurnAction::onReceivePlayerInput(const shared_ptr<MGame::BattleMaster> &bm, const shared_ptr<MGame::PlayerAction> &pAction) {
