@@ -115,15 +115,12 @@ bool GameTree::genNextNodes() {
 					genedNum++;
 				}
 				else {
-					CCASSERT(suc, "Why move not possible ?!");
 				}
 			}
 		}
 
 		++i;
 	}
-
-	CCASSERT(rmvIdxVec.empty(), "Tai sao lai remove node");
 
 	bool ret = rmvIdxVec.size() == n;
 
@@ -202,17 +199,11 @@ int GameTree::calVal(const std::shared_ptr<const TreeNode> &curNode) {
 	// Prize Card
 	int d1 = (int)pPrizePile->getCurCardsInPile() - (int) oPrizePile->getCurCardsInPile();
 	val += d1;
-	if (d1 > 0) {
-		CCLOG("Find gmae state > prize");
-	}
+
 	// Hp
 	int d2 = ((int)pActiveHolder->getCurHp() - (int)oActiveHolder->getCurHp()) / 10;
 	val += d2;
 	int d3 = (int)pActiveHolder->getTotalEnergy() -(int)oActiveHolder->getTotalEnergy();
-
-	if (d2 > 0) {
-		CCLOG("Find gmae state > energy");
-	}
 
 	return val;
 	// Energy
