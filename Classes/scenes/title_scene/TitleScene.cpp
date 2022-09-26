@@ -57,9 +57,9 @@ bool TitleScene::init() {
 	auto lang = GameManager::getInstance()->getLang();
 	// Page 0
 	opv.emplace_back(make_pair(lang->getString("TXT_TITLE_SCENE_START_GAME"), [this]() {doPlayGame(); }));
-	opv.emplace_back(make_pair(lang->getString("TXT_TITLE_SCENE_NEW_GAME"), [this]() {showOptionPage(PAGE_1);}));
-	opv.emplace_back(make_pair(lang->getString("TXT_TITLE_SCENE_LANGUAGE"), [this]() {showOptionPage(PAGE_2);}));
-	opv.emplace_back(make_pair(lang->getString("TXT_TITLE_SCENE_SETTING"), [this]() {showOptionPage(PAGE_3); }));
+	//opv.emplace_back(make_pair(lang->getString("TXT_TITLE_SCENE_NEW_GAME"), [this]() {showOptionPage(PAGE_1);}));
+	//opv.emplace_back(make_pair(lang->getString("TXT_TITLE_SCENE_LANGUAGE"), [this]() {showOptionPage(PAGE_2);}));
+	//opv.emplace_back(make_pair(lang->getString("TXT_TITLE_SCENE_SETTING"), [this]() {showOptionPage(PAGE_3); }));
 	opv.emplace_back(make_pair(lang->getString("TXT_TITLE_SCENE_QUIT_GAME"), [this]() { doQuitGame(); }));
 	pages.insert({PAGE_0, opv});
 	opv.clear();

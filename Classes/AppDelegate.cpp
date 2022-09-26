@@ -46,7 +46,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     if(!glview) {
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_WIN32) || (CC_TARGET_PLATFORM == CC_PLATFORM_MAC) || (CC_TARGET_PLATFORM == CC_PLATFORM_LINUX)
         //glview = GLViewImpl::createWithRect("Pokemon TCG - made by CatCoder", Rect(0, 0, designResolutionSize.width, designResolutionSize.height));
-		glview = GLViewImpl::createWithRect("Pokemon TCG - made by CatCoder", Rect(0, 0, 1520, 920));
+		glview = GLViewImpl::createWithRect("Pokemon TCG - made by CatCoder", Rect(0, 0, 1280, 720));
 #else
         glview = GLViewImpl::create("PetBattleCardGame");
 #endif

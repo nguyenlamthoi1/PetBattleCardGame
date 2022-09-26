@@ -61,24 +61,14 @@ void AIMinimax::thinkLoop(float dt) {
 	}
 	else if (curState == State::TRAVERSE_TREE)
 	{
-		//if (numFloorToTraversed <= tree->maxFloorGened) {
-		//	auto node = tree->getBestNextNode(numFloorToTraversed);
-		//	chosenMove = node->getPreMove();
-		//	numFloorToTraversed += numFloorInc; // Tang dan do sau
-		//}
-		//else {
-		//	curState = State::DONE;
-		//}
-
 		auto node = tree->getBestNextNode(numFloorToTraversed);
 		chosenMove = node->getPreMove();
-		//numFloorToTraversed += numFloorInc; // Tang dan do sau
 	}
 	else if (curState == State::DONE) {
 		onDoneThinking();
 	}
 
-	thinkTime += dt; // Thoi gian frame truoc do suy nghi
+	thinkTime += dt;
 }
 
 void AIMinimax::onDoneThinking() {
